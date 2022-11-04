@@ -1,0 +1,19 @@
+import { CSSProperties } from "react";
+import { Button } from "./index";
+type ButtonType = {
+    icon? : string
+    type? : "button" | "submit" | "reset" | undefined
+    style? : CSSProperties
+    children?: React.ReactNode;
+    className?: string
+    id? : string
+    disabled? : boolean
+    [x:string]: any;
+}
+export function ButtonNotToConsider(Props : ButtonType){
+    return(
+        <Button type={Props.type || "button"} {...Props.disabled && {disabled: true}} {...(Props.style ? {style: Props.style} : {})} id={Props.id} className={Props.className}>
+            {Props.children}   
+        </Button>
+    );
+}
