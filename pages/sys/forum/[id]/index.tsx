@@ -1,19 +1,19 @@
+import { useRouter } from "next/router";
 import { useRef } from "react";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Box, BoxContent, BoxTitle } from "../../../../components/box";
 import { Button } from "../../../../components/button";
 import { HeaderTitle } from "../../../../components/header-title";
 import { OutsetHeadersCornerRadius } from "../../../../components/outset-radius-to-headers";
 import { ProfilePic } from "../../../../components/profile-pic/profile-pic";
+import SystemLayout from "../../_layout";
 import { ForumTopic, NewAnswer } from "../styles";
 
 export default function ForumTopicPage() {
-  let location = useLocation();
-  const navigate = useNavigate();
-  let params = useParams();
+  const router = useRouter();
+  const params = router.query;
   const answerTextRef = useRef<HTMLTextAreaElement>(null);
   return (
-    <>
+    <SystemLayout>
       <section style={{ minHeight: "100vh" }}>
         <OutsetHeadersCornerRadius>
           <HeaderTitle className="header-section">
@@ -31,7 +31,6 @@ export default function ForumTopicPage() {
           </HeaderTitle>
         </OutsetHeadersCornerRadius>
         <div className="content">
-          <Outlet />
           <Box>
             <BoxContent>
               <span>Empresa tal - 22/02/2022</span>
@@ -118,6 +117,6 @@ export default function ForumTopicPage() {
           </NewAnswer>
         </div>
       </section>
-    </>
+      </SystemLayout>
   );
 }

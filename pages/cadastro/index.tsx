@@ -11,6 +11,7 @@ import CircularProgressFluent from "../../components/circular-progress-fluent";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { CadastroLayout } from "./_layout";
 
 type signupType = {
   email: string;
@@ -100,7 +101,7 @@ export default function CadastroPage() {
       .finally(() => setIsLoading(false));
   }
   return (
-    <>
+    <CadastroLayout>
       <div className="form-destaque-grid">
         <div className="form">
           <div
@@ -262,6 +263,6 @@ export default function CadastroPage() {
           </button>
         </div>
       </div>
-    </>
+    </CadastroLayout>
   );
 }

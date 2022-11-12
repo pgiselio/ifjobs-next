@@ -12,10 +12,14 @@ import { toast } from "react-toastify";
 import { userAlunoType } from "../../../contexts/CadastroContext/types";
 import { convertFromStringToDate } from "../../../utils/convertStringToDateFormat";
 import { CustomSelect } from "../../../components/select";
-import { CursosSelectOptions, UFsSelectOptions } from "../../../utils/selectLists";
+import {
+  CursosSelectOptions,
+  UFsSelectOptions,
+} from "../../../utils/selectLists";
 import { useRouter } from "next/router";
+import { CadastroLayout } from "../_layout";
 
-export function CadastroStep3() {
+export default function CadastroStep3() {
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useRouter();
   const cadastroSteps = useCadastroSteps();
@@ -44,8 +48,9 @@ export function CadastroStep3() {
       .required("Este campo é obrigatório")
       .min(10, "Data inválida"),
     cidade: Yup.string().required("Este campo é obrigatório"),
-    UF: Yup.string().oneOf([...unidadesFederativas], "O estado não é válido")
-    .required("Este campo é obrigatório"),
+    UF: Yup.string()
+      .oneOf([...unidadesFederativas], "O estado não é válido")
+      .required("Este campo é obrigatório"),
     curso: Yup.string()
       .oneOf([...cursos], "O curso selecionado não é válido")
       .required("Este campo é obrigatório"),
@@ -103,205 +108,211 @@ export function CadastroStep3() {
       });
   }
   return (
-    <CadastroStep3Style>
-      <div className="content">
-        <h2 className="desc">Seus Dados</h2>
-        <form id="cadastroStep3" onSubmit={handleSubmit(onHandleSubmit)}>
-          <div className="inputs">
-            <div className="lbl">
-              <label htmlFor="nome">Nome: </label>
-              <Controller
-                name="nome"
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    icon="fas fa-pencil"
-                    type="text"
-                    id="nome"
-                    placeholder="Nome completo"
-                    {...field}
-                    {...(errors.nome && { className: "danger" })}
-                  />
-                )}
-              />
-              <p className="input-error">{errors.nome?.message}</p>
-            </div>
-            <div className="lbl">
-              <label htmlFor="cpf">CPF: </label>
-              <Controller
-                name="cpf"
-                control={control}
-                render={({ field }) => (
-                  <ReactInputMask
-                    maskPlaceholder={null}
-                    mask="999.999.999-99"
-                    {...field}
-                  >
-                    <Input
-                      icon="fas fa-id-card"
-                      type="text"
-                      id="cpf"
-                      placeholder="CPF"
-                      {...(errors.cpf && { className: "danger" })}
-                    />
-                  </ReactInputMask>
-                )}
-              />
-              <p className="input-error">{errors.cpf?.message}</p>
-            </div>
-            <div className="lbl">
-              <label htmlFor="dataNascimento">Data de Nascimento: </label>
-              <Controller
-                name="dataNascimento"
-                control={control}
-                render={({ field }) => (
-                  <ReactInputMask
-                    maskPlaceholder={null}
-                    mask="99/99/9999"
-                    {...field}
-                  >
-                    <Input
-                      type="text"
-                      placeholder="Data de nascimento"
-                      icon="fas fa-calendar"
-                      id="dataNascimento"
-                      {...(errors.dataNascimento && { className: "danger" })}
-                    />
-                  </ReactInputMask>
-                )}
-              />
-              <p className="input-error">{errors.dataNascimento?.message}</p>
-            </div>
-            <div className="input-group">
+    <CadastroLayout>
+      <CadastroStep3Style>
+        <div className="content">
+          <h2 className="desc">Seus Dados</h2>
+          <form id="cadastroStep3" onSubmit={handleSubmit(onHandleSubmit)}>
+            <div className="inputs">
               <div className="lbl">
-                <label htmlFor="estado">Estado: </label>
+                <label htmlFor="nome">Nome: </label>
                 <Controller
-                  name="UF"
-                  control={control}
-                  render={({ field: { value, onChange, onBlur, ref } }) => (
-                    <CustomSelect
-                      noOptionsMessage={() => "Não encontrado"}
-                      ref={ref}
-                      inputId="estado"
-                      options={UFsSelectOptions}
-                      placeholder="Selecione um estado"
-                      onChange={(option: any) => onChange(option?.value)}
-                      onBlur={onBlur}
-                      value={UFsSelectOptions.filter((option) =>
-                        value?.includes(option.value)
-                      )}
-                      defaultValue={UFsSelectOptions.filter((option) =>
-                        value?.includes(option.value)
-                      )}
-                      className={`custom-select ${
-                        errors.UF?.message && "danger"
-                      }`}
-                    />
-                  )}
-                />
-                <p className="input-error">{errors.UF?.message}</p>
-              </div>
-              <div className="lbl">
-                <label htmlFor="cidade">Cidade: </label>
-                <Controller
-                  name="cidade"
+                  name="nome"
                   control={control}
                   render={({ field }) => (
                     <Input
-                      icon="fas fa-location-dot"
+                      icon="fas fa-pencil"
                       type="text"
-                      id="cidade"
-                      placeholder="Cidade"
+                      id="nome"
+                      placeholder="Nome completo"
                       {...field}
-                      {...(errors.cidade && { className: "danger" })}
+                      {...(errors.nome && { className: "danger" })}
                     />
                   )}
                 />
-                <p className="input-error">{errors.cidade?.message}</p>
+                <p className="input-error">{errors.nome?.message}</p>
               </div>
-            </div>
-
-            <div className="input-group no-wrap">
               <div className="lbl">
-                <label htmlFor="change-courses">Curso: </label>
-
+                <label htmlFor="cpf">CPF: </label>
                 <Controller
-                  name="curso"
-                  control={control}
-                  render={({ field: { value, onChange, onBlur, ref } }) => (
-                    <CustomSelect
-                      noOptionsMessage={() => "Não encontrado"}
-                      ref={ref}
-                      inputId="change-courses"
-                      options={CursosSelectOptions}
-                      placeholder="Selecione um curso"
-                      onChange={(option: any) => onChange(option?.value)}
-                      onBlur={onBlur}
-                      value={CursosSelectOptions.filter((option) =>
-                        value?.includes(option.value)
-                      )}
-                      defaultValue={CursosSelectOptions.filter((option) =>
-                        value?.includes(option.value)
-                      )}
-                      className={`custom-select ${
-                        errors.curso?.message && "danger"
-                      }`}
-                    />
-                  )}
-                />
-                <p className="input-error">{errors.curso?.message}</p>
-              </div>
-
-              <div className="lbl" style={{ maxWidth: "70px" }}>
-                <label htmlFor="periodo">Período: </label>
-                <Controller
-                  name="periodo"
+                  name="cpf"
                   control={control}
                   render={({ field }) => (
-                    <ReactInputMask maskPlaceholder={null} mask="99" {...field}>
+                    <ReactInputMask
+                      maskPlaceholder={null}
+                      mask="999.999.999-99"
+                      {...field}
+                    >
                       <Input
+                        icon="fas fa-id-card"
                         type="text"
-                        id="periodo"
-                        style={{ textAlign: "center" }}
-                        {...(errors.periodo && { className: "danger" })}
+                        id="cpf"
+                        placeholder="CPF"
+                        {...(errors.cpf && { className: "danger" })}
                       />
                     </ReactInputMask>
                   )}
                 />
-                <p className="input-error">{errors.periodo?.message}</p>
+                <p className="input-error">{errors.cpf?.message}</p>
+              </div>
+              <div className="lbl">
+                <label htmlFor="dataNascimento">Data de Nascimento: </label>
+                <Controller
+                  name="dataNascimento"
+                  control={control}
+                  render={({ field }) => (
+                    <ReactInputMask
+                      maskPlaceholder={null}
+                      mask="99/99/9999"
+                      {...field}
+                    >
+                      <Input
+                        type="text"
+                        placeholder="Data de nascimento"
+                        icon="fas fa-calendar"
+                        id="dataNascimento"
+                        {...(errors.dataNascimento && { className: "danger" })}
+                      />
+                    </ReactInputMask>
+                  )}
+                />
+                <p className="input-error">{errors.dataNascimento?.message}</p>
+              </div>
+              <div className="input-group">
+                <div className="lbl">
+                  <label htmlFor="estado">Estado: </label>
+                  <Controller
+                    name="UF"
+                    control={control}
+                    render={({ field: { value, onChange, onBlur, ref } }) => (
+                      <CustomSelect
+                        noOptionsMessage={() => "Não encontrado"}
+                        ref={ref}
+                        inputId="estado"
+                        options={UFsSelectOptions}
+                        placeholder="Selecione um estado"
+                        onChange={(option: any) => onChange(option?.value)}
+                        onBlur={onBlur}
+                        value={UFsSelectOptions.filter((option) =>
+                          value?.includes(option.value)
+                        )}
+                        defaultValue={UFsSelectOptions.filter((option) =>
+                          value?.includes(option.value)
+                        )}
+                        className={`custom-select ${
+                          errors.UF?.message && "danger"
+                        }`}
+                      />
+                    )}
+                  />
+                  <p className="input-error">{errors.UF?.message}</p>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="cidade">Cidade: </label>
+                  <Controller
+                    name="cidade"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        icon="fas fa-location-dot"
+                        type="text"
+                        id="cidade"
+                        placeholder="Cidade"
+                        {...field}
+                        {...(errors.cidade && { className: "danger" })}
+                      />
+                    )}
+                  />
+                  <p className="input-error">{errors.cidade?.message}</p>
+                </div>
+              </div>
+
+              <div className="input-group no-wrap">
+                <div className="lbl">
+                  <label htmlFor="change-courses">Curso: </label>
+
+                  <Controller
+                    name="curso"
+                    control={control}
+                    render={({ field: { value, onChange, onBlur, ref } }) => (
+                      <CustomSelect
+                        noOptionsMessage={() => "Não encontrado"}
+                        ref={ref}
+                        inputId="change-courses"
+                        options={CursosSelectOptions}
+                        placeholder="Selecione um curso"
+                        onChange={(option: any) => onChange(option?.value)}
+                        onBlur={onBlur}
+                        value={CursosSelectOptions.filter((option) =>
+                          value?.includes(option.value)
+                        )}
+                        defaultValue={CursosSelectOptions.filter((option) =>
+                          value?.includes(option.value)
+                        )}
+                        className={`custom-select ${
+                          errors.curso?.message && "danger"
+                        }`}
+                      />
+                    )}
+                  />
+                  <p className="input-error">{errors.curso?.message}</p>
+                </div>
+
+                <div className="lbl" style={{ maxWidth: "70px" }}>
+                  <label htmlFor="periodo">Período: </label>
+                  <Controller
+                    name="periodo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactInputMask
+                        maskPlaceholder={null}
+                        mask="99"
+                        {...field}
+                      >
+                        <Input
+                          type="text"
+                          id="periodo"
+                          style={{ textAlign: "center" }}
+                          {...(errors.periodo && { className: "danger" })}
+                        />
+                      </ReactInputMask>
+                    )}
+                  />
+                  <p className="input-error">{errors.periodo?.message}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div className="bottom-actions">
-        <div className="flex-btn-login"></div>
-        <div className="flex-btn-next">
-          <button
-            type="submit"
-            className="btn-next"
-            title="Confirmar cadastro"
-            form="cadastroStep3"
-            id="cadastroSubmit"
-            disabled={isLoading}
-          >
-            <span>Próximo</span>
-            <span className="next-arrow">
-              {isLoading ? (
-                <CircularProgressFluent
-                  color="white"
-                  height="2em"
-                  width="2em"
-                  duration="1.5s"
-                  style={{ position: "absolute" }}
-                />
-              ) : (
-                <i className="fas fa-arrow-right"></i>
-              )}
-            </span>
-          </button>
+          </form>
         </div>
-      </div>
-    </CadastroStep3Style>
+        <div className="bottom-actions">
+          <div className="flex-btn-login"></div>
+          <div className="flex-btn-next">
+            <button
+              type="submit"
+              className="btn-next"
+              title="Confirmar cadastro"
+              form="cadastroStep3"
+              id="cadastroSubmit"
+              disabled={isLoading}
+            >
+              <span>Próximo</span>
+              <span className="next-arrow">
+                {isLoading ? (
+                  <CircularProgressFluent
+                    color="white"
+                    height="2em"
+                    width="2em"
+                    duration="1.5s"
+                    style={{ position: "absolute" }}
+                  />
+                ) : (
+                  <i className="fas fa-arrow-right"></i>
+                )}
+              </span>
+            </button>
+          </div>
+        </div>
+      </CadastroStep3Style>
+    </CadastroLayout>
   );
 }

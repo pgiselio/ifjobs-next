@@ -15,13 +15,15 @@ export default function SettingsPage() {
   const params = router.query;
 
   let tabs = ["account", "profile", "notifications", "themes"];
-  const [selectedTab, setSelectedTab] = useTabs(tabs, params.tab);
+  const [selectedTab, setSelectedTab] = useTabs(tabs, params.tab?.[0]);
 
   const auth = useAuth();
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1000px)");
-    if (mq.matches && params.tab) {
-      params.tab = "account";
+    console.log(mq)
+    console.log(params)
+    if (mq.matches && typeof params.tab === "undefined") {
+      setSearchParams("account");
     }
   }, []);
   useEffect(() => {

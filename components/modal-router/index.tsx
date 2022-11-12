@@ -1,4 +1,3 @@
-import "./styles.css";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, BoxContent, BoxTitle } from "../box";

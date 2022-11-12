@@ -1,14 +1,15 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import CircularProgressFluent from "../../../../../components/circular-progress-fluent";
-import { api } from "../../../../../services/api";
+import CircularProgressFluent from "../../../../components/circular-progress-fluent";
+import { api } from "../../../../services/api";
 
 export default function DownloadCurriculoPage() {
   const [curriculo, setCurriculo] = useState<any>();
   const [hasError, setHasError] = useState<any>();
   const [downloadCProgress, setDownloadCProgress] = useState(0);
   
-  let params = useParams();
+  const router = useRouter();
+  const params = router.query; 
   useEffect(() => {
     const getCurriculo = async () => {
       const response = await api

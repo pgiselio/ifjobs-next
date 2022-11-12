@@ -1,17 +1,17 @@
+import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 import { useCadastroSteps } from "../../hooks/useCadastroAluno";
 import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 
-export function CadastroLayout() {
-  let navigate = useNavigate();
+export function CadastroLayout({children} : {children: any}) {
+  const navigate = useRouter();
   const auth = useAuth();
   const cadastroSteps = useCadastroSteps();
   useEffect(() => {
     if (auth.userInfo?.email) {
-      navigate("/sys");
+      navigate.push("/sys");
     }
   });
   return (
@@ -63,7 +63,7 @@ export function CadastroLayout() {
             </div>
           </div>
           <div className="cadastro-content">
-            <Outlet />
+            {children}
           </div>
         </div>
       </section>

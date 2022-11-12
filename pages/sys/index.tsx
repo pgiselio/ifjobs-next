@@ -40,9 +40,8 @@ export default function HomePage() {
           <div>
             Logado com o suap:
             {!NewSuapClient.isAuthenticated() ? (
-              <span>
-                {" "}
-                NÃO{" "}
+              <span>          
+                NÃO
                 <a
                   href={NewSuapClient.getLoginURL() + ""}
                   target="popup"
@@ -62,9 +61,8 @@ export default function HomePage() {
                 </a>
               </span>
             ) : (
-              <span>
-                {" "}
-                <strong>SIM</strong>{" "}
+              <span>      
+                <strong>SIM</strong>
                 <Button onClick={() => NewSuapClient.logout()}>Logout</Button>
                 <textarea
                   style={{ width: 430, height: 300, maxWidth: "100%" }}

@@ -6,6 +6,7 @@ import { FabButton } from "../../../components/fab";
 import { HeaderTitle } from "../../../components/header-title";
 import { OutsetHeadersCornerRadius } from "../../../components/outset-radius-to-headers";
 import { ProfilePic } from "../../../components/profile-pic/profile-pic";
+import SystemLayout from "../_layout";
 import { Container } from "./styles";
 
 const CreateNewFAB = styled(FabButton)`
@@ -23,6 +24,7 @@ const CreateNewButton = styled(Button)`
 
 export default function ForumPage() {
   return (
+    <SystemLayout>
     <Container>
       <OutsetHeadersCornerRadius>
         <HeaderTitle>
@@ -43,7 +45,7 @@ export default function ForumPage() {
         <Box>
           <BoxContent className="topics">
             <div className="topic">
-              <Link href="12" className="pessoa-forum-group" passHref>
+              <Link href="forum/12" className="pessoa-forum-group" passHref>
                 <a href="">
                   <div className="vaga-forum-info">
                     <h3>
@@ -72,7 +74,7 @@ export default function ForumPage() {
               </Link>
             </div>
             <div className="topic">
-              <Link href="12" className="pessoa-forum-group" passHref>
+              <Link href="forum/12" className="pessoa-forum-group" passHref>
                 <a>
                   <div className="vaga-forum-info">
                     <h3>Bolsista desenvolvedor de software</h3>
@@ -116,5 +118,6 @@ export default function ForumPage() {
         </Box>
       </div>
     </Container>
+    </SystemLayout>
   );
 }

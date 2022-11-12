@@ -175,16 +175,6 @@ export function ProfilePictureForm() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-
-        <button
-          type="button"
-          title="Girar foto à esquerda"
-          onClick={() => {
-            setRotate(rotate - 90);
-          }}
-        >
-          <i className="fa-solid fa-arrow-rotate-left"></i>
-        </button>
         <button
           type="button"
           title="Girar foto à direita"
