@@ -18,10 +18,8 @@ export function LandNavBar() {
       <div className={styled['landing-header']  + " navigate-container"}>
         <nav className={styled["navigate"]}>
           <div className={styled["menu-container"]}>
-            <NextLink.default href="/" passHref>
-              <a className={styled["logo-nav"]}>
+            <NextLink.default href="/" passHref className={styled["logo-nav"]}>
                 <Image src="/images/logo.svg" alt="" height={34} width={94}/>
-              </a>
             </NextLink.default>
             <div className={styled["menu"] + (menuState ? " " + styled["active-menu"] : "")}>
               <ul>
@@ -137,15 +135,11 @@ function LandBarItem({
 function Acesso() {
   return (
     <>
-      <NextLink.default href="entrar" passHref>
-        <a href="" className={styled["login-bt"]}>
+      <NextLink.default href="entrar" passHref className={styled["login-bt"]}>
         Login
-        </a>
       </NextLink.default>
-      <NextLink.default href="cadastro" passHref>
-        <a href="" className={styled["signup-bt"]}>
+      <NextLink.default href="cadastro" passHref className={styled["signup-bt"]}>
         Cadastro
-        </a>
       </NextLink.default>
     </>
   );

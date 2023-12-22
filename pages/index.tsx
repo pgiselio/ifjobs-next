@@ -68,13 +68,13 @@ const Home: NextPage = () => {
               <div className="options">
                 <div className="option">
                   <h2>É aluno ou ex-aluno?</h2>
-                  <Link href="/cadastro" legacyBehavior>
+                  <Link href="/cadastro" >
                     <Button className="outlined">Cadastre-se</Button>
                   </Link>
                 </div>
                 <div className="option">
                   <h2>É uma empresa?</h2>
-                  <Link href="/cadastro?tab=EMPRESA" legacyBehavior>
+                  <Link href="/cadastro?tab=EMPRESA">
                     <Button className="outlined">Faça o pré-cadastro</Button>
                   </Link>
                 </div>

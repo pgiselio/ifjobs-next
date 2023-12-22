@@ -16,7 +16,7 @@ interface input extends InputHTMLAttributes<HTMLInputElement> {
   isLabelholder?: boolean;
 }
 
-export const Input = React.forwardRef(function (
+export const Input = React.forwardRef(function Input(
   { name, type, icon, placeholder, isLabelholder = true, ...rest }: input,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
