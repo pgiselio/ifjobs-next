@@ -67,10 +67,10 @@ export function TabsMenuItem({
   return (
     <TabsMenuItemStyle key={key} itemID={key}>
       <Link href={to} tabIndex={0} passHref>
-        <a>
-          {title}
-          {highlighted && <span>{highlighted}</span>}
-        </a>
+
+        {title}
+        {highlighted && <span>{highlighted}</span>}
+
       </Link>
     </TabsMenuItemStyle>
   );

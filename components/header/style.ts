@@ -35,8 +35,9 @@ export const HeaderSysStyle = styled.header`
     justify-content: center;
   }
   .menu-container .logo {
+    position: relative;
     height: calc((var(--top-bar-height)) - 20px);
-    width: auto;
+    width: calc(((var(--top-bar-height) - 20px) * 3));
   }
 
   .btn-notify {

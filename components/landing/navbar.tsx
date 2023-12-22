@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
-import { LandingHeader } from "./styles";
 import { Link } from "react-scroll";
 import Image from "next/image";
 import * as NextLink from "next/link";
+import styled from './navbar.module.scss';
+
 
 export function LandNavBar() {
   const [menuState, setMenuState] = useState(false);
@@ -14,15 +15,15 @@ export function LandNavBar() {
   const auth = useAuth();
   return (
     <>
-      <LandingHeader className="landing navigate-container">
-        <nav className="navigate">
-          <div className="menu-container">
+      <div className={styled['landing-header']  + " navigate-container"}>
+        <nav className={styled["navigate"]}>
+          <div className={styled["menu-container"]}>
             <NextLink.default href="/" passHref>
-              <a className="logo-nav">
-                <img src="/images/logo.svg" alt="" />
+              <a className={styled["logo-nav"]}>
+                <Image src="/images/logo.svg" alt="" height={34} width={94}/>
               </a>
             </NextLink.default>
-            <div className={"menu " + (menuState ? "active" : "")}>
+            <div className={styled["menu"] + (menuState ? " " + styled["active-menu"] : "")}>
               <ul>
                 <LandBarItem
                   href="#sec1"
@@ -51,11 +52,11 @@ export function LandNavBar() {
                 />
               </ul>
             </div>
-            <div className="acesso">
+            <div className={styled["acesso"]}>
               {auth.email ? (
                 <button
                   type="button"
-                  className={"access-bt " + (accessState ? "active" : "")}
+                  className={styled["access-bt"] + (accessState ? " active" : "")}
                   onClick={() => {
                     window.location.href = "sys";
                   }}
@@ -67,7 +68,7 @@ export function LandNavBar() {
               )}
             </div>
 
-            <div className="mobile-buttons">
+            <div className={styled["mobile-buttons"]}>
               <button
                 type="button"
                 className={"access-bt " + (accessState ? "active" : "")}
@@ -75,7 +76,7 @@ export function LandNavBar() {
                   auth.email ? navigate.push("sys") : navigate.push("entrar");
                 }}
               ></button>
-              <div className={"acesso-mobile " + (accessState ? "active" : "")}>
+              <div className={styled["acesso-mobile"] + (accessState ? " active" : "")}>
                 <Acesso />
               </div>
               <div
@@ -93,7 +94,7 @@ export function LandNavBar() {
             </div>
           </div>
         </nav>
-      </LandingHeader>
+      </div>
       <div
         className={"backshadow " + (accessState || menuState ? "active" : "")}
         onClick={() => {
@@ -116,7 +117,8 @@ function LandBarItem({
   return (
     <li>
       <Link
-        activeClass="active"
+        className={styled["nav-link"]}
+        activeClass={styled["active-link"]}
         to={href.replace("#", "")}
         spy={true}
         smooth={true}
@@ -135,12 +137,16 @@ function LandBarItem({
 function Acesso() {
   return (
     <>
-      <a href="entrar" className="login-bt">
+      <NextLink.default href="entrar" passHref>
+        <a href="" className={styled["login-bt"]}>
         Login
-      </a>
-      <a href="cadastro" className="signup-bt">
+        </a>
+      </NextLink.default>
+      <NextLink.default href="cadastro" passHref>
+        <a href="" className={styled["signup-bt"]}>
         Cadastro
-      </a>
+        </a>
+      </NextLink.default>
     </>
   );
 }

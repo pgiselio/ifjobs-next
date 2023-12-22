@@ -9,6 +9,8 @@ import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 import CircularProgressFluent from "../../components/circular-progress-fluent";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
+import Head from "next/head";
 
 export default function LoginPage() {
   const auth = useAuth();
@@ -81,6 +83,13 @@ export default function LoginPage() {
 
   return (
     <StyledAccess>
+      <Head>
+        <title>Fazer Login - IFJobs</title>
+        <meta name="description" content="Fazer login no sistema do IFJobs" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+      </Head>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -98,11 +107,13 @@ export default function LoginPage() {
         <div className="login-form">
           <div className="logo-login">
             <a href="../">
-              <img
-                src="../images/logo.svg"
+              <Image
+                src="/images/logo.svg"
                 className="logo"
                 alt="Logo do IF Jobs"
                 title="Logo IF Jobs"
+                width={110}
+                height={40}
               />
             </a>
           </div>
@@ -146,9 +157,9 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <a href="/recuperar-senha/" className="pwrst-link">
+              <Link href="/recuperar-senha/" className="pwrst-link">
                 Esqueceu a senha?
-              </a>
+              </Link>
             </div>
 
             <Button
@@ -169,8 +180,8 @@ export default function LoginPage() {
             </Button>
             <div className="registre-se">
               <span>Não tem uma conta?</span>
-              <Link href="/cadastro" passHref>
-                <a className="bt-cadse">Registre-se</a>
+              <Link href="/cadastro" passHref className="bt-cadse">
+                Registre-se
               </Link>
             </div>
           </form>

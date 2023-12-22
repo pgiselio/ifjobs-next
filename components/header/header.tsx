@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useAppOptions } from "../../hooks/useAppOptions";
 import { useAuth } from "../../hooks/useAuth";
 import { HeaderSysStyle } from "./style";
+import Link from "next/link";
+import Image from "next/image";
 
 export function Header(props: any) {
   const auth = useAuth();
@@ -23,9 +25,18 @@ export function Header(props: any) {
               <span></span>
             </div>
           </button>
-          <a href="/sys" className="logo-link">
-            <img src="/images/logo.svg" className="logo" alt="logo projeto" />
-          </a>
+          <Link href="/sys" passHref className="logo-link">
+
+            <div className="logo">
+              <Image
+                src="/images/logo.svg"
+                layout="fill"
+                objectFit="contain"
+                alt="logo projeto"
+              />
+            </div>
+
+          </Link>
 
           <button
             className="btn-notify"

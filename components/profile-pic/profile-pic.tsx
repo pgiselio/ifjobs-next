@@ -2,6 +2,8 @@ import { CSSProperties } from "react";
 import { useProfilePic } from "../../hooks/useProfilePic";
 import { isBlank } from "../../utils/isBlank";
 import { StyledProfilePic } from "./style";
+import Image from "next/image";
+import styled from "./styled.module.scss";
 
 type ProfilePicType = {
   url?: string;
@@ -13,12 +15,13 @@ type ProfilePicType = {
 export function ProfilePic(props: ProfilePicType) {
   const { data } = useProfilePic(props.userId);
   return (
-    <StyledProfilePic
-      className={"profile-pic " + (props.className ?? "")}
+    <div
+      className={styled["styled-profile-pic"]+" profile-pic " + (props.className ?? "")}
       style={props.style}
     >
-      <span className="default-profile">
+      <span className={styled["default-profile"]}>
         <svg
+          className={styled["default-profile-svg"]}
           id="defaultProfilePicSVG"
           data-name="defaultProfilePicSVG"
           xmlns="http://www.w3.org/2000/svg"
@@ -49,10 +52,10 @@ export function ProfilePic(props: ProfilePicType) {
 
       {(!isBlank(props.url) || !isBlank(data)) && (
         <>
-          <img className="img-perfil" src={props.url || data} alt="" />
-          <span className="pp-border"></span>
+          <Image className={styled["img-perfil"]} src={props.url || data} layout="fill" objectFit="contain" alt="" />
+          <span className={styled["profile-pic-border"]}></span>
         </>
       )}
-    </StyledProfilePic>
+    </div>
   );
 }

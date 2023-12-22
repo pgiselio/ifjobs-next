@@ -1,37 +1,35 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import ReactCodeInput from "react-verification-code-input";
+import VerificationInput from "react-verification-input";
 import CircularProgressFluent from "../../../components/circular-progress-fluent";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
 import { api } from "../../../services/api";
-import { CadastroLayout } from "../_layout";
 import { CadastroStep2Style } from "./styles";
+import { CadastroLayout } from "../_layout";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function VerifiqueOSeuEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   let router = useRouter();
-  
 
-  let ReactCodeInputRef = useRef<ReactCodeInput>(null);
-  let codeAfterCompleteFields = useRef<string>();
   const params = router.query;
   let email = params.email?.[0];
   let codeParam = params.codigo?.[0];
+  const [code, setCode] = useState<string>(codeParam || "");
   const cadastroSteps = useCadastroSteps();
-
-  const { handleSubmit, getValues } = useForm({
+  const { handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
       email: email || "",
     },
   });
+
   useEffect(() => {
     if (cadastroSteps.step === 3) {
       cadastroSteps.setVerificationCode(
-        codeParam?.length === 6 ? codeParam : codeAfterCompleteFields.current
+        codeParam?.length === 6 ? codeParam : code
       );
       cadastroSteps.setEmail(getValues(["email"])[0]);
       router.push("../step3");
@@ -43,21 +41,27 @@ export default function VerifiqueOSeuEmailPage() {
     }
   });
   useEffect(() => {
-    if (codeParam?.length === 6) {
-      let codeArray = Array.from(codeParam);
-      ReactCodeInputRef.current?.setState({ values: codeArray });
-      if (email) {
+    async function getter (){
+      console.log("email: " + email + 'code: ' + codeParam);
+      if (codeParam?.length === 6 && email) {
         handleSubmit(onSubmit)();
       }
-    }
+    };
+    getter();
   }, []);
 
+  
   async function onSubmit({ email }: { email: string }) {
+    if (isLoading) return;
+    if (!email) {
+      toast.error("Necessário informar o e-mail!");
+      return;
+    }
     setIsLoading(true);
     await api
       .get(
         `/usuario/validacao/${email}/${
-          codeParam?.length === 6 ? codeParam : codeAfterCompleteFields.current
+          codeParam?.length === 6 ? codeParam : code
         }`
       )
       .then((response) => {
@@ -86,19 +90,23 @@ export default function VerifiqueOSeuEmailPage() {
           </span>
           <form id="verify" onSubmit={handleSubmit(onSubmit)}>
             <div className="code-fields">
-              <ReactCodeInput
-                ref={ReactCodeInputRef}
-                type="number"
-                onComplete={(value: string) => {
-                  codeAfterCompleteFields.current = value;
-                  handleSubmit(onSubmit)();
-                }}
+              <VerificationInput
+                value={code}
+                length={6}
+                validChars="0-9"
                 onChange={(value: string) => {
-                  codeAfterCompleteFields.current = value;
+                  setCode(value);
+                  if (value.length === 6) {
+                    handleSubmit(onSubmit)();
+                  }
                 }}
-                className="code-field"
-                fieldWidth={40}
-                fieldHeight={40}
+                classNames={{
+                  container: "code-fields",
+                  character: "code-field",
+                  characterInactive: "code-field--inactive",
+                  characterSelected: "code-field--selected",
+                }}
+                containerProps={{}}
                 {...(codeParam?.length === 6 ? { disabled: true } : {})}
                 {...(isLoading && { disabled: true })}
               />
@@ -113,7 +121,7 @@ export default function VerifiqueOSeuEmailPage() {
               className="btn-login"
               title="Já tem uma conta? Faça Login!"
             >
-              <a>Ou... faça login</a>
+              Ou... faça login
             </Link>
           </div>
           <div className="flex-btn-next">

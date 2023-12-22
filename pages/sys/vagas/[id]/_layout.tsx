@@ -1,3 +1,4 @@
+
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 import Error404 from "../../../404";
@@ -11,7 +12,7 @@ import { VagaPageStyle } from "./styles";
 import { PillItem, PillList } from "../../../../components/pill";
 import { Button } from "../../../../components/button";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { queryClient } from "../../../../services/queryClient";
 
 import { useAuth } from "../../../../hooks/useAuth";
@@ -75,7 +76,7 @@ export default function VagaPage({ children }: { children: ReactNode }) {
         inscreverAluno();
       }
     } else {
-      toast.error(subscribeBtnRef.current?.title, {
+      toast.error(subscribeBtnRef.current?.title || " ", {
         position: "bottom-center",
         hideProgressBar: true,
         toastId: "subscribe-btn-disabled",
@@ -176,6 +177,18 @@ export default function VagaPage({ children }: { children: ReactNode }) {
   return (
     <SystemLayout>
       {/* <div className="tree-links"></div> */}
+      <ToastContainer
+          position="top-right"
+          style={{ marginTop: "var(--top-bar-height)" }}
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       <VagaPageStyle>
         <div className="vaga-page-header-container content">
           <div className="vaga-page-header ">
@@ -199,7 +212,7 @@ export default function VagaPage({ children }: { children: ReactNode }) {
               <>
                 <h2>{data?.titulo}</h2>
                 <Link href={`../profile/${data?.empresa?.id}`}>
-                  <a>{data?.empresa?.dadosPessoa.nome}</a>
+                  {data?.empresa?.dadosPessoa.nome}
                 </Link>
               </>
             )}

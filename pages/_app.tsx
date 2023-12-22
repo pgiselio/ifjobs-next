@@ -1,4 +1,3 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { queryClient } from "../services/queryClient";
 import { themes } from "../styles/themes";
@@ -12,6 +11,7 @@ import { useEffect, useState } from "react";
 import "@reach/accordion/styles.css";
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);

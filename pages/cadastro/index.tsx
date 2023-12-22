@@ -77,7 +77,7 @@ export default function CadastroPage() {
           ? {
               email,
               senha: password,
-              tipoUsuario: selectedTab,
+              tipoUsuario: "ALUNO",
             }
           : {
               email,
@@ -88,7 +88,7 @@ export default function CadastroPage() {
         if (response.status === 201) {
           toast.success("Cadastro realizado com sucesso!");
           if (selectedTab === "CANDIDATO") {
-            navigate.push(`step2?email=${email}`);
+            navigate.push(`/cadastro/step2?email=${email}`);
           }
         }
       })
@@ -200,8 +200,7 @@ export default function CadastroPage() {
                   </span>
                 ) : (
                   <span>
-                    Assim que possível entraremos em contato por esse e-mail
-                    para prosseguir com o seu cadastro
+                    Assim que possível entraremos em contato por esse e-mail para prosseguir com o seu cadastro
                   </span>
                 )}
               </div>
@@ -233,8 +232,12 @@ export default function CadastroPage() {
       </div>
       <div className="bottom-actions">
         <div className="flex-btn-login">
-          <Link href="/entrar" title="Já tem uma conta? Faça Login!" passHref>
-            <a className="btn-login">Ou... faça login</a>
+          <Link
+            href="/entrar"
+            title="Já tem uma conta? Faça Login!"
+            passHref
+            className="btn-login">
+            Ou... faça login
           </Link>
         </div>
         <div className="flex-btn-next">

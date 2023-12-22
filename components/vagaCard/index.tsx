@@ -20,9 +20,9 @@ export function VagaCard({ vaga }: vagaObj) {
         <div className="vaga-header">
           <div className="photo-align">
             <Link href={`profile/${vaga?.empresa?.id}`} passHref>
-              <a>
-                <ProfilePic userId={vaga?.empresa?.id} />
-              </a>
+
+              <ProfilePic userId={vaga?.empresa?.id} />
+
             </Link>
 
             <div>
@@ -34,13 +34,13 @@ export function VagaCard({ vaga }: vagaObj) {
                     title={vaga.titulo}
                     passHref
                   >
-                    <a>{vaga.titulo}</a>
+                    {vaga.titulo}
                   </Link>
                 </h3>
 
                 <div className="sub">
                   <Link href={`profile/${vaga?.empresa?.id}`}>
-                    <a>{vaga?.empresa?.dadosPessoa.nome}</a>
+                    {vaga?.empresa?.dadosPessoa.nome}
                   </Link>
                   <span className="vaga-date">{dateFormatted}</span>
                 </div>
@@ -71,18 +71,18 @@ export function VagaCard({ vaga }: vagaObj) {
 
         <div className="vagas-bottom">
           <Link href={`vagas/${vaga.id}/candidatos`} className="vagas-candidatos">
-            <a>
-              <i className="fas fa-user"></i>
-              <span>
-                {vaga.alunos.length}
-                {vaga.alunos.length > 1 || vaga.alunos.length === 0
-                  ? " Candidatos"
-                  : " Candidato"}
-              </span>
-            </a>
+
+            <i className="fas fa-user"></i>
+            <span>
+              {vaga.alunos.length}
+              {vaga.alunos.length > 1 || vaga.alunos.length === 0
+                ? " Candidatos"
+                : " Candidato"}
+            </span>
+
           </Link>
           <Link href={`vagas/${vaga.id}`} className="vagas-detalhes-btn">
-            <a>Mais detalhes</a>
+            Mais detalhes
           </Link>
         </div>
       </div>

@@ -98,6 +98,7 @@ export const StyledAccess = styled.main`
   .logo-signup {
     width: 100%;
     max-width: 100px;
+    position: relative;
   }
   .logo-signup:hover, .logo-login:hover {
     filter: grayscale(0.5);

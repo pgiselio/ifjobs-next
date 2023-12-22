@@ -188,9 +188,8 @@ export function CurriculoForm() {
           <i className="fa-solid fa-file"></i> Selecionar arquivo
         </Button>
         <Link href="/curriculo" className="link" passHref>
-          <a>
-            <i className="fa-solid fa-share"></i> Ver exemplo
-          </a>
+
+          <i className="fa-solid fa-share"></i>Ver exemplo
         </Link>
       </div>
       <p className="input-error">{errors.arquivo?.message}</p>

@@ -224,11 +224,10 @@ export default function PasswordResetPage() {
                 {formState.errors.recaptcha?.message}
               </p>
               <div>
-                <Link href="/entrar/" passHref>
-                  <a className="pwrst-link">
-                    <i className="fa-solid fa-arrow-left"></i> Voltar para o
-                    login
-                  </a>
+                <Link href="/entrar/" passHref className="pwrst-link">
+
+                  <i className="fa-solid fa-arrow-left"></i>Voltar para o
+                                      login
                 </Link>
               </div>
               <Button
@@ -240,8 +239,8 @@ export default function PasswordResetPage() {
               </Button>
               <div className="registre-se">
                 <span>Não tem uma conta?</span>
-                <Link href="/cadastro" passHref>
-                  <a className="bt-cadse">Registre-se</a>
+                <Link href="/cadastro" passHref className="bt-cadse">
+                  Registre-se
                 </Link>
               </div>
             </form>

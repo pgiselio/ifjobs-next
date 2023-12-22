@@ -29,7 +29,7 @@ export default function ProfilePage() {
   const { data, isFetching } = useQuery<User>(
     ["profile" + id],
     async () => {
-      console.log(id)
+      console.log(id);
       const response = await api.get(`/usuario/${id}`);
       return response.data;
     },
@@ -101,7 +101,7 @@ export default function ProfilePage() {
             <div className="user-actions">
               {data?.email === auth.email && (
                 <>
-                  <Link href="/sys/settings?tab=profile">
+                  <Link href="/sys/settings?tab=profile" legacyBehavior>
                     <Button tabIndex={-1}>
                       <i className="fas fa-pencil-alt"></i>
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
                 </>
               )}
               {usertype === "ALUNO" && (
-                <Link href={`/download/curriculo/${data?.aluno?.curriculo}`}>
+                <Link href={`/download/curriculo/${data?.aluno?.curriculo}`} legacyBehavior>
                   <Button className="outlined" tabIndex={-1}>
                     Vizualizar currículo
                   </Button>
