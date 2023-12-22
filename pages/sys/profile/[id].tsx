@@ -66,7 +66,7 @@ export default function ProfilePage() {
         <div className="profile-page-header">
           <div className="profile-page-header-container">
             <div className="user-info">
-              <ProfilePic userId={data?.id +"" || ""}/>
+              <ProfilePic userId={data?.id +"" || ""} isCompany={usertype === "EMPRESA"}/>
 
               <div className="profile-names">
                 {isFetching ? (
@@ -101,7 +101,7 @@ export default function ProfilePage() {
             <div className="user-actions">
               {data?.email === auth.email && (
                 <>
-                  <Link href="/sys/settings?tab=profile" legacyBehavior>
+                  <Link href="/sys/settings?tab=profile" passHref>
                     <Button tabIndex={-1}>
                       <i className="fas fa-pencil-alt"></i>
 
@@ -111,7 +111,7 @@ export default function ProfilePage() {
                 </>
               )}
               {usertype === "ALUNO" && (
-                <Link href={`/download/curriculo/${data?.aluno?.curriculo}`} legacyBehavior>
+                <Link href={`/download/curriculo/${data?.aluno?.curriculo}`} passHref>
                   <Button className="outlined" tabIndex={-1}>
                     Vizualizar currículo
                   </Button>

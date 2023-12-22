@@ -12,6 +12,7 @@ import { Button } from "../../../../../components/button";
 import CircularProgressFluent from "../../../../../components/circular-progress-fluent";
 import { UFsSelectOptions } from "../../../../../utils/selectLists";
 import { CustomSelect } from "../../../../../components/select";
+import SystemLayout from "../../../_layout";
 
 export default function CadastrarEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -95,256 +96,258 @@ export default function CadastrarEmpresaPage() {
       });
   }
   return (
-    <div className="content">
-      <Box>
-        <BoxTitle>
-          <h3>Registrar nova empresa</h3>
-        </BoxTitle>
-        <BoxContent>
-          <form
-            id="cadastrar-nova-empresa-form"
-            onSubmit={handleSubmit(onHandleSubmit)}
-          >
-            <div className="inputs">
-              <div className="lbl">
-                <label htmlFor="email"></label>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      icon="fas fa-envelope"
-                      type="text"
-                      id="email"
-                      placeholder="E-mail"
-                      {...field}
-                      {...(errors.email && { className: "danger" })}
-                    />
-                  )}
-                />
-                <p className="input-error">{errors.email?.message}</p>
-              </div>
-              <div className="lbl">
-                <label htmlFor="nome"> </label>
-                <Controller
-                  name="nome"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      icon="fas fa-pencil"
-                      type="text"
-                      id="nome"
-                      placeholder="Nome fantasia"
-                      {...field}
-                      {...(errors.nome && { className: "danger" })}
-                    />
-                  )}
-                />
-                <p className="input-error">{errors.nome?.message}</p>
-              </div>
-              <div className="lbl">
-                <label htmlFor="cnpj"></label>
-                <Controller
-                  name="cnpj"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactInputMask
-                      maskPlaceholder={null}
-                      mask="99.999.999/9999-99"
-                      {...field}
-                    >
-                      <Input
-                        icon="fas fa-id-card"
-                        type="text"
-                        id="cnpj"
-                        placeholder="CNPJ"
-                        {...(errors.cnpj && { className: "danger" })}
-                      />
-                    </ReactInputMask>
-                  )}
-                />
-                <p className="input-error">{errors.cnpj?.message}</p>
-              </div>
-              <div className="lbl">
-                <label htmlFor="telefone"> </label>
-                <Controller
-                  name="telefone"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      icon="fas fa-phone"
-                      type="text"
-                      id="telefone"
-                      placeholder="Telefone"
-                      {...(errors.telefone && { className: "danger" })}
-                      {...field}
-                    />
-                  )}
-                />
-                <p className="input-error">{errors.telefone?.message}</p>
-              </div>
-              <div className="lbl">
-                <label htmlFor="dataFundacao"></label>
-                <Controller
-                  name="dataFundacao"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactInputMask
-                      maskPlaceholder={null}
-                      mask="99/99/9999"
-                      {...field}
-                    >
-                      <Input
-                        type="text"
-                        placeholder="Data de fundação"
-                        icon="fas fa-calendar"
-                        id="dataFundacao"
-                        autoComplete="off"
-                        {...(errors.dataFundacao && { className: "danger" })}
-                      />
-                    </ReactInputMask>
-                  )}
-                />
-                <p className="input-error">{errors.dataFundacao?.message}</p>
-              </div>
-              <div className="input-group">
+    <SystemLayout>
+      <div className="content">
+        <Box>
+          <BoxTitle>
+            <h3>Registrar nova empresa</h3>
+          </BoxTitle>
+          <BoxContent>
+            <form
+              id="cadastrar-nova-empresa-form"
+              onSubmit={handleSubmit(onHandleSubmit)}
+            >
+              <div className="inputs">
                 <div className="lbl">
-                  <label htmlFor="estado">Estado: </label>
+                  <label htmlFor="email"></label>
                   <Controller
-                    name="UF"
+                    name="email"
                     control={control}
-                    render={({ field: { value, onChange, onBlur, ref } }) => (
-                      <CustomSelect
-                        noOptionsMessage={() => "Não encontrado"}
-                        ref={ref}
-                        inputId="estado"
-                        options={UFsSelectOptions}
-                        placeholder="Selecione um estado"
-                        onChange={(option: any) => onChange(option?.value)}
-                        onBlur={onBlur}
-                        value={UFsSelectOptions.filter((option) =>
-                          value?.includes(option.value)
-                        )}
-                        defaultValue={UFsSelectOptions.filter((option) =>
-                          value?.includes(option.value)
-                        )}
-                        className={`custom-select ${
-                          errors.UF?.message && "danger"
-                        }`}
+                    render={({ field }) => (
+                      <Input
+                        icon="fas fa-envelope"
+                        type="text"
+                        id="email"
+                        placeholder="E-mail"
+                        {...field}
+                        {...(errors.email && { className: "danger" })}
                       />
                     )}
                   />
-                  <p className="input-error">{errors.UF?.message}</p>
+                  <p className="input-error">{errors.email?.message}</p>
                 </div>
                 <div className="lbl">
-                  <label htmlFor="cidade"></label>
+                  <label htmlFor="nome"> </label>
                   <Controller
-                    name="cidade"
+                    name="nome"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        icon="fas fa-pencil"
+                        type="text"
+                        id="nome"
+                        placeholder="Nome fantasia"
+                        {...field}
+                        {...(errors.nome && { className: "danger" })}
+                      />
+                    )}
+                  />
+                  <p className="input-error">{errors.nome?.message}</p>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="cnpj"></label>
+                  <Controller
+                    name="cnpj"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactInputMask
+                        maskPlaceholder={null}
+                        mask="99.999.999/9999-99"
+                        {...field}
+                      >
+                        <Input
+                          icon="fas fa-id-card"
+                          type="text"
+                          id="cnpj"
+                          placeholder="CNPJ"
+                          {...(errors.cnpj && { className: "danger" })}
+                        />
+                      </ReactInputMask>
+                    )}
+                  />
+                  <p className="input-error">{errors.cnpj?.message}</p>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="telefone"> </label>
+                  <Controller
+                    name="telefone"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        icon="fas fa-phone"
+                        type="text"
+                        id="telefone"
+                        placeholder="Telefone"
+                        {...(errors.telefone && { className: "danger" })}
+                        {...field}
+                      />
+                    )}
+                  />
+                  <p className="input-error">{errors.telefone?.message}</p>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="dataFundacao"></label>
+                  <Controller
+                    name="dataFundacao"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactInputMask
+                        maskPlaceholder={null}
+                        mask="99/99/9999"
+                        {...field}
+                      >
+                        <Input
+                          type="text"
+                          placeholder="Data de fundação"
+                          icon="fas fa-calendar"
+                          id="dataFundacao"
+                          autoComplete="off"
+                          {...(errors.dataFundacao && { className: "danger" })}
+                        />
+                      </ReactInputMask>
+                    )}
+                  />
+                  <p className="input-error">{errors.dataFundacao?.message}</p>
+                </div>
+                <div className="input-group">
+                  <div className="lbl">
+                    <label htmlFor="estado">Estado: </label>
+                    <Controller
+                      name="UF"
+                      control={control}
+                      render={({ field: { value, onChange, onBlur, ref } }) => (
+                        <CustomSelect
+                          noOptionsMessage={() => "Não encontrado"}
+                          ref={ref}
+                          inputId="estado"
+                          options={UFsSelectOptions}
+                          placeholder="Selecione um estado"
+                          onChange={(option: any) => onChange(option?.value)}
+                          onBlur={onBlur}
+                          value={UFsSelectOptions.filter((option) =>
+                            value?.includes(option.value)
+                          )}
+                          defaultValue={UFsSelectOptions.filter((option) =>
+                            value?.includes(option.value)
+                          )}
+                          className={`custom-select ${
+                            errors.UF?.message && "danger"
+                          }`}
+                        />
+                      )}
+                    />
+                    <p className="input-error">{errors.UF?.message}</p>
+                  </div>
+                  <div className="lbl">
+                    <label htmlFor="cidade"></label>
+                    <Controller
+                      name="cidade"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          type="text"
+                          id="cidade"
+                          placeholder="Cidade"
+                          {...field}
+                          {...(errors.cidade && { className: "danger" })}
+                        />
+                      )}
+                    />
+                    <p className="input-error">{errors.cidade?.message}</p>
+                  </div>
+                </div>
+                <div>
+                  <h4>Campos Opcionais</h4>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="facebook">Facebook: </label>
+                  <Controller
+                    name="facebook"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        icon="fa-brands fa-facebook-f"
+                        type="text"
+                        id="facebook"
+                        {...field}
+                        spellCheck={false}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="lbl">
+                  <label htmlFor="instagram">Instagram: </label>
+                  <Controller
+                    name="instagram"
                     control={control}
                     render={({ field }) => (
                       <Input
                         type="text"
-                        id="cidade"
-                        placeholder="Cidade"
+                        icon="fa-brands fa-instagram"
+                        id="instagram"
                         {...field}
-                        {...(errors.cidade && { className: "danger" })}
+                        spellCheck={false}
                       />
                     )}
                   />
-                  <p className="input-error">{errors.cidade?.message}</p>
+                </div>
+                <div className="lbl">
+                  <label htmlFor="linkedin">LinkedIn: </label>
+                  <Controller
+                    name="linkedin"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        type="text"
+                        icon="fa-brands fa-linkedin"
+                        id="linkedin"
+                        {...field}
+                        spellCheck={false}
+                      />
+                    )}
+                  />
+                </div>
+                <div className="lbl">
+                  <label htmlFor="twitter">Twitter: </label>
+                  <Controller
+                    name="twitter"
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        type="text"
+                        icon="fa-brands fa-twitter"
+                        id="twitter"
+                        {...field}
+                        spellCheck={false}
+                      />
+                    )}
+                  />
                 </div>
               </div>
-              <div>
-                <h4>Campos Opcionais</h4>
-              </div>
-              <div className="lbl">
-                <label htmlFor="facebook">Facebook: </label>
-                <Controller
-                  name="facebook"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      icon="fa-brands fa-facebook-f"
-                      type="text"
-                      id="facebook"
-                      {...field}
-                      spellCheck={false}
-                    />
-                  )}
-                />
-              </div>
-              <div className="lbl">
-                <label htmlFor="instagram">Instagram: </label>
-                <Controller
-                  name="instagram"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      type="text"
-                      icon="fa-brands fa-instagram"
-                      id="instagram"
-                      {...field}
-                      spellCheck={false}
-                    />
-                  )}
-                />
-              </div>
-              <div className="lbl">
-                <label htmlFor="linkedin">LinkedIn: </label>
-                <Controller
-                  name="linkedin"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      type="text"
-                      icon="fa-brands fa-linkedin"
-                      id="linkedin"
-                      {...field}
-                      spellCheck={false}
-                    />
-                  )}
-                />
-              </div>
-              <div className="lbl">
-                <label htmlFor="twitter">Twitter: </label>
-                <Controller
-                  name="twitter"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      type="text"
-                      icon="fa-brands fa-twitter"
-                      id="twitter"
-                      {...field}
-                      spellCheck={false}
-                    />
-                  )}
-                />
-              </div>
+            </form>
+            <div style={{ alignSelf: "flex-end", paddingTop: "20px" }}>
+              <Button
+                type="submit"
+                form="cadastrar-nova-empresa-form"
+                id="submit-form"
+                className=""
+                {...(isLoading && { disabled: true })}
+              >
+                {isLoading && (
+                  <CircularProgressFluent
+                    color="white"
+                    height="25px"
+                    width="25px"
+                    duration=".8s"
+                    style={{ position: "absolute" }}
+                  />
+                )}
+                <span {...(isLoading && { style: { opacity: 0 } })}>Criar</span>
+              </Button>
             </div>
-          </form>
-          <div style={{ alignSelf: "flex-end", paddingTop: "20px" }}>
-            <Button
-              type="submit"
-              form="cadastrar-nova-empresa-form"
-              id="submit-form"
-              className=""
-              {...(isLoading && { disabled: true })}
-            >
-              {isLoading && (
-                <CircularProgressFluent
-                  color="white"
-                  height="25px"
-                  width="25px"
-                  duration=".8s"
-                  style={{ position: "absolute" }}
-                />
-              )}
-              <span {...(isLoading && { style: { opacity: 0 } })}>Criar</span>
-            </Button>
-          </div>
-        </BoxContent>
-      </Box>
-    </div>
+          </BoxContent>
+        </Box>
+      </div>
+    </SystemLayout>
   );
 }

@@ -1,7 +1,6 @@
 import { CSSProperties } from "react";
 import { useProfilePic } from "../../hooks/useProfilePic";
 import { isBlank } from "../../utils/isBlank";
-import { StyledProfilePic } from "./style";
 import Image from "next/image";
 import styled from "./styled.module.scss";
 
@@ -10,13 +9,14 @@ type ProfilePicType = {
   style?: CSSProperties;
   className?: string;
   userId?: string | number;
+  isCompany?: boolean;
 };
 
 export function ProfilePic(props: ProfilePicType) {
   const { data } = useProfilePic(props.userId);
   return (
     <div
-      className={styled["styled-profile-pic"]+" profile-pic " + (props.className ?? "")}
+      className={styled["styled-profile-pic"] + (props.isCompany ? " "+ styled["company"] : "")+ " profile-pic " + (props.className ?? "")}
       style={props.style}
     >
       <span className={styled["default-profile"]}>
@@ -52,7 +52,7 @@ export function ProfilePic(props: ProfilePicType) {
 
       {(!isBlank(props.url) || !isBlank(data)) && (
         <>
-          <Image className={styled["img-perfil"]} src={props.url || data} layout="fill" objectFit="contain" alt="" />
+          <Image className={styled["img-perfil"]} src={props.url || data} fill alt="" />
           <span className={styled["profile-pic-border"]}></span>
         </>
       )}

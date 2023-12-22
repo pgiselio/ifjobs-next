@@ -49,7 +49,7 @@ export default function VagasList() {
                 <CreateNewFAB
                   className="FabCreateNew"
                   type="button"
-                  onClick={() => router.push("criar")}
+                  onClick={() => router.push("/sys/vagas/criar-nova")}
                 >
                   <i className="fa-solid fa-plus"></i>
                 </CreateNewFAB>
@@ -57,7 +57,7 @@ export default function VagasList() {
                 <CreateNewButton
                   className="outlined"
                   id="newVagaButton"
-                  onClick={() => router.push("criar")}
+                  onClick={() => router.push("/sys/vagas/criar-nova")}
                   key="create-new-vaga-btn"
                 >
                   <i className="fa-solid fa-plus"></i>

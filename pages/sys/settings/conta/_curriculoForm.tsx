@@ -9,6 +9,7 @@ import { api } from "../../../../services/api";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CurriculoFormStyle } from "./styles";
 import prettyBytes from "pretty-bytes";
+import Progressbar from "../../../../components/progress-bar";
 import Link from "next/link";
 
 export function CurriculoForm() {
@@ -84,20 +85,9 @@ export function CurriculoForm() {
           );
           if (toastId.current === null) {
             toastId.current = toast(
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+              <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
                 Enviando currículo...
-                <Button
-                  type="button"
-                  title="Cancelar envio"
-                  className="less-radius red"
-                  onClick={() => console.log("EITAAAA")}
-                >
+                <Button type="button" title="Cancelar envio" className="less-radius red" onClick={() => console.log("EITAAAA")}>
                   <i className="fas fa-close"></i>
                 </Button>
               </div>,
@@ -156,13 +146,7 @@ export function CurriculoForm() {
             <div className="file-details">
               <p className="file-name">{curriculo.name}</p>
               <p className="file-size">{prettyBytes(curriculo.size)}</p>
-              <p className={`file-progress-bar ${sending ? "onProgress" : ""}`}>
-                <span
-                  style={{
-                    transform: `translateX(-${100 - sendingProgress}%)`,
-                  }}
-                ></span>
-              </p>
+              <Progressbar progress={sendingProgress}/>
             </div>
             <p className="status">
               <i className={`fa-solid fa-check ${uploaded ? "done" : ""}`}></i>
@@ -188,8 +172,7 @@ export function CurriculoForm() {
           <i className="fa-solid fa-file"></i> Selecionar arquivo
         </Button>
         <Link href="/curriculo" className="link" passHref>
-
-          <i className="fa-solid fa-share"></i>Ver exemplo
+          <i className="fa-solid fa-share"></i> Ver exemplo
         </Link>
       </div>
       <p className="input-error">{errors.arquivo?.message}</p>

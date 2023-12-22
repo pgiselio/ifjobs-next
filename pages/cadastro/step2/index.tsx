@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -10,14 +12,15 @@ import { CadastroLayout } from "../_layout";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import { useSearchParams } from "next/navigation";
+
 export default function VerifiqueOSeuEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   let router = useRouter();
-
-  const params = router.query;
-  let email = params.email?.[0];
-  let codeParam = params.codigo?.[0];
+  const searchParams = useSearchParams();
+  let email = searchParams.get("email");
+  let codeParam = searchParams.get("codigo");
   const [code, setCode] = useState<string>(codeParam || "");
   const cadastroSteps = useCadastroSteps();
   const { handleSubmit, getValues, setValue } = useForm({
@@ -41,16 +44,14 @@ export default function VerifiqueOSeuEmailPage() {
     }
   });
   useEffect(() => {
-    async function getter (){
-      console.log("email: " + email + 'code: ' + codeParam);
-      if (codeParam?.length === 6 && email) {
-        handleSubmit(onSubmit)();
-      }
-    };
-    getter();
+    email = searchParams.has("email");
+    codeParam = searchParams.get("codigo");
+    console.log(email)
+    if (codeParam?.length === 6 && email) {
+      handleSubmit(onSubmit)();
+    }
   }, []);
 
-  
   async function onSubmit({ email }: { email: string }) {
     if (isLoading) return;
     if (!email) {
@@ -70,7 +71,7 @@ export default function VerifiqueOSeuEmailPage() {
       })
       .catch(() => {
         toast.error("Codigo inválido!");
-        params.codigo = undefined;
+        router.query.codigo = undefined;
         router.push(router);
       })
       .finally(() => setIsLoading(false));

@@ -8,7 +8,6 @@ import InputMask from "react-input-mask";
 
 import { Input } from "../../../../components/input";
 import { useAuth } from "../../../../hooks/useAuth";
-import { usePrompt } from "../../../../hooks/usePrompt";
 import { api } from "../../../../services/api";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -76,10 +75,6 @@ export function CriarNovaVagaForm() {
     },
     resolver: yupResolver(validationSchema),
   });
-  usePrompt(
-    "Deseja realmente sair? Os dados não salvos serão perdidos!",
-    isDirty
-  );
 
   async function onSubmit({
     titulo,

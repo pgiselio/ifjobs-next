@@ -8,7 +8,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { AppOptionsProvider } from "../contexts/AppOptionsContext";
 import { useEffect, useState } from "react";
 
-import "@reach/accordion/styles.css";
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/globals.css";

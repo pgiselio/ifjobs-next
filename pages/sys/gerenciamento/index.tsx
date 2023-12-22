@@ -1,10 +1,14 @@
-import { Accordion, AccordionButton, AccordionItem } from "@reach/accordion";
+import * as Accordion from "@radix-ui/react-accordion";
+import { useRouter } from "next/navigation";
+import SystemLayout from "../_layout";
+import Link from "next/link";
+import { HeaderTitle } from "../../../components/header-title";
+import { OutsetHeadersCornerRadius } from "../../../components/outset-radius-to-headers";
 // import { useQuery } from "@tanstack/react-query";
 // import { api } from "../../../services/api";
-import { useNavigate } from "react-router-dom";
 
 export default function GerenciamentoPage() {
-  const navigate = useNavigate();
+  const navigate = useRouter();
   // const { data } = useQuery(
   //   "GerenciamentoUsuariosList",
   //   async () => {
@@ -16,17 +20,50 @@ export default function GerenciamentoPage() {
   //   }
   // );
   return (
-    <div className="content">
-      <Accordion>
-        <AccordionItem style={{ marginTop: 14 }}>
-          <AccordionButton
-            className="arrow-right"
-            onClick={() => navigate("cadastrar/empresa")}
+    <SystemLayout>
+      <OutsetHeadersCornerRadius>
+        <HeaderTitle>
+          <h2>Painel de Gerenciamento</h2>
+        </HeaderTitle>
+      </OutsetHeadersCornerRadius>
+      <div className="content">
+        <Accordion.Root type="single" defaultValue="item-1" collapsible>
+          <Accordion.Item
+            data-reach-accordion-item
+            style={{ marginTop: 20 }}
+            value="item-1"
           >
-            <h4>Cadastrar nova empresa</h4>
-          </AccordionButton>
-        </AccordionItem>
-      </Accordion>
-    </div>
+            <Accordion.Header>
+              <Link href="/sys/gerenciamento/cadastrar/empresa" passHref>
+                <Accordion.Trigger
+                  className="arrow-right"
+                  data-reach-accordion-button
+                >
+                  <h4>Cadastrar nova empresa</h4>
+                </Accordion.Trigger>
+              </Link>
+            </Accordion.Header>
+          </Accordion.Item>
+        </Accordion.Root>
+        <Accordion.Root type="single" defaultValue="item-1" collapsible>
+          <Accordion.Item
+            data-reach-accordion-item
+            style={{ marginTop: 14 }}
+            value="item-1"
+          >
+            <Accordion.Header>
+              <Link href="/sys/vagas/criar-nova" passHref>
+                <Accordion.Trigger
+                  className="arrow-right"
+                  data-reach-accordion-button
+                >
+                  <h4>Cadastrar nova vaga</h4>
+                </Accordion.Trigger>
+              </Link>
+            </Accordion.Header>
+          </Accordion.Item>
+        </Accordion.Root>
+      </div>
+    </SystemLayout>
   );
 }

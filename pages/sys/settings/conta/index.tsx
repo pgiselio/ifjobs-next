@@ -1,10 +1,7 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
-} from "@reach/accordion";
-import { useEffect, useRef, useState } from "react";
+import * as Accordion from "@radix-ui/react-accordion";
+
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CircularProgressFluent from "../../../../components/circular-progress-fluent";
@@ -186,13 +183,38 @@ export default function SettingContaPage() {
           <ProfilePic
             style={{ height: "100px" }}
             userId={auth.userInfo?.id + ""}
+            isCompany={!!auth.userInfo?.empresa?.id}
           />
-          <button
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <button className="change-pic-btn" aria-label="Customise options">
+                <span aria-label="Opções para a foto de perfil">
+                  <i className="fas fa-camera"></i>
+                </span>
+              </button>
+            </DropdownMenu.Trigger>
+
+            <DropdownMenu.Portal>
+              <DropdownMenu.Content
+                className="DropdownMenuContent slide-down"
+                sideOffset={5}
+                align="start"
+              >
+                <DropdownMenu.Item className="DropdownMenuItem" onSelect={() => setShowModalPic(true)}>
+                  Editar ou enviar foto
+                </DropdownMenu.Item>
+                <DropdownMenu.Item className="DropdownMenuItem" onSelect={() => setShowModalPic(true)}>
+                  Remover foto atual
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
+          {/* <button
             className="change-pic-btn"
             onClick={() => setShowModalPic(true)}
           >
             <i className="fa-solid fa-pencil"></i>
-          </button>
+          </button> */}
         </div>
       </div>
       <Modal
@@ -201,7 +223,7 @@ export default function SettingContaPage() {
         title="Editar foto de perfil"
       >
         <div className="flx flx-aic flx-jcc fdc" style={{ gap: 30 }}>
-          <ProfilePictureForm />
+          <ProfilePictureForm closeModal={() => setShowModalPic(false)} />
           <ModalBottom>
             <Button
               type="button"
@@ -233,128 +255,81 @@ export default function SettingContaPage() {
         />
       )}
 
-      <Accordion collapsible multiple>
+      <Accordion.Root type="multiple">
         <form>
-          <AccordionItem>
-            <AccordionButton className="autohide-sub">
-              <h4>Nome</h4>
+          <Accordion.Item data-reach-accordion-item value="basic-info">
+            <Accordion.Trigger
+              data-reach-accordion-button
+              className="autohide-sub"
+            >
+              <h4>Informações Básicas</h4>
               <span className="subtitle">
-                {auth.userInfo?.aluno?.dadosPessoa.nome ||
-                  auth.userInfo?.empresa?.dadosPessoa.nome}
-              </span>
-            </AccordionButton>
-            <AccordionPanel>
-              <Controller
-                name="nome"
-                control={control}
-                render={({ field }) => (
-                  <Input type="text" id="nome" {...field} />
-                )}
-              />
-            </AccordionPanel>
-          </AccordionItem>
-          {auth?.authorities?.includes("ALUNO") && (
-            <AccordionItem>
-              <AccordionButton className="autohide-sub">
-                <h4>Curso e período</h4>
-                <span className="subtitle">
-                  {auth.userInfo?.aluno?.curso + " "}
-                  {auth.userInfo?.aluno?.periodo}º período
-                </span>
-              </AccordionButton>
-              <AccordionPanel>
-                <label htmlFor="change-courses">Curso: </label>
-                <Controller
-                  name={"curso"}
-                  control={control}
-                  render={({ field: { value, onChange, onBlur, ref } }) => {
-                    return (
-                      <CustomSelect
-                        noOptionsMessage={() => "Não encontrado"}
-                        ref={ref}
-                        inputId="change-courses"
-                        options={CursosSelectOptions}
-                        placeholder="Selecione um curso"
-                        onChange={(option: any) => onChange(option?.value)}
-                        onBlur={onBlur}
-                        value={CursosSelectOptions.filter((option) =>
-                          value?.includes(option.value)
-                        )}
-                        defaultValue={CursosSelectOptions.filter((option) =>
-                          value?.includes(option.value)
-                        )}
-                        className={`${errors.curso?.message && "danger"}`}
-                      />
-                    );
-                  }}
-                />
-                <div className="lbl" style={{ maxWidth: "70px" }}>
-                  <label htmlFor="periodo"></label>
-                  <Controller
-                    name="periodo"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        type="number"
-                        min={1}
-                        id="periodo"
-                        placeholder="Período"
-                        style={{ textAlign: "center" }}
-                        {...field}
-                        {...(errors.periodo && { className: "danger" })}
-                      />
-                    )}
-                  />
-                </div>
-              </AccordionPanel>
-            </AccordionItem>
-          )}
-
-          <AccordionItem>
-            <AccordionButton className="has-sub">
-              <h4>
-                Sobre {auth?.authorities?.includes("ALUNO") ? "mim" : "nós"}
-              </h4>
-              <span className="subtitle">
-                Uma breve descrição sobre{" "}
+                Nome de exibição
                 {auth?.authorities?.includes("ALUNO")
-                  ? "você"
-                  : "a sua empresa"}
+                  ? ", Localização, Curso e Período"
+                  : " e Localização"}
               </span>
-            </AccordionButton>
-            <AccordionPanel>
-              <Controller
-                name="resumo"
-                control={control}
-                render={({ field }) => (
-                  <textarea
-                    style={{
-                      resize: "vertical",
-                      minHeight: "150px",
-                      maxHeight: "250px",
-                      height: 150,
-                      width: "100%",
-                    }}
-                    placeholder="Faça uma breve descrição sobre você"
-                    className="txt-input"
-                    {...field}
-                    id="desc"
-                    rows={10}
-                  ></textarea>
-                )}
-              />
-            </AccordionPanel>
-          </AccordionItem>
+            </Accordion.Trigger>
+            <Accordion.Content data-reach-accordion-panel>
+              <div className="lbl">
+                <label htmlFor="nome">Nome: </label>
+                <Controller
+                  name="nome"
+                  control={control}
+                  render={({ field }) => (
+                    <Input type="text" id="nome" {...field} />
+                  )}
+                />
+              </div>
 
-          <AccordionItem>
-            <AccordionButton className="autohide-sub">
-              <h4>Localização</h4>
-              <span className="subtitle">
-                {auth.userInfo?.aluno?.dadosPessoa.localizacao ||
-                  auth.userInfo?.empresa?.dadosPessoa.localizacao}
-              </span>
-            </AccordionButton>
-            <AccordionPanel>
+              {auth?.authorities?.includes("ALUNO") && (
+                <>
+                  <div className="lbl">
+                    <label htmlFor="change-courses">Curso: </label>
+                    <Controller
+                      name={"curso"}
+                      control={control}
+                      render={({ field: { value, onChange, onBlur, ref } }) => {
+                        return (
+                          <CustomSelect
+                            noOptionsMessage={() => "Não encontrado"}
+                            ref={ref}
+                            inputId="change-courses"
+                            options={CursosSelectOptions}
+                            placeholder="Selecione um curso"
+                            onChange={(option: any) => onChange(option?.value)}
+                            onBlur={onBlur}
+                            value={CursosSelectOptions.filter((option) =>
+                              value?.includes(option.value)
+                            )}
+                            defaultValue={CursosSelectOptions.filter((option) =>
+                              value?.includes(option.value)
+                            )}
+                            className={`${errors.curso?.message && "danger"}`}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+                  <div className="lbl" style={{ maxWidth: "70px" }}>
+                    <label htmlFor="periodo">Período</label>
+                    <Controller
+                      name="periodo"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          type="number"
+                          min={1}
+                          id="periodo"
+                          style={{ textAlign: "center" }}
+                          {...field}
+                          {...(errors.periodo && { className: "danger" })}
+                        />
+                      )}
+                    />
+                  </div>
+                </>
+              )}
               <div className="input-group">
                 <div className="lbl">
                   <label htmlFor="estado">Estado: </label>
@@ -385,6 +360,7 @@ export default function SettingContaPage() {
                   <p className="input-error">{errors.uf?.message}</p>
                 </div>
                 <div className="lbl">
+                  <label htmlFor="cidade">Cidade: </label>
                   <Controller
                     name="cidade"
                     control={control}
@@ -392,7 +368,6 @@ export default function SettingContaPage() {
                       <Input
                         type="text"
                         id="cidade"
-                        placeholder="Cidade"
                         {...field}
                         {...(errors.cidade && { className: "danger" })}
                       />
@@ -401,29 +376,68 @@ export default function SettingContaPage() {
                   <p className="input-error">{errors.cidade?.message}</p>
                 </div>
               </div>
-            </AccordionPanel>
-          </AccordionItem>
+            </Accordion.Content>
+          </Accordion.Item>
+
+          <Accordion.Item data-reach-accordion-item value="about">
+            <Accordion.Trigger data-reach-accordion-button className="has-sub">
+              <h4>
+                Sobre{" "}
+                {auth?.authorities?.includes("ALUNO") ? "você" : "a empresa"}
+              </h4>
+              <span className="subtitle">
+                Uma breve descrição sobre{" "}
+                {auth?.authorities?.includes("ALUNO")
+                  ? "você"
+                  : "a sua empresa"}
+              </span>
+            </Accordion.Trigger>
+            <Accordion.Content data-reach-accordion-panel>
+              <Controller
+                name="resumo"
+                control={control}
+                render={({ field }) => (
+                  <textarea
+                    style={{
+                      resize: "vertical",
+                      minHeight: "150px",
+                      maxHeight: "250px",
+                      height: 150,
+                      width: "100%",
+                    }}
+                    placeholder="Faça uma breve descrição sobre você"
+                    className="txt-input"
+                    {...field}
+                    id="desc"
+                    rows={10}
+                  ></textarea>
+                )}
+              />
+            </Accordion.Content>
+          </Accordion.Item>
 
           {auth.userInfo?.empresa && (
             <span>
               <h4
                 style={{
-                  margin: "15px 0",
-                  marginBottom: "8px",
-                  marginLeft: "5px",
+                  margin: "20px 0px 10px 5px",
+                  fontWeight: "600",
                 }}
               >
-                Contatos
+                Informações de contato
               </h4>
 
-              <AccordionItem>
-                <AccordionButton className="autohide-sub">
+              <Accordion.Item data-reach-accordion-item value="phone">
+                <Accordion.Trigger
+                  data-reach-accordion-button
+                  className="autohide-sub"
+                >
                   <h4>Telefone</h4>
                   <span className="subtitle">
                     {auth.userInfo?.empresa?.telefone}
                   </span>
-                </AccordionButton>
-                <AccordionPanel>
+                </Accordion.Trigger>
+                <Accordion.Content data-reach-accordion-panel>
                   <Controller
                     name="telefone"
                     control={control}
@@ -431,11 +445,14 @@ export default function SettingContaPage() {
                       <Input type="text" id="telefone" {...field} />
                     )}
                   />
-                </AccordionPanel>
-              </AccordionItem>
+                </Accordion.Content>
+              </Accordion.Item>
 
-              <AccordionItem>
-                <AccordionButton className="autohide-sub">
+              <Accordion.Item data-reach-accordion-item value="site">
+                <Accordion.Trigger
+                  data-reach-accordion-button
+                  className="autohide-sub"
+                >
                   <h4>Site</h4>
 
                   <span className="subtitle">
@@ -443,8 +460,8 @@ export default function SettingContaPage() {
                       ? auth.userInfo?.empresa?.linkSite
                       : "Não informado"}
                   </span>
-                </AccordionButton>
-                <AccordionPanel>
+                </Accordion.Trigger>
+                <Accordion.Content data-reach-accordion-panel>
                   <Controller
                     name="empresaSite"
                     control={control}
@@ -452,17 +469,20 @@ export default function SettingContaPage() {
                       <Input type="text" id="site" {...field} />
                     )}
                   />
-                </AccordionPanel>
-              </AccordionItem>
+                </Accordion.Content>
+              </Accordion.Item>
 
-              <AccordionItem>
-                <AccordionButton className="has-sub">
+              <Accordion.Item data-reach-accordion-item value="social">
+                <Accordion.Trigger
+                  data-reach-accordion-button
+                  className="has-sub"
+                >
                   <h4>Redes Sociais</h4>
                   <span className="subtitle">
                     Facebook, Instagram, LinkedIn e Twitter
                   </span>
-                </AccordionButton>
-                <AccordionPanel>
+                </Accordion.Trigger>
+                <Accordion.Content data-reach-accordion-panel>
                   <div className="inputs">
                     <Controller
                       name="facebook"
@@ -517,8 +537,8 @@ export default function SettingContaPage() {
                       )}
                     />
                   </div>
-                </AccordionPanel>
-              </AccordionItem>
+                </Accordion.Content>
+              </Accordion.Item>
             </span>
           )}
 
@@ -541,14 +561,19 @@ export default function SettingContaPage() {
         </form>
         {auth.userInfo?.aluno && (
           <>
-            <AccordionItem style={{ marginTop: 14 }}>
-              <AccordionButton
+            <Accordion.Item
+              data-reach-accordion-item
+              style={{ marginTop: 14 }}
+              value="curriculum"
+            >
+              <Accordion.Trigger
+                data-reach-accordion-button
                 className="arrow-right"
                 onClick={() => setShowModalCurriculo(true)}
               >
                 <h4>Currículo</h4>
-              </AccordionButton>
-            </AccordionItem>
+              </Accordion.Trigger>
+            </Accordion.Item>
             <Modal
               open={showModalCurriculo}
               handleClose={() => setShowModalCurriculo(false)}
@@ -563,7 +588,7 @@ export default function SettingContaPage() {
             </Modal>
           </>
         )}
-      </Accordion>
+      </Accordion.Root>
     </>
   );
 }

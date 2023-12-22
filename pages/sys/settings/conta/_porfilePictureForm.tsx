@@ -10,12 +10,18 @@ import { ProfilePicFormStyle } from "./styles";
 import { Button } from "../../../../components/button";
 import { useProfilePic } from "../../../../hooks/useProfilePic";
 
-export function ProfilePictureForm() {
+export function ProfilePictureForm({
+  closeModal,
+}: {
+  closeModal?: () => void;
+}) {
   const auth = useAuth();
   const [zoom, setZoom] = useState<number>(1);
   const [rotate, setRotate] = useState<number>(0);
   const [actualProfilePic, setActualProfilePic] = useState<any>(undefined);
-  const [newProfilePic, setnewProfilePic] = useState<File | undefined>(undefined);
+  const [newProfilePic, setnewProfilePic] = useState<File | undefined>(
+    undefined
+  );
   const emptyImage =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const emptyImageBlobfied = useRef<any>("");
@@ -54,6 +60,9 @@ export function ProfilePictureForm() {
       setRotate(0);
       setZoom(1);
     },
+    onDropRejected: (rejectedFiles) => {
+      toast.error("Arquivo não suportado!");
+    }
   });
   const { handleSubmit } = useForm({
     defaultValues: {
@@ -96,8 +105,11 @@ export function ProfilePictureForm() {
           toast.success("Foto de perfil removida com sucesso!");
           setnewProfilePic(undefined);
           setIsEmptyImage(true);
-          queryClient.setQueryData(["profilePic-" + auth.userInfo?.id], emptyImage);
-
+          queryClient.setQueryData(
+            ["profilePic-" + auth.userInfo?.id],
+            emptyImage
+          );
+          closeModal && closeModal();
         }
       })
       .catch((err) => {
@@ -125,7 +137,9 @@ export function ProfilePictureForm() {
               borderRadius: 5,
             }}
             ref={avatarRef}
-            image={newProfilePic || (!isEmptyImage && queryImage ? queryImage : "")}
+            image={
+              newProfilePic || (!isEmptyImage && queryImage ? queryImage : "")
+            }
             scale={zoom}
             backgroundColor="#ffffff"
             color={[230, 230, 230, 0.4]}
@@ -175,6 +189,16 @@ export function ProfilePictureForm() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
+
+        <button
+          type="button"
+          title="Girar foto à esquerda"
+          onClick={() => {
+            setRotate(rotate - 90);
+          }}
+        >
+          <i className="fa-solid fa-arrow-rotate-left"></i>
+        </button>
         <button
           type="button"
           title="Girar foto à direita"

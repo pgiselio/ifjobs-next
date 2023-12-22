@@ -2,6 +2,9 @@
   border-radius: 50%;
   position: relative;
   overflow: hidden;
+  &.company{
+    border-radius: 10px;
+  }
 }
 
 .default-profile {

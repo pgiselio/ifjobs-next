@@ -1,6 +1,7 @@
 import { Box, BoxContent, BoxTitle } from "../../../../components/box";
 import { Button } from "../../../../components/button";
 import { useAuth } from "../../../../hooks/useAuth";
+import SystemLayout from "../../_layout";
 import { CriarNovaVagaForm } from "./_form";
 
 export default function CriarNovaVagaPage() {
@@ -9,6 +10,7 @@ export default function CriarNovaVagaPage() {
     return <h2>SEM PERMISÃO</h2>;
   }
   return (
+    <SystemLayout>
     <section>
       <div className="content">
         <Box>
@@ -21,5 +23,6 @@ export default function CriarNovaVagaPage() {
         </Box>
       </div>
     </section>
+    </SystemLayout>
   );
 }
