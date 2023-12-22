@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/globals.css";
+import { ToastContainer } from "react-toastify";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <AppOptionsProvider>
             <>
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
               <Component {...pageProps} />
             </>
           </AppOptionsProvider>

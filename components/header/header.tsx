@@ -30,8 +30,7 @@ export function Header(props: any) {
             <div className="logo">
               <Image
                 src="/images/logo.svg"
-                layout="fill"
-                objectFit="contain"
+                fill
                 alt="logo projeto"
               />
             </div>

@@ -44,18 +44,7 @@ export default function SystemLayout({children} : {children: any}) {
       >
         <GlobalStyle />
         <SysGlobalStyle />
-        <ToastContainer
-          position="top-right"
-          style={{ marginTop: "var(--top-bar-height)" }}
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        
         <Header />
         <div className="sys-grid-container">
           <SidebarList />
