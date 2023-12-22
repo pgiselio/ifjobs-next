@@ -24,7 +24,7 @@ export default function SettingsPage() {
     console.log(mq);
     console.log(params.tab);
     async () => {
-      if (mq.matches && typeof (await params.tab) === "undefined") {
+      if (mq.matches && typeof (params.tab) === "undefined") {
         setSearchParams(defaultTab);
       }
     };
