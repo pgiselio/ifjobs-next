@@ -31,7 +31,7 @@ export default function SettingsPage() {
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    if ([...tabs, null, undefined].includes(params.tab)) {
+    if (!Array.isArray(params.tab) && [...tabs, null, undefined].includes(params.tab)) {
       setSelectedTab(params.tab || defaultTab);
     }
   }, [params.tab]);

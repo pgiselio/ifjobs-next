@@ -13,7 +13,7 @@ export default function CadastroConcluidoPage() {
           <h2>Cadastro concluído</h2>
           <span className="message">
             Agora é só fazer login e começar a usar. Ahh, e não se esqueça de
-            dar um "toque" no seu perfil viu? Isso vai te ajudar muito com as
+            dar um &quot;toque&quot; no seu perfil viu? Isso vai te ajudar muito com as
             empresas.
           </span>
           <span className="message">

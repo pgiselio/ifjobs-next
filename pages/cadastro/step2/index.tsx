@@ -44,8 +44,6 @@ export default function VerifiqueOSeuEmailPage() {
     }
   });
   useEffect(() => {
-    email = searchParams.has("email");
-    codeParam = searchParams.get("codigo");
     console.log(email)
     if (codeParam?.length === 6 && email) {
       handleSubmit(onSubmit)();

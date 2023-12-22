@@ -191,8 +191,8 @@ export default function ProfilePage() {
                 ) : (
                   <BoxMessage className="no-about-message">
                     <span>
-                      Oops... parece que alguém se esqueceu de fazer o "sobre
-                      mim"
+                      Oops... parece que alguém se esqueceu de fazer o &quot;sobre
+                      mim&quot;
                     </span>
                   </BoxMessage>
                 )}

@@ -52,7 +52,7 @@ export function ProfilePic(props: ProfilePicType) {
 
       {(!isBlank(props.url) || !isBlank(data)) && (
         <>
-          <Image className={styled["img-perfil"]} src={props.url || data} fill alt="" />
+          <Image className={styled["img-perfil"]} src={props.url || data || " "} fill alt="" />
           <span className={styled["profile-pic-border"]}></span>
         </>
       )}
