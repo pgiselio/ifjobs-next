@@ -11,7 +11,7 @@ type ppType = {
 };
 export function GetProfilePic(id: string) {
   const { data } = useQuery(
-    "profilePic-" + id,
+    ["profilePic-" + id],
     async () => {
       const response = await api.get<ppType>(`/imagem/fotoPerfil/${id}`);
       if (response.data) {
