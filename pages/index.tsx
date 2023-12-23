@@ -8,7 +8,7 @@ import { Button } from "../components/General/button";
 import { LandNavBar } from "../components/landing/navbar";
 import { LandingGlobalStyle, LandingStyle } from "../components/landing/styles";
 import { useAuth } from "../hooks/useAuth";
-import { TagCloud } from "react-tagcloud";
+import { ColorOptions, TagCloud } from "react-tagcloud";
 
 const Home: NextPage = () => {
   const auth = useAuth();
@@ -20,9 +20,9 @@ const Home: NextPage = () => {
     { value: "Energias Renováveis", count: Math.random() * 100 },
   ];
   const options = {
-    luminosity: "light",
-    hue: "green",
-  };
+    luminosity: 'light',
+    hue: 'green',
+  } as ColorOptions;
 
   useEffect(() => {
     if (auth.userInfo?.email) {
