@@ -1,4 +1,3 @@
-
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 import Error404 from "../../pages/404";
@@ -11,30 +10,30 @@ import { ProfilePic } from "../SystemLayout/profile-pic/profile-pic";
 import { VagaPageStyle } from "../../styles/_Pages/sys/vaga";
 import { PillItem, PillList } from "../General/pill";
 import { Button } from "../General/button";
-import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { queryClient } from "../../services/queryClient";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
 import { useAuth } from "../../hooks/useAuth";
-import {
-  AlertDialog,
-  AlertDialogDescription,
-  AlertDialogLabel,
-} from "@reach/alert-dialog";
 import { useRouter } from "next/router";
+import { useVagas } from "../../hooks/useVagas";
 import Link from "next/link";
 import SystemLayout from "./system";
+import CircularProgressFluent from "../General/circular-progress-fluent";
 
 export default function VagaPage({ children }: { children: ReactNode }) {
   const auth = useAuth();
   const router = useRouter();
+  const useVaga = useVagas();
+
   let params = router.query;
 
   const [showDialog, setShowDialog] = useState(false);
   const [isCandidatoSubscribed, setIsCandidatoSubscribed] = useState(false);
   const [showUnsubDialog, setShowUnsubDialog] = useState(false);
+  const [isOpenCloseOnProgress, setIsOpenCloseOnProgress] = useState(false);
 
-  let subscribeBtnRef = useRef<HTMLButtonElement>(null);
+  const subscribeBtnRef = useRef<HTMLButtonElement>(null);
+
   const openUnsubDialog = () => setShowUnsubDialog(true);
   const closeUnsubDialog = () => setShowUnsubDialog(false);
   const { data, isFetching } = useQuery<vaga>(
@@ -49,11 +48,6 @@ export default function VagaPage({ children }: { children: ReactNode }) {
       refetchOnWindowFocus: false,
     }
   );
-  const { handleSubmit } = useForm({
-    defaultValues: {
-      id: "",
-    },
-  });
 
   const cancelUnsubRef = useRef(null);
   function inscreverOuDesinscreverAluno() {
@@ -73,10 +67,12 @@ export default function VagaPage({ children }: { children: ReactNode }) {
       if (isCandidatoSubscribed) {
         openUnsubDialog();
       } else {
+        subscribeBtnRef.current &&
+          subscribeBtnRef.current.setAttribute("disabled", "");
         inscreverAluno();
       }
     } else {
-      toast.error(subscribeBtnRef.current?.title || " ", {
+      toast.error(subscribeBtnRef.current?.title, {
         position: "bottom-center",
         hideProgressBar: true,
         toastId: "subscribe-btn-disabled",
@@ -84,29 +80,19 @@ export default function VagaPage({ children }: { children: ReactNode }) {
     }
   }
   async function inscreverAluno() {
-    await api
-      .patch(`/vaga/${params.id}/addAluno/${auth.userInfo?.aluno?.id}`)
-      .then(() => {
-        toast.success("Você se increveu na vaga!", {
-          position: "bottom-center",
-          hideProgressBar: true,
-        });
-        queryClient.invalidateQueries([`vaga-${params.id}`]);
-        queryClient.invalidateQueries(["vagas"]);
-      });
+    if (!auth.userInfo?.aluno?.id || !params.id) return;
+    useVaga.subscribe({
+      vagaId: params.id,
+      candidatoId: auth.userInfo?.aluno?.id,
+    });
   }
   async function desinscreverAluno() {
     closeUnsubDialog();
-    await api
-      .patch(`/vaga/${params.id}/removeAluno/${auth.userInfo?.aluno?.id}`)
-      .then(() => {
-        toast.info("Você se desinscreveu da vaga!", {
-          position: "bottom-center",
-          hideProgressBar: true,
-        });
-        queryClient.invalidateQueries([`vaga-${params.id}`]);
-        queryClient.invalidateQueries(["vagas"]);
-      });
+    if (!auth.userInfo?.aluno?.id || !params.id) return;
+    useVaga.unsubscribe({
+      vagaId: params.id,
+      candidatoId: auth.userInfo?.aluno?.id,
+    });
   }
 
   useEffect(() => {
@@ -119,7 +105,9 @@ export default function VagaPage({ children }: { children: ReactNode }) {
 
   const cancelRef = useRef(null);
   const openDialog2 = () => setShowDialog(true);
-  const closeDialog2 = () => setShowDialog(false);
+  const closeDialog2 = () => {
+    setShowDialog(false);
+  };
   function abrirEncerrarInscricoes() {
     if (data?.status === "ATIVO") {
       openDialog2();
@@ -132,33 +120,17 @@ export default function VagaPage({ children }: { children: ReactNode }) {
     if (!data) {
       return;
     }
-    await api.patch<vaga>(`/vaga/${data.id}`, [
-      {
-        op: "replace",
-        path: "/status",
-        value: "INATIVO",
-      },
-    ]);
-    queryClient.invalidateQueries([`vaga-${data.id}`]);
-    queryClient.invalidateQueries(["vagas"]);
-    toast.success("Vaga encerrada com sucesso!", { toastId: "vaga-encerrada" });
+    setIsOpenCloseOnProgress(true);
+    await useVaga.close(data.id);
+    setIsOpenCloseOnProgress(false);
   }
   async function abrirInscricoes() {
     if (!data) {
       return;
     }
-    await api.patch<vaga>(`/vaga/${data.id}`, [
-      {
-        op: "replace",
-        path: "/status",
-        value: "ATIVO",
-      },
-    ]);
-    queryClient.invalidateQueries([`vaga-${data.id}`]);
-    queryClient.invalidateQueries(["vagas"]);
-    toast.success("Incrições reabertas com sucesso!", {
-      toastId: "vaga-aberta",
-    });
+    setIsOpenCloseOnProgress(true);
+    await useVaga.open(data.id);
+    setIsOpenCloseOnProgress(false);
   }
 
   let date;
@@ -176,18 +148,17 @@ export default function VagaPage({ children }: { children: ReactNode }) {
 
   return (
     <SystemLayout>
-      {/* <div className="tree-links"></div> */}
       <VagaPageStyle>
         <div className="vaga-page-header-container content">
           <div className="vaga-page-header ">
             <div className="empresa-info">
               {!data && isFetching ? (
                 <>
-                  <Skeleton variant="circle" width="60px" height="60px" />
+                  <Skeleton variant="square" className="profile-pic" />
                 </>
               ) : (
                 <>
-                  <ProfilePic userId={data?.empresa.id} />
+                  <ProfilePic userId={data?.empresa.id} isCompany />
                 </>
               )}
             </div>
@@ -199,7 +170,7 @@ export default function VagaPage({ children }: { children: ReactNode }) {
             ) : (
               <>
                 <h2>{data?.titulo}</h2>
-                <Link href={`../profile/${data?.empresa?.id}`}>
+                <Link href={`../profile/${data?.empresa?.id}`} passHref>
                   {data?.empresa?.dadosPessoa.nome}
                 </Link>
               </>
@@ -221,49 +192,64 @@ export default function VagaPage({ children }: { children: ReactNode }) {
                       data.status === "ATIVO" ? "red" : "secondary"
                     }`}
                     onClick={abrirEncerrarInscricoes}
+                    {...((isFetching || isOpenCloseOnProgress) && {
+                      disabled: true,
+                    })}
                   >
+                    {isOpenCloseOnProgress && (
+                      <CircularProgressFluent
+                        height={20}
+                        width={20}
+                        color="white"
+                        duration=".5s"
+                      />
+                    )}
                     {data.status === "ATIVO"
                       ? "Encerrar inscrições"
                       : "Reabrir inscrições"}
                   </Button>
                 )}
               {showDialog && (
-                <AlertDialog leastDestructiveRef={cancelRef} className="small">
-                  <AlertDialogLabel>
-                    Tem certeza que deseja desativar esta vaga?
-                  </AlertDialogLabel>
-
-                  <AlertDialogDescription>
-                    A vaga não poderá ser editada e nem aceitará novas
-                    inscrições, mas continuará sendo visível para todos.
-                  </AlertDialogDescription>
-
-                  <div
-                    className="alert-buttons"
-                    data-reach-alert-dialog-actions
-                  >
-                    <br />
-                    <Button
-                      className="secondary "
-                      ref={cancelRef}
-                      onClick={closeDialog2}
-                    >
-                      Cancelar
-                    </Button>
-                    <Button className=" red" onClick={encerrarInscricoes}>
-                      Sim
-                    </Button>
-                  </div>
-                </AlertDialog>
+                <AlertDialog.Root defaultOpen>
+                  <AlertDialog.Portal>
+                    <AlertDialog.Overlay className="AlertDialogOverlay" />
+                    <AlertDialog.Content className="AlertDialogContent">
+                      <AlertDialog.Title className="AlertDialogTitle">
+                        Tem certeza que deseja desativar esta vaga?
+                      </AlertDialog.Title>
+                      <AlertDialog.Description className="AlertDialogDescription">
+                        A vaga não poderá ser editada e nem aceitará novas
+                        inscrições, mas continuará sendo visível para todos.
+                      </AlertDialog.Description>
+                      <div
+                        className="alert-buttons AlertDialogActions"
+                        data-reach-alert-dialog-actions
+                      >
+                        <AlertDialog.Cancel asChild>
+                          <Button
+                            className="secondary "
+                            ref={cancelRef}
+                            onClick={closeDialog2}
+                          >
+                            Cancelar
+                          </Button>
+                        </AlertDialog.Cancel>
+                        <AlertDialog.Action asChild>
+                          <Button className=" red" onClick={encerrarInscricoes}>
+                            Sim
+                          </Button>
+                        </AlertDialog.Action>
+                      </div>
+                    </AlertDialog.Content>
+                  </AlertDialog.Portal>
+                </AlertDialog.Root>
               )}
               {auth.userInfo?.aluno?.dadosPessoa && (
-                <form
-                  action=""
-                  onSubmit={handleSubmit(inscreverOuDesinscreverAluno)}
-                >
+                <>
                   <Button
                     type="submit"
                     ref={subscribeBtnRef}
+                    onClick={inscreverOuDesinscreverAluno}
                     className={`less-radius ${
                       isCandidatoSubscribed ? "red" : ""
                     }`}
@@ -285,6 +271,9 @@ export default function VagaPage({ children }: { children: ReactNode }) {
                           toastId: "subscribe-btn-disabled",
                         }),
                     })}
+                    {...(isFetching && {
+                      disabled: true,
+                    })}
                   >
                     <span>
                       {isCandidatoSubscribed
@@ -293,32 +282,37 @@ export default function VagaPage({ children }: { children: ReactNode }) {
                     </span>
                   </Button>
                   {showUnsubDialog && (
-                    <AlertDialog
-                      leastDestructiveRef={cancelRef}
-                      className="small"
-                    >
-                      <AlertDialogLabel>
-                        Tem certeza que deseja se desinscrever desta vaga?
-                      </AlertDialogLabel>
-
-                      <div
-                        className="alert-buttons"
-                        data-reach-alert-dialog-actions
-                      >
-                        <Button
-                          className="secondary"
-                          onClick={desinscreverAluno}
-                        >
-                          Sim
-                        </Button>
-                        <br />
-                        <Button ref={cancelUnsubRef} onClick={closeUnsubDialog}>
-                          Cancelar
-                        </Button>
-                      </div>
-                    </AlertDialog>
+                    <AlertDialog.Root defaultOpen>
+                      <AlertDialog.Portal>
+                        <AlertDialog.Overlay className="AlertDialogOverlay" />
+                        <AlertDialog.Content className="AlertDialogContent">
+                          <AlertDialog.Title className="AlertDialogTitle">
+                            Tem certeza que deseja se desinscrever desta vaga?
+                          </AlertDialog.Title>
+                          <div className="alert-buttons AlertDialogActions">
+                            <AlertDialog.Cancel asChild>
+                              <Button
+                                ref={cancelUnsubRef}
+                                onClick={closeUnsubDialog}
+                                className="secondary"
+                              >
+                                Cancelar
+                              </Button>
+                            </AlertDialog.Cancel>
+                            <AlertDialog.Action asChild>
+                              <Button
+                                className="red"
+                                onClick={desinscreverAluno}
+                              >
+                                Sim
+                              </Button>
+                            </AlertDialog.Action>
+                          </div>
+                        </AlertDialog.Content>
+                      </AlertDialog.Portal>
+                    </AlertDialog.Root>
                   )}
-                </form>
+                </>
               )}
             </div>
           </div>

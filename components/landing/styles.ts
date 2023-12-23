@@ -72,12 +72,24 @@ export const LandingStyle = styled.div`
       }
     }
     section.cursos-section {
+      background-image: url(images/waves.svg);
+      background-position: center center;
+      background-size: cover;
+      background-blend-mode: color-burn;
+      background-color: #33313d;
+      height: 500px;
       width: 100%;
+      padding: 20px;
+      h1 {
+        color: #f1f1f1;
+        margin-top: -20px;
+        margin-bottom: 40px;
+      }
     }
     section.aderir-section {
       background-color: var(--accent-color-opacity);
       width: 100%;
-      padding: 60px 30px;
+      padding: 100px 30px;
       .img-job-hunt {
         height: 150px;
         margin-bottom: 20px;
@@ -106,14 +118,46 @@ export const LandingStyle = styled.div`
         }
       }
     }
+    section.contatos-section {
+      padding: 100px 30px;
+      width: 100%;
+      background-color: #f1f1f1;
+      min-height: 345px;
+      ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 50px;
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        li {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          span,
+          i {
+            font-size: 16px;
+            color: var(--text-b);
+          }
+        }
+      }
+    }
     section.equipe-section {
       padding: 60px 30px;
-      height: calc(100vh - 100px);
+      min-height: 550px;
       width: 100%;
-      h1{
+      h1 {
         margin-bottom: 60px;
         text-align: center;
-        background-color: #222;
+        background-color: #333;
         border-radius: 5px;
         overflow: hidden;
         color: #fff;
@@ -147,15 +191,15 @@ export const LandingStyle = styled.div`
               font-size: 16px;
               color: #333;
             }
-            span{
+            span {
               font-size: 14px;
               color: var(--text-b);
             }
-            a{
+            a {
               margin-top: 5px;
               font-size: 18px;
               color: var(--text-b);
-              :hover{
+              :hover {
                 color: var(--text-a);
               }
             }
@@ -169,14 +213,17 @@ export const LandingStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 30px 50px;
     column-gap: 50px;
     flex-wrap: wrap;
-    margin-top: 100px;
-    height: 500px;
     display: flex;
-    background: #222;
-    img{
-      height: 60px;
+    background: #33313d;
+    border-bottom: green 5px solid;
+    img {
+      height: 45px;
+      &.coex {
+        height: 35px;
+      }
     }
   }
   .custom-bg {

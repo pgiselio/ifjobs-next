@@ -4,8 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-scroll";
 import Image from "next/image";
 import * as NextLink from "next/link";
-import styled from './navbar.module.scss';
-
+import styled from "./navbar.module.scss";
 
 export function LandNavBar() {
   const [menuState, setMenuState] = useState(false);
@@ -15,13 +14,17 @@ export function LandNavBar() {
   const auth = useAuth();
   return (
     <>
-      <div className={styled['landing-header']  + " navigate-container"}>
+      <div className={styled["landing-header"] + " navigate-container"}>
         <nav className={styled["navigate"]}>
           <div className={styled["menu-container"]}>
             <NextLink.default href="/" passHref className={styled["logo-nav"]}>
-                <Image src="/images/logo.svg" alt="" height={34} width={94}/>
+              <Image src="/images/logo.svg" alt="" height={34} width={94} />
             </NextLink.default>
-            <div className={styled["menu"] + (menuState ? " " + styled["active-menu"] : "")}>
+            <div
+              className={
+                styled["menu"] + (menuState ? " " + styled["active-menu"] : "")
+              }
+            >
               <ul>
                 <LandBarItem
                   href="#sec1"
@@ -39,13 +42,13 @@ export function LandNavBar() {
                   setMenuState={setMenuState}
                 />
                 <LandBarItem
-                  href="#sec4"
-                  label="Contato"
+                  href="#sec5"
+                  label="Equipe"
                   setMenuState={setMenuState}
                 />
                 <LandBarItem
-                  href="#sec5"
-                  label="Equipe"
+                  href="#sec4"
+                  label="Contato"
                   setMenuState={setMenuState}
                 />
               </ul>
@@ -54,7 +57,9 @@ export function LandNavBar() {
               {auth.email ? (
                 <button
                   type="button"
-                  className={styled["access-bt"] + (accessState ? " active" : "")}
+                  className={
+                    styled["access-bt"] + (accessState ? " active" : "")
+                  }
                   onClick={() => {
                     window.location.href = "sys";
                   }}
@@ -74,7 +79,11 @@ export function LandNavBar() {
                   auth.email ? navigate.push("sys") : navigate.push("entrar");
                 }}
               ></button>
-              <div className={styled["acesso-mobile"] + (accessState ? " active" : "")}>
+              <div
+                className={
+                  styled["acesso-mobile"] + (accessState ? " active" : "")
+                }
+              >
                 <Acesso />
               </div>
               <div
@@ -138,7 +147,11 @@ function Acesso() {
       <NextLink.default href="entrar" passHref className={styled["login-bt"]}>
         Login
       </NextLink.default>
-      <NextLink.default href="cadastro" passHref className={styled["signup-bt"]}>
+      <NextLink.default
+        href="cadastro"
+        passHref
+        className={styled["signup-bt"]}
+      >
         Cadastro
       </NextLink.default>
     </>
