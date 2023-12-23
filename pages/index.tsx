@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ParallaxBanner, ParallaxProvider } from "react-scroll-parallax";
 import { useEffect } from "react";
 import { Button } from "../components/General/button";
-import { LandNavBar } from "../components/Landing/navbar";
-import { LandingGlobalStyle, LandingStyle } from "../components/Landing/styles";
+import { LandNavBar } from "../components/landing/navbar";
+import { LandingGlobalStyle, LandingStyle } from "../components/landing/styles";
 import { useAuth } from "../hooks/useAuth";
 
 
