@@ -2,14 +2,14 @@ import { useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Button } from "../../../../components/button";
-import { useAuth } from "../../../../hooks/useAuth";
+import { Button } from "../General/button";
+import { useAuth } from "../../hooks/useAuth";
 import * as Yup from "yup";
-import { api } from "../../../../services/api";
+import { api } from "../../services/api";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CurriculoFormStyle } from "./styles";
+import { CurriculoFormStyle } from "../../styles/_Pages/sys/settings-conta";
 import prettyBytes from "pretty-bytes";
-import Progressbar from "../../../../components/progress-bar";
+import Progressbar from "../General/progress-bar";
 import Link from "next/link";
 
 export function CurriculoForm() {

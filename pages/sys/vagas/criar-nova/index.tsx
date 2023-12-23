@@ -1,8 +1,8 @@
-import { Box, BoxContent, BoxTitle } from "../../../../components/box";
-import { Button } from "../../../../components/button";
+import { Box, BoxContent, BoxTitle } from "../../../../components/General/box";
+import { Button } from "../../../../components/General/button";
 import { useAuth } from "../../../../hooks/useAuth";
-import SystemLayout from "../../_layout";
-import { CriarNovaVagaForm } from "./_form";
+import SystemLayout from "../../../../components/Layouts/system";
+import { CriarNovaVagaForm } from "../../../../components/Layouts/vaga_form";
 
 export default function CriarNovaVagaPage() {
   const auth = useAuth();

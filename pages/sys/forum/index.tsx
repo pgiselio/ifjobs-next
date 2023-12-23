@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { Box, BoxContent } from "../../../components/box";
-import { Button } from "../../../components/button";
-import { FabButton } from "../../../components/fab";
-import { HeaderTitle } from "../../../components/header-title";
-import { OutsetHeadersCornerRadius } from "../../../components/outset-radius-to-headers";
-import { ProfilePic } from "../../../components/profile-pic/profile-pic";
-import SystemLayout from "../_layout";
-import { Container } from "./styles";
+import { Box, BoxContent } from "../../../components/General/box";
+import { Button } from "../../../components/General/button";
+import { FabButton } from "../../../components/General/fab";
+import { HeaderTitle } from "../../../components/SystemLayout/header-title";
+import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";
+import { ProfilePic } from "../../../components/SystemLayout/profile-pic/profile-pic";
+import SystemLayout from "../../../components/Layouts/system";
+import { Container } from "../../../styles/_Pages/sys/forum";
 
 const CreateNewFAB = styled(FabButton)`
   display: flex;

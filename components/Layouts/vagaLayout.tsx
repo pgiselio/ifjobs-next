@@ -1,21 +1,21 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 
-import Error404 from "../../../404";
-import { TabsMenu, TabsMenuItem } from "../../../../components/tabs-menu";
-import { vaga } from "../../../../types/vagaType";
+import Error404 from "../../pages/404";
+import { TabsMenu, TabsMenuItem } from "../SystemLayout/tabs-menu";
+import { vaga } from "../../types/vagaType";
 import { useQuery } from "@tanstack/react-query";
-import { api } from "../../../../services/api";
-import { Skeleton } from "../../../../components/skeleton-load";
-import { ProfilePic } from "../../../../components/profile-pic/profile-pic";
-import { VagaPageStyle } from "./styles";
-import { PillItem, PillList } from "../../../../components/pill";
-import { Button } from "../../../../components/button";
+import { api } from "../../services/api";
+import { Skeleton } from "../General/skeleton-load";
+import { ProfilePic } from "../SystemLayout/profile-pic/profile-pic";
+import { VagaPageStyle } from "../../styles/_Pages/sys/vaga";
+import { PillItem, PillList } from "../General/pill";
+import { Button } from "../General/button";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { queryClient } from "../../../../services/queryClient";
+import { queryClient } from "../../services/queryClient";
 
-import { useAuth } from "../../../../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import {
   AlertDialog,
   AlertDialogDescription,
@@ -23,7 +23,7 @@ import {
 } from "@reach/alert-dialog";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import SystemLayout from "../../_layout";
+import SystemLayout from "./system";
 
 export default function VagaPage({ children }: { children: ReactNode }) {
   const auth = useAuth();

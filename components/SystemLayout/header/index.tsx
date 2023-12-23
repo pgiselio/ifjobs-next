@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import { useAppOptions } from "../../hooks/useAppOptions";
-import { useAuth } from "../../hooks/useAuth";
+import { useAppOptions } from "../../../hooks/useAppOptions";
+import { useAuth } from "../../../hooks/useAuth";
 import { HeaderSysStyle } from "./style";
 import Link from "next/link";
 import Image from "next/image";
 
-export function Header(props: any) {
+export default function Header(props: any) {
   const auth = useAuth();
   const appOptions = useAppOptions();
   const navigate = useRouter();

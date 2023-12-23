@@ -1,11 +1,11 @@
 import { useTabs } from "react-headless-tabs";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../hooks/useAuth";
-import { api } from "../../services/api";
-import { queryClient } from "../../services/queryClient";
-import { notification } from "../../types/notification";
-import { relativeTimeFromDates } from "../../utils/relativeDate";
-import CircularProgressFluent from "../circular-progress-fluent";
+import { useAuth } from "../../../hooks/useAuth";
+import { api } from "../../../services/api";
+import { queryClient } from "../../../services/queryClient";
+import { notification } from "../../../types/notification";
+import { relativeTimeFromDates } from "../../../utils/relativeDate";
+import CircularProgressFluent from "../../General/circular-progress-fluent";
 import { NotificationCard } from "./notification-card";
 import { StyledNotifications } from "./style";
 

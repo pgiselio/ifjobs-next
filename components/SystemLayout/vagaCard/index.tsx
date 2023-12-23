@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { vaga } from "../../types/vagaType";
-import { PillItem, PillList } from "../pill";
+import { vaga } from "../../../types/vagaType";
+import { PillItem, PillList } from "../../General/pill";
 import { ProfilePic } from "../profile-pic/profile-pic";
 import { VagaCardStyle } from "./style";
 

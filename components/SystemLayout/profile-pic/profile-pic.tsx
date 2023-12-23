@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
-import { useProfilePic } from "../../hooks/useProfilePic";
-import { isBlank } from "../../utils/isBlank";
+import { useProfilePic } from "../../../hooks/useProfilePic";
+import { isBlank } from "../../../utils/isBlank";
 import Image from "next/image";
 import styled from "./styled.module.scss";
 

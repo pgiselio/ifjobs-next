@@ -6,20 +6,20 @@ import {
   BoxContent,
   BoxMessage,
   BoxTitle,
-} from "../../../components/box";
-import { Button } from "../../../components/button";
-import CircularProgressFluent from "../../../components/circular-progress-fluent";
-import LabelWithData from "../../../components/label-data";
-import { ProfilePic } from "../../../components/profile-pic/profile-pic";
-import { Skeleton } from "../../../components/skeleton-load";
+} from "../../../components/General/box";
+import { Button } from "../../../components/General/button";
+import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
+import LabelWithData from "../../../components/General/label-data";
+import { ProfilePic } from "../../../components/SystemLayout/profile-pic/profile-pic";
+import { Skeleton } from "../../../components/General/skeleton-load";
 import { useAuth } from "../../../hooks/useAuth";
 import { api } from "../../../services/api";
 import { User } from "../../../types/user";
 import { cnpjMask } from "../../../utils/cnpjMask";
 import { isBlank } from "../../../utils/isBlank";
 import Error404 from "../../404";
-import { ProfilePageStyle } from "./styles";
-import SystemLayout from "../_layout";
+import { ProfilePageStyle } from "../../../styles/_Pages/sys/profiles";
+import SystemLayout from "../../../components/Layouts/system";
 
 export default function ProfilePage() {
   const router = useRouter();

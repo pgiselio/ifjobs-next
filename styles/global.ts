@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { InputStyle } from "../components/input/styles";
+import { InputStyle } from "../components/General/input/styles";
 
 export const GlobalStyle = createGlobalStyle`
   :root {

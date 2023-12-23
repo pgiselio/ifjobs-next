@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ReactInputMask from "react-input-mask";
-import CircularProgressFluent from "../../../components/circular-progress-fluent";
-import { Input } from "../../../components/input";
+import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
+import { Input } from "../../../components/General/input";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
-import { CadastroStep3Style } from "./styles";
+import { CadastroStep3Style } from "../../../styles/_Pages/Cadastro/step3";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -11,13 +11,13 @@ import { api } from "../../../services/api";
 import { toast } from "react-toastify";
 import { userAlunoType } from "../../../contexts/CadastroContext/types";
 import { convertFromStringToDate } from "../../../utils/convertStringToDateFormat";
-import { CustomSelect } from "../../../components/select";
+import { CustomSelect } from "../../../components/General/select";
 import {
   CursosSelectOptions,
   UFsSelectOptions,
 } from "../../../utils/selectLists";
 import { useRouter } from "next/router";
-import { CadastroLayout } from "../_layout";
+import { CadastroLayout } from "../../../components/Layouts/cadastro";
 
 export default function CadastroStep3() {
   const [isLoading, setIsLoading] = useState(false);

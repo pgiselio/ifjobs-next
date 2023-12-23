@@ -6,16 +6,16 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import InputMask from "react-input-mask";
 
-import { Input } from "../../../../components/input";
-import { useAuth } from "../../../../hooks/useAuth";
-import { api } from "../../../../services/api";
+import { Input } from "../General/input";
+import { useAuth } from "../../hooks/useAuth";
+import { api } from "../../services/api";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { queryClient } from "../../../../services/queryClient";
-import { CustomSelect } from "../../../../components/select";
-import { Button } from "../../../../components/button";
-import { CriarVagaFormStyle } from "./style";
-import { CursosSelectOptions } from "../../../../utils/selectLists";
+import { queryClient } from "../../services/queryClient";
+import { CustomSelect } from "../General/select";
+import { Button } from "../General/button";
+import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
+import { CursosSelectOptions } from "../../utils/selectLists";
 
 export function CriarNovaVagaForm() {
   // const [editorState, setEditorState] = useState(() =>

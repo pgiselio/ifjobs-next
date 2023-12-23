@@ -1,9 +1,9 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { useRouter } from "next/navigation";
-import SystemLayout from "../_layout";
+import SystemLayout from "../../../components/Layouts/system";
 import Link from "next/link";
-import { HeaderTitle } from "../../../components/header-title";
-import { OutsetHeadersCornerRadius } from "../../../components/outset-radius-to-headers";
+import { HeaderTitle } from "../../../components/SystemLayout/header-title";
+import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";
 // import { useQuery } from "@tanstack/react-query";
 // import { api } from "../../../services/api";
 

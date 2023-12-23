@@ -1,17 +1,17 @@
 import { useTabs } from "react-headless-tabs";
 import { toast } from "react-toastify";
-import { Input } from "../../components/input";
+import { Input } from "../../components/General/input";
 import { api } from "../../services/api";
 
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { TabSelector } from "../../components/Tabs/TabSelector";
-import CircularProgressFluent from "../../components/circular-progress-fluent";
+import { TabSelector } from "../../components/General/Tabs/TabSelector";
+import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CadastroLayout } from "./_layout";
+import { CadastroLayout } from "../../components/Layouts/cadastro";
 
 type signupType = {
   email: string;

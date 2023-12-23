@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import CircularProgressFluent from "../../components/circular-progress-fluent";
+import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useAuth } from "../../hooks/useAuth";
 import { StyledAccess } from "../../styles/LoginSignupStyle";
 

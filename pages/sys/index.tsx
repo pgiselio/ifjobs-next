@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button } from "../../components/button";
-import { Notifications } from "../../components/notifications/notifications-list";
+import { Button } from "../../components/General/button";
+import { Notifications } from "../../components/SystemLayout/notifications/notifications-list";
 import { SuapClient } from "../../services/suapapi/client";
 import { SuapApiSettings } from "../../services/suapapi/settings";
-import SystemLayout from "./_layout";
+import SystemLayout from "../../components/Layouts/system";
 
 export default function HomePage() {
   const NewSuapClient = SuapClient({

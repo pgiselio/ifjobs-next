@@ -1,12 +1,12 @@
 import { toast, ToastContainer } from "react-toastify";
-import { Button } from "../../components/button";
-import { Input } from "../../components/input";
+import { Button } from "../../components/General/button";
+import { Input } from "../../components/General/input";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
-import CircularProgressFluent from "../../components/circular-progress-fluent";
+import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";

@@ -5,13 +5,13 @@ import {
   BoxContent,
   BoxMessage,
   BoxTitle,
-} from "../../../../components/box";
-import { Button } from "../../../../components/button";
-import CircularProgressFluent from "../../../../components/circular-progress-fluent";
+} from "../../../../components/General/box";
+import { Button } from "../../../../components/General/button";
+import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { vaga } from "../../../../types/vagaType";
-import VagaPage from "./_layout";
+import VagaPage from "../../../../components/Layouts/vagaLayout";
 
 export default function VagaSobrePage() {
   const router = useRouter();

@@ -2,17 +2,17 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
 import { toast } from "react-toastify";
-import { Box, BoxContent, BoxTitle } from "../../../../../components/box";
-import { Input } from "../../../../../components/input";
+import { Box, BoxContent, BoxTitle } from "../../../../../components/General/box";
+import { Input } from "../../../../../components/General/input";
 import * as Yup from "yup";
 import { api } from "../../../../../services/api";
 import { convertFromStringToDate } from "../../../../../utils/convertStringToDateFormat";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../../../../components/button";
-import CircularProgressFluent from "../../../../../components/circular-progress-fluent";
+import { Button } from "../../../../../components/General/button";
+import CircularProgressFluent from "../../../../../components/General/circular-progress-fluent";
 import { UFsSelectOptions } from "../../../../../utils/selectLists";
-import { CustomSelect } from "../../../../../components/select";
-import SystemLayout from "../../../_layout";
+import { CustomSelect } from "../../../../../components/General/select";
+import SystemLayout from "../../../../../components/Layouts/system";
 
 export default function CadastrarEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);

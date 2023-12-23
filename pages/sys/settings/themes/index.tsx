@@ -1,7 +1,7 @@
 import { isTheme } from "../../../../contexts/AppOptionsContext";
 import { useAppOptions } from "../../../../hooks/useAppOptions";
 import { themes } from "../../../../styles/themes";
-import { Container } from "./styles";
+import { Container } from "../../../../styles/_Pages/sys/settings-themes";
 
 export function SettingThemesPage() {
   const AppOptions = useAppOptions();

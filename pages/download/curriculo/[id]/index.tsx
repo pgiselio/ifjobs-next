@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import CircularProgressFluent from "../../../../components/circular-progress-fluent";
+import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { api } from "../../../../services/api";
 
 export default function DownloadCurriculoPage() {

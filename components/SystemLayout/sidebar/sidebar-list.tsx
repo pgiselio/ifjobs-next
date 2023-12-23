@@ -1,5 +1,5 @@
-import { useAuth } from "../../hooks/useAuth";
-import { useAppOptions } from "../../hooks/useAppOptions";
+import { useAuth } from "../../../hooks/useAuth";
+import { useAppOptions } from "../../../hooks/useAppOptions";
 
 import { ProfilePic } from "../profile-pic/profile-pic";
 import { SidebarItem } from "./sidebar-item";

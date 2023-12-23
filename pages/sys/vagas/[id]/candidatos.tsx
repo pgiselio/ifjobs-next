@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { Box, BoxMessage, BoxTitle } from "../../../../components/box";
-import { Button } from "../../../../components/button";
-import CircularProgressFluent from "../../../../components/circular-progress-fluent";
-import { ProfilePic } from "../../../../components/profile-pic/profile-pic";
-import { Skeleton } from "../../../../components/skeleton-load";
+import { Box, BoxMessage, BoxTitle } from "../../../../components/General/box";
+import { Button } from "../../../../components/General/button";
+import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
+import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
+import { Skeleton } from "../../../../components/General/skeleton-load";
 import { api } from "../../../../services/api";
 import { User } from "../../../../types/user";
 import { vaga } from "../../../../types/vagaType";
-import VagaPage from "./_layout";
+import VagaPage from "../../../../components/Layouts/vagaLayout";
 
 export default function VagaCandidatoPage() {
   const router = useRouter();

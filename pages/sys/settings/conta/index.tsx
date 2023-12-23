@@ -4,25 +4,25 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import CircularProgressFluent from "../../../../components/circular-progress-fluent";
-import { FabButton } from "../../../../components/fab";
-import { Input } from "../../../../components/input";
-import LabelWithData from "../../../../components/label-data";
-import { ProfilePic } from "../../../../components/profile-pic/profile-pic";
+import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
+import { FabButton } from "../../../../components/General/fab";
+import { Input } from "../../../../components/General/input";
+import LabelWithData from "../../../../components/General/label-data";
+import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
 import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { queryClient } from "../../../../services/queryClient";
-import { CurriculoForm } from "./_curriculoForm";
+import { CurriculoForm } from "../../../../components/Layouts/_curriculoForm";
 import { isBlank } from "../../../../utils/isBlank";
-import { Modal } from "../../../../components/modal";
-import { ProfilePictureForm } from "./_porfilePictureForm";
-import { Button } from "../../../../components/button";
-import { ModalBottom } from "../../../../components/modal/style";
+import { Modal } from "../../../../components/General/modal";
+import { ProfilePictureForm } from "../../../../components/Layouts/_porfilePictureForm";
+import { Button } from "../../../../components/General/button";
+import { ModalBottom } from "../../../../components/General/modal/style";
 import {
   CursosSelectOptions,
   UFsSelectOptions,
 } from "../../../../utils/selectLists";
-import { CustomSelect } from "../../../../components/select";
+import { CustomSelect } from "../../../../components/General/select";
 
 export default function SettingContaPage() {
   const auth = useAuth();

@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import VerificationInput from "react-verification-input";
-import CircularProgressFluent from "../../../components/circular-progress-fluent";
+import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
 import { api } from "../../../services/api";
-import { CadastroStep2Style } from "./styles";
-import { CadastroLayout } from "../_layout";
+import { CadastroStep2Style } from "../../../styles/_Pages/Cadastro/step2";
+import { CadastroLayout } from "../../../components/Layouts/cadastro";
 import { useRouter } from "next/router";
 import Link from "next/link";
 

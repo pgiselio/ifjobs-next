@@ -1,4 +1,4 @@
-import { LoadingPage } from "../../../components/loadingPage";
+import { LoadingPage } from "../../../components/General/loadingPage";
 import { SuapClient } from "../../../services/suapapi/client";
 import { SuapApiSettings } from "../../../services/suapapi/settings";
 

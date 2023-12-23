@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "../../../components/box";
+import { Box } from "../../../components/General/box";
 
 export const Container = styled.section`
   .topics {

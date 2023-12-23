@@ -1,7 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { Button } from "../../components/button";
-import { Input } from "../../components/input";
+import { Button } from "../../components/General/button";
+import { Input } from "../../components/General/input";
 import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

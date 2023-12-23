@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useAppOptions } from "../../hooks/useAppOptions";
+import { useAppOptions } from "../../../hooks/useAppOptions";
 import { useRouter } from "next/router";
 
 type Item = {

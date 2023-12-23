@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { useAuth } from "../../../../hooks/useAuth";
-import { api } from "../../../../services/api";
+import { useAuth } from "../../hooks/useAuth";
+import { api } from "../../services/api";
 import AvatarEditor from "react-avatar-editor";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { queryClient } from "../../../../services/queryClient";
-import { ProfilePicFormStyle } from "./styles";
-import { Button } from "../../../../components/button";
-import { useProfilePic } from "../../../../hooks/useProfilePic";
+import { queryClient } from "../../services/queryClient";
+import { ProfilePicFormStyle } from "../../styles/_Pages/sys/settings-conta";
+import { Button } from "../General/button";
+import { useProfilePic } from "../../hooks/useProfilePic";
 
 export function ProfilePictureForm({
   closeModal,

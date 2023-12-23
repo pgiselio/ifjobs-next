@@ -1,4 +1,4 @@
-import { LoadingPageLogo } from "../../components/loadingPage/logo";
+import { LoadingPageLogo } from "../../components/General/loadingPage/logo";
 import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { CadastroLayout } from "../_layout";
-import { CadastroConcluidoStyle } from "./styles";
+import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroConcluidoStyle } from "../../../styles/_Pages/Cadastro/confirmacao";
 
 export default function CadastroConcluidoPage() {
   return (

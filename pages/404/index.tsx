@@ -1,4 +1,4 @@
-import { Error404Style } from "./style";
+import { Error404Style } from "../../styles/_Pages/404";
 
 export default function Error404() {
   return (

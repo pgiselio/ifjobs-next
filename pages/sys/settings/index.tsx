@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useTabs } from "react-headless-tabs";
-import { LoadingPage } from "../../../components/loadingPage";
-import { OutsetHeadersCornerRadius } from "../../../components/outset-radius-to-headers";
-import { TabSelector } from "../../../components/Tabs/TabSelector";
+import { LoadingPage } from "../../../components/General/loadingPage";
+import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";
+import { TabSelector } from "../../../components/General/Tabs/TabSelector";
 import { useAuth } from "../../../hooks/useAuth";
-import SystemLayout from "../_layout";
+import SystemLayout from "../../../components/Layouts/system";
 import SettingContaPage from "./conta";
-import { SettingPageStyle } from "./styles";
+import { SettingPageStyle } from "../../../styles/_Pages/sys/settings";
 import { SettingThemesPage } from "./themes";
 
 export default function SettingsPage() {

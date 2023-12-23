@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import { Box, BoxContent, BoxTitle } from "../../../../components/box";
-import { Button } from "../../../../components/button";
-import { HeaderTitle } from "../../../../components/header-title";
-import { OutsetHeadersCornerRadius } from "../../../../components/outset-radius-to-headers";
-import { ProfilePic } from "../../../../components/profile-pic/profile-pic";
-import SystemLayout from "../../_layout";
-import { ForumTopic, NewAnswer } from "../styles";
+import { Box, BoxContent, BoxTitle } from "../../../../components/General/box";
+import { Button } from "../../../../components/General/button";
+import { HeaderTitle } from "../../../../components/SystemLayout/header-title";
+import { OutsetHeadersCornerRadius } from "../../../../components/SystemLayout/outset-radius-to-headers";
+import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
+import SystemLayout from "../../../../styles/_Pages/sys/_layout";
+import { ForumTopic, NewAnswer } from "../../../../styles/_Pages/sys/forum";
 
 export default function ForumTopicPage() {
   const router = useRouter();
