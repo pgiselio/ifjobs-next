@@ -3,7 +3,7 @@ import { useAppOptions } from "../../../../hooks/useAppOptions";
 import { themes } from "../../../../styles/themes";
 import { Container } from "../../../../styles/_Pages/sys/settings-themes";
 
-export function SettingThemesPage() {
+export default function SettingThemesPage() {
   const AppOptions = useAppOptions();
   const toggleTheme = (themeName: keyof typeof themes) => {
     window.localStorage.setItem("theme", themeName);

@@ -8,7 +8,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import SystemLayout from "../../../components/Layouts/system";
 import SettingContaPage from "./conta";
 import { SettingPageStyle } from "../../../styles/_Pages/sys/settings";
-import { SettingThemesPage } from "./themes";
+import  SettingThemesPage  from "./themes";
 
 export default function SettingsPage() {
   const router = useRouter();
