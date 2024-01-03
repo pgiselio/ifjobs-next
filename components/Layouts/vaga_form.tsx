@@ -17,6 +17,7 @@ import { Button } from "../General/button";
 import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
 import { CursosSelectOptions } from "../../utils/selectLists";
 import SystemLayout from "./system";
+import RichTextExample from "../General/Slate/richtext";
 
 export function CriarNovaVagaForm() {
   // const [editorState, setEditorState] = useState(() =>
@@ -213,7 +214,9 @@ export function CriarNovaVagaForm() {
       <div className="lbl">
         <label htmlFor="desc">Descrição: </label>
         {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
-        <div id="descriptionVaga"></div>
+        <div id="descriptionVaga">
+          <RichTextExample></RichTextExample>
+        </div>
         <div className="description-container">
           <Controller
             name="descricao"

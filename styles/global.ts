@@ -58,7 +58,7 @@ export const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
 
-  textarea{
+  textarea, .textarea{
     ${InputStyle}
   }
 
