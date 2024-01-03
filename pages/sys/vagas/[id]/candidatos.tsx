@@ -9,7 +9,7 @@ import { Skeleton } from "../../../../components/General/skeleton-load";
 import { api } from "../../../../services/api";
 import { User } from "../../../../types/user";
 import { vaga } from "../../../../types/vagaType";
-import VagaPage from "../../../../components/Layouts/vagaLayout";
+import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 
 export default function VagaCandidatoPage() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function VagaCandidatoPage() {
   }
   if (!data) {
     return (
-      <VagaPage>
+      <VagaPageLayout>
         <p
           style={{
             display: "flex",
@@ -59,11 +59,11 @@ export default function VagaCandidatoPage() {
           />
           Carregando...
         </p>
-      </VagaPage>
+      </VagaPageLayout>
     );
   }
   return (
-    <VagaPage>
+    <VagaPageLayout>
       <Box>
         {data.alunos.length > 0 ? (
           <>
@@ -204,6 +204,6 @@ export default function VagaCandidatoPage() {
           </span>
         )}
       </Box>
-    </VagaPage>
+    </VagaPageLayout>
   );
 }

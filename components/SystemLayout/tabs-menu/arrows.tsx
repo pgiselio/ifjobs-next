@@ -1,10 +1,11 @@
 import React from "react";
 
 import { VisibilityContext } from "react-horizontal-scrolling-menu";
+import styles from "./styles.module.scss";
 
 function Arrow({
   children,
-  disabled,
+  disabled = true,
   onClick
 }: {
   children: React.ReactNode;
@@ -15,15 +16,7 @@ function Arrow({
     <button
       disabled={disabled}
       onClick={onClick}
-      style={{
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        right: "1%",
-        opacity: disabled ? "0" : "1",
-        userSelect: "none"
-      }}
+      className={styles["arrows"]}
     >
       {children}
     </button>

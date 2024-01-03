@@ -21,7 +21,7 @@ import SystemLayout from "./system";
 import CircularProgressFluent from "../General/circular-progress-fluent";
 import Head from "next/head";
 
-export default function VagaPage({ children }: { children: ReactNode }) {
+export default function VagaPageLayout({ children }: { children: ReactNode }) {
   const auth = useAuth();
   const router = useRouter();
   const useVaga = useVagas();
@@ -170,7 +170,7 @@ export default function VagaPage({ children }: { children: ReactNode }) {
             ) : (
               <>
                 <h2>{data?.titulo}</h2>
-                <Link href={`../profile/${data?.empresa?.id}`} passHref>
+                <Link href={`/sys/profile/${data?.empresa?.id}`} passHref>
                   {data?.empresa?.dadosPessoa.nome}
                 </Link>
               </>
@@ -317,14 +317,23 @@ export default function VagaPage({ children }: { children: ReactNode }) {
             </div>
           </div>
         </div>
-        <TabsMenu sticky size="medium" isOntop className="tabs">
-          <TabsMenuItem to={`/sys/vagas/${params.id}`} title="Detalhes" end />
-          <TabsMenuItem
-            to={`/sys/vagas/${params.id}/candidatos`}
-            title="Candidatos"
-            highlighted={data ? data?.alunos.length + "" : ""}
-          />
-        </TabsMenu>
+        <TabsMenu
+          sticky
+          size="medium"
+          isOntop
+          className="tabs"
+          items={[
+            {
+              to: `/sys/vagas/${params.id}`,
+              title: "Detalhes",
+            },
+            {
+              to: `/sys/vagas/${params.id}/candidatos`,
+              title: "Candidatos",
+              highlighted: data ? data?.alunos.length + "" : "",
+            },
+          ]}
+        />
         <div className="content">
           <div className="vaga-page-info">
             <PillList style={{ marginTop: 10 }}>

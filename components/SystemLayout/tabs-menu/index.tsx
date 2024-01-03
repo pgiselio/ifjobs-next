@@ -1,56 +1,67 @@
+import React, { useEffect } from 'react';
 import Link from "next/link";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { CSSProperties } from "styled-components";
 import { TabsMenuItemStyle, TabsMenuStyle } from "./styles";
-
-type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
+import { useRouter } from "next/router";
+import { LeftArrow, RightArrow } from "./arrows";
+import 'react-horizontal-scrolling-menu/dist/styles.css';
 
 type TabsMenuType = {
   isOntop?: boolean;
-  children: any;
+  children?: any;
   style?: CSSProperties;
   sticky?: boolean;
   size?: "small" | "medium" | "large";
   className?: string;
+  items: TabsMenuItemType[];
 };
 type TabsMenuItemType = {
   to: string;
   title: string;
   highlighted?: string;
-  end?: boolean;
+  itemID?: string;
 };
 
-function onWheel(apiObj: scrollVisibilityApiType, ev: React.WheelEvent): void {
-  const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
-
-  if (isThouchpad) {
-    ev.stopPropagation();
-    return;
-  }
-
-  if (ev.deltaY < 0) {
-    apiObj.scrollNext();
-  } else if (ev.deltaY > 0) {
-    apiObj.scrollPrev();
-  }
-}
+type scrollVisibilityApiType = React.ContextType<typeof VisibilityContext>;
 
 export function TabsMenu({
-  children,
   isOntop,
   style,
   sticky,
   size,
   className,
+  items
 }: TabsMenuType) {
+  const scrollRef = React.useRef({} as scrollVisibilityApiType);
+  const router = useRouter();
   return (
     <TabsMenuStyle isOnTop={isOntop} sticky={sticky} size={size} style={style}>
       {!isOntop && <div className="spacer"></div>}
 
       <div className={`tabs-menu-container ${className}`}>
         <ul>
-          <ScrollMenu>{children}</ScrollMenu>
+          <ScrollMenu
+            LeftArrow={LeftArrow}
+            RightArrow={RightArrow}
+            apiRef={scrollRef}
+            onInit={(scroll) => {
+              let item = scroll.getItemById(`item-${router.asPath}`);
+              scroll.scrollToItem(item);
+            }}
+          >{items.map((item) => {
+            return (
+              <TabsMenuItem
+                key={`item-${item.to}`}
+                itemID={`item-${item.to}`}
+                to={item.to}
+                title={item.title}
+                highlighted={item.highlighted}
+              />
+            );
+          })}</ScrollMenu>
         </ul>
+        
       </div>
     </TabsMenuStyle>
   );
@@ -60,14 +71,12 @@ export function TabsMenuItem({
   to,
   title,
   highlighted,
-  end,
 }: TabsMenuItemType) {
   const key = `item-${title}`;
-
+  const router = useRouter();
   return (
     <TabsMenuItemStyle key={key} itemID={key}>
-      <Link href={to} tabIndex={0} passHref>
-
+      <Link href={to} tabIndex={0}  className={(router.asPath == to ? " active" : "")} passHref >
         {title}
         {highlighted && <span>{highlighted}</span>}
 

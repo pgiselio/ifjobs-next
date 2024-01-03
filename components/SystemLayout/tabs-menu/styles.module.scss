@@ -1,0 +1,24 @@
+.arrows {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background-color: var(--outline-color);
+    color: var(--text-b);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        background-color: var(--text-b);
+        color: var(--outline-color);
+    }
+    &.active {
+        background-color: gray;
+    }
+    &:disabled {
+        opacity: 0;
+    }
+}

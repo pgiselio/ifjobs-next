@@ -30,7 +30,7 @@
     "react-google-recaptcha": "^2.1.0",
     "react-headless-tabs": "^5.1.2",
     "react-hook-form": "^7.33.0",
-    "react-horizontal-scrolling-menu": "^3.0.1",
+    "react-horizontal-scrolling-menu": "^4.1.1",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-scroll": "^1.8.7",
     "react-scroll-parallax": "^3.2.0",

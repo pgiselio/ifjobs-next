@@ -11,9 +11,7 @@ import CircularProgressFluent from "../../../../components/General/circular-prog
 import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { vaga } from "../../../../types/vagaType";
-import VagaPage from "../../../../components/Layouts/vagaLayout";
-import Head from "next/head";
-import { useRef } from "react";
+import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 
 export default function VagaSobrePage() {
   const router = useRouter();
@@ -32,7 +30,7 @@ export default function VagaSobrePage() {
   const isAluno = auth?.authorities?.includes("ALUNO");
   if (!data) {
     return (
-      <VagaPage>
+      <VagaPageLayout>
         <p
           style={{
             display: "flex",
@@ -51,11 +49,11 @@ export default function VagaSobrePage() {
           />
           Carregando...
         </p>
-      </VagaPage>
+      </VagaPageLayout>
     );
   }
   return (
-    <VagaPage>
+    <VagaPageLayout>
       <div className={!isAluno ? "vaga-columns-2" : ""}>
         <div className="column-1">
           <Box>
@@ -92,6 +90,6 @@ export default function VagaSobrePage() {
           </div>
         )}
       </div>
-    </VagaPage>
+    </VagaPageLayout>
   );
 }
