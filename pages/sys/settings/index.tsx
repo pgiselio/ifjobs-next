@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTabs } from "react-headless-tabs";
 import { LoadingPage } from "../../../components/General/loadingPage";
 import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";
@@ -13,21 +13,17 @@ import SettingThemesPage from "./themes";
 export default function SettingsPage() {
   const router = useRouter();
   const params = router.query;
-  const defaultTab = "account";
+  const defaultTab = "menu";
 
-  let tabs = ["account", "profile", "notifications", "themes"];
+  let tabs = ["menu", "account", "profile", "notifications", "themes"];
   const [selectedTab, setSelectedTab] = useTabs(tabs, params.tab?.[0]);
 
   const auth = useAuth();
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 1000px)");
-    console.log(mq);
-    console.log(params.tab);
-    async () => {
-      if (mq.matches && typeof params.tab === "undefined") {
-        setSearchParams(defaultTab);
-      }
-    };
+    if (mq.matches && typeof params.tab === "undefined") {
+      setSearchParams("account");
+    }
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,7 +57,9 @@ export default function SettingsPage() {
     <SystemLayout>
       <SettingPageStyle>
         <nav
-          className={`nav-settings-container ${selectedTab ? "toggle" : ""}`}
+          className={`nav-settings-container ${
+            selectedTab !== "menu" ? "toggle" : ""
+          }`}
         >
           <div className="nav">
             <OutsetHeadersCornerRadius className="rounded-corner">
@@ -118,7 +116,11 @@ export default function SettingsPage() {
             </div>
           </div>
         </nav>
-        <div className={`setting-container ${selectedTab ? "active" : ""}`}>
+        <div
+          className={`setting-container ${
+            selectedTab !== "menu" ? "active" : ""
+          }`}
+        >
           {selectedTab && (
             <div className="setting">
               <OutsetHeadersCornerRadius className="rounded-corner">
