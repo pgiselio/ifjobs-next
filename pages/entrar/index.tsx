@@ -28,7 +28,7 @@ export default function LoginPage() {
 
   // let [searchParams, setSearchParams] = useSearchParams();
 
-  if (auth.userInfo?.email) {
+  if (auth?.email) {
     navigate.push("/sys");
   }
 

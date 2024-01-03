@@ -145,9 +145,11 @@ export default function SettingContaPage() {
         if (response.status === 200) {
           toast.success("Mudanças salvas com sucesso!");
         }
-        queryClient.invalidateQueries(["meUser"]);
-        queryClient.invalidateQueries(["profile" + auth.userInfo?.id]);
-        queryClient.fetchQuery(["meUser"]);
+        queryClient.invalidateQueries({ queryKey: ["meUser"] });
+        queryClient.invalidateQueries({
+          queryKey: ["profile" + auth.userInfo?.id],
+        });
+        queryClient.fetchQuery({ queryKey: ["meUser"] });
       })
       .catch((err) => {
         if (err.status === 500) {
@@ -200,10 +202,16 @@ export default function SettingContaPage() {
                 sideOffset={5}
                 align="start"
               >
-                <DropdownMenu.Item className="DropdownMenuItem" onSelect={() => setShowModalPic(true)}>
+                <DropdownMenu.Item
+                  className="DropdownMenuItem"
+                  onSelect={() => setShowModalPic(true)}
+                >
                   Editar ou enviar foto
                 </DropdownMenu.Item>
-                <DropdownMenu.Item className="DropdownMenuItem" onSelect={() => setShowModalPic(true)}>
+                <DropdownMenu.Item
+                  className="DropdownMenuItem"
+                  onSelect={() => setShowModalPic(true)}
+                >
                   Remover foto atual
                 </DropdownMenu.Item>
               </DropdownMenu.Content>

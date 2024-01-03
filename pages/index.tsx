@@ -20,8 +20,8 @@ const Home: NextPage = () => {
     { value: "Energias Renováveis", count: Math.random() * 100 },
   ];
   const options = {
-    luminosity: 'light',
-    hue: 'green',
+    luminosity: "light",
+    hue: "green",
   } as ColorOptions;
 
   useEffect(() => {
@@ -86,11 +86,9 @@ const Home: NextPage = () => {
             </section>
             <section className="aderir-section" id="sec3">
               <div className="container">
-                <img
-                  src="images/undraw_job_hunt_re_q203.svg"
-                  alt=""
-                  className="img-job-hunt"
-                />
+                <div className="img-job-hunt">
+                  <Image src="images/undraw_job_hunt_re_q203.svg" alt="" height={140} width={145}/>
+                </div>
                 <h1>Se interessou?</h1>
                 <div className="options">
                   <div className="option">

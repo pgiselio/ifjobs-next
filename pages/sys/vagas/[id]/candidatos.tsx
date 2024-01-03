@@ -14,26 +14,25 @@ import VagaPage from "../../../../components/Layouts/vagaLayout";
 export default function VagaCandidatoPage() {
   const router = useRouter();
   const params = router.query;
-  const { data, isFetching } = useQuery<vaga>(
-    [`vaga-${params.id}`],
-    async () => {
+  const { data, isFetching } = useQuery<vaga>({
+    queryKey: [`vaga-${params.id}`],
+    queryFn: async () => {
       const response = await api
         .get(`/vaga/lista/${params.id}`)
         .catch((error) => (error.response.status === 400 ? null : error));
       return response?.data;
     },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+    refetchOnWindowFocus: false,
+  });
   const [checkedList, setCheckedList] = useState<any[]>([]);
   const userQueries = useQueries({
-    queries: data?.alunos.map((userId) => {
-      return {
-        queryKey: ["user", userId],
-        queryFn: () => fetchUserById(userId)
-      }
-    }) || []
+    queries:
+      data?.alunos.map((userId) => {
+        return {
+          queryKey: ["user", userId],
+          queryFn: () => fetchUserById(userId),
+        };
+      }) || [],
   });
   async function fetchUserById(userId: number) {
     const response = await api.get<User>(`/usuario/${userId}`);

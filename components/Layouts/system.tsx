@@ -9,11 +9,13 @@ import { GlobalStyle } from "../../styles/global";
 import { SysGlobalStyle } from "../../styles/sys";
 import { themes } from "../../styles/themes";
 import Head from "next/head";
+import { RequireAuth } from "../../contexts/AuthContext/RequireAuth";
 
-export default function SystemLayout({children} : {children: any}) {
+export default function SystemLayout({ children }: { children: any }) {
   const AppOptions = useAppOptions();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    typeof window !== "undefined" && window.matchMedia &&
+    typeof window !== "undefined" &&
+      window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
   );
 
@@ -31,36 +33,36 @@ export default function SystemLayout({children} : {children: any}) {
 
   return (
     <>
-      <ThemeProvider
-        theme={
-          AppOptions.theme === "systemDefault"
-            ? isDarkMode
-              ? themes.dark
+      <RequireAuth>
+        <ThemeProvider
+          theme={
+            AppOptions.theme === "systemDefault"
+              ? isDarkMode
+                ? themes.dark
+                : themes.light
+              : isTheme(AppOptions.theme)
+              ? themes[AppOptions.theme]
               : themes.light
-            : isTheme(AppOptions.theme)
-            ? themes[AppOptions.theme]
-            : themes.light
-        }
-      >
-        <Head>
-          <title>IFJobs</title>
-        </Head>
-        <GlobalStyle />
-        <SysGlobalStyle />
-        
-        <Header />
-        <div className="sys-grid-container">
-          <SidebarList />
-          <div className="main">
-            <div className="main-container">
-              <main>
-                {children ? children : <HomePage/>}
-              </main>
-              <footer></footer>
+          }
+        >
+          <Head>
+            <title>IFJobs</title>
+          </Head>
+          <GlobalStyle />
+          <SysGlobalStyle />
+
+          <Header />
+          <div className="sys-grid-container">
+            <SidebarList />
+            <div className="main">
+              <div className="main-container">
+                <main>{children ? children : <HomePage />}</main>
+                <footer></footer>
+              </div>
             </div>
           </div>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </RequireAuth>
     </>
   );
 }

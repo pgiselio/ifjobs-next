@@ -37,18 +37,16 @@ export default function VagaPage({ children }: { children: ReactNode }) {
 
   const openUnsubDialog = () => setShowUnsubDialog(true);
   const closeUnsubDialog = () => setShowUnsubDialog(false);
-  const { data, isFetching } = useQuery<vaga>(
-    [`vaga-${params.id}`],
-    async () => {
+  const { data, isFetching } = useQuery<vaga>({
+    queryKey: [`vaga-${params.id}`],
+    queryFn: async () => {
       const response = await api
         .get(`/vaga/lista/${params.id}`)
         .catch((error) => (error.response.status === 400 ? null : error));
       return response?.data;
     },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+    refetchOnWindowFocus: false,
+  });
 
   const cancelUnsubRef = useRef(null);
   function inscreverOuDesinscreverAluno() {
@@ -149,9 +147,7 @@ export default function VagaPage({ children }: { children: ReactNode }) {
 
   return (
     <SystemLayout>
-      <Head>
-        {data && <title>Vaga: {data.titulo} - IFJobs</title>}
-      </Head>
+      <Head>{data && <title>Vaga: {data.titulo} - IFJobs</title>}</Head>
       <VagaPageStyle>
         <div className="vaga-page-header-container content">
           <div className="vaga-page-header ">

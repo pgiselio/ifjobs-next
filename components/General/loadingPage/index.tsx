@@ -1,14 +1,14 @@
 import CircularProgressFluent from "../circular-progress-fluent";
-import { LoadingPageStyle } from "./styles";
+import styles from "./styles.module.scss";
 
 export function LoadingPage() {
   return (
-    <LoadingPageStyle>
+    <div className={styles["loadingPageStyle"]}>
       <CircularProgressFluent
         color="var(--accent-color)"
         height="50px"
         width="50px"
       />
-    </LoadingPageStyle>
+    </div>
   );
 }

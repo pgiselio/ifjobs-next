@@ -13,7 +13,7 @@ export function CadastroLayout({children} : {children: any}) {
   const auth = useAuth();
   const cadastroSteps = useCadastroSteps();
   useEffect(() => {
-    if (auth.userInfo?.email) {
+    if (auth?.email) {
       navigate.push("/sys");
     }
   });

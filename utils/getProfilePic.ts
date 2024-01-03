@@ -10,9 +10,9 @@ type ppType = {
   };
 };
 export function GetProfilePic(id: string) {
-  const { data } = useQuery(
-    ["profilePic-" + id],
-    async () => {
+  const { data } = useQuery({
+    queryKey: ["profilePic-" + id],
+    queryFn: async () => {
       const response = await api.get<ppType>(`/imagem/fotoPerfil/${id}`);
       if (response.data) {
         const blob = b64toBlob(response.data?.arquivo.dados, "image/png");
@@ -20,7 +20,6 @@ export function GetProfilePic(id: string) {
         return url;
       }
     },
-    {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 30, // 30 seconds
     }

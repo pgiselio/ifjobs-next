@@ -1,0 +1,19 @@
+.loadingPageStyle {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--top-bar-height));
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: #fff;
+}
+
+.loadingPageLogoStyle {
+    @extend .loadingPageStyle;
+    background: var(--accent-color);
+    height: 100vh;
+    img {
+      width: 140px;
+      height: 140px;
+    }
+  }

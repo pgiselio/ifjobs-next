@@ -74,7 +74,7 @@ export function LandNavBar() {
             <div className={styled["mobile-buttons"]}>
               <button
                 type="button"
-                className={"access-bt " + (accessState ? "active" : "")}
+                className={styled["access-bt"] + (accessState ? " active" : "")}
                 onClick={() => {
                   auth.email ? navigate.push("sys") : navigate.push("entrar");
                 }}

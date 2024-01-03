@@ -198,7 +198,7 @@
     background: var(--accent-color);
   }
 
-  @media (min-width: 766px) {
+  @media (min-width: 820px) {
     .access-bt {
       cursor: pointer;
     }
@@ -262,6 +262,9 @@
       &:hover {
         color: var(--accent-color);
         background: initial;
+        &::after {
+          width: calc(100% - 20px);
+        }
       }
       
       &::after {
@@ -276,13 +279,6 @@
         transform: translateX(-50%);
         background: var(--accent-color);
         transition: 0.13s linear;
-      }
-      &.active-link {
-        color: var(--accent-color);
-        background: initial;
-        &::after {
-          width: calc(100% - 20px);
-        }
       }
     }    
   }

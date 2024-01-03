@@ -99,7 +99,7 @@ export function CriarNovaVagaForm() {
         if (response.status === 201) {
           toast.success("Vaga criada com sucesso!");
           reset();
-          queryClient.invalidateQueries(["vagas"]);
+          queryClient.invalidateQueries({queryKey: ["vagas"]});
         }
       })
       .catch((err) => {

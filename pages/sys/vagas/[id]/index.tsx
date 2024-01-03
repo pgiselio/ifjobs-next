@@ -18,18 +18,16 @@ import { useRef } from "react";
 export default function VagaSobrePage() {
   const router = useRouter();
   const params = router.query;
-  const { data, isFetching } = useQuery<vaga>(
-    [`vaga-${params.id}`],
-    async () => {
+  const { data, isFetching } = useQuery<vaga>({
+    queryKey: [`vaga-${params.id}`],
+    queryFn: async () => {
       const response = await api
         .get(`/vaga/lista/${params.id}`)
         .catch((error) => (error.response.status === 400 ? null : error));
       return response?.data;
     },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+    refetchOnWindowFocus: false,
+  });
   const auth = useAuth();
   const isAluno = auth?.authorities?.includes("ALUNO");
   if (!data) {

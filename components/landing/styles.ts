@@ -91,7 +91,9 @@ export const LandingStyle = styled.div`
       width: 100%;
       padding: 100px 30px;
       .img-job-hunt {
+        position: relative;
         height: 150px;
+        width: 155px;
         margin-bottom: 20px;
       }
       .options {

@@ -4,6 +4,10 @@ import { queryClient } from "../services/queryClient";
 import { vaga } from "../types/vagaType";
 
 export const useVagas = () => {
+  const invalidateQueries = (vagaId?: number | string | string[]) => {
+    queryClient.invalidateQueries({ queryKey: [`vaga-${vagaId}`] });
+    queryClient.invalidateQueries({ queryKey: ["vagas"] });
+  };
   const subscribe = async ({
     vagaId,
     candidatoId,
@@ -16,8 +20,7 @@ export const useVagas = () => {
         position: "bottom-center",
         hideProgressBar: true,
       });
-      queryClient.invalidateQueries([`vaga-${vagaId}`]);
-      queryClient.invalidateQueries(["vagas"]);
+      invalidateQueries(vagaId);
     });
   };
 
@@ -33,8 +36,7 @@ export const useVagas = () => {
         position: "bottom-center",
         hideProgressBar: true,
       });
-      queryClient.invalidateQueries([`vaga-${vagaId}`]);
-      queryClient.invalidateQueries(["vagas"]);
+      invalidateQueries(vagaId);
     });
   };
 
@@ -48,8 +50,7 @@ export const useVagas = () => {
         },
       ])
       .then(() => {
-        queryClient.invalidateQueries([`vaga-${vagaId}`]);
-        queryClient.invalidateQueries(["vagas"]);
+        invalidateQueries(vagaId);
         toast.success("Incrições reabertas com sucesso!", {
           toastId: "vaga-aberta",
         });
@@ -69,8 +70,7 @@ export const useVagas = () => {
         },
       ])
       .then(() => {
-        queryClient.invalidateQueries([`vaga-${vagaId}`]);
-        queryClient.invalidateQueries(["vagas"]);
+        invalidateQueries(vagaId);
         toast.success("Vaga encerrada com sucesso!", {
           toastId: "vaga-encerrada",
         });

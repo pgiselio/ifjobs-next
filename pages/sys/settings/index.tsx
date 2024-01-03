@@ -8,7 +8,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import SystemLayout from "../../../components/Layouts/system";
 import SettingContaPage from "./conta";
 import { SettingPageStyle } from "../../../styles/_Pages/sys/settings";
-import  SettingThemesPage  from "./themes";
+import SettingThemesPage from "./themes";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -24,28 +24,37 @@ export default function SettingsPage() {
     console.log(mq);
     console.log(params.tab);
     async () => {
-      if (mq.matches && typeof (params.tab) === "undefined") {
+      if (mq.matches && typeof params.tab === "undefined") {
         setSearchParams(defaultTab);
       }
     };
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!Array.isArray(params.tab) && [...tabs, null, undefined].includes(params.tab)) {
+    if (
+      !Array.isArray(params.tab) &&
+      [...tabs, null, undefined].includes(params.tab)
+    ) {
       setSelectedTab(params.tab || defaultTab);
     }
   }, [params.tab]);
   const setSearchParams = (value: any) => {
     router.query.tab = value;
-    router.push({
-      pathname: router.pathname,
-      query: {...router.query, tab: value} },
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, tab: value },
+      },
       undefined,
       {}
     );
   };
   if (!auth.userInfo?.id) {
-    return <LoadingPage />;
+    return (
+      <SystemLayout>
+        <LoadingPage />;
+      </SystemLayout>
+    );
   }
 
   return (

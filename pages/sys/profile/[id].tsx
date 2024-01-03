@@ -23,20 +23,18 @@ import SystemLayout from "../../../components/Layouts/system";
 
 export default function ProfilePage() {
   const router = useRouter();
-  const { id } = router.query; 
+  const { id } = router.query;
   let usertype;
   const auth = useAuth();
-  const { data, isFetching } = useQuery<User>(
-    ["profile" + id],
-    async () => {
+  const { data, isFetching } = useQuery<User>({
+    queryKey: ["profile" + id],
+    queryFn: async () => {
       console.log(id);
       const response = await api.get(`/usuario/${id}`);
       return response.data;
     },
-    {
-      staleTime: 1000 * 60 * 2, // 2 minutes
-    }
-  );
+    staleTime: 1000 * 60 * 2, // 2 minutes
+  });
   function getFormattedDate(date: Date) {
     if (!date) {
       return;
@@ -66,7 +64,10 @@ export default function ProfilePage() {
         <div className="profile-page-header">
           <div className="profile-page-header-container">
             <div className="user-info">
-              <ProfilePic userId={data?.id +"" || ""} isCompany={usertype === "EMPRESA"}/>
+              <ProfilePic
+                userId={data?.id + "" || ""}
+                isCompany={usertype === "EMPRESA"}
+              />
 
               <div className="profile-names">
                 {isFetching ? (
@@ -111,7 +112,10 @@ export default function ProfilePage() {
                 </>
               )}
               {usertype === "ALUNO" && (
-                <Link href={`/download/curriculo/${data?.aluno?.curriculo}`} passHref>
+                <Link
+                  href={`/download/curriculo/${data?.aluno?.curriculo}`}
+                  passHref
+                >
                   <Button className="outlined" tabIndex={-1}>
                     Vizualizar currículo
                   </Button>
@@ -191,8 +195,8 @@ export default function ProfilePage() {
                 ) : (
                   <BoxMessage className="no-about-message">
                     <span>
-                      Oops... parece que alguém se esqueceu de fazer o &quot;sobre
-                      mim&quot;
+                      Oops... parece que alguém se esqueceu de fazer o
+                      &quot;sobre mim&quot;
                     </span>
                   </BoxMessage>
                 )}

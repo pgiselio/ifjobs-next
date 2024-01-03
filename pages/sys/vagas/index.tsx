@@ -28,20 +28,18 @@ const CreateNewButton = styled(Button)`
 
 export default function VagasList() {
   const router = useRouter();
-  const { data, isFetching } = useQuery<vaga[]>(
-    ["vagas"],
-    async () => {
+  const { data, isFetching } = useQuery<vaga[]>({
+    queryKey: ["vagas"],
+    queryFn: async () => {
       const response = await api.get("/vaga/");
       return response.data;
     },
-    {
-      staleTime: 1000 * 60, // 1 minute to refetch
-    }
-  );
+    staleTime: 1000 * 60, // 1 minute to refetch
+  });
   const auth = useAuth();
   return (
     <SystemLayout>
-       <Head>
+      <Head>
         <title>Vagas - IFJobs</title>
       </Head>
       <section>

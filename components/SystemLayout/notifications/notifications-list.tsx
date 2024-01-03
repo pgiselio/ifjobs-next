@@ -13,25 +13,25 @@ export function Notifications() {
   const auth = useAuth();
   const [selectedTab, setSelectedTab] = useTabs(["new", "read"]);
 
-  const { data: notificationsDataRead } = useQuery(
-    ["notifications-read"],
-    async () => {
+  const { data: notificationsDataRead } = useQuery({
+    queryKey: ["notifications-read"],
+    queryFn: async () => {
+      if (!auth.email) return null;
       const response = await api.get<notification[]>(
         `/notificacao/usuario/${auth.email}/visualizadas`
       );
       return response.data;
     },
-    {
-      staleTime: 1000 * 60, // 1 minute to refetch
-      refetchInterval: 1000 * 60, // 1 minutes to refetch
-    }
-  );
+    staleTime: 1000 * 60, // 1 minute to refetch
+    refetchInterval: 1000 * 60, // 1 minutes to refetch
+  });
 
   function markAsRead(id: number) {
     api.patch(`/notificacao/marcarComoLido/${id}`);
 
-    const previousNotifications =
-      queryClient.getQueryData<notification[]>(["notifications-new"]);
+    const previousNotifications = queryClient.getQueryData<notification[]>([
+      "notifications-new",
+    ]);
 
     if (previousNotifications) {
       const nextNotifications = previousNotifications.filter(
@@ -39,7 +39,7 @@ export function Notifications() {
       );
       queryClient.setQueryData(["notifications-new"], nextNotifications);
     }
-    queryClient.invalidateQueries(["notifications-read"]);
+    queryClient.invalidateQueries({ queryKey: ["notifications-read"]});
   }
 
   return (

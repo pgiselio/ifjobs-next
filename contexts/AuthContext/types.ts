@@ -12,7 +12,7 @@ export interface IContext extends IUser {
     loadingUserFromLocalStorage: boolean;
     userInfo?: User;
     authorities?: string[];
-    notificationNew?: notification[];
+    notificationNew?: notification[] | null;
 }
 
 export interface IAuthProvider {

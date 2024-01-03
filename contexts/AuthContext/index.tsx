@@ -23,26 +23,33 @@ export function AuthProvider({ children }: IAuthProvider) {
     }
     setLoadingUserFromLocalStorage(false);
   }, []);
-  const { data: notificationNew } = useQuery(
-    ["notifications-new"],
-    async () => {
+
+  useEffect(() => {
+    window.addEventListener("focus", () => {
       let user = getUserLocalStorage();
+      setUser(user);
+    });
+  }, []);
+
+  const { data: notificationNew } = useQuery({
+    queryKey: ["notifications-new"],
+    queryFn: async () => {
+      let user = getUserLocalStorage();
+      if (!user?.email) return null;
       const response = await api.get<notification[]>(
         `/notificacao/usuario/${user.email}`
       );
       return response.data;
     },
-    {
-      enabled: !!user?.token,
-      refetchOnWindowFocus: true,
-      staleTime: 1000 * 30, // 30 seconds
-      refetchInterval: 1000 * 60 * 1, // 1 minute to refetch automatically
-    }
-  );
+    enabled: !!user?.token,
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 30, // 30 seconds
+    refetchInterval: 1000 * 60 * 1, // 1 minute to refetch automatically
+  });
 
-  const { data: userInfo } = useQuery<User>(
-    ["meUser"],
-    async () => {
+  const { data: userInfo } = useQuery<User>({
+    queryKey: ["meUser"],
+    queryFn: async () => {
       let user = getUserLocalStorage();
       if (!user?.email) {
         logout();
@@ -65,13 +72,11 @@ export function AuthProvider({ children }: IAuthProvider) {
         });
       return response?.data;
     },
-    {
-      enabled: !!user?.token,
-      refetchOnWindowFocus: true,
-      staleTime: 1000 * 60, // 1 minute
-      refetchInterval: 1000 * 60 * 5, // 5 minutes to refetch automatically
-    }
-  );
+    enabled: !!user?.token,
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60, // 1 minute
+    refetchInterval: 1000 * 60 * 5, // 5 minutes to refetch automatically
+  });
 
   let authorities = useRef<string[]>([]);
   if (userInfo?.roles) {
@@ -99,9 +104,9 @@ export function AuthProvider({ children }: IAuthProvider) {
     setUser(null);
     setUserLocalStorage(null);
     queryClient.setQueryData(["meUser"], undefined);
-    queryClient.invalidateQueries(["meUser"]);
-    queryClient.removeQueries(["meUser"]);
-    navigate.push("/entrar");
+    queryClient.invalidateQueries({queryKey: ["meUser"]});
+    queryClient.removeQueries({queryKey: ["meUser"]});
+    if (navigate.asPath.includes("sys")) navigate.push("/entrar");
   }
 
   return (

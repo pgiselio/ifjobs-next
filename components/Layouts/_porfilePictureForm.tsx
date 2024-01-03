@@ -80,7 +80,7 @@ export function ProfilePictureForm({
       .then((response) => {
         if (response.status === 200) {
           toast.success("Foto de perfil enviada com sucesso!");
-          // queryClient.invalidateQueries(["profilePic-" + auth.userInfo?.id]);
+          // queryClient.invalidateQueries({queryKey: ["profilePic-" + auth.userInfo?.id]});
           queryClient.setQueryData(["profilePic-" + auth.userInfo?.id], file);
         }
       })

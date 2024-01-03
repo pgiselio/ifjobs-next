@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import styles from "./styles.module.scss";
 
 interface CircularProgressProps {
   className?: string;
@@ -18,78 +19,28 @@ export default function CircularProgressFluent({
   ...rest
 }: CircularProgressProps & React.SVGProps<SVGSVGElement>) {
   return (
-    <CircularProgressFluentStyle
+    <b className={`${styles["CircularProgressFluentB"]}`}
       style={{
-        ...style
+        ...style,
+        width: typeof width === "number" ? `${width}px` : width,
+        height: typeof height === "number" ? `${height}px` : height,
+        animationDuration: duration,
       }}
-      width={width}
-      height={height}
-      color={color}
-      duration={duration}
     >
       <svg
         {...rest}
         crossOrigin="anonymous"
         viewBox="25 25 50 50"
-        className={`circular-progress-circle-fluent-svg ${className}`}
+        className={`${styles["circular-progress-circle-fluent-svg"]} ${className}`}
       >
         <circle
-          className="circular-progress-circle-fluent"
+          className={styles["circular-progress-circle-fluent"]}
+          style={{animationDuration: `calc(${duration} * 3)`, stroke: color}}
           cx="50"
           cy="50"
           r="20"
         ></circle>
       </svg>
-    </CircularProgressFluentStyle>
+    </b>
   );
 }
-
-const CircularProgressFluentStyle = styled.b<CircularProgressProps>`
-  display: flex;
-  .circular-progress-circle-fluent-svg {
-    width: ${(props) =>
-      typeof props.width === "number" ? `${props.width}px` : props.width};
-    height: ${(props) =>
-      props.height
-        ? typeof props.height === "number"
-          ? `${props.height}px`
-          : props.height
-        : typeof props.width === "number"
-        ? `${props.width}px`
-        : props.width};
-    transform-origin: center;
-    animation: circular-progress-rotate-1 ${(props) => props.duration} linear infinite;
-  }
-
-  .circular-progress-circle-fluent {
-    fill: none;
-    stroke: ${(props) => props.color};
-    stroke-width: 3;
-    stroke-dasharray: 1, 200;
-    stroke-dashoffset: 0;
-    stroke-linecap: round;
-    animation: circular-progress-fluent-dash
-      calc(${(props) => props.duration} * 3) ease-in-out infinite;
-  }
-
-  @keyframes circular-progress-rotate-1 {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes circular-progress-fluent-dash {
-    0% {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-    }
-    50% {
-      stroke-dasharray: 90, 200;
-      stroke-dashoffset: -35px;
-      stroke-width: 5;
-    }
-    100% {
-      stroke-dashoffset: -123px;
-    }
-  }
-`;
