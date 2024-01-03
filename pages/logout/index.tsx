@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useAuth } from "../../hooks/useAuth";
-import { StyledAccess } from "../../styles/LoginSignupStyle";
+import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 
 export default function LogoutPage() {
   const auth = useAuth();
@@ -11,7 +11,7 @@ export default function LogoutPage() {
       window.location.href = "/entrar";
     }
   });
-  
+
   return (
     <StyledAccess>
       <div
@@ -20,16 +20,16 @@ export default function LogoutPage() {
           display: "flex",
           flexDirection: "column",
           rowGap: "10px",
-          color: "#413e4a",
+          color: "#dbdbdb",
         }}
       >
         <CircularProgressFluent
-          color="var(--accent-color)"
+          color="white"
           height="60px"
           width="60px"
           duration="1.5s"
         />
-        <h2>Saindo...</h2>
+        <AccessGlobalStyle />
       </div>
     </StyledAccess>
   );

@@ -217,6 +217,7 @@ export const LandingStyle = styled.div`
     justify-content: center;
     padding: 30px 50px;
     column-gap: 50px;
+    row-gap: 20px;
     flex-wrap: wrap;
     display: flex;
     background: #33313d;
@@ -224,7 +225,7 @@ export const LandingStyle = styled.div`
     img {
       height: 45px;
       &.coex {
-        height: 35px;
+        height: 42px;
       }
     }
   }

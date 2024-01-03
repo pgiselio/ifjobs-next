@@ -4,21 +4,20 @@ import SystemLayout from "../../../components/Layouts/system";
 import Link from "next/link";
 import { HeaderTitle } from "../../../components/SystemLayout/header-title";
 import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";
+import { useQuery } from "@tanstack/react-query";
 // import { useQuery } from "@tanstack/react-query";
-// import { api } from "../../../services/api";
+import { api } from "../../../services/api";
 
 export default function GerenciamentoPage() {
   const navigate = useRouter();
-  // const { data } = useQuery(
-  //   "GerenciamentoUsuariosList",
-  //   async () => {
-  //     const response = await api.get("/usuario/");
+  // const { data } = useQuery({
+  //   queryKey: ["GerenciamentoUsuariosList"],
+  //   queryFn: async () => {
+  //     const response = await api.get("/empresa/");
   //     return response.data;
   //   },
-  //   {
-  //     staleTime: 1000 * 60, // 1 minute to refetch
-  //   }
-  // );
+  //   staleTime: 1000 * 60, // 1 minute to refetch
+  // });
   return (
     <SystemLayout>
       <OutsetHeadersCornerRadius>
