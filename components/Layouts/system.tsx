@@ -8,6 +8,7 @@ import { useAppOptions } from "../../hooks/useAppOptions";
 import { GlobalStyle } from "../../styles/global";
 import { SysGlobalStyle } from "../../styles/sys";
 import { themes } from "../../styles/themes";
+import Head from "next/head";
 
 export default function SystemLayout({children} : {children: any}) {
   const AppOptions = useAppOptions();
@@ -41,6 +42,9 @@ export default function SystemLayout({children} : {children: any}) {
             : themes.light
         }
       >
+        <Head>
+          <title>IFJobs</title>
+        </Head>
         <GlobalStyle />
         <SysGlobalStyle />
         

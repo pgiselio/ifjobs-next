@@ -4,6 +4,7 @@ import { Notifications } from "../../components/SystemLayout/notifications/notif
 import { SuapClient } from "../../services/suapapi/client";
 import { SuapApiSettings } from "../../services/suapapi/settings";
 import SystemLayout from "../../components/Layouts/system";
+import Head from "next/head";
 
 export default function HomePage() {
   const NewSuapClient = SuapClient({
@@ -34,6 +35,9 @@ export default function HomePage() {
   
   return (
     <>
+      <Head>
+        <title>Inicio - IFJobs</title>
+      </Head>
       <SystemLayout>
         <div className="content">
           <Notifications />

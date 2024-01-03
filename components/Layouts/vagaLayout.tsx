@@ -19,6 +19,7 @@ import { useVagas } from "../../hooks/useVagas";
 import Link from "next/link";
 import SystemLayout from "./system";
 import CircularProgressFluent from "../General/circular-progress-fluent";
+import Head from "next/head";
 
 export default function VagaPage({ children }: { children: ReactNode }) {
   const auth = useAuth();
@@ -148,6 +149,9 @@ export default function VagaPage({ children }: { children: ReactNode }) {
 
   return (
     <SystemLayout>
+      <Head>
+        {data && <title>Vaga: {data.titulo} - IFJobs</title>}
+      </Head>
       <VagaPageStyle>
         <div className="vaga-page-header-container content">
           <div className="vaga-page-header ">
@@ -371,6 +375,3 @@ export default function VagaPage({ children }: { children: ReactNode }) {
     </SystemLayout>
   );
 }
-type ContextType = {
-  data: vaga;
-};

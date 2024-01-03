@@ -16,6 +16,7 @@ import { CustomSelect } from "../General/select";
 import { Button } from "../General/button";
 import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
 import { CursosSelectOptions } from "../../utils/selectLists";
+import SystemLayout from "./system";
 
 export function CriarNovaVagaForm() {
   // const [editorState, setEditorState] = useState(() =>
@@ -113,7 +114,7 @@ export function CriarNovaVagaForm() {
       });
   }
   if (auth?.authorities?.includes("ALUNO")) {
-    return <h2>SEM PERMISSÃO</h2>;
+    return <SystemLayout><h2>SEM PERMISSÃO</h2></SystemLayout>
   }
   return (
     <CriarVagaFormStyle

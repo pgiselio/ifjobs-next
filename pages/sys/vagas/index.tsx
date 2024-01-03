@@ -11,6 +11,7 @@ import { useAuth } from "../../../hooks/useAuth";
 import { api } from "../../../services/api";
 import { vaga } from "../../../types/vagaType";
 import SystemLayout from "../../../components/Layouts/system";
+import Head from "next/head";
 
 const CreateNewFAB = styled(FabButton)`
   display: flex;
@@ -40,6 +41,9 @@ export default function VagasList() {
   const auth = useAuth();
   return (
     <SystemLayout>
+       <Head>
+        <title>Vagas - IFJobs</title>
+      </Head>
       <section>
         <OutsetHeadersCornerRadius>
           <HeaderTitle>

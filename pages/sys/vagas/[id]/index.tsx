@@ -12,6 +12,8 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { vaga } from "../../../../types/vagaType";
 import VagaPage from "../../../../components/Layouts/vagaLayout";
+import Head from "next/head";
+import { useRef } from "react";
 
 export default function VagaSobrePage() {
   const router = useRouter();
@@ -33,24 +35,25 @@ export default function VagaSobrePage() {
   if (!data) {
     return (
       <VagaPage>
-      <p
-        style={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "10px",
-          paddingTop: "30px",
-        }}
-      >
-        <CircularProgressFluent
-          color="var(--accent-color)"
-          height="30px"
-          width="30px"
-          duration=".9s"
-        />
-        Carregando...
-      </p></VagaPage>
+        <p
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            paddingTop: "30px",
+          }}
+        >
+          <CircularProgressFluent
+            color="var(--accent-color)"
+            height="30px"
+            width="30px"
+            duration=".9s"
+          />
+          Carregando...
+        </p>
+      </VagaPage>
     );
   }
   return (
