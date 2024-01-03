@@ -21,4 +21,7 @@
     &:disabled {
         opacity: 0;
     }
+    @media (min-width: 766px){
+       width: 20px;
+    }
 }
