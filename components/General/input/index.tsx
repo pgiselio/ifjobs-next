@@ -3,12 +3,7 @@ import React, {
   InputHTMLAttributes,
   useState,
 } from "react";
-import {
-  InputContainer,
-  InputPassStyled,
-  InputStyled,
-  ShowPasswordButton,
-} from "./styles";
+import styled from "./input.module.scss";
 
 interface input extends InputHTMLAttributes<HTMLInputElement> {
   type: HTMLInputTypeAttribute;
@@ -17,49 +12,80 @@ interface input extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = React.forwardRef(function Input(
-  { name, type, icon, placeholder, isLabelholder = true, ...rest }: input,
+  { name, type, icon, placeholder, isLabelholder = true, ...props }: input,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
   const [showPassword, setShowPassword] = useState(false);
 
   if (type.match("password")) {
     return (
-      <InputContainer>
-        <InputPassStyled
+      <div className={styled["inputContainer"]}>
+        <input
+          className={props.className + " " + styled.inputStyled}
+          style={{
+            ...props.style,
+            paddingRight: "35px",
+            ...(icon ? { paddingLeft: "40px" } : {}),
+            ...(placeholder && isLabelholder
+              ? { paddingTop: "20px", paddingBottom: "10px" }
+              : {}),
+          }}
           type={showPassword ? "text" : "password"}
           name={name}
           ref={ref}
-          {...rest}
+          {...props}
           {...(icon && { hasIcon: true })}
-          {...((placeholder && isLabelholder) && { isLabelholder: true})}
+          title={placeholder}
         />
         {icon && <i className={icon}></i>}
-        {placeholder && <span className={`placeholder ${isLabelholder ? "toLabel" : ""}`}>{placeholder}</span>}
-        <ShowPasswordButton
+        {placeholder && (
+          <span
+            className={(isLabelholder ? "toLabel " : "") + styled.placeholder}
+          >
+            {placeholder}
+          </span>
+        )}
+        <button
           tabIndex={-1}
           type="button"
           title={showPassword ? "Ocultar senha" : "Mostrar senha"}
-          className={showPassword ? "active" : ""}
+          className={
+            (showPassword ? "active " : "") + styled["show-password-button"]
+          }
           onClick={() => {
             setShowPassword(!showPassword);
           }}
-        />
-      </InputContainer>
+        ></button>
+      </div>
     );
   } else {
     return (
-      <InputContainer>
-        <InputStyled
+      <div className={styled.inputContainer}>
+        <input
+          className={props.className + " " + styled.inputStyled}
+          style={{
+            ...props.style,
+            ...(icon ? { paddingLeft: "40px" } : {}),
+            ...(placeholder && isLabelholder
+              ? { paddingTop: "20px", paddingBottom: "10px" }
+              : {}),
+          }}
           type={type}
           name={name}
           ref={ref}
-          {...rest}
+          title={placeholder}
+          {...props}
           {...(icon && { hasIcon: true })}
-          {...((placeholder && isLabelholder) && { isLabelholder: true})}
         />
         {icon && <i className={icon}></i>}
-        {placeholder && <span className={`placeholder ${isLabelholder ? "toLabel" : ""}`}>{placeholder}</span>}
-      </InputContainer>
+        {placeholder && (
+          <span
+            className={(isLabelholder ? "toLabel " : "") + styled.placeholder}
+          >
+            {placeholder}
+          </span>
+        )}
+      </div>
     );
   }
 });

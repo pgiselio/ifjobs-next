@@ -9,18 +9,6 @@ import { ProfilePic } from "../../../components/SystemLayout/profile-pic/profile
 import SystemLayout from "../../../components/Layouts/system";
 import { Container } from "../../../styles/_Pages/sys/forum";
 
-const CreateNewFAB = styled(FabButton)`
-  display: flex;
-  @media (min-width: 766px) {
-    display: none;
-  }
-`;
-const CreateNewButton = styled(Button)`
-  display: none;
-  @media (min-width: 766px) {
-    display: flex;
-  }
-`;
 
 export default function ForumPage() {
   return (
@@ -28,17 +16,17 @@ export default function ForumPage() {
     <Container>
       <OutsetHeadersCornerRadius>
         <HeaderTitle>
-          <CreateNewFAB className="FabCreateNew" type="button">
+          <FabButton className="FabCreateNew" type="button">
             <i className="fas fa-filter"></i>
-          </CreateNewFAB>
+          </FabButton>
           <h2>Fórum</h2>
-          <CreateNewButton
+          <Button
             className="outlined"
             key="create-new-vaga-btn"
             id="filtro"
           >
             Filtros <i className="fas fa-filter"></i>
-          </CreateNewButton>
+          </Button>
         </HeaderTitle>
       </OutsetHeadersCornerRadius>
       <div className="content">

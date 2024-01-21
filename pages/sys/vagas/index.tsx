@@ -12,22 +12,12 @@ import { api } from "../../../services/api";
 import { vaga } from "../../../types/vagaType";
 import SystemLayout from "../../../components/Layouts/system";
 import Head from "next/head";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
-const CreateNewFAB = styled(FabButton)`
-  display: flex;
-  @media (min-width: 766px) {
-    display: none;
-  }
-`;
-const CreateNewButton = styled(Button)`
-  display: none;
-  @media (min-width: 766px) {
-    display: flex;
-  }
-`;
 
 export default function VagasList() {
   const router = useRouter();
+  const mediaQuery = useMediaQuery("(max-width: 768px)")
   const { data, isFetching } = useQuery<vaga[]>({
     queryKey: ["vagas"],
     queryFn: async () => {
@@ -48,23 +38,24 @@ export default function VagasList() {
             {auth?.authorities?.includes("EMPRESA") ||
             auth?.authorities?.includes("ADMIN") ? (
               <>
-                <CreateNewFAB
-                  className="FabCreateNew"
+                <FabButton
+                  className="FabCreateNew so-mobile"
                   type="button"
                   onClick={() => router.push("/sys/vagas/criar-nova")}
                 >
                   <i className="fa-solid fa-plus"></i>
-                </CreateNewFAB>
+                </FabButton>
                 <h2>Vagas criadas</h2>
-                <CreateNewButton
+                <Button
                   className="outlined"
                   id="newVagaButton"
                   onClick={() => router.push("/sys/vagas/criar-nova")}
                   key="create-new-vaga-btn"
+                  {...(mediaQuery ? {style: {display: "none"}} : {})}
                 >
                   <i className="fa-solid fa-plus"></i>
                   Criar nova
-                </CreateNewButton>
+                </Button>
               </>
             ) : (
               <h2>Vagas disponíveis</h2>

@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const Button = styled.button`
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,28 +13,28 @@ export const Button = styled.button`
   background: var(--accent-color);
   border: 2px solid var(--accent-color);
   color: var(--inside-accent-color);
-  
-  :not(:disabled):hover {
+
+  &:not(:disabled):hover {
     background: var(--accent-color-active);
     border: 2px solid var(--accent-color-active);
   }
-  &.secondary {
-    background: var(--secondary-color) ;
+  &:global(.secondary) {
+    background: var(--secondary-color);
     border: 2px solid var(--secondary-color);
-    :not(:disabled):hover{
+    &:not(:disabled):hover {
       background: #5e5d65;
-      border: 2px solid #5e5d65;
+      border-color: #5e5d65;
     }
   }
-  &.red {
+  &:global(.red) {
     background: #c91f1f;
     border: 2px solid #c91f1f;
+    &:not(:disabled):hover {
+      background: #ac0000;
+      border: 2px solid #ac0000;
+    }
   }
-  &.red:not(:disabled):hover {
-    background: #ac0000;
-    border: 2px solid #ac0000;
-  }
-  &.outlined {
+  &:global(.outlined) {
     color: var(--accent-color);
     border: 2px solid var(--accent-color);
     background: transparent;
@@ -44,37 +42,50 @@ export const Button = styled.button`
       background: var(--accent-color-opacity);
       border: 2px solid var(--accent-color);
     }
-    &.filled:not(:disabled):hover {
+    &:global(.filled):not(:disabled):hover {
       color: var(--inside-accent-color);
       background: var(--accent-color);
       border: 2px solid var(--accent-color);
     }
-    &.red {
+    &:global(.red) {
       border: 2px solid #c91f1f;
       color: #ac0000;
+      &:not(:disabled):hover {
+        background: #ac000026;
+        border: 2px solid #c91f1f;
+      }
+      &:global(.filled):not(:disabled):hover {
+        color: var(--inside-accent-color);
+        background: #ac0000;
+      }
     }
-    &.red:not(:disabled):hover {
-      background: #ac000026;
-      border: 2px solid #c91f1f;
-    }
-    &.red.filled:not(:disabled):hover {
-      color: var(--inside-accent-color);
-      background: #ac0000;
+    &:global(.secondary) {
+      color: var(--secondary-color);
+      background: transparent;
+      border: 2px solid var(--secondary-color);
+      &:not(:disabled):hover {
+        color: #5e5d65;
+        border-color: #5e5d65;
+      }
+      &:global(.filled):not(:disabled):hover {
+        color: var(--inside-accent-color);
+        background: var(--secondary-color);
+      }
     }
   }
-  &.less-radius {
+  &:global(.less-radius) {
     border-radius: 6px;
   }
   &:disabled {
-    opacity: .4;
+    opacity: 0.4;
     cursor: not-allowed;
     user-select: none;
   }
   &:not(:disabled):active {
-    transform: scale(.95);
+    transform: scale(0.95);
   }
-  
+
   @media (max-width: 768px) {
     cursor: default;
   }
-`;
+}
