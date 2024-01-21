@@ -1,8 +1,7 @@
 import React from "react";
-import { ButtonHTMLAttributes } from "react";
 import styled from "./styles.module.scss";
 
-export function Button(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+export function Button(props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) {
   return (
     <button
       {...props.type ? '' : {type:"button"}}

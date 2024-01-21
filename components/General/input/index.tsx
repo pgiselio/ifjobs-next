@@ -5,14 +5,13 @@ import React, {
 } from "react";
 import styled from "./input.module.scss";
 
-interface input extends InputHTMLAttributes<HTMLInputElement> {
-  type: HTMLInputTypeAttribute;
+interface input extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>{
   icon?: string;
   isLabelholder?: boolean;
 }
 
 export const Input = React.forwardRef(function Input(
-  { name, type, icon, placeholder, isLabelholder = true, ...props }: input,
+  { name, type = "text", icon, placeholder, isLabelholder = true, ...props }: input,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
   const [showPassword, setShowPassword] = useState(false);
