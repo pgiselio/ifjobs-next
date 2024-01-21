@@ -34,7 +34,6 @@ export const Input = React.forwardRef(function Input(
           name={name}
           ref={ref}
           {...props}
-          {...(icon && { hasIcon: true })}
           title={placeholder}
         />
         {icon && <i className={icon}></i>}
@@ -75,7 +74,6 @@ export const Input = React.forwardRef(function Input(
           ref={ref}
           title={placeholder}
           {...props}
-          {...(icon && { hasIcon: true })}
         />
         {icon && <i className={icon}></i>}
         {placeholder && (
