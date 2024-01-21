@@ -9,19 +9,20 @@ import SystemLayout from "../../../components/Layouts/system";
 import SettingContaPage from "./conta";
 import { SettingPageStyle } from "../../../styles/_Pages/sys/settings";
 import SettingThemesPage from "./themes";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 export default function SettingsPage() {
   const router = useRouter();
   const params = router.query;
   const defaultTab = "menu";
+  const mediaQueryMatches = useMediaQuery("(min-width: 1000px)")
 
   let tabs = ["menu", "account", "profile", "notifications", "themes"];
   const [selectedTab, setSelectedTab] = useTabs(tabs, params.tab?.[0]);
 
   const auth = useAuth();
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1000px)");
-    if (mq.matches && typeof params.tab === "undefined") {
+    if (mediaQueryMatches && typeof params.tab === "undefined") {
       setSearchParams("account");
     }
   }, []);
