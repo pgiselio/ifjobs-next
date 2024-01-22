@@ -11,7 +11,7 @@ interface input extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLIn
 }
 
 export const Input = React.forwardRef(function Input(
-  { name, type = "text", icon, placeholder, isLabelholder = true, ...props }: input,
+  { name, type = "text", icon, placeholder, isLabelholder = true, style, className, ...props }: input,
 ) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -19,9 +19,9 @@ export const Input = React.forwardRef(function Input(
     return (
       <div className={styled["inputContainer"]}>
         <input
-          className={props.className + " " + styled.inputStyled}
+          className={(className ? className + " ": "") + styled.inputStyled}
           style={{
-            ...props.style,
+            ...style,
             paddingRight: "35px",
             ...(icon ? { paddingLeft: "40px" } : {}),
             ...(placeholder && isLabelholder
@@ -58,9 +58,9 @@ export const Input = React.forwardRef(function Input(
     return (
       <div className={styled.inputContainer}>
         <input
-          className={props.className + " " + styled.inputStyled}
+          className={(className ? className + " ": "") + styled.inputStyled}
           style={{
-            ...props.style,
+            ...style,
             ...(icon ? { paddingLeft: "40px" } : {}),
             ...(placeholder && isLabelholder
               ? { paddingTop: "20px", paddingBottom: "10px" }
