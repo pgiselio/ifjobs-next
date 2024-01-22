@@ -18,6 +18,7 @@ export default function SettingThemesPage() {
           themeKeys.map((theme) => 
             isTheme(theme) && (
               <button
+                type="button"
                 key={theme}
                 className={`theme-option ${
                   AppOptions.theme === theme ? "active" : ""

@@ -211,57 +211,6 @@ export const GlobalStyle = createGlobalStyle`
     gap: 10px;
   }
 
-  .botao-ham {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
-    padding: 15px 12px;
-    height: 50px;
-    z-index: 1;
-  }
-
-  .botao-ham span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    margin-bottom: 5px;
-    position: relative;
-    background-color: #333;
-    border-radius: 10px;
-    z-index: 1;
-    transition: transform 0.3s cubic-bezier(0.77, 0.2, 0.05, 1),
-      background-color 0.3s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.3s ease, margin 0.3s ease;
-  }
-
-  .botao-ham:first-child {
-    -webkit-transform-origin: 0% 0%;
-    transform-origin: 0% 0%;
-  }
-
-  .botao-ham span:nth-last-child(1) {
-    margin-bottom: 0;
-  }
-
-  .botao-ham.active span {
-    opacity: 0;
-    -webkit-transform: rotate(0deg) scale(0.2, 0.2);
-    transform: rotate(0deg) scale(0.2, 0.2);
-    margin: 0;
-  }
-
-  .botao-ham.active span:nth-last-child(2) {
-    opacity: 1;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
-
-  .botao-ham.active span:nth-last-child(3) {
-    opacity: 1;
-    -webkit-transform: rotate(45deg) translate(2px, 2px);
-    transform: rotate(45deg) translate(2px, 2px);
-  }
   .input-error{
     color: #c91f1f;
     padding: 0 3px;

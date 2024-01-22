@@ -2,7 +2,7 @@ import React from "react";
 import { ButtonHTMLAttributes } from "react";
 import styled from "./styles.module.scss";
 
-interface FabButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface FabButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
   color?: string;
   size?: string;
 }

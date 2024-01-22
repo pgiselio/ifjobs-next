@@ -41,7 +41,9 @@ const Home: NextPage = () => {
 
       <ParallaxProvider>
         <LandingStyle>
+
           <LandNavBar />
+          
           <LandingGlobalStyle />
           <main className="landing-main">
             <section className="hello-section" id="sec1">
@@ -51,19 +53,23 @@ const Home: NextPage = () => {
                   { image: "images/waves.svg", speed: -20 },
                   {
                     children: (
-                      <div className="container">
-                        <h1>Olá!👋</h1>
+                      <div className="container" style={{maxWidth: 1600, display: "grid"}}>
+                        
+                        <div className="hello-text">
+                        <h1><span>Seu</span> primeiro emprego! <i className="fas fa-heart"></i></h1>
                         <p>
-                          Somos uma plataforma de oportunidades voltada para
+                          O IFJobs é uma plataforma de oportunidades voltada para
                           alunos e ex-alunos do IFRN Campus João Câmara.
                           Surgimos com o objetivo de estreitar os laços entre as
                           empresas, tornando o processo de divulgação de vagas e
                           de contratação mais centrado, fácil e ágil.
                         </p>
+                        </div>
+                        <Image className="img-job-offers" src="images/undraw_job_offers_re_634p.svg" alt="" height={400} width={500}/>
                       </div>
                     ),
                     speed: -30,
-                    className: "layer-1",
+                    className: "text-img-group",
                   },
                 ]}
                 style={{ aspectRatio: "2 / 1" }}
@@ -112,10 +118,12 @@ const Home: NextPage = () => {
                 <h1>A equipe fundadora</h1>
                 <div className="equipe">
                   <div className="pessoa">
-                    <img
+                    <Image
                       src="/images/landing/equipe/Lucas.jpg"
                       alt=""
                       className="picture"
+                      width={120}
+                      height={120}
                     />
                     <div className="info">
                       <h3>Lucas Mateus</h3>
@@ -130,10 +138,12 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className="pessoa">
-                    <img
+                    <Image
                       src="/images/landing/equipe/Pedro.jpg"
                       alt=""
                       className="picture"
+                      width={120}
+                      height={120}
                     />
                     <div className="info">
                       <h3>Pedro Gisélio</h3>

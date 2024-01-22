@@ -1,21 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-scroll";
 import Image from "next/image";
 import * as NextLink from "next/link";
 import styled from "./navbar.module.scss";
+import { HamburgerBars } from "../General/hamburger";
 
 export function LandNavBar() {
   const [menuState, setMenuState] = useState(false);
   const [accessState, setAccessState] = useState(false);
+  const [scrollState, setScrollState] = useState(false);
+
+   useEffect(() => {
+    
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setScrollState(true)
+      } else {
+       setScrollState(false)
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   let navigate = useRouter();
   const auth = useAuth();
   return (
     <>
-      <div className={styled["landing-header"] + " navigate-container"}>
-        <nav className={styled["navigate"]}>
+      <div className={`${styled["landing-header"]} navigate-container`}>
+        <nav className={styled["navigate"] +" "+ (scrollState ? styled["scrolled"] : "")}>
           <div className={styled["menu-container"]}>
             <NextLink.default href="/" passHref className={styled["logo-nav"]}>
               <Image src="/images/logo.svg" alt="" height={34} width={94} />
@@ -72,32 +91,23 @@ export function LandNavBar() {
             </div>
 
             <div className={styled["mobile-buttons"]}>
-              <button
-                type="button"
-                className={styled["access-bt"] + (accessState ? " active" : "")}
-                onClick={() => {
-                  auth.email ? navigate.push("sys") : navigate.push("entrar");
-                }}
-              ></button>
-              <div
-                className={
-                  styled["acesso-mobile"] + (accessState ? " active" : "")
-                }
+              <NextLink.default
+                href={auth.email ? "sys" : "entrar"}
+                passHref
+                className={styled["login-bt"]}
               >
-                <Acesso />
-              </div>
-              <div
+                ACESSAR
+              </NextLink.default>
+
+              {/* <HamburgerBars
                 id="botao-ham"
-                className={"botao-ham " + (menuState && "active")}
+                className={"botao-ham "}
                 onClick={() => {
                   setMenuState(!menuState);
                   setAccessState(false);
                 }}
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
+                {...(menuState && { active: true })}
+              /> */}
             </div>
           </div>
         </nav>

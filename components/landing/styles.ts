@@ -20,7 +20,7 @@ export const LandingStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 90px;
+    /* margin-top: 90px; */
     section {
       display: flex;
       flex-direction: column;
@@ -40,38 +40,86 @@ export const LandingStyle = styled.div`
       }
     }
     section.hello-section {
-      margin-top: -20px;
-      max-height: calc(100vh - 70px);
-      min-height: 300px;
+      min-height: 570px;
       height: 100vh;
       width: 100%;
       color: #333;
       text-align: center;
       background-size: cover;
       .container {
-        height: 100%;
         padding: 30px;
         align-self: center;
       }
       .parallax {
-        height: 100%;
-        .layer-1 {
-          display: flex;
-          justify-content: center;
-        }
-      }
+        width: 100%;
+        height: 100vh;
+        min-height: 570px;
+        z-index: 0;
 
-      h2 {
-        max-width: 75%;
-      }
-      p {
-        text-align: center;
-        max-width: clamp(70%, 400px, 500px);
-        font-size: clamp(0.8rem, 1.5vw, 1em);
-        color: #666;
+        .text-img-group {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-self: center;
+          .container {
+            position: relative;
+            grid-template-columns: 1fr clamp(300px,40vw,500px);
+          }
+          .hello-text {
+            z-index: 2;
+            h1 {
+              /* max-width: 75%; */
+              font-size: clamp(3.5rem, 5vw, 4em);
+              text-align: left;
+              span{
+                color: #00d16a;
+              }
+              i{
+                color: #149f84;
+              }
+            }
+            p {
+              text-align: start;
+              /* max-width: clamp(65%, 400px, 500px); */
+              font-size: clamp(1rem, 1.5vw, 1.5em);
+              color: #666;
+            }
+          }
+          .img-job-offers {
+            /* position: absolute;
+            right: 0;
+            top: calc(50% - 200px); */
+            z-index: 1;
+            width: 100%;
+            margin-left: -10px;
+          }
+          @media (max-width: 768px) {
+            .container{
+              grid-template-columns: 1fr;
+            }
+            .img-job-offers {
+              display: none;
+              position: relative;
+              align-self: center;
+              justify-self: center;
+              width: 300px;
+              height: 230px;
+              margin-top: 20px;
+              margin-bottom: -50px;
+              right: initial;
+              top: initial;
+              @media (min-height:810px) {
+                display: block;
+              }
+            }
+            /* p{display: none;} */
+          }
+        }
       }
     }
     section.cursos-section {
+      position: relative;
       background-image: url(images/waves.svg);
       background-position: center center;
       background-size: cover;
