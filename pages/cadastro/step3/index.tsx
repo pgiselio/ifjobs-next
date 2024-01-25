@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactInputMask from "react-input-mask";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { Input } from "../../../components/General/input";
@@ -26,7 +26,7 @@ export default function CadastroStep3() {
 
   useEffect(() => {
     if (cadastroSteps.step < 3) {
-      navigate.push("..");
+      navigate.push("/cadastro");
     }
   });
   let cursos = CursosSelectOptions.map(({ value }) => value);
@@ -98,7 +98,7 @@ export default function CadastroStep3() {
       )
       .then(() => {
         cadastroSteps.setStep(4);
-        navigate.push("../confirmacao");
+        navigate.push("confirmacao");
       })
       .catch(() => {
         toast.error("Erro ao cadastrar aluno");
@@ -137,17 +137,19 @@ export default function CadastroStep3() {
                 <Controller
                   name="cpf"
                   control={control}
-                  render={({ field }) => (
+                  render={({ field: {ref, ...rest} }) => (
                     <ReactInputMask
                       maskPlaceholder={null}
                       mask="999.999.999-99"
-                      {...field}
+                      {...rest}
+                      inputRef={ref}
                     >
                       <Input
                         icon="fas fa-id-card"
                         type="text"
                         id="cpf"
                         placeholder="CPF"
+                        ref={ref}
                         {...(errors.cpf && { className: "danger" })}
                       />
                     </ReactInputMask>
@@ -160,17 +162,19 @@ export default function CadastroStep3() {
                 <Controller
                   name="dataNascimento"
                   control={control}
-                  render={({ field }) => (
+                  render={({ field: {ref, ...rest} }) => (
                     <ReactInputMask
                       maskPlaceholder={null}
                       mask="99/99/9999"
-                      {...field}
+                      inputRef={ref}
+                      {...rest}
                     >
                       <Input
                         type="text"
                         placeholder="Data de nascimento"
                         icon="fas fa-calendar"
                         id="dataNascimento"
+                        ref={ref}
                         {...(errors.dataNascimento && { className: "danger" })}
                       />
                     </ReactInputMask>

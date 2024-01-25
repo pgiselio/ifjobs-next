@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import VerificationInput from "react-verification-input";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
@@ -12,30 +12,40 @@ import { CadastroLayout } from "../../../components/Layouts/cadastro";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-import { useSearchParams } from "next/navigation";
 
 export default function VerifiqueOSeuEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   let router = useRouter();
-  const searchParams = useSearchParams();
-  let email = searchParams.get("email");
-  let codeParam = searchParams.get("codigo");
-  const [code, setCode] = useState<string>(codeParam || "");
+  const params = router.query;
+  const [email, setEmail] = useState<string>(params?.email?.toString() || "");
+  const [codeParam, setcodeParam] = useState<string>(
+    params.codigo?.toString() || ""
+  );
+  const [codeFromInput, setCodeFromInput] = useState<string>(
+    codeParam?.toString() || ""
+  );
   const cadastroSteps = useCadastroSteps();
-  const { handleSubmit, getValues, setValue } = useForm({
-    defaultValues: {
-      email: email || "",
-    },
-  });
+  const { handleSubmit } = useForm({});
 
   useEffect(() => {
+    if (
+      email === "" &&
+      (cadastroSteps.email === undefined || cadastroSteps.email === "")
+    )
+      setEmail(params.email?.toString() || "");
+
+    if (codeParam === "") setcodeParam(params.codigo?.toString() || "");
+    else setCodeFromInput(codeParam);
+
     if (cadastroSteps.step === 3) {
       cadastroSteps.setVerificationCode(
-        codeParam?.length === 6 ? codeParam : code
+        codeParam?.toString().length === 6
+          ? codeParam?.toString()
+          : codeFromInput
       );
-      cadastroSteps.setEmail(getValues(["email"])[0]);
-      router.push("../step3");
+      cadastroSteps.setEmail(email);
+      router.push("step3");
     }
   });
   useEffect(() => {
@@ -44,13 +54,17 @@ export default function VerifiqueOSeuEmailPage() {
     }
   });
   useEffect(() => {
-    console.log(email)
     if (codeParam?.length === 6 && email) {
+      setCodeFromInput(codeParam);
       handleSubmit(onSubmit)();
     }
   }, []);
 
-  async function onSubmit({ email }: { email: string }) {
+  const thenAxios = (response: any) => {
+    cadastroSteps.setToken(response.data);
+    cadastroSteps.setStep(3);
+  };
+  async function onSubmit() {
     if (isLoading) return;
     if (!email) {
       toast.error("Necessário informar o e-mail!");
@@ -60,17 +74,17 @@ export default function VerifiqueOSeuEmailPage() {
     await api
       .get(
         `/usuario/validacao/${email}/${
-          codeParam?.length === 6 ? codeParam : code
+          codeParam?.length === 6 ? codeParam : codeFromInput
         }`
       )
       .then((response) => {
-        cadastroSteps.setToken(response.data);
-        cadastroSteps.setStep(3);
+        console.log(response.data);
+        thenAxios(response);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.error(e);
         toast.error("Codigo inválido!");
         router.query.codigo = undefined;
-        router.push(router);
       })
       .finally(() => setIsLoading(false));
   }
@@ -90,11 +104,11 @@ export default function VerifiqueOSeuEmailPage() {
           <form id="verify" onSubmit={handleSubmit(onSubmit)}>
             <div className="code-fields">
               <VerificationInput
-                value={code}
+                value={codeFromInput}
                 length={6}
                 validChars="0-9"
                 onChange={(value: string) => {
-                  setCode(value);
+                  setCodeFromInput(value);
                   if (value.length === 6) {
                     handleSubmit(onSubmit)();
                   }

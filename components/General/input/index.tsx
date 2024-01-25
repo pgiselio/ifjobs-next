@@ -11,7 +11,7 @@ interface input extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLIn
 }
 
 export const Input = React.forwardRef(function Input(
-  { name, type = "text", icon, placeholder, isLabelholder = true, style, className, ...props }: input,
+  { name, type = "text", icon, placeholder, isLabelholder = true, style, className,...props }: input, ref : React.ForwardedRef<HTMLInputElement>
 ) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +30,7 @@ export const Input = React.forwardRef(function Input(
           }}
           type={showPassword ? "text" : "password"}
           name={name}
+          {...ref && {ref: ref} }
           {...props}
           title={placeholder}
         />

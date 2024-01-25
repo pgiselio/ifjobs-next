@@ -3388,10 +3388,10 @@ react-headless-tabs@^5.1.2:
   resolved "https://registry.npmjs.org/react-headless-tabs/-/react-headless-tabs-5.1.3.tgz"
   integrity sha512-mGkNVO8gDEE1SemAoZc+blFXcjGOp1Vdx7Yj8MNkU/7kDDOVjN6znsSZxvrXtfzlaNuDa7pnPlBTbai6ci4E6Q==
 
-react-hook-form@^7.33.0:
-  version "7.37.0"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.37.0.tgz"
-  integrity sha512-6NFTxsnw+EXSpNNvLr5nFMjPdYKRryQcelTHg7zwBB6vAzfPIcZq4AExP4heVlwdzntepQgwiOQW4z7Mr99Lsg==
+react-hook-form@^7.49.3:
+  version "7.49.3"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.49.3.tgz#576a4567f8a774830812f4855e89f5da5830435c"
+  integrity sha512-foD6r3juidAT1cOZzpmD/gOKt7fRsDhXXZ0y28+Al1CHgX+AY1qIN9VSIIItXRq1dN68QrRwl1ORFlwjBaAqeQ==
 
 react-horizontal-scrolling-menu@^4.1.1:
   version "4.1.1"

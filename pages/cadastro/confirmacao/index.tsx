@@ -29,7 +29,7 @@ export default function CadastroConcluidoPage() {
               className="btn-login"
               title="Já tem uma conta? Faça Login!"
             >
-              Entrar com sua conta<i className="fas fa-arrow-right"></i>
+              Entrar com sua conta <i className="fas fa-arrow-right"></i>
 
             </Link>
           </div>

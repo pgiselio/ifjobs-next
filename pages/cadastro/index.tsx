@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { CadastroLayout } from "../../components/Layouts/cadastro";
+import { useCadastroSteps } from "../../hooks/useCadastroAluno";
 
 type signupType = {
   email: string;
@@ -22,6 +23,7 @@ type signupType = {
 export default function CadastroPage() {
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useRouter();
+  const cadastroSteps = useCadastroSteps();
   const { tab } = navigate.query;
   const [selectedTab, setSelectedTab] = useTabs(
     ["CANDIDATO", "EMPRESA"],
@@ -32,6 +34,12 @@ export default function CadastroPage() {
       setSelectedTab("CANDIDATO");
     }
   }, []);
+  useEffect(() => {
+    
+    if (cadastroSteps.step === 3) {
+      navigate.push("/cadastro/step3");
+    }
+  });
 
   const empresaValidationSchema = Yup.object().shape({
     email: Yup.string()

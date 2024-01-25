@@ -12,6 +12,7 @@ import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/globals.css";
 import { ToastContainer } from "react-toastify";
+import { CadastroProvider } from "../contexts/CadastroContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -25,20 +26,22 @@ function MyApp({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <AuthProvider>
           <AppOptionsProvider>
-            <>
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-              />
-              <Component {...pageProps} />
-            </>
+            <CadastroProvider>
+              <>
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                />
+                <Component {...pageProps} />
+              </>
+            </CadastroProvider>
           </AppOptionsProvider>
         </AuthProvider>
       </QueryClientProvider>
