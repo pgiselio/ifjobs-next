@@ -21,12 +21,17 @@ export function SidebarItem({ to, icon, label, title, className, end }: Item) {
       appOptions.toggleSidebar();
     }
   }
+  function checkIfIsPartOfPath(url: string) {
+    const splitedPath = url.split("/");
+    const includes = router.asPath.includes(url);
+    return url == router.asPath || (includes && splitedPath.length > 2);
+  }
   return (
     <li>
       <Link
         href={`${to}`}
         passHref
-        className={className + (router.asPath == to ? " active" : "")}
+        className={className + (checkIfIsPartOfPath(to) ? " active" : "")}
         title={title || label}
         onClick={ToggleSidebar}>
 
