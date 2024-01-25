@@ -29,7 +29,7 @@ export function VagaCard({ vaga }: vagaObj) {
               <div className="vaga-titles">
                 <h3>
                   <Link
-                    href={`${vaga.id}`}
+                    href={`vagas/${vaga.id}`}
                     className="vagas-detalhes-btn"
                     title={vaga.titulo}
                     passHref
