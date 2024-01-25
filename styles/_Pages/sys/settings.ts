@@ -80,21 +80,52 @@ export const SettingPageStyle = styled.section`
         gap: 10px;
         z-index: 1;
 
-        button {
-          height: fit-content;
+        .link {
           padding: 5px 10px;
           padding-left: 15px;
           border-radius: 5px;
-        }
-        button:hover {
-          background: var(--accent-color-opacity);
-          border-right-color: transparent;
-        }
-        button::after {
-          left: -1px;
-          bottom: initial;
-          height: 70%;
-          border-radius: inherit;
+          background: transparent;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          border: 2px solid transparent;
+          position: relative;
+          letter-spacing: 0.3px;
+          font-weight: 500;
+          font-size: 15px;
+          height: 100%;
+          color: var(--text-b);
+          gap: 5px;
+          i {
+            width: 25px;
+            text-align: left;
+          }
+          :hover {
+            background: var(--accent-color-opacity);
+            border-right-color: transparent;
+            color: var(--text-a);
+          }
+
+          &::after {
+            content: " ";
+            width: 0;
+            background-color: var(--accent-color);
+            position: absolute;
+            transition: width 0.2s ease-in-out;
+            left: -1px;
+            bottom: initial;
+            height: 70%;
+            border-radius: inherit;
+          }
+          &.active {
+            font-weight: 700;
+            color: var(--text-a);
+            letter-spacing: .1px;
+            &::after {
+              width: 2px;
+              transition: width 0.2s ease-in-out;
+            }
+          }
         }
       }
     }
@@ -114,14 +145,14 @@ export const SettingPageStyle = styled.section`
       }
     }
   }
-  .align-center{
+  .align-center {
     display: flex;
     justify-content: center;
   }
-  .profile-pic-opts{
+  .profile-pic-opts {
     position: relative;
     width: 100px;
-    .change-pic-btn{
+    .change-pic-btn {
       position: absolute;
       background: var(--primary-bg);
       outline: none;
@@ -134,7 +165,7 @@ export const SettingPageStyle = styled.section`
       right: 0;
       color: var(--text-b);
       cursor: pointer;
-      :hover{
+      :hover {
         background: var(--outline-color);
       }
     }
@@ -169,7 +200,7 @@ export const SettingPageStyle = styled.section`
       }
     }
     .nav-settings-container {
-      position: relative;
+      position: absolute;
       border: none;
       width: 100%;
       max-width: initial;
@@ -188,24 +219,11 @@ export const SettingPageStyle = styled.section`
           width: 95%;
           position: relative;
           top: 0;
-          button {
+          .link {
             padding: 15px;
           }
         }
       }
-    }
-    .setting-container {
-      position: absolute;
-      display: none;
-    }
-    .setting-container.active {
-      display: block;
-      position: absolute;
-      background: var(--bg-body);
-      min-height: calc(100vh - var(--top-bar-height));
-    }
-    .setting-container .setting {
-      z-index: 3;
     }
   }
   @media (max-width: 766px) {

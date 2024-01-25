@@ -2,6 +2,7 @@ import { isTheme } from "../../../../contexts/AppOptionsContext";
 import { useAppOptions } from "../../../../hooks/useAppOptions";
 import { themes } from "../../../../styles/themes";
 import { Container } from "../../../../styles/_Pages/sys/settings-themes";
+import SettingsLayout from "../../../../components/Layouts/settings";
 
 export default function SettingThemesPage() {
   const AppOptions = useAppOptions();
@@ -12,6 +13,7 @@ export default function SettingThemesPage() {
   const themeKeys = Object.keys(themes);
 
   return (
+    <SettingsLayout>
     <Container>
       <>
         {themeKeys.length > 0 &&
@@ -31,5 +33,6 @@ export default function SettingThemesPage() {
           )}
       </>
     </Container>
+    </SettingsLayout>
   );
 }

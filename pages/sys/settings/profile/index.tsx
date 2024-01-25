@@ -23,6 +23,7 @@ import {
   UFsSelectOptions,
 } from "../../../../utils/selectLists";
 import { CustomSelect } from "../../../../components/General/select";
+import SettingsLayout from "../../../../components/Layouts/settings";
 
 export default function SettingContaPage() {
   const auth = useAuth();
@@ -179,7 +180,7 @@ export default function SettingContaPage() {
   }
 
   return (
-    <>
+    <SettingsLayout>
       <div className="align-center">
         <div className="profile-pic-opts">
           <ProfilePic
@@ -597,6 +598,6 @@ export default function SettingContaPage() {
           </>
         )}
       </Accordion.Root>
-    </>
+    </SettingsLayout>
   );
 }
