@@ -29,7 +29,6 @@ export default function ProfilePage() {
   const { data, isFetching } = useQuery<User>({
     queryKey: ["profile" + id],
     queryFn: async () => {
-      console.log(id);
       const response = await api.get(`/usuario/${id}`);
       return response.data;
     },
@@ -102,7 +101,7 @@ export default function ProfilePage() {
             <div className="user-actions">
               {data?.email === auth.email && (
                 <>
-                  <Link href="/sys/settings?tab=profile" passHref>
+                  <Link href="/sys/settings/profile" passHref>
                     <Button tabIndex={-1}>
                       <i className="fas fa-pencil-alt"></i>
 

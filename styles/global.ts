@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     --navs-bg-opacity: ${(props) => props.theme.colors.systemMenu.background}f5;
     --primary-bg: ${(props) => props.theme.colors.primaryBg};
     --secondary-bg: ${(props) => props.theme.colors.secondaryBg};
+    --navs-border: ${(props) => props.theme.colors.systemMenu.border};
   }
   * {
     margin: 0;

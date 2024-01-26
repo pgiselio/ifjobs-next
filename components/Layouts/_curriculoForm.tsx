@@ -19,6 +19,7 @@ export function CurriculoForm() {
   const [sendingProgress, setSendingProgress] = useState(0);
   const [uploaded, setUploaded] = useState(false);
   const toastId = useRef<string | number | null>(null);
+  const controller = new AbortController();
 
   let validationSchema = Yup.object().shape({
     arquivo: Yup.mixed().required("É necessário selecionar um arquivo"),
@@ -44,6 +45,7 @@ export function CurriculoForm() {
     noClick: true,
     multiple: false,
     maxSize: maxSize,
+    disabled: sending,
     onDrop: (acceptedFiles) => {
       setUploaded(false);
       setCurriculo(acceptedFiles[0]);
@@ -76,6 +78,7 @@ export function CurriculoForm() {
     formData.append("arquivo", file);
     await api
       .patch(`/curriculo/atualizaArquivo/${auth.userInfo?.email}`, formData, {
+        signal: controller.signal,
         onUploadProgress: (progressEvent) => {
           const progress = progressEvent.loaded / progressEvent.total;
 
@@ -85,9 +88,23 @@ export function CurriculoForm() {
           );
           if (toastId.current === null) {
             toastId.current = toast(
-              <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 Enviando currículo...
-                <Button type="button" title="Cancelar envio" className="less-radius red" onClick={() => console.log("EITAAAA")}>
+                <Button
+                  type="button"
+                  title="Cancelar envio"
+                  className="less-radius red"
+                  onClick={() => {
+                    controller.abort();
+                    toast.warn("Envio cancelado!");
+                  }}
+                >
                   <i className="fas fa-close"></i>
                 </Button>
               </div>,
@@ -146,7 +163,7 @@ export function CurriculoForm() {
             <div className="file-details">
               <p className="file-name">{curriculo.name}</p>
               <p className="file-size">{prettyBytes(curriculo.size)}</p>
-              <Progressbar progress={sendingProgress}/>
+              <Progressbar progress={sendingProgress} />
             </div>
             <p className="status">
               <i className={`fa-solid fa-check ${uploaded ? "done" : ""}`}></i>

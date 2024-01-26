@@ -19,7 +19,7 @@
 [data-reach-alert-dialog-overlay] {
   background-color: rgba(0, 0, 0, 0.5);
   animation: fade 0.2s ease;
-  z-index: 10000;
+  z-index: 100;
   position: fixed;
   inset: 0;
 }
@@ -37,14 +37,14 @@
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10001;
+  z-index: 101;
   animation: contentScale 0.2s cubic-bezier(0.25, 0.1, 0.47, 1.38);
 }
 
 [data-reach-dialog-overlay],[data-reach-alert-dialog-overlay] {
   background-color: rgba(0, 0, 0, 0.5);
   animation: fade 0.2s ease;
-  z-index: 10000;
+  z-index: 100;
   position: fixed;
   inset: 0;
 }

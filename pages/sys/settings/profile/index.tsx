@@ -1,7 +1,7 @@
 import * as Accordion from "@radix-ui/react-accordion";
 
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
@@ -24,6 +24,7 @@ import {
 } from "../../../../utils/selectLists";
 import { CustomSelect } from "../../../../components/General/select";
 import SettingsLayout from "../../../../components/Layouts/settings";
+import { getDirtyValues } from "../../../../utils/getDirtyValues";
 
 export default function SettingContaPage() {
   const auth = useAuth();
@@ -32,115 +33,132 @@ export default function SettingContaPage() {
   const [showModalCurriculo, setShowModalCurriculo] = useState(false);
   let unidadesFederativas = UFsSelectOptions.map(({ value }) => value);
 
-  const {
-    control,
-    formState: { isDirty, errors },
-    handleSubmit,
-  } = useForm({
-    defaultValues: {
-      nome:
-        auth.userInfo?.aluno?.dadosPessoa.nome ||
-        auth.userInfo?.empresa?.dadosPessoa.nome,
-      resumo:
-        auth.userInfo?.aluno?.resumo || auth.userInfo?.empresa?.resumo || "",
-      facebook: auth.userInfo?.empresa?.redesSociais?.facebook || "",
-      instagram: auth.userInfo?.empresa?.redesSociais?.instagram || "",
-      linkedin: auth.userInfo?.empresa?.redesSociais?.linkedin || "",
-      twitter: auth.userInfo?.empresa?.redesSociais?.twitter || "",
-      telefone: auth.userInfo?.empresa?.telefone || "",
+  useEffect(() => {
+    reset({
+      ...auth.userInfo,
       uf:
         auth.userInfo?.empresa?.dadosPessoa?.localizacao.split("/")[1] ||
         auth.userInfo?.aluno?.dadosPessoa?.localizacao.split("/")[1],
       cidade:
         auth.userInfo?.empresa?.dadosPessoa?.localizacao.split("/")[0] ||
         auth.userInfo?.aluno?.dadosPessoa?.localizacao.split("/")[0],
-      curso: auth.userInfo?.aluno?.curso || "",
-      periodo: auth.userInfo?.aluno?.periodo || "",
-      empresaSite: auth.userInfo?.empresa?.linkSite || "",
-    },
+    });
+  }, [auth.userInfo]);
+  const {
+    control,
+    reset,
+    formState: { isDirty, errors, dirtyFields },
+    handleSubmit,
+  } = useForm({
+    defaultValues: useMemo(() => {
+      return {
+        ...auth.userInfo,
+        uf:
+          auth.userInfo?.empresa?.dadosPessoa?.localizacao.split("/")[1] ||
+          auth.userInfo?.aluno?.dadosPessoa?.localizacao.split("/")[1],
+        cidade:
+          auth.userInfo?.empresa?.dadosPessoa?.localizacao.split("/")[0] ||
+          auth.userInfo?.aluno?.dadosPessoa?.localizacao.split("/")[0],
+      };
+    }, [auth.userInfo]),
   });
   async function onSubmit(data: any) {
     setIsLoading(true);
+    let dirtydata = getDirtyValues(dirtyFields, data);
+    let jsonPatchList = [];
+
+    if (auth.userInfo?.aluno?.id) {
+      if (dirtydata.aluno?.dadosPessoa?.nome)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/aluno/dadosPessoa/nome",
+          value: data.aluno.dadosPessoa.nome,
+        });
+      if (dirtydata.aluno?.curso)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/aluno/curso",
+          value: data.aluno.curso,
+        });
+      if (dirtydata.aluno?.periodo)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/aluno/periodo",
+          value: data.aluno.periodo,
+        });
+      if (dirtydata.uf || dirtydata.cidade)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/aluno/dadosPessoa/localizacao",
+          value: data.cidade.trim() + "/" + data.uf.trim().toUpperCase(),
+        });
+      if (dirtydata.aluno?.resumo)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/aluno/resumo",
+          value: data.aluno.resumo,
+        });
+    }
+
+    if (auth.userInfo?.empresa?.id) {
+      if (dirtydata.empresa?.dadosPessoa?.nome)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/dadosPessoa/nome",
+          value: data.empresa.nome,
+        });
+      if (dirtydata.uf || dirtydata.cidade)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/dadosPessoa/localizacao",
+          value: data.cidade.trim() + "/" + data.uf.trim().toUpperCase(),
+        });
+      if (dirtydata.empresa?.resumo)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/resumo",
+          value: data.empresa.resumo,
+        });
+      if (dirtydata.empresa?.redesSociais?.facebook)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/redesSociais/facebook",
+          value: data.empresa.redesSociais.facebook.trim(),
+        });
+      if (dirtydata.empresa?.redesSociais?.instagram)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/redesSociais/instagram",
+          value: data.empresa.redesSociais.instagram.trim(),
+        });
+      if (dirtydata.empresa?.redesSociais?.linkedin)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/redesSociais/linkedin",
+          value: data.empresa.redesSociais.linkedin.trim(),
+        });
+      if (dirtydata.empresa?.redesSociais?.twitter)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/redesSociais/twitter",
+          value: data.empresa.redesSociais.twitter.trim(),
+        });
+      if (dirtydata.empresa?.telefone)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/telefone",
+          value: data.empresa.telefone,
+        });
+      if (dirtydata.empresa?.linkSite)
+        jsonPatchList.push({
+          op: "replace",
+          path: "/empresa/linkSite",
+          value: data.empresa.linkSite,
+        });
+    }
     await api
       .patch(
-        `/usuario/${auth.userInfo?.id}`,
-        auth.userInfo?.aluno?.id
-          ? [
-              {
-                op: "replace",
-                path: "/aluno/dadosPessoa/nome",
-                value: data.nome,
-              },
-              {
-                op: "replace",
-                path: "/aluno/curso",
-                value: data.curso,
-              },
-              {
-                op: "replace",
-                path: "/aluno/periodo",
-                value: data.periodo,
-              },
-              {
-                op: "replace",
-                path: "/aluno/dadosPessoa/localizacao",
-                value: data.cidade.trim() + "/" + data.uf.trim().toUpperCase(),
-              },
-              {
-                op: "replace",
-                path: "/aluno/resumo",
-                value: data.resumo,
-              },
-            ]
-          : auth.userInfo?.empresa?.id
-          ? [
-              {
-                op: "replace",
-                path: "/empresa/dadosPessoa/nome",
-                value: data.nome,
-              },
-              {
-                op: "replace",
-                path: "/empresa/dadosPessoa/localizacao",
-                value: data.cidade.trim() + "/" + data.uf.trim().toUpperCase(),
-              },
-              {
-                op: "replace",
-                path: "/empresa/resumo",
-                value: data.resumo,
-              },
-              {
-                op: "replace",
-                path: "/empresa/redesSociais/facebook",
-                value: data.facebook.trim(),
-              },
-              {
-                op: "replace",
-                path: "/empresa/redesSociais/instagram",
-                value: data.instagram.trim(),
-              },
-              {
-                op: "replace",
-                path: "/empresa/redesSociais/linkedin",
-                value: data.linkedin.trim(),
-              },
-              {
-                op: "replace",
-                path: "/empresa/redesSociais/twitter",
-                value: data.twitter.trim(),
-              },
-              {
-                op: "replace",
-                path: "/empresa/telefone",
-                value: data.telefone,
-              },
-              {
-                op: "replace",
-                path: "/empresa/linkSite",
-                value: data.empresaSite,
-              },
-            ]
-          : null
+        `/usuario/${auth.userInfo?.id}`, jsonPatchList
       )
       .then((response) => {
         if (response.status === 200) {
@@ -283,7 +301,7 @@ export default function SettingContaPage() {
               <div className="lbl">
                 <label htmlFor="nome">Nome: </label>
                 <Controller
-                  name="nome"
+                  name={auth?.authorities?.includes("ALUNO") ? "aluno.dadosPessoa.nome" : "empresa.dadosPessoa.nome"}
                   control={control}
                   render={({ field }) => (
                     <Input type="text" id="nome" {...field} />
@@ -296,7 +314,7 @@ export default function SettingContaPage() {
                   <div className="lbl">
                     <label htmlFor="change-courses">Curso: </label>
                     <Controller
-                      name={"curso"}
+                      name={"aluno.curso"}
                       control={control}
                       render={({ field: { value, onChange, onBlur, ref } }) => {
                         return (
@@ -314,7 +332,9 @@ export default function SettingContaPage() {
                             defaultValue={CursosSelectOptions.filter((option) =>
                               value?.includes(option.value)
                             )}
-                            className={`${errors.curso?.message && "danger"}`}
+                            className={`${
+                              errors.aluno?.curso?.message && "danger"
+                            }`}
                           />
                         );
                       }}
@@ -323,7 +343,7 @@ export default function SettingContaPage() {
                   <div className="lbl" style={{ maxWidth: "70px" }}>
                     <label htmlFor="periodo">Período</label>
                     <Controller
-                      name="periodo"
+                      name="aluno.periodo"
                       control={control}
                       render={({ field }) => (
                         <Input
@@ -332,7 +352,9 @@ export default function SettingContaPage() {
                           id="periodo"
                           style={{ textAlign: "center" }}
                           {...field}
-                          {...(errors.periodo && { className: "danger" })}
+                          {...(errors.aluno?.periodo && {
+                            className: "danger",
+                          })}
                         />
                       )}
                     />
@@ -403,7 +425,7 @@ export default function SettingContaPage() {
             </Accordion.Trigger>
             <Accordion.Content data-reach-accordion-panel>
               <Controller
-                name="resumo"
+                name={auth?.authorities?.includes("ALUNO") ? "aluno.resumo" : "empresa.resumo"}
                 control={control}
                 render={({ field }) => (
                   <textarea
@@ -448,7 +470,7 @@ export default function SettingContaPage() {
                 </Accordion.Trigger>
                 <Accordion.Content data-reach-accordion-panel>
                   <Controller
-                    name="telefone"
+                    name="empresa.telefone"
                     control={control}
                     render={({ field }) => (
                       <Input type="text" id="telefone" {...field} />
@@ -472,7 +494,7 @@ export default function SettingContaPage() {
                 </Accordion.Trigger>
                 <Accordion.Content data-reach-accordion-panel>
                   <Controller
-                    name="empresaSite"
+                    name="empresa.linkSite"
                     control={control}
                     render={({ field }) => (
                       <Input type="text" id="site" {...field} />
@@ -494,7 +516,7 @@ export default function SettingContaPage() {
                 <Accordion.Content data-reach-accordion-panel>
                   <div className="inputs">
                     <Controller
-                      name="facebook"
+                      name="empresa.redesSociais.facebook"
                       control={control}
                       render={({ field }) => (
                         <Input
@@ -507,7 +529,7 @@ export default function SettingContaPage() {
                       )}
                     />
                     <Controller
-                      name="instagram"
+                      name="empresa.redesSociais.instagram"
                       control={control}
                       render={({ field }) => (
                         <Input
@@ -520,7 +542,7 @@ export default function SettingContaPage() {
                       )}
                     />
                     <Controller
-                      name="linkedin"
+                      name="empresa.redesSociais.linkedin"
                       control={control}
                       render={({ field }) => (
                         <Input
@@ -533,7 +555,7 @@ export default function SettingContaPage() {
                       )}
                     />
                     <Controller
-                      name="twitter"
+                      name="empresa.redesSociais.twitter"
                       control={control}
                       render={({ field }) => (
                         <Input
