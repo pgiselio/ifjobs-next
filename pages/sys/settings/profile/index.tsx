@@ -22,9 +22,9 @@ import {
   CursosSelectOptions,
   UFsSelectOptions,
 } from "../../../../utils/selectLists";
-import { CustomSelect } from "../../../../components/General/select";
 import SettingsLayout from "../../../../components/Layouts/settings";
 import { getDirtyValues } from "../../../../utils/getDirtyValues";
+import { CustomSelect } from "../../../../components/General/select";
 
 export default function SettingContaPage() {
   const auth = useAuth();
