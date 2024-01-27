@@ -132,13 +132,14 @@ export const SidebarAside = styled.aside`
   .sidebar-items .menu-separator ~ li {
     position: sticky;
     bottom: 15px;
+    margin-top: 25px;
     padding: 10px 0;
-    padding-top: 20px;
+    padding-top: 10px;
     background-color: var(--navs-bg);
     a:first-child {
-      box-shadow: 0px -30px 29px 17px var(--navs-bg);
-      -webkit-box-shadow: 0px -30px 29px 17px var(--navs-bg);
-      -moz-box-shadow: 0px -30px 29px 17px var(--navs-bg);
+      box-shadow: 0px -10px 29px 17px var(--navs-bg);
+      -webkit-box-shadow: -10px -20px 29px 17px var(--navs-bg);
+      -moz-box-shadow: 0px -10px 29px 17px var(--navs-bg);
     }
   }
 
