@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import ReactInputMask from "react-input-mask";
 import { toast } from "react-toastify";
-import { Box, BoxContent, BoxTitle } from "../../../../../components/General/box";
+import {
+  Box,
+  BoxContent,
+  BoxTitle,
+} from "../../../../../components/General/box";
 import { Input } from "../../../../../components/General/input";
 import * as Yup from "yup";
 import { api } from "../../../../../services/api";
@@ -34,10 +38,29 @@ export default function CadastrarEmpresaPage() {
       )
       .required("Este campo é obrigatório")
       .min(10, "Data inválida"),
-    cidade: Yup.string().required("Este campo é obrigatório"),
     UF: Yup.string()
       .oneOf([...unidadesFederativas], "O estado não é válido")
       .required("Este campo é obrigatório"),
+    cidade: Yup.string().required("Este campo é obrigatório"),
+    facebook: Yup.string()
+      .notRequired()
+      .matches(
+        /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
+        { message: "Link inválido!", excludeEmptyString: true }
+      )
+      .nonNullable(),
+    instagram: Yup.string().matches(
+      /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)/igm,
+      { message: "Link inválido!", excludeEmptyString: true }
+    ).notRequired().nonNullable(),
+    linkedin: Yup.string().matches(
+      /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(company|in|profile)/gm,
+      { message: "Link inválido!", excludeEmptyString: true }
+    ).notRequired().nonNullable(),
+    twitter: Yup.string().matches(
+      /^https?:\/\/(?:www\.)?(twitter|x)\.com\/(?:#!\/)?@?([^/?#]*)(?:[?#].*)?$/gm,
+      { message: "Link inválido!", excludeEmptyString: true }
+    ).notRequired().nonNullable(),
   });
   const {
     control,
@@ -51,15 +74,16 @@ export default function CadastrarEmpresaPage() {
       nome: "",
       cnpj: "",
       dataFundacao: "",
-      cidade: "",
       UF: "",
+      cidade: "",
       telefone: "",
       facebook: "",
       instagram: "",
       linkedin: "",
       twitter: "",
     },
-    resolver: yupResolver(validationSchema),
+    resolver:
+      yupResolver<Yup.InferType<typeof validationSchema>>(validationSchema),
   });
 
   async function onHandleSubmit(props: any) {
@@ -149,17 +173,19 @@ export default function CadastrarEmpresaPage() {
                   <Controller
                     name="cnpj"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { ref, ...rest } }) => (
                       <ReactInputMask
                         maskPlaceholder={null}
                         mask="99.999.999/9999-99"
-                        {...field}
+                        inputRef={ref}
+                        {...rest}
                       >
                         <Input
                           icon="fas fa-id-card"
                           type="text"
                           id="cnpj"
                           placeholder="CNPJ"
+                          ref={ref}
                           {...(errors.cnpj && { className: "danger" })}
                         />
                       </ReactInputMask>
@@ -190,11 +216,12 @@ export default function CadastrarEmpresaPage() {
                   <Controller
                     name="dataFundacao"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { ref, ...rest } }) => (
                       <ReactInputMask
                         maskPlaceholder={null}
                         mask="99/99/9999"
-                        {...field}
+                        inputRef={ref}
+                        {...rest}
                       >
                         <Input
                           type="text"
@@ -264,68 +291,83 @@ export default function CadastrarEmpresaPage() {
                   <Controller
                     name="facebook"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { value, ...rest } }) => (
                       <Input
                         icon="fa-brands fa-facebook-f"
                         type="text"
                         id="facebook"
-                        {...field}
+                        value={value}
+                        {...rest}
                         spellCheck={false}
                       />
                     )}
                   />
+                  <p className="input-error">{errors.facebook?.message}</p>
                 </div>
                 <div className="lbl">
                   <label htmlFor="instagram">Instagram: </label>
                   <Controller
                     name="instagram"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { value, ...rest } }) => (
                       <Input
                         type="text"
                         icon="fa-brands fa-instagram"
                         id="instagram"
-                        {...field}
+                        value={value}
+                        {...rest}
                         spellCheck={false}
                       />
                     )}
                   />
+                  <p className="input-error">{errors.instagram?.message}</p>
                 </div>
                 <div className="lbl">
                   <label htmlFor="linkedin">LinkedIn: </label>
                   <Controller
                     name="linkedin"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { value, ...rest } }) => (
                       <Input
                         type="text"
                         icon="fa-brands fa-linkedin"
                         id="linkedin"
-                        {...field}
+                        value={value}
+                        {...rest}
                         spellCheck={false}
                       />
                     )}
                   />
+                  <p className="input-error">{errors.linkedin?.message}</p>
                 </div>
                 <div className="lbl">
                   <label htmlFor="twitter">Twitter: </label>
                   <Controller
                     name="twitter"
                     control={control}
-                    render={({ field }) => (
+                    render={({ field: { value, ...rest } }) => (
                       <Input
                         type="text"
                         icon="fa-brands fa-twitter"
                         id="twitter"
-                        {...field}
+                        value={value}
+                        {...rest}
                         spellCheck={false}
                       />
                     )}
                   />
+                  <p className="input-error">{errors.twitter?.message}</p>
                 </div>
               </div>
             </form>
             <div style={{ alignSelf: "flex-end", paddingTop: "20px" }}>
+              <Button
+                type="button"
+                className="red"
+                onClick={() => {
+                  reset();
+                }}
+              >Reset</Button>
               <Button
                 type="submit"
                 form="cadastrar-nova-empresa-form"

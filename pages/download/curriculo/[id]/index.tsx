@@ -16,6 +16,7 @@ export default function DownloadCurriculoPage() {
         .get(`/curriculo/download/${params.id}`, {
           responseType: "blob",
           onDownloadProgress: (progressEvent) => {
+            if(progressEvent.total)
             setDownloadCProgress(
               Math.round((progressEvent.loaded * 100) / progressEvent.total)
             );

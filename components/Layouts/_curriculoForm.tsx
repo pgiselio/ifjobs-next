@@ -80,54 +80,55 @@ export function CurriculoForm() {
       .patch(`/curriculo/atualizaArquivo/${auth.userInfo?.email}`, formData, {
         signal: controller.signal,
         onUploadProgress: (progressEvent) => {
-          const progress = progressEvent.loaded / progressEvent.total;
-
           setSending(true);
-          setSendingProgress(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          );
-          if (toastId.current === null) {
-            toastId.current = toast(
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                Enviando currículo...
-                <Button
-                  type="button"
-                  title="Cancelar envio"
-                  className="less-radius red"
-                  onClick={() => {
-                    controller.abort();
-                    toast.warn("Envio cancelado!");
+          if (progressEvent.total && progressEvent.loaded) {
+            const progress = progressEvent.loaded / progressEvent.total;
+            setSendingProgress(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            );
+            if (toastId.current === null) {
+              toastId.current = toast(
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  <i className="fas fa-close"></i>
-                </Button>
-              </div>,
-              {
-                progress,
-                isLoading: true,
-                theme: "light",
-                progressStyle: { background: "var(--accent-color)" },
-                autoClose: false,
-                closeButton: false,
-                closeOnClick: false,
-                position: "bottom-right",
-              }
-            );
-          } else {
-            toast.update(toastId.current, { progress });
+                  Enviando currículo...
+                  <Button
+                    type="button"
+                    title="Cancelar envio"
+                    className="less-radius red"
+                    onClick={() => {
+                      controller.abort();
+                      toast.warn("Envio cancelado!");
+                    }}
+                  >
+                    <i className="fas fa-close"></i>
+                  </Button>
+                </div>,
+                {
+                  progress,
+                  isLoading: true,
+                  theme: "light",
+                  progressStyle: { background: "var(--accent-color)" },
+                  autoClose: false,
+                  closeButton: false,
+                  closeOnClick: false,
+                  position: "bottom-right",
+                }
+              );
+            } else {
+              toast.update(toastId.current, { progress });
+            }
           }
         },
       })
       .then((response) => {
         if (response.status === 200) {
           setUploaded(true);
-          setValue("arquivo", undefined);
+          setValue("arquivo", "");
         }
         toast.success("Currículo enviado com sucesso!");
       })

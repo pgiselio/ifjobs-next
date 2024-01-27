@@ -144,6 +144,7 @@ function LandBarItem({
         onClick={() => {
           setMenuState(false);
         }}
+        
       >
         {label}
       </Link>

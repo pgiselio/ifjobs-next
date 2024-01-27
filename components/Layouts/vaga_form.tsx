@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import InputMask from "react-input-mask";
+import InputMask, { ReactInputMask } from "react-input-mask";
 
 import { Input } from "../General/input";
 import { useAuth } from "../../hooks/useAuth";
@@ -46,7 +46,6 @@ export function CriarNovaVagaForm() {
       descricao: Yup.string()
         .required("Este campo é obrigatório")
         .max(maxDescriptionLength, `Máximo de ${maxDescriptionLength} caracteres`),
-      cnpj: Yup.string().notRequired(),
     });
   } else {
     validationSchema = Yup.object().shape({
@@ -56,8 +55,7 @@ export function CriarNovaVagaForm() {
         .oneOf([...cursos], "O curso selecionado não é válido")
         .required("Este campo é obrigatório"),
       descricao: Yup.string().required("Este campo é obrigatório").max(maxDescriptionLength, `Máximo de ${maxDescriptionLength} caracteres`),
-      cnpj: Yup.string()
-        .required("Este campo é obrigatório")
+      cnpj: Yup.string().required("Este campo é obrigatório")
         .min(18, "CNPJ inválido"),
     });
   }
@@ -67,12 +65,17 @@ export function CriarNovaVagaForm() {
     handleSubmit,
     reset,
   } = useForm({
-    defaultValues: {
+    defaultValues: (empresaCNPJ) ? {
       titulo: "",
       localidade: "",
       cursoAlvo: "",
       descricao: "",
-      cnpj: "",
+      cnpj: empresaCNPJ || "",
+    } : {
+      titulo: "",
+      localidade: "",
+      cursoAlvo: "",
+      descricao: "",
     },
     resolver: yupResolver(validationSchema),
   });
@@ -185,17 +188,18 @@ export function CriarNovaVagaForm() {
           <p className="input-error">{errors.cursoAlvo?.message}</p>
         </div>
       </div>
-      {auth?.authorities?.includes("ADMIN") && (
+      {(auth?.authorities?.includes("ADMIN") && !empresaCNPJ) && (
         <div className="lbl">
           <label htmlFor="cnpj">Empresa gerente da vaga: </label>
           <Controller
             name="cnpj"
             control={control}
-            render={({ field }) => (
-              <InputMask
+            render={({ field: {value, ...rest}  }) => (
+              <ReactInputMask
                 maskPlaceholder={null}
                 mask="99.999.999/9999-99"
-                {...field}
+                value={value}
+                {...rest}
               >
                 <Input
                   type="text"
@@ -203,7 +207,7 @@ export function CriarNovaVagaForm() {
                   placeholder="CNPJ"
                   {...(errors.cnpj && { className: "danger" })}
                 />
-              </InputMask>
+              </ReactInputMask>
             )}
           />
           <p className="input-error">{errors.cnpj?.message}</p>

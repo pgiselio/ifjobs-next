@@ -16,8 +16,8 @@ import { useCadastroSteps } from "../../hooks/useCadastroAluno";
 
 type signupType = {
   email: string;
-  password: string;
-  confirmPassword: string;
+  password?: string;
+  confirmPassword?: string;
 };
 
 export default function CadastroPage() {
@@ -35,7 +35,6 @@ export default function CadastroPage() {
     }
   }, []);
   useEffect(() => {
-    
     if (cadastroSteps.step === 3) {
       navigate.push("/cadastro/step3");
     }
@@ -64,11 +63,14 @@ export default function CadastroPage() {
     formState: { errors },
     handleSubmit,
   } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+    defaultValues:
+      selectedTab === "CANDIDATO"
+        ? {
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }
+        : { email: "" },
     resolver: yupResolver(
       selectedTab === "CANDIDATO"
         ? candidatoValidationSchema
@@ -78,6 +80,10 @@ export default function CadastroPage() {
 
   async function onSubmit({ email, password, confirmPassword }: signupType) {
     setIsLoading(true);
+    if(password !== confirmPassword) {
+      setIsLoading(false)
+      return;
+    }
     await api
       .post(
         "/usuario/create",
@@ -208,7 +214,8 @@ export default function CadastroPage() {
                   </span>
                 ) : (
                   <span>
-                    Assim que possível entraremos em contato por esse e-mail para prosseguir com o seu cadastro
+                    Assim que possível entraremos em contato por esse e-mail
+                    para prosseguir com o seu cadastro
                   </span>
                 )}
               </div>
@@ -244,7 +251,8 @@ export default function CadastroPage() {
             href="/entrar"
             title="Já tem uma conta? Faça Login!"
             passHref
-            className="btn-login">
+            className="btn-login"
+          >
             Ou... faça login
           </Link>
         </div>

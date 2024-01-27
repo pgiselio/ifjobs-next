@@ -5,7 +5,7 @@ export function setUserLocalStorage(user: IUser | null) {
   localStorage.setItem("user", JSON.stringify(user));
 }
 
-export function getUserLocalStorage() {
+export function getUserLocalStorage() : IUser | null{
   const json = localStorage.getItem("user");
   if (!json) {
     return null;

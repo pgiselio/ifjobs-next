@@ -51,11 +51,12 @@ export function AuthProvider({ children }: IAuthProvider) {
     queryKey: ["meUser"],
     queryFn: async () => {
       let user = getUserLocalStorage();
-      if (!user?.email) {
+      if (!user) {
         logout();
         if (window.location.href.indexOf("sys") > -1) {
           window.location.href = "/entrar?error=invalidCredentials";
         }
+        return null;
       }
       const response = await api
         .get(`/usuario/email/${user.email}`)
@@ -72,7 +73,7 @@ export function AuthProvider({ children }: IAuthProvider) {
         });
       return response?.data;
     },
-    enabled: !!user?.token,
+    enabled: !!user,
     refetchOnWindowFocus: true,
     staleTime: 1000 * 60, // 1 minute
     refetchInterval: 1000 * 60 * 5, // 5 minutes to refetch automatically

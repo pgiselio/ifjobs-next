@@ -8,12 +8,9 @@ export const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     let user = getUserLocalStorage();
-    if (user) {
-      config.headers = {
-        Authorization: user?.token,
-      };
+    if (user && user.token) {
+      config.headers.Authorization = user.token;
     }
-
     return config;
   },
   (error) => {
