@@ -50,7 +50,7 @@ export const SettingPageStyle = styled.section`
           color: var(--text-a);
         }
       }
-      :active {
+      &:active {
         transform: scale(0.9);
       }
     }
@@ -100,7 +100,7 @@ export const SettingPageStyle = styled.section`
             width: 25px;
             text-align: left;
           }
-          :hover {
+          &:hover {
             background: var(--accent-color-opacity);
             border-right-color: transparent;
             color: var(--text-a);
@@ -165,7 +165,7 @@ export const SettingPageStyle = styled.section`
       right: 0;
       color: var(--text-b);
       cursor: pointer;
-      :hover {
+      &:hover {
         background: var(--outline-color);
       }
     }

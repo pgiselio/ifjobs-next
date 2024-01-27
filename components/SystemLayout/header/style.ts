@@ -100,7 +100,7 @@ export const HeaderSysStyle = styled.header`
       color: var(--navs-bg);
       transition: color 0.2s ease;
     }
-    :hover i {
+    &:hover i {
       color: var(--text-a);
     }
   }

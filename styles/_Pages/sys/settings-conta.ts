@@ -98,11 +98,11 @@ export const ProfilePicFormStyle = styled.form`
       width: 30px;
       height: 30px;
       transition: transform 0.2s ease;
-      :hover {
+      &:hover {
         background-color: var(--secondary-color);
         color: var(--inside-accent-color);
       }
-      :active {
+      &:active {
         transform: scale(0.95);
       }
     }
@@ -136,7 +136,7 @@ export const ProfilePicFormStyle = styled.form`
       border-radius: 50%;
       transition: all 0.2s ease;
     }
-    :hover {
+    &:hover {
       color: var(--inside-accent-color);
       i {
         color: var(--inside-accent-color);

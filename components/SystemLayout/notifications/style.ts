@@ -106,7 +106,7 @@ export const StyledNotifications = styled.div`
         background-color: ${(props) => props.theme.colors.primaryBg + "ef"};
         color: var(--text-b);
         cursor: pointer;
-        :hover {
+        &:hover {
           border-color: var(--accent-color);
           color: var(--accent-color);
         }
@@ -129,7 +129,7 @@ export const StyledNotifications = styled.div`
         }
       }
     }
-    :hover {
+    &:hover {
       background-color: var(--secondary-bg);
       .card-options {
         opacity: 1;
@@ -142,7 +142,7 @@ export const StyledNotifications = styled.div`
     background-color: var(--primary-bg);
     border-radius: 10px;
     cursor: default;
-    :hover {
+    &:hover {
       background-color: var(--primary-bg);
     }
   }

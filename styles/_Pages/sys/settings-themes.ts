@@ -24,9 +24,9 @@ export const Container = styled.div`
       border: 2px solid var(--text-b);
       position: relative;
       transition: all 0.2s linear;
-      ::after {
-        content: "\f00c";
-        font-family: "Font Awesome 5 Free";
+      &::after {
+        content:"\f00c";
+        font-family: "Font Awesome 6 Free";
         font-weight: 900;
         -webkit-font-smoothing: antialiased;
         line-height: 16px !important;
@@ -46,7 +46,7 @@ export const Container = styled.div`
         transition: opacity 0.5s ease;
       }
     }
-    :hover span {
+    &:hover span {
       background-color: var(--accent-color-opacity);
       border-color: var(--accent-color);
     }
@@ -57,7 +57,7 @@ export const Container = styled.div`
       span {
         background-color: var(--accent-color);
         border-color: var(--accent-color);
-        ::after {
+        &::after {
           opacity: 1;
         }
       }
