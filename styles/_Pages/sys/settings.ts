@@ -8,7 +8,7 @@ export const SettingPageStyle = styled.section`
     z-index: 5;
     top: calc(var(--top-bar-height) - 1px);
 
-    ::after {
+    &::after {
       display: none;
     }
   }
@@ -177,7 +177,7 @@ export const SettingPageStyle = styled.section`
       z-index: 15;
       top: var(--top-bar-height);
       position: sticky;
-      ::after {
+      &::after {
         display: block;
       }
     }
@@ -228,7 +228,7 @@ export const SettingPageStyle = styled.section`
   }
   @media (max-width: 766px) {
     .rounded-corner {
-      ::after {
+      &::after {
         display: none;
       }
     }

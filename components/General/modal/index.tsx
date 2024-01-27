@@ -1,9 +1,10 @@
 import { ReactNode, useRef } from "react";
 import { BoxContent, BoxTitle } from "../box";
 import { Button } from "../button";
-import { ModalStyle } from "./style";
+import styled from "./style.module.scss";
+import { Dialog } from "@reach/dialog";
 
-export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   children: ReactNode;
   open?: boolean;
@@ -16,6 +17,7 @@ export function Modal({
   children,
   handleClose,
   toForm,
+  className,
   ...rest
 }: ModalProps) {
   let buttonRef = useRef<HTMLButtonElement>(null);
@@ -27,19 +29,20 @@ export function Modal({
   }
 
   return (
-    <ModalStyle
+    <Dialog
       isOpen={open}
       aria-labelledby="label"
       initialFocusRef={buttonRef}
       onDismiss={onDismiss}
+      className={styled["modal-style"] + (className ? " " + className : "")}
       {...rest}
     >
-      <BoxTitle className="box-title">
+      <BoxTitle className={styled["box-title"]}>
         <h2>{title}</h2>
         <div>
           <button
             aria-label="Close"
-            className="close-button"
+            className={styled["close-button"]}
             ref={closeRef}
             onClick={onDismiss}
           >
@@ -68,6 +71,24 @@ export function Modal({
       >
         {children}
       </BoxContent>
-    </ModalStyle>
+    </Dialog>
+  );
+}
+
+export function ModalBottom(
+ { className,
+  children,
+...rest}: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  >
+) {
+  return (
+    <div
+      className={styled["modal-bottom"] + (className ? " " + className : "")}
+      {...rest}
+    >
+      {children}
+    </div>
   );
 }

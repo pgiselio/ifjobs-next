@@ -2,7 +2,7 @@
     position: relative;
     z-index: 15;
     &::after {
-      content:" ";
+      content:"";
       position: absolute;
       bottom: -10.2px;
       height: 10px;

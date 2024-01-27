@@ -1,9 +1,4 @@
-import { Dialog } from "@reach/dialog";
-import styled from "styled-components";
-
-
-
-export const ModalStyle = styled(Dialog)`
+.modal-style {
   /* min-width: 600px; */
   width: fit-content;
   margin: 5vh auto;
@@ -11,7 +6,9 @@ export const ModalStyle = styled(Dialog)`
   padding: 0;
   outline: none;
   border-radius: 5px;
-  animation: slide-up 0.3s ease-in-out;
+  :global {
+    animation: slide-up 0.3s ease-in-out;
+  }
   .box-title {
     display: flex;
     justify-content: space-between;
@@ -27,7 +24,7 @@ export const ModalStyle = styled(Dialog)`
     border: none;
     cursor: pointer;
 
-    & .attention {
+    & :global(.attention) {
       animation: zoomAndShake 2s linear infinite;
     }
   }
@@ -90,9 +87,9 @@ export const ModalStyle = styled(Dialog)`
     min-height: 100vh;
     padding-bottom: 100px;
   }
-`;
+}
 
-export const ModalBottom = styled.div`
+.modal-bottom {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -108,4 +105,4 @@ export const ModalBottom = styled.div`
     border-top: 1px solid var(--outline-color);
     background-color: var(--primary-bg);
   }
-`
+}

@@ -1,7 +1,8 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, BoxContent, BoxTitle } from "../box";
-import { ModalStyle } from "../modal/style";
+import styled from "../modal/style.module.scss";
+import { Dialog } from "@reach/dialog";
 
 export function ModalRouter({
   title,
@@ -35,7 +36,7 @@ export function ModalRouter({
   }
 
   return (
-    <ModalStyle
+    <Dialog
       aria-labelledby="label"
       initialFocusRef={buttonRef}
       onDismiss={attentionToX}
@@ -57,6 +58,6 @@ export function ModalRouter({
       <BoxContent>
         {children}
       </BoxContent>
-    </ModalStyle>
+    </Dialog>
   );
 }

@@ -17,7 +17,7 @@ import { isBlank } from "../../../../utils/isBlank";
 import { Modal } from "../../../../components/General/modal";
 import { ProfilePictureForm } from "../../../../components/Layouts/_porfilePictureForm";
 import { Button } from "../../../../components/General/button";
-import { ModalBottom } from "../../../../components/General/modal/style";
+import { ModalBottom } from "../../../../components/General/modal";
 import {
   CursosSelectOptions,
   UFsSelectOptions,
