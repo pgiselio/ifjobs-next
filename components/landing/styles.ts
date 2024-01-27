@@ -249,7 +249,7 @@ export const LandingStyle = styled.div`
               margin-top: 5px;
               font-size: 18px;
               color: var(--text-b);
-              :hover {
+              &:hover {
                 color: var(--text-a);
               }
             }
