@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
 

@@ -86,7 +86,7 @@ export default function CadastrarEmpresaPage() {
       yupResolver<Yup.InferType<typeof validationSchema>>(validationSchema),
   });
 
-  async function onHandleSubmit(props: any) {
+  async function onHandleSubmit(props: Yup.InferType<typeof validationSchema>) {
     setIsLoading(true);
 
     await api
@@ -102,10 +102,10 @@ export default function CadastrarEmpresaPage() {
           .replaceAll("-", "")
           .replaceAll("/", ""),
         redesSociais: {
-          facebook: props.facebook,
-          instagram: props.instagram,
-          linkedin: props.linkedin,
-          twitter: props.twitter,
+          facebook: props?.facebook?.trim() ?? null,
+          instagram: props?.instagram?.trim() ?? null,
+          linkedin: props?.linkedin?.trim() ?? null,
+          twitter: props?.twitter?.trim() ?? null,
         },
       })
       .then(() => {
@@ -361,13 +361,6 @@ export default function CadastrarEmpresaPage() {
               </div>
             </form>
             <div style={{ alignSelf: "flex-end", paddingTop: "20px" }}>
-              <Button
-                type="button"
-                className="red"
-                onClick={() => {
-                  reset();
-                }}
-              >Reset</Button>
               <Button
                 type="submit"
                 form="cadastrar-nova-empresa-form"

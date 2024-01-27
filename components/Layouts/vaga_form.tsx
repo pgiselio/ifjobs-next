@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import InputMask, { ReactInputMask } from "react-input-mask";
+import InputMask from "react-input-mask";
 
 import { Input } from "../General/input";
 import { useAuth } from "../../hooks/useAuth";
@@ -12,11 +12,11 @@ import { api } from "../../services/api";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { queryClient } from "../../services/queryClient";
-import { CustomSelect } from "../General/select";
 import { Button } from "../General/button";
 import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
 import { CursosSelectOptions } from "../../utils/selectLists";
 import SystemLayout from "./system";
+import { CustomSelect } from "../General/select";
 
 export function CriarNovaVagaForm() {
   // const [editorState, setEditorState] = useState(() =>
@@ -24,7 +24,7 @@ export function CriarNovaVagaForm() {
   // );
   const auth = useAuth();
   const maxDescriptionLength = 1000;
-  
+
   const [empresaCNPJ, setEmpresaCNPJ] = useState<string | null>();
   const [remainigDescriptionLength, setRemainigDescriptionLength] =
     useState(maxDescriptionLength);
@@ -32,8 +32,8 @@ export function CriarNovaVagaForm() {
   useEffect(() => {
     setEmpresaCNPJ(auth.userInfo?.empresa?.cnpj);
   }, [auth.userInfo]);
-  
-  let cursos = CursosSelectOptions.map(({value}) => value);
+
+  let cursos = CursosSelectOptions.map(({ value }) => value);
 
   let validationSchema;
   if (empresaCNPJ) {
@@ -45,7 +45,11 @@ export function CriarNovaVagaForm() {
         .required("Este campo é obrigatório"),
       descricao: Yup.string()
         .required("Este campo é obrigatório")
-        .max(maxDescriptionLength, `Máximo de ${maxDescriptionLength} caracteres`),
+        .max(
+          maxDescriptionLength,
+          `Máximo de ${maxDescriptionLength} caracteres`
+        ),
+      cnpj: Yup.string().notRequired().nonNullable(),
     });
   } else {
     validationSchema = Yup.object().shape({
@@ -54,8 +58,14 @@ export function CriarNovaVagaForm() {
       cursoAlvo: Yup.string()
         .oneOf([...cursos], "O curso selecionado não é válido")
         .required("Este campo é obrigatório"),
-      descricao: Yup.string().required("Este campo é obrigatório").max(maxDescriptionLength, `Máximo de ${maxDescriptionLength} caracteres`),
-      cnpj: Yup.string().required("Este campo é obrigatório")
+      descricao: Yup.string()
+        .required("Este campo é obrigatório")
+        .max(
+          maxDescriptionLength,
+          `Máximo de ${maxDescriptionLength} caracteres`
+        ),
+      cnpj: Yup.string()
+        .required("Este campo é obrigatório")
         .min(18, "CNPJ inválido"),
     });
   }
@@ -65,19 +75,15 @@ export function CriarNovaVagaForm() {
     handleSubmit,
     reset,
   } = useForm({
-    defaultValues: (empresaCNPJ) ? {
+    defaultValues: {
       titulo: "",
       localidade: "",
       cursoAlvo: "",
       descricao: "",
       cnpj: empresaCNPJ || "",
-    } : {
-      titulo: "",
-      localidade: "",
-      cursoAlvo: "",
-      descricao: "",
     },
-    resolver: yupResolver(validationSchema),
+    resolver:
+      yupResolver<Yup.InferType<typeof validationSchema>>(validationSchema),
   });
 
   async function onSubmit({
@@ -102,7 +108,7 @@ export function CriarNovaVagaForm() {
         if (response.status === 201) {
           toast.success("Vaga criada com sucesso!");
           reset();
-          queryClient.invalidateQueries({queryKey: ["vagas"]});
+          queryClient.invalidateQueries({ queryKey: ["vagas"] });
         }
       })
       .catch((err) => {
@@ -117,7 +123,11 @@ export function CriarNovaVagaForm() {
       });
   }
   if (auth?.authorities?.includes("ALUNO")) {
-    return <SystemLayout><h2>SEM PERMISSÃO</h2></SystemLayout>
+    return (
+      <SystemLayout>
+        <h2>SEM PERMISSÃO</h2>
+      </SystemLayout>
+    );
   }
   return (
     <CriarVagaFormStyle
@@ -161,6 +171,7 @@ export function CriarNovaVagaForm() {
         </div>
         <div className="lbl">
           <label htmlFor="change-courses"> </label>
+
           <Controller
             name={"cursoAlvo"}
             control={control}
@@ -171,7 +182,7 @@ export function CriarNovaVagaForm() {
                   ref={ref}
                   inputId="change-courses"
                   options={CursosSelectOptions}
-                  placeholder="Curso alvo"
+                  placeholder="Selecione um curso"
                   onChange={(option: any) => onChange(option?.value)}
                   onBlur={onBlur}
                   value={CursosSelectOptions.filter((option) =>
@@ -188,17 +199,18 @@ export function CriarNovaVagaForm() {
           <p className="input-error">{errors.cursoAlvo?.message}</p>
         </div>
       </div>
-      {(auth?.authorities?.includes("ADMIN") && !empresaCNPJ) && (
+      {auth?.authorities?.includes("ADMIN") && (
         <div className="lbl">
           <label htmlFor="cnpj">Empresa gerente da vaga: </label>
           <Controller
             name="cnpj"
             control={control}
-            render={({ field: {value, ...rest}  }) => (
-              <ReactInputMask
+            render={({ field: { value, ref, ...rest } }) => (
+              <InputMask
                 maskPlaceholder={null}
                 mask="99.999.999/9999-99"
                 value={value}
+                inputRef={ref}
                 {...rest}
               >
                 <Input
@@ -207,7 +219,7 @@ export function CriarNovaVagaForm() {
                   placeholder="CNPJ"
                   {...(errors.cnpj && { className: "danger" })}
                 />
-              </ReactInputMask>
+              </InputMask>
             )}
           />
           <p className="input-error">{errors.cnpj?.message}</p>
@@ -217,8 +229,7 @@ export function CriarNovaVagaForm() {
       <div className="lbl">
         <label htmlFor="desc">Descrição: </label>
         {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
-        <div id="descriptionVaga">
-        </div>
+        <div id="descriptionVaga"></div>
         <div className="description-container">
           <Controller
             name="descricao"

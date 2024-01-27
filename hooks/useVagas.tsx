@@ -32,7 +32,7 @@ export const useVagas = () => {
     candidatoId: number | string;
   }) => {
     await api.patch(`/vaga/${vagaId}/removeAluno/${candidatoId}`).then(() => {
-      toast.success("Você se desinscreveu da vaga!", {
+      toast.warn("Você se desinscreveu da vaga!", {
         position: "bottom-center",
         hideProgressBar: true,
       });
@@ -51,7 +51,7 @@ export const useVagas = () => {
       ])
       .then(() => {
         invalidateQueries(vagaId);
-        toast.success("Incrições reabertas com sucesso!", {
+        toast.info("Incrições reabertas com sucesso!", {
           toastId: "vaga-aberta",
         });
       })
@@ -71,7 +71,7 @@ export const useVagas = () => {
       ])
       .then(() => {
         invalidateQueries(vagaId);
-        toast.success("Vaga encerrada com sucesso!", {
+        toast.warning("Vaga encerrada com sucesso!", {
           toastId: "vaga-encerrada",
         });
       })

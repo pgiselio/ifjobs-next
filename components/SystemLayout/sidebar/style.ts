@@ -19,26 +19,54 @@ export const SidebarOverlay = styled.div`
 export const SidebarAside = styled.aside`
   //Sidebar List
   grid-area: menu;
-  height: calc(100vh - var(--top-bar-height));
+  height: calc(100% - var(--top-bar-height));
+  max-height: calc(100vh - var(--top-bar-height));
   background-color: var(--navs-bg);
   border-right: 1px solid ${(props) => props.theme.colors.systemMenu.border};
   position: fixed;
-  overflow: overlay;
-  overflow-x: hidden;
   top: var(--top-bar-height);
   z-index: 20;
   width: 280px;
   max-width: 100vw;
   transition: width 0.3s, transform 0.5s, padding 0.3s linear;
   transform: translateX(calc(-100vw - 280px));
+  &::after {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 280px;
+    height: 10px;
+    width: 10px;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-color: var(--navs-border);
+    border-top-left-radius: 10px;
+    box-shadow: -4px -3px 0 2px var(--navs-bg);
+    box-shadow: -4px -3px 0 2px var(--navs-bg);
+    z-index: 20;
+    pointer-events: none;
+  }
 
   body.toggle-sidemenu & {
-    padding: 0 10px;
     transform: translateX(0);
+  }
+  body.toggle-sidemenu & .sidebar-scroller {
+    padding: 0 10px;
+    transition: padding 0.3s linear;
+  }
+
+  .sidebar-scroller {
+    position: relative;
+    margin-top: 15px;
+    z-index: 21;
+    overflow: overlay;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
   }
 
   .side-bar-container {
-    padding-top: 30px;
+    padding-top: 20px;
   }
 
   .min-perfil {
@@ -101,38 +129,58 @@ export const SidebarAside = styled.aside`
     margin: 5px 0;
   }
 
+  .sidebar-items .menu-separator ~ li {
+    position: sticky;
+    bottom: 15px;
+    padding: 10px 0;
+    padding-top: 20px;
+    background-color: var(--navs-bg);
+    a:first-child {
+      box-shadow: 0px -30px 29px 17px var(--navs-bg);
+      -webkit-box-shadow: 0px -30px 29px 17px var(--navs-bg);
+      -moz-box-shadow: 0px -30px 29px 17px var(--navs-bg);
+    }
+  }
+
   @media (min-width: 766px) {
-    padding: 0 10px;
     position: sticky;
     transition: padding 0.3s ease;
     border-right: none;
     transform: initial;
-    &::-webkit-scrollbar {
+    .sidebar-scroller {
+      padding: 0 10px;
+    }
+    &::after {
+      display: none;
+    }
+    & .sidebar-scroller::-webkit-scrollbar {
       width: 8px;
       transition: all 0.3s linear;
     }
 
-    &::-webkit-scrollbar-thumb {
+    & .sidebar-scroller::-webkit-scrollbar-thumb {
       background: transparent;
       border-radius: 20px;
       -webkit-background-clip: content-box;
       background-clip: content-box;
       border: 2px solid transparent;
     }
-    &:hover::-webkit-scrollbar-thumb {
+    & .sidebar-scroller:hover::-webkit-scrollbar-thumb {
       background-color: #a3a3a3d5;
     }
 
-    &::-webkit-scrollbar-thumb:hover {
+    & .sidebar-scroller::-webkit-scrollbar-thumb:hover {
       background-color: #838383d5;
       border-width: 1px;
     }
-    &::-webkit-scrollbar-thumb:active {
+    & .sidebar-scroller::-webkit-scrollbar-thumb:active {
       background-color: #707070d5;
       border-width: 1px;
     }
     body.toggle-sidemenu & {
       width: 80px;
+    }
+    body.toggle-sidemenu & .sidebar-scroller {
       padding: 0 10px;
     }
 

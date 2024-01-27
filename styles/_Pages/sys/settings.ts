@@ -44,8 +44,8 @@ export const SettingPageStyle = styled.section`
       i {
         color: var(--text-b);
       }
-      :hover {
-        border: 1px solid var(--outline-color);
+      &:hover {
+        border-color: var(--outline-color);
         i {
           color: var(--text-a);
         }

@@ -20,57 +20,67 @@ export function SidebarList() {
       "ADMIN"
     );
   }
-  return <>
-    <SidebarOverlay
-      onClick={() => appOptions.toggleSidebar()}
-    ></SidebarOverlay>
-    <SidebarAside className="side-bar">
-      <div className="side-bar-container">
-        <div className="min-perfil">
-          <ProfilePic userId={auth.userInfo?.id} />
-          <div className="min-perfil-details">
-            <h3 className="min-perfil-name">{nomePessoa()}</h3>
-            <span className="min-perfil-detail">{auth?.email}</span>
+  return (
+    <>
+      <SidebarOverlay
+        onClick={() => appOptions.toggleSidebar()}
+      ></SidebarOverlay>
+      <SidebarAside className="side-bar">
+        <div className="sidebar-scroller">
+          <div className="side-bar-container">
+            <div className="min-perfil">
+              <ProfilePic userId={auth.userInfo?.id} />
+              <div className="min-perfil-details">
+                <h3 className="min-perfil-name">{nomePessoa()}</h3>
+                <span className="min-perfil-detail">{auth?.email}</span>
+              </div>
+            </div>
+
+            <nav className="sidebar-items">
+              <ul>
+                <SidebarItem to="/sys" icon="fas fa-home" label="Início" end />
+                {auth?.authorities?.includes("ADMIN") && (
+                  <SidebarItem
+                    to={`/sys/gerenciamento`}
+                    icon="fas fa-gauge-high"
+                    label="Gerenciamento"
+                  />
+                )}
+                <SidebarItem
+                  to="/sys/vagas"
+                  icon="fas fa-briefcase"
+                  label="Vagas"
+                />
+                <SidebarItem
+                  to="/sys/forum"
+                  icon="fas fa-comments"
+                  label="Fórum"
+                />
+                {!auth?.authorities?.includes("ADMIN") && (
+                  <SidebarItem
+                    to={`/sys/profile/${auth.userInfo?.id}`}
+                    icon="fas fa-user"
+                    label="Perfil"
+                  />
+                )}
+
+                <SidebarItem
+                  to="/sys/settings"
+                  icon="fas fa-cog"
+                  label="Configurações"
+                />
+                <div className="menu-separator"></div>
+                <li>
+                  <Link href="/logout" passHref title="Sair" className="sair">
+                    <i className="fas fa-sign-out-alt"></i>
+                    <span>Sair</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
-
-        <nav className="sidebar-items">
-          <ul>
-            <SidebarItem to="/sys" icon="fas fa-home" label="Início" end />
-            {auth?.authorities?.includes("ADMIN") && (
-              <SidebarItem
-                to={`/sys/gerenciamento`}
-                icon="fas fa-gauge-high"
-                label="Gerenciamento"
-              />
-            )}
-            <SidebarItem to="/sys/vagas" icon="fas fa-briefcase" label="Vagas" />
-            <SidebarItem to="/sys/forum" icon="fas fa-comments" label="Fórum" />
-            {!auth?.authorities?.includes("ADMIN") && (
-              <SidebarItem
-                to={`/sys/profile/${auth.userInfo?.id}`}
-                icon="fas fa-user"
-                label="Perfil"
-              />
-            )}
-
-            <SidebarItem
-              to="/sys/settings"
-              icon="fas fa-cog"
-              label="Configurações"
-            />
-            <div className="menu-separator"></div>
-            <li>
-              <Link href="/logout" passHref title="Sair" className="sair">
-
-                <i className="fas fa-sign-out-alt"></i>
-                <span>Sair</span>
-
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </SidebarAside>
-  </>;
+      </SidebarAside>
+    </>
+  );
 }
