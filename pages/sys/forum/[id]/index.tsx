@@ -6,7 +6,7 @@ import { HeaderTitle } from "../../../../components/SystemLayout/header-title";
 import { OutsetHeadersCornerRadius } from "../../../../components/SystemLayout/outset-radius-to-headers";
 import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
 import SystemLayout from "../../../../components/Layouts/system";
-import { ForumTopic, NewAnswer } from "../../../../styles/_Pages/sys/forum";
+import styled from "../../../../styles/_Pages/sys/forum.module.scss";
 
 export default function ForumTopicPage() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function ForumTopicPage() {
             <BoxContent>
               <h3>Discussões sobre a vaga</h3>
               <br/>
-              <ForumTopic>
+              <div className={styled["forum-topic"]}>
                 <div className="topic-message">
                   <div className="sender-detail">
                     <ProfilePic style={{ width: 50, height: 50 }} />
@@ -68,7 +68,7 @@ export default function ForumTopicPage() {
                     </p>
                   </div>
                 </div>
-                <ForumTopic>
+                <div className={styled["forum-topic"]}>
                   <div className="topic-message">
                     <div className="sender-detail">
                       <ProfilePic style={{ width: 50, height: 50 }} />
@@ -81,9 +81,9 @@ export default function ForumTopicPage() {
                       <p>asdjasl daslkdj aslk daslk ldkja slk</p>
                     </div>
                   </div>
-                </ForumTopic>
-              </ForumTopic>
-              <ForumTopic>
+                </div>
+              </div>
+              <div className={styled["forum-topic"]}>
                 <div className="topic-message">
                   <div className="sender-detail">
                     <ProfilePic style={{ width: 50, height: 50 }} />
@@ -96,10 +96,10 @@ export default function ForumTopicPage() {
                     <p>asdjasl daslkdj aslk daslk ldkja slk</p>
                   </div>
                 </div>
-              </ForumTopic>
+              </div>
             </BoxContent>
           </Box>
-          <NewAnswer id="newComment">
+          <Box className={styled["box-newAnswer"]} id="newComment">
             <BoxTitle>Responder</BoxTitle>
             <BoxContent>
               <form action="">
@@ -114,7 +114,7 @@ export default function ForumTopicPage() {
                 </Button>
               </form>
             </BoxContent>
-          </NewAnswer>
+          </Box>
         </div>
       </section>
       </SystemLayout>

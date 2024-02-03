@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const Error404Style = styled.div`
+.error404Style {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,4 +21,4 @@ export const Error404Style = styled.div`
     font-size: 15pt;
     text-transform: uppercase;
   }
-`;
+}

@@ -24,12 +24,6 @@ const Home: NextPage = () => {
     hue: "green",
   } as ColorOptions;
 
-  useEffect(() => {
-    if (auth.userInfo?.email) {
-      window.location.href = "sys";
-    }
-  });
-
   return (
     <>
       <Head>

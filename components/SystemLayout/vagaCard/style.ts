@@ -118,8 +118,11 @@ export const VagaCardStyle = styled.div`
       white-space: initial;
     }
     &.status {
-      background: #c91f1f;
+      background: #F44336;
       color: #fff;
+      color: var(--inside-accent-color);
+      font-weight: 500;
+
       & i {
         color: #fff;
       }

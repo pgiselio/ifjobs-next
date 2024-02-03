@@ -13,6 +13,17 @@ export function getUserLocalStorage() : IUser | null{
 
   const user = JSON.parse(json);
 
+  const token= user?.token;
+  if (token) {
+    const parsedJWT = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+    const now = new Date();
+    const exp = new Date(parsedJWT.exp * 1000);
+    if (now > exp) {
+      setUserLocalStorage(null);
+      return null;
+    }
+  }
+
   return user ?? null;
 }
 
