@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import VerificationInput from "react-verification-input";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
 import { api } from "../../../services/api";
-import { CadastroStep2Style } from "../../../styles/_Pages/Cadastro/step2";
 import { CadastroLayout } from "../../../components/Layouts/cadastro";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import styled from "./styles.module.scss";
 
 
 export default function VerifiqueOSeuEmailPage() {
@@ -91,7 +91,7 @@ export default function VerifiqueOSeuEmailPage() {
 
   return (
     <CadastroLayout>
-      <CadastroStep2Style>
+      <div className={styled.step2}>
         <div className="content">
           <h1>
             <i className="fas fa-envelope"></i>
@@ -109,9 +109,6 @@ export default function VerifiqueOSeuEmailPage() {
                 validChars="0-9"
                 onChange={(value: string) => {
                   setCodeFromInput(value);
-                  if (value.length === 6) {
-                    handleSubmit(onSubmit)();
-                  }
                 }}
                 classNames={{
                   container: "code-fields",
@@ -163,7 +160,7 @@ export default function VerifiqueOSeuEmailPage() {
             </button>
           </div>
         </div>
-      </CadastroStep2Style>
+      </div>
     </CadastroLayout>
   );
 }

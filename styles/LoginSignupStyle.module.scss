@@ -1,22 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const AccessGlobalStyle = createGlobalStyle`
-  :root {
-    --bg-login: #fcfcfc;
-  }
-  body{
-    background: linear-gradient(
-        45deg,
-        rgba(6, 52, 15, 1) 0%,
-        rgba(28, 136, 50, 1) 50%,
-        rgba(147, 255, 169, 1) 100%
-      ),
-      rgb(6, 52, 15);
-    background-attachment: fixed;
-  }
-`;
-
-export const StyledAccess = styled.main`
+.StyledAccess :global {
   .access-container {
     display: flex;
     flex-direction: column;
@@ -52,7 +34,7 @@ export const StyledAccess = styled.main`
     row-gap: 12px;
     position: relative;
   }
-  
+
   .pwrst-link {
     font-weight: 500;
     color: var(--accent-color);
@@ -72,7 +54,7 @@ export const StyledAccess = styled.main`
     width: 110px;
     height: 40px;
   }
-  
+
   .registre-se {
     display: flex;
     font-size: 13px;
@@ -101,7 +83,8 @@ export const StyledAccess = styled.main`
     height: 30px;
     position: relative;
   }
-  .logo-signup:hover, .logo-login:hover {
+  .logo-signup:hover,
+  .logo-login:hover {
     filter: grayscale(0.5);
   }
   .progress {
@@ -116,7 +99,7 @@ export const StyledAccess = styled.main`
     height: 8px;
     border-radius: 10px;
     background: var(--outline-color);
-    transition: width .4s ease, background .4s ease;
+    transition: width 0.4s ease, background 0.4s ease;
   }
   .progress > span.active {
     background: var(--accent-color-active);
@@ -130,7 +113,7 @@ export const StyledAccess = styled.main`
     flex-direction: column;
     gap: 10px;
   }
-  .input-group.no-wrap{
+  .input-group.no-wrap {
     flex-direction: row;
   }
   .desc {
@@ -167,7 +150,7 @@ export const StyledAccess = styled.main`
     user-select: none;
     color: var(--accent-color);
   }
-  .btn-next .next-arrow{
+  .btn-next .next-arrow {
     color: #fff;
     display: flex;
     justify-content: center;
@@ -188,7 +171,7 @@ export const StyledAccess = styled.main`
   .btn-next:not(:disabled):active {
     color: var(--accent-color-active);
   }
-  .btn-next:not(:disabled):active .next-arrow{
+  .btn-next:not(:disabled):active .next-arrow {
     transform: translateX(3px);
     background: var(--accent-color-active);
   }
@@ -268,4 +251,4 @@ export const StyledAccess = styled.main`
       padding: 30px 50px;
     }
   }
-`;
+}

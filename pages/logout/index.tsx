@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useAuth } from "../../hooks/useAuth";
-import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
+import styled from "../../styles/LoginSignupStyle.module.scss";
+import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
+
 
 export default function LogoutPage() {
   const auth = useAuth();
@@ -13,7 +15,8 @@ export default function LogoutPage() {
   });
 
   return (
-    <StyledAccess>
+    <main className={styled.StyledAccess}>
+      <AccessGlobalStyle/>
       <div
         className="access-container"
         style={{
@@ -29,8 +32,7 @@ export default function LogoutPage() {
           width="60px"
           duration="1.5s"
         />
-        <AccessGlobalStyle />
       </div>
-    </StyledAccess>
+    </main>
   );
 }

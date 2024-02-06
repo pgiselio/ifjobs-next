@@ -6,20 +6,15 @@ import { GlobalStyle } from "../styles/global";
 import { AuthProvider } from "../contexts/AuthContext";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { AppOptionsProvider } from "../contexts/AppOptionsContext";
-import { useEffect, useState } from "react";
 
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "../styles/globals.scss";
+import "../styles/select.scss";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-  }, []);
   return (
     <ThemeProvider theme={themes.light}>
       <QueryClientProvider client={queryClient}>

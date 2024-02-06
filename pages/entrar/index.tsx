@@ -5,12 +5,14 @@ import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
+
+import styled from "../../styles/LoginSignupStyle.module.scss";
+import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
 
 export default function LoginPage() {
   const auth = useAuth();
@@ -82,7 +84,8 @@ export default function LoginPage() {
   }
 
   return (
-    <StyledAccess>
+    <main className={styled.StyledAccess}>
+      <AccessGlobalStyle/>
       <Head>
         <title>Fazer Login - IFJobs</title>
         <meta name="description" content="Fazer login no sistema do IFJobs" />
@@ -101,7 +104,6 @@ export default function LoginPage() {
         draggable
         pauseOnHover
       />
-      <AccessGlobalStyle />
 
       <div className="access-container">
         <div className="login-form">
@@ -187,6 +189,6 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
-    </StyledAccess>
+    </main>
   );
 }

@@ -1,7 +1,6 @@
-import styled from "styled-components";
-import { InputStyle } from "../../../components/General/input/styles";
+@use "../../../styles/mixins";
 
-export const CadastroStep2Style = styled.div`
+.step2 :global{
   .content {
     display: flex;
     flex-direction: column;
@@ -30,7 +29,7 @@ export const CadastroStep2Style = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        ${InputStyle}
+        @include mixins.inputStyle;
         caret-color: var(--accent-color);
         font-size: 20px;
         font-weight: 500;
@@ -45,4 +44,4 @@ export const CadastroStep2Style = styled.div`
       }
     }
   }
-`;
+}

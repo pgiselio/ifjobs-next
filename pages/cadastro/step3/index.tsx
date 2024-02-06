@@ -3,7 +3,6 @@ import ReactInputMask from "react-input-mask";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { Input } from "../../../components/General/input";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
-import { CadastroStep3Style } from "../../../styles/_Pages/Cadastro/step3";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -11,13 +10,14 @@ import { api } from "../../../services/api";
 import { toast } from "react-toastify";
 import { userAlunoType } from "../../../contexts/CadastroContext/types";
 import { convertFromStringToDate } from "../../../utils/convertStringToDateFormat";
-import { CustomSelect } from "../../../components/General/select";
+import Select from "react-select";
 import {
   CursosSelectOptions,
   UFsSelectOptions,
 } from "../../../utils/selectLists";
 import { useRouter } from "next/router";
 import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import styled from "./styles.module.scss";
 
 export default function CadastroStep3() {
   const [isLoading, setIsLoading] = useState(false);
@@ -109,8 +109,7 @@ export default function CadastroStep3() {
   }
   return (
     <CadastroLayout>
-      <CadastroStep3Style>
-        <div className="content">
+        <div className={styled.content}>
           <h2 className="desc">Seus Dados</h2>
           <form id="cadastroStep3" onSubmit={handleSubmit(onHandleSubmit)}>
             <div className="inputs">
@@ -189,7 +188,9 @@ export default function CadastroStep3() {
                     name="UF"
                     control={control}
                     render={({ field: { value, onChange, onBlur, ref } }) => (
-                      <CustomSelect
+                      <Select
+                      unstyled
+                      classNamePrefix="Select"
                         noOptionsMessage={() => "Não encontrado"}
                         ref={ref}
                         inputId="estado"
@@ -239,7 +240,9 @@ export default function CadastroStep3() {
                     name="curso"
                     control={control}
                     render={({ field: { value, onChange, onBlur, ref } }) => (
-                      <CustomSelect
+                      <Select
+                      unstyled
+                      classNamePrefix="Select"
                         noOptionsMessage={() => "Não encontrado"}
                         ref={ref}
                         inputId="change-courses"
@@ -316,7 +319,6 @@ export default function CadastroStep3() {
             </button>
           </div>
         </div>
-      </CadastroStep3Style>
     </CadastroLayout>
   );
 }

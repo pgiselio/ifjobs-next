@@ -15,7 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "../../../../../components/General/button";
 import CircularProgressFluent from "../../../../../components/General/circular-progress-fluent";
 import { UFsSelectOptions } from "../../../../../utils/selectLists";
-import { CustomSelect } from "../../../../../components/General/select";
+import Select from "react-select";
 import SystemLayout from "../../../../../components/Layouts/system";
 
 export default function CadastrarEmpresaPage() {
@@ -49,18 +49,27 @@ export default function CadastrarEmpresaPage() {
         { message: "Link inválido!", excludeEmptyString: true }
       )
       .nonNullable(),
-    instagram: Yup.string().matches(
-      /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)/igm,
-      { message: "Link inválido!", excludeEmptyString: true }
-    ).notRequired().nonNullable(),
-    linkedin: Yup.string().matches(
-      /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(company|in|profile)/gm,
-      { message: "Link inválido!", excludeEmptyString: true }
-    ).notRequired().nonNullable(),
-    twitter: Yup.string().matches(
-      /^https?:\/\/(?:www\.)?(twitter|x)\.com\/(?:#!\/)?@?([^/?#]*)(?:[?#].*)?$/gm,
-      { message: "Link inválido!", excludeEmptyString: true }
-    ).notRequired().nonNullable(),
+    instagram: Yup.string()
+      .matches(
+        /(?:(?:http|https):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)/gim,
+        { message: "Link inválido!", excludeEmptyString: true }
+      )
+      .notRequired()
+      .nonNullable(),
+    linkedin: Yup.string()
+      .matches(
+        /^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(company|in|profile)/gm,
+        { message: "Link inválido!", excludeEmptyString: true }
+      )
+      .notRequired()
+      .nonNullable(),
+    twitter: Yup.string()
+      .matches(
+        /^https?:\/\/(?:www\.)?(twitter|x)\.com\/(?:#!\/)?@?([^/?#]*)(?:[?#].*)?$/gm,
+        { message: "Link inválido!", excludeEmptyString: true }
+      )
+      .notRequired()
+      .nonNullable(),
   });
   const {
     control,
@@ -243,7 +252,8 @@ export default function CadastrarEmpresaPage() {
                       name="UF"
                       control={control}
                       render={({ field: { value, onChange, onBlur, ref } }) => (
-                        <CustomSelect
+                        <Select
+                          classNamePrefix="Select"
                           noOptionsMessage={() => "Não encontrado"}
                           ref={ref}
                           inputId="estado"

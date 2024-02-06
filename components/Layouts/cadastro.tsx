@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "../../hooks/useAuth";
 import { useCadastroSteps } from "../../hooks/useCadastroAluno";
-import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+
+import styled from "../../styles/LoginSignupStyle.module.scss";
+import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
 
 export function CadastroLayout({children} : {children: any}) {
   const navigate = useRouter();
@@ -18,7 +20,8 @@ export function CadastroLayout({children} : {children: any}) {
     }
   });
   return (
-    <StyledAccess>
+    <main className={styled.StyledAccess}>
+      <AccessGlobalStyle/>
       <Head>
         <title>Cadastro - IFJobs</title>
         <meta name="description" content="Cadastro no sistema do IFJobs" />
@@ -37,7 +40,6 @@ export function CadastroLayout({children} : {children: any}) {
         draggable
         pauseOnHover
       />
-      <AccessGlobalStyle />
 
       <section className="access-container">
         <div className="login-form signup-form">
@@ -77,6 +79,6 @@ export function CadastroLayout({children} : {children: any}) {
           </div>
         </div>
       </section>
-    </StyledAccess>
+    </main>
   );
 }

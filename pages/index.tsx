@@ -3,15 +3,12 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { ParallaxBanner, ParallaxProvider } from "react-scroll-parallax";
-import { useEffect } from "react";
 import { Button } from "../components/General/button";
 import { LandNavBar } from "../components/landing/navbar";
-import { LandingGlobalStyle, LandingStyle } from "../components/landing/styles";
-import { useAuth } from "../hooks/useAuth";
 import { ColorOptions, TagCloud } from "react-tagcloud";
+import styled from "./index.module.scss";
 
 const Home: NextPage = () => {
-  const auth = useAuth();
   const data = [
     { value: "Administração", count: Math.random() * 100 },
     { value: "Informática", count: Math.random() * 100 },
@@ -26,6 +23,14 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <style global>{`
+        body {
+          background-color: #ffffff;
+        }
+        *::selection {
+          background-color: var(--accent-color-opacity);
+        }
+      `}</style>
       <Head>
         <title>IF Jobs</title>
         <link rel="icon" href="/favicon.ico" />
@@ -34,11 +39,9 @@ const Home: NextPage = () => {
       </Head>
 
       <ParallaxProvider>
-        <LandingStyle>
-
+        <div className={styled["landing-style"]}>
           <LandNavBar />
-          
-          <LandingGlobalStyle />
+
           <main className="landing-main">
             <section className="hello-section" id="sec1">
               <ParallaxBanner
@@ -47,19 +50,30 @@ const Home: NextPage = () => {
                   { image: "images/waves.svg", speed: -20 },
                   {
                     children: (
-                      <div className="container" style={{maxWidth: 1600, display: "grid"}}>
-                        
+                      <div
+                        className="container"
+                        style={{ maxWidth: 1600, display: "grid" }}
+                      >
                         <div className="hello-text">
-                        <h1><span>Seu</span> primeiro emprego! <i className="fas fa-heart"></i></h1>
-                        <p>
-                          O IFJobs é uma plataforma de oportunidades voltada para
-                          alunos e ex-alunos do IFRN Campus João Câmara.
-                          Surgimos com o objetivo de estreitar os laços entre as
-                          empresas, tornando o processo de divulgação de vagas e
-                          de contratação mais centrado, fácil e ágil.
-                        </p>
+                          <h1>
+                            <span>Seu</span> primeiro emprego!{" "}
+                            <i className="fas fa-heart"></i>
+                          </h1>
+                          <p>
+                            O IFJobs é uma plataforma de oportunidades voltada
+                            para alunos e ex-alunos do IFRN Campus João Câmara.
+                            Surgimos com o objetivo de estreitar os laços entre
+                            as empresas, tornando o processo de divulgação de
+                            vagas e de contratação mais centrado, fácil e ágil.
+                          </p>
                         </div>
-                        <Image className="img-job-offers" src="images/undraw_job_offers_re_634p.svg" alt="" height={400} width={500}/>
+                        <Image
+                          className="img-job-offers"
+                          src="images/undraw_job_offers_re_634p.svg"
+                          alt=""
+                          height={400}
+                          width={500}
+                        />
                       </div>
                     ),
                     speed: -30,
@@ -87,7 +101,12 @@ const Home: NextPage = () => {
             <section className="aderir-section" id="sec3">
               <div className="container">
                 <div className="img-job-hunt">
-                  <Image src="images/undraw_job_hunt_re_q203.svg" alt="" height={140} width={145}/>
+                  <Image
+                    src="images/undraw_job_hunt_re_q203.svg"
+                    alt=""
+                    height={140}
+                    width={145}
+                  />
                 </div>
                 <h1>Se interessou?</h1>
                 <div className="options">
@@ -99,7 +118,7 @@ const Home: NextPage = () => {
                   </div>
                   <div className="option">
                     <h2>É uma empresa?</h2>
-                    <Link href="/cadastro?tab=EMPRESA">
+                    <Link href="/cadastro/empresa">
                       <Button className="outlined">Faça o pré-cadastro</Button>
                     </Link>
                   </div>
@@ -178,10 +197,21 @@ const Home: NextPage = () => {
             </section>
           </main>
           <footer className="landing-footer">
-            <img src="/images/landing/IFRNJC.png" alt="" />
-            <img src="/images/landing/coex.png" className="coex" alt="" />
+            <Image
+              src="/images/landing/IFRNJC.png"
+              alt=""
+              width={159}
+              height={45}
+            />
+            <Image
+              src="/images/landing/coex.png"
+              className="coex"
+              alt=""
+              width={154}
+              height={42}
+            />
           </footer>
-        </LandingStyle>
+        </div>
       </ParallaxProvider>
     </>
   );

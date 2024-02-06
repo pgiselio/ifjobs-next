@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Select from "react-select";
-import { InputStyle } from "../input/styles";
-
 export const CustomSelect = styled(Select).attrs((props) => ({
   classNamePrefix: "Select",
   noOptionsMessage: !props.noOptionsMessage
@@ -9,7 +7,6 @@ export const CustomSelect = styled(Select).attrs((props) => ({
     : props.noOptionsMessage,
 }))`
   .Select__control {
-    ${InputStyle}
     padding: 5.5px 8px;
     &:hover {
       border-color: var(--outline-color);

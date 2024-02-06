@@ -1,0 +1,57 @@
+@use "mixins";
+
+.Select__control {
+  @include mixins.inputStyle;
+  &:hover {
+    border-color: var(--outline-color);
+  }
+  &.danger {
+      border-color: #c91f1f;
+    ~.Select__control--is-focused {
+      box-shadow: 0 0 0 0.2rem #c91f1f60;
+    }
+  }
+}
+.Select__control--is-focused {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(45, 143, 65, 0.308);
+  &:hover {
+    border-color: var(--accent-color);
+  }
+}
+.Select__placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-b);
+}
+.Select__input-container {
+  color: var(--text-a);
+}
+.Select__value-container {
+  padding: 0;
+}
+.Select__single-value {
+  color: var(--text-a);
+}
+.Select__menu {
+  background-color: var(--primary-bg);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  .Select__option {
+    padding: 10px;
+  }
+  .Select__option--is-focused {
+    background-color: var(--accent-color-opacity);
+  }
+  .Select__option--is-selected {
+    background-color: var(--accent-color-active);
+  }
+  .Select__option:not(.Select__option--is-selected):active {
+    background-color: var(--accent-color);
+  }
+}
+.Select__noOptionsMessage {
+  color: var(--text-b);
+  padding: 100px;
+}
+

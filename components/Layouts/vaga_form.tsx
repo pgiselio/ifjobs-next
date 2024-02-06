@@ -16,7 +16,8 @@ import { Button } from "../General/button";
 import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
 import { CursosSelectOptions } from "../../utils/selectLists";
 import SystemLayout from "./system";
-import { CustomSelect } from "../General/select";
+import Select from "react-select";
+
 
 export function CriarNovaVagaForm() {
   // const [editorState, setEditorState] = useState(() =>
@@ -177,7 +178,9 @@ export function CriarNovaVagaForm() {
             control={control}
             render={({ field: { value, onChange, onBlur, ref } }) => {
               return (
-                <CustomSelect
+                <Select
+                  unstyled
+                  classNamePrefix="Select"
                   noOptionsMessage={() => "Não encontrado"}
                   ref={ref}
                   inputId="change-courses"

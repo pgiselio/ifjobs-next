@@ -1,14 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
-
-export const LandingGlobalStyle = createGlobalStyle`
-  body{
-    background-color: #ffffff;
-  }
-  *::selection{
-    background-color: var(--accent-color-opacity);
-  }
-`;
-export const LandingStyle = styled.div`
+.landing-style :global {
   .container {
     display: flex;
     flex-direction: column;
@@ -64,7 +54,7 @@ export const LandingStyle = styled.div`
           align-self: center;
           .container {
             position: relative;
-            grid-template-columns: 1fr clamp(300px,40vw,500px);
+            grid-template-columns: 1fr clamp(300px, 40vw, 500px);
           }
           .hello-text {
             z-index: 2;
@@ -72,10 +62,10 @@ export const LandingStyle = styled.div`
               /* max-width: 75%; */
               font-size: clamp(3.5rem, 5vw, 4em);
               text-align: left;
-              span{
+              span {
                 color: #00d16a;
               }
-              i{
+              i {
                 color: #149f84;
               }
             }
@@ -88,14 +78,14 @@ export const LandingStyle = styled.div`
           }
           .img-job-offers {
             /* position: absolute;
-            right: 0;
-            top: calc(50% - 200px); */
+                right: 0;
+                top: calc(50% - 200px); */
             z-index: 1;
             width: 100%;
             margin-left: -10px;
           }
           @media (max-width: 768px) {
-            .container{
+            .container {
               grid-template-columns: 1fr;
             }
             .img-job-offers {
@@ -109,7 +99,7 @@ export const LandingStyle = styled.div`
               margin-bottom: -50px;
               right: initial;
               top: initial;
-              @media (min-height:810px) {
+              @media (min-height: 810px) {
                 display: block;
               }
             }
@@ -120,7 +110,7 @@ export const LandingStyle = styled.div`
     }
     section.cursos-section {
       position: relative;
-      background-image: url(images/waves.svg);
+      background-image: url("/images/waves.svg");
       background-position: center center;
       background-size: cover;
       background-blend-mode: color-burn;
@@ -259,24 +249,7 @@ export const LandingStyle = styled.div`
     }
   }
 
-  footer.landing-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px 50px;
-    column-gap: 50px;
-    row-gap: 20px;
-    flex-wrap: wrap;
-    display: flex;
-    background: #33313d;
-    border-bottom: green 5px solid;
-    img {
-      height: 45px;
-      &.coex {
-        height: 42px;
-      }
-    }
-  }
+  
   .custom-bg {
     height: 100%;
   }
@@ -302,4 +275,4 @@ export const LandingStyle = styled.div`
       transform: translateX(-50%);
     }
   }
-`;
+}

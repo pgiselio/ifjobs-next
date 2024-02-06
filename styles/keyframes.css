@@ -1,0 +1,22 @@
+@keyframes clipPathVerified {
+    0% {
+      clip-path: circle(10px at 2px 20%);
+    }
+    60% {
+      clip-path: circle(50% at -7px 80%);
+    }
+    100%{
+      clip-path: circle(100% at 30px 10%);
+    }
+}
+
+@keyframes zoom-in-opacity{
+  0%{
+      opacity: 0;
+      transform: scale(0);
+  }
+  100%{
+      transform: scale(1);
+      opacity: 1;
+  }
+}

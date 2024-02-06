@@ -24,7 +24,7 @@ import {
 } from "../../../../utils/selectLists";
 import SettingsLayout from "../../../../components/Layouts/settings";
 import { getDirtyValues } from "../../../../utils/getDirtyValues";
-import { CustomSelect } from "../../../../components/General/select";
+import Select from "react-select";
 
 export default function SettingContaPage() {
   const auth = useAuth();
@@ -157,9 +157,7 @@ export default function SettingContaPage() {
         });
     }
     await api
-      .patch(
-        `/usuario/${auth.userInfo?.id}`, jsonPatchList
-      )
+      .patch(`/usuario/${auth.userInfo?.id}`, jsonPatchList)
       .then((response) => {
         if (response.status === 200) {
           toast.success("Mudanças salvas com sucesso!");
@@ -301,7 +299,11 @@ export default function SettingContaPage() {
               <div className="lbl">
                 <label htmlFor="nome">Nome: </label>
                 <Controller
-                  name={auth?.authorities?.includes("ALUNO") ? "aluno.dadosPessoa.nome" : "empresa.dadosPessoa.nome"}
+                  name={
+                    auth?.authorities?.includes("ALUNO")
+                      ? "aluno.dadosPessoa.nome"
+                      : "empresa.dadosPessoa.nome"
+                  }
                   control={control}
                   render={({ field }) => (
                     <Input type="text" id="nome" {...field} />
@@ -318,7 +320,9 @@ export default function SettingContaPage() {
                       control={control}
                       render={({ field: { value, onChange, onBlur, ref } }) => {
                         return (
-                          <CustomSelect
+                          <Select
+                            unstyled
+                            classNamePrefix="Select"
                             noOptionsMessage={() => "Não encontrado"}
                             ref={ref}
                             inputId="change-courses"
@@ -368,7 +372,9 @@ export default function SettingContaPage() {
                     name="uf"
                     control={control}
                     render={({ field: { value, onChange, onBlur, ref } }) => (
-                      <CustomSelect
+                      <Select
+                        unstyled
+                        classNamePrefix="Select"
                         noOptionsMessage={() => "Não encontrado"}
                         ref={ref}
                         inputId="estado"
@@ -425,7 +431,11 @@ export default function SettingContaPage() {
             </Accordion.Trigger>
             <Accordion.Content data-reach-accordion-panel>
               <Controller
-                name={auth?.authorities?.includes("ALUNO") ? "aluno.resumo" : "empresa.resumo"}
+                name={
+                  auth?.authorities?.includes("ALUNO")
+                    ? "aluno.resumo"
+                    : "empresa.resumo"
+                }
                 control={control}
                 render={({ field }) => (
                   <textarea

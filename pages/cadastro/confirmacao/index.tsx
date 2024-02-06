@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { CadastroLayout } from "../../../components/Layouts/cadastro";
-import { CadastroConcluidoStyle } from "../../../styles/_Pages/Cadastro/confirmacao";
+import styled from "./styles.module.scss";
 
 export default function CadastroConcluidoPage() {
   return (
     <CadastroLayout>
-      <CadastroConcluidoStyle>
+      <div className={styled.confirmacao}>
         <div className="content">
           <div className="circle">
             <i className="fas fa-check"></i>
@@ -34,7 +34,7 @@ export default function CadastroConcluidoPage() {
             </Link>
           </div>
         </div>
-      </CadastroConcluidoStyle>
+      </div>
     </CadastroLayout>
   );
 }

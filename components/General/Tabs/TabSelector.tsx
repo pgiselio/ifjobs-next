@@ -1,25 +1,30 @@
 import * as React from "react";
-import { TabSelectorStyle } from "./style";
-type TabSelectorProps = {
+import styled from "./style.module.scss";
+
+interface TabSelectorProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   isActive: boolean;
-  children: React.ReactNode;
-  vertical?: boolean
-  className?: string;
-  onClick: () => void;
+  vertical?: boolean;
 }
 export const TabSelector = ({
   isActive,
   children,
-  onClick,
   vertical,
   className,
+  ...rest
 }: TabSelectorProps) => (
-  <TabSelectorStyle isActive={isActive}
-    onClick={onClick}
-    vertical={vertical}
-    className={className}
+  <button
+    className={
+      styled["tab-selector"] +
+      (className ? " " + className : "") +
+      (vertical ? " " + styled.vertical : "") +
+      (isActive ? " "+ styled.active : "")
+    }
+    {...rest}
   >
     {children}
-  </TabSelectorStyle>
+  </button>
 );
-

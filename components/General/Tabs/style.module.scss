@@ -1,0 +1,66 @@
+.tab-selector {
+    background: transparent;
+  border: none;
+  padding:  3px;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-top-width: 2px;
+  position: relative;
+  letter-spacing: .3px;
+  font-weight: 500;
+  font-size: 15px;
+  height: 100%;
+  color:  var(--text-b);
+  gap: 5px;
+  i{
+    width: 25px;
+    text-align: left;
+  }
+  &::after {
+    content: " ";
+    width: 100%;
+    height: 0;
+    background-color: var(--accent-color);
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    transition: height 0.2s ease-in-out;
+  }
+  &:hover {
+    color: var(--text-a);
+    border-bottom-color: var(--outline-color);
+  }
+  &.vertical {
+    padding: 10px 3px;
+    transition: width 0.2s ease-in-out;
+    letter-spacing: .3px;
+    &::after {
+      width: 0;
+      height: 100%;
+      bottom: 0;
+      left: initial;
+      right: -2px;
+      transition: height 0.2s ease-in-out;
+    }
+    &:hover {
+      border-right-color: var(--outline-color);
+      border-bottom-color: transparent;
+    }
+  }
+  &.active {
+    letter-spacing: .1px;
+    color: var(--text-a);
+    font-weight: 700;
+    &::after {
+      width:  100%;
+      height: 2px;
+    }
+    &.vertical::after {
+      width: 2px;
+      height: 100%;
+    }	
+  }
+}

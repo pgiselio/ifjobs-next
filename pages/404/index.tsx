@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styled from "../../styles/_Pages/404.module.scss";
+import styled from "./styles.module.scss";
 
 export default function Error404() {
   return (

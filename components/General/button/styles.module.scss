@@ -27,11 +27,11 @@
     }
   }
   &:global(.red) {
-    background: #c91f1f;
-    border: 2px solid #c91f1f;
+    background: var(--danger-color);
+    border: 2px solid var(--danger-color);
     &:not(:disabled):hover {
-      background: #ac0000;
-      border: 2px solid #ac0000;
+      background: var(--danger-color-dark);
+      border: 2px solid var(--danger-color-dark);
     }
   }
   &:global(.outlined) {
@@ -48,15 +48,15 @@
       border: 2px solid var(--accent-color);
     }
     &:global(.red) {
-      border: 2px solid #c91f1f;
-      color: #ac0000;
+      border: 2px solid var(--danger-color);
+      color: var(--danger-color-dark);
       &:not(:disabled):hover {
-        background: #ac000026;
-        border: 2px solid #c91f1f;
+        background: var(--danger-color-dark-opacity);
+        border: 2px solid var(--danger-color);
       }
       &:global(.filled):not(:disabled):hover {
         color: var(--inside-accent-color);
-        background: #ac0000;
+        background: var(--danger-color-dark);
       }
     }
     &:global(.secondary) {

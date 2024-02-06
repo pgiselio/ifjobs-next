@@ -2,12 +2,11 @@ import { Controller, useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
 import { Button } from "../../components/General/button";
 import { Input } from "../../components/General/input";
-import { AccessGlobalStyle, StyledAccess } from "../../styles/LoginSignupStyle";
+import styled from "../../styles/LoginSignupStyle.module.scss";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
-import { Buffer } from "buffer";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -99,7 +98,22 @@ export default function PasswordResetPage() {
       });
   }
   return (
-    <StyledAccess>
+    <main className={styled.StyledAccess}>
+      <style global>{`  
+         :root {
+          --bg-login: #fcfcfc;
+        }
+        body{
+          background: linear-gradient(
+              45deg,
+              rgba(6, 52, 15, 1) 0%,
+              rgba(28, 136, 50, 1) 50%,
+              rgba(147, 255, 169, 1) 100%
+            ),
+            rgb(6, 52, 15);
+          background-attachment: fixed;
+        }
+      `}</style>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -111,7 +125,6 @@ export default function PasswordResetPage() {
         draggable
         pauseOnHover
       />
-      <AccessGlobalStyle />
 
       <div className="access-container">
         <div className="login-form">
@@ -225,9 +238,7 @@ export default function PasswordResetPage() {
               </p>
               <div>
                 <Link href="/entrar/" passHref className="pwrst-link">
-
-                  <i className="fa-solid fa-arrow-left"></i>Voltar para o
-                                      login
+                  <i className="fa-solid fa-arrow-left"></i>Voltar para o login
                 </Link>
               </div>
               <Button
@@ -247,6 +258,6 @@ export default function PasswordResetPage() {
           )}
         </div>
       </div>
-    </StyledAccess>
+    </main>
   );
 }

@@ -1,0 +1,23 @@
+
+@mixin inputStyle() {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--outline-color);
+    border-radius: 5px;
+    padding: 10px 8px;
+    outline: 0;
+    box-shadow: 0 0 0 0 rgba(45, 143, 65, 0.308);
+    transition: box-shadow 0.4s, border 0.2s, background 0.2s linear;
+    color: var(--text-a);
+    background: #ffffff1a;
+    &:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 0.2rem rgba(45, 143, 65, 0.308);
+    }
+    &:global(.danger) {
+      border-color: var(--danger-color-dark);
+      &:focus {
+        box-shadow: 0 0 0 0.2rem var(--danger-color-opacity);
+      }
+    }
+  }
