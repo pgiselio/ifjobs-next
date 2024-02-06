@@ -5,6 +5,7 @@
   &.company{
     border-radius: 10px;
   }
+  transition: border-radius .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .default-profile {
@@ -15,12 +16,24 @@
   justify-content: center;
   width: 100%;
   height: 100%;
+  border-radius: inherit;
 }
 .default-profile-svg {
   display: flex;
   position: absolute;
   height: 100%;
   width: 100%;
+  pointer-events: none;
+}
+
+.default-profile-svg-border {
+  box-shadow: inset 0 0 0 1px #555d60;
+  border-radius: inherit;
+  display: flex;
+  position: absolute;
+  top: 0;
+  height: inherit;
+  width: inherit;
   pointer-events: none;
 }
 .img-perfil {

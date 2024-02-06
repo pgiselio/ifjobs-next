@@ -11,7 +11,6 @@ import { Button } from "../../../components/General/button";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import LabelWithData from "../../../components/General/label-data";
 import { ProfilePic } from "../../../components/SystemLayout/profile-pic/profile-pic";
-import { Skeleton } from "../../../components/General/skeleton-load";
 import { useAuth } from "../../../hooks/useAuth";
 import { api } from "../../../services/api";
 import { User } from "../../../types/user";
@@ -20,6 +19,7 @@ import { isBlank } from "../../../utils/isBlank";
 import Error404 from "../../404";
 import { ProfilePageStyle } from "../../../styles/_Pages/sys/profiles";
 import SystemLayout from "../../../components/Layouts/system";
+import Skeleton from "react-loading-skeleton";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -72,10 +72,10 @@ export default function ProfilePage() {
                 {isFetching ? (
                   <>
                     <h2>
-                      <Skeleton variant="text" width="200px" height="30px" />
+                    <Skeleton containerClassName="flex-1" width={220}/>
                     </h2>
-                    <span>
-                      <Skeleton variant="text" width="150px" height="20px" />
+                    <span style={{marginTop: 5}}>
+                    <Skeleton containerClassName="flex-1" width={190} height={16}/>
                     </span>
                   </>
                 ) : (

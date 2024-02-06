@@ -5,11 +5,11 @@ import { Box, BoxMessage, BoxTitle } from "../../../../components/General/box";
 import { Button } from "../../../../components/General/button";
 import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
-import { Skeleton } from "../../../../components/General/skeleton-load";
 import { api } from "../../../../services/api";
 import { User } from "../../../../types/user";
 import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
+import Skeleton from "react-loading-skeleton";
 
 export default function VagaCandidatoPage() {
   const router = useRouter();
@@ -105,18 +105,10 @@ export default function VagaCandidatoPage() {
                               <ProfilePic className="candidato-pic" />
                               <div className="candidato-info">
                                 <h3>
-                                  <Skeleton
-                                    variant="text"
-                                    width="300px"
-                                    height="28px"
-                                  />
+                                  <Skeleton />
                                 </h3>
                                 <span>
-                                  <Skeleton
-                                    variant="text"
-                                    width="150px"
-                                    height="18px"
-                                  />
+                                  <Skeleton />
                                 </span>
                               </div>
                             </a>

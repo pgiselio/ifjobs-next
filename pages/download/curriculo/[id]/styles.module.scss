@@ -1,0 +1,112 @@
+.loadingDefs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  gap: 10px;
+}
+.error {
+    flex-direction: column;
+}
+.mainContainer {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  max-height: 100vh;
+  height: 100%;
+}
+
+.document {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+.controls {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  border-radius: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 30px;
+  background-color: rgb(20, 19, 24, 90%);
+  z-index: 10;
+  color: #ccc;
+  transition: all 0.5s ease;
+  button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--inside-accent-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    :global {
+      animation: fade-appear 0.3s ease;
+    }
+    &:hover {
+      background-color: var(--accent-color-active);
+    }
+  }
+  .pagination {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    input {
+      width: 50px;
+      font-size: 15px;
+      text-align: center;
+      background-color: transparent;
+      color: #ccc;
+    }
+  }
+  .viewing {
+    color: #ccc;
+  }
+  .zoomControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  @media (max-width: 765px) {
+    justify-content: space-between;
+    padding: 10px 20px;
+    button {
+      padding: 10px;
+    }
+
+    .viewing {
+      display: none;
+    }
+    .zoomControls {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      padding: 5px;
+      border-radius: 10px;
+      color: gray;
+      background-color: rgb(20, 19, 24, 90%);
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+}

@@ -16,16 +16,19 @@ export function ProfilePic(props: ProfilePicType) {
   const { data } = useProfilePic(props.userId);
   return (
     <div
-      className={styled["styled-profile-pic"] + (props.isCompany ? " "+ styled["company"] : "")+ " profile-pic " + (props.className ?? "")}
+      className={
+        styled["styled-profile-pic"] +
+        (props.isCompany ? " " + styled["company"] : "") +
+        " profile-pic " +
+        (props.className ?? "")
+      }
       style={props.style}
     >
       <span className={styled["default-profile"]}>
         <svg
-          className={styled["default-profile-svg"]}
-          id="defaultProfilePicSVG"
-          data-name="defaultProfilePicSVG"
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 574 574"
+          viewBox="0 0 574.07 574.07"
+          className={styled["default-profile-svg"]}
         >
           <defs>
             <style>
@@ -39,20 +42,24 @@ export function ProfilePic(props: ProfilePicType) {
               `}
             </style>
           </defs>
-          <g>
-            <circle className="cls-1" cx="287" cy="287" r="287" />
-            <path
-              className="cls-2"
-              d="M650.47,261a104,104,0,1,1-104,104A104,104,0,0,1,650.47,261ZM650,675.34a266.26,266.26,0,0,0,185.41-74.83c-40.1-52.84-108.23-87.62-185.55-87.62S504.55,547.6,464.43,600.35A266.25,266.25,0,0,0,650,675.34Z"
-              transform="translate(-363 -111)"
-            />
-          </g>
+          <rect className="cls-1" width="574.07" height="574.07" />
+          <path
+            className="cls-2"
+            d="M453.9,685c-8.21,0-14.42-9-13-18.89C453.45,580,542,513.32,649.35,513.32S845.26,580,857.79,666.11C859.23,676,853,685,844.81,685ZM650,258.43A105.27,105.27,0,1,0,755.25,363.7,105.27,105.27,0,0,0,650,258.43Z"
+            transform="translate(-363 -110.93)"
+          />
         </svg>
       </span>
+      <span className={styled["default-profile-svg-border"]}></span>
 
       {(!isBlank(props.url) || !isBlank(data)) && (
         <>
-          <Image className={styled["img-perfil"]} src={props.url || data || " "} fill alt="" />
+          <Image
+            className={styled["img-perfil"]}
+            src={props.url || data || " "}
+            fill
+            alt=""
+          />
           <span className={styled["profile-pic-border"]}></span>
         </>
       )}

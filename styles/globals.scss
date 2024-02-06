@@ -209,6 +209,9 @@ input[type="checkbox"]:focus-visible {
   font-size: 13px;
   font-weight: 500;
 }
+.flex-1 {
+  flex: 1;
+}
 @media (max-width: 766px) {
   .form-item-group {
     grid-template-columns: 1fr;

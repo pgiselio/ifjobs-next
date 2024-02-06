@@ -16,7 +16,7 @@
   transition: 0.1s linear;
   background: var(--accent-color);
   border: 2px solid var(--accent-color);
-  color: #fff;
+  color: var(--inside-accent-color);
   user-select: none;
   z-index: 50;
   animation: fade-appear 0.3s ease;

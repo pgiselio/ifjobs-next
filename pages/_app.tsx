@@ -9,10 +9,14 @@ import { AppOptionsProvider } from "../contexts/AppOptionsContext";
 
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 import "../styles/globals.scss";
 import "../styles/select.scss";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -34,7 +38,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                   draggable
                   pauseOnHover
                 />
+                <SkeletonTheme baseColor="rgba(000, 000, 000, 0.12)" highlightColor="var(--secondary-color)">
                 <Component {...pageProps} />
+                </SkeletonTheme>
               </>
             </CadastroProvider>
           </AppOptionsProvider>
