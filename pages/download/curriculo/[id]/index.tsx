@@ -146,7 +146,7 @@ export default function DownloadCurriculoPage() {
               <AlertDialog.Description className="AlertDialogDescription">
                 Para uma melhor vizualização sempre opte por baixar o arquivo
                 ou, caso esteja em um computador, clique com o botão direito em
-                "Download" e abra o link em uma nova aba.
+                &quot;Download&quot; e abra o link em uma nova aba.
               </AlertDialog.Description>
               <div
                 className="alert-buttons AlertDialogActions"
