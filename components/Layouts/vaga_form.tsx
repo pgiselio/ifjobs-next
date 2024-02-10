@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { queryClient } from "../../services/queryClient";
 import { Button } from "../General/button";
-import { CriarVagaFormStyle } from "../../styles/_Pages/sys/styleForm";
+import styled from "../../styles/_Pages/sys/styleForm.module.scss";
 import { CursosSelectOptions } from "../../utils/selectLists";
 import SystemLayout from "./system";
 import Select from "react-select";
@@ -131,8 +131,8 @@ export function CriarNovaVagaForm() {
     );
   }
   return (
-    <CriarVagaFormStyle
-      className="form-create-vaga"
+    <form
+      className={"form-create-vaga " + styled.criarVagaFormStyle}
       id="form-create-vaga"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -278,6 +278,6 @@ export function CriarNovaVagaForm() {
           Criar
         </Button>
       </div>
-    </CriarVagaFormStyle>
+    </form>
   );
 }

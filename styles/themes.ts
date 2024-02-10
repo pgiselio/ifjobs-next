@@ -41,7 +41,7 @@ export const defaultColors = {
 };
 export const themes = {
   systemDefault: {
-    name: "Padrão do seu sistema",
+    name: "Padrão do dispositivo",
     borderRadius: "",
     pallets: {
       ...defaultColors,

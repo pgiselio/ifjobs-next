@@ -6,7 +6,7 @@ import AvatarEditor from "react-avatar-editor";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { queryClient } from "../../services/queryClient";
-import { ProfilePicFormStyle } from "../../styles/_Pages/sys/settings-conta";
+import styled from "../../styles/_Pages/sys/settings-conta.module.scss";
 import { Button } from "../General/button";
 import { useProfilePic } from "../../hooks/useProfilePic";
 
@@ -124,9 +124,10 @@ export function ProfilePictureForm({
       });
   }
   return (
-    <ProfilePicFormStyle
+    <form
       onSubmit={handleSubmit(onSubmit)}
       id="profile-pic-form"
+      className={styled.profilePicFormStyle}
     >
       <div {...getRootProps({ className: "dropzone" })}>
         <div className="preview">
@@ -223,6 +224,6 @@ export function ProfilePictureForm({
       >
         <i className="fa-solid fa-trash"></i> Remover foto atual
       </Button>
-    </ProfilePicFormStyle>
+    </form>
   );
 }

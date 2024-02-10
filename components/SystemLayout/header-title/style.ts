@@ -30,7 +30,7 @@ export const HeaderTitleStyle = styled.div`
     margin-top: 0;
     background: var(--navs-bg-opacity);
     box-shadow: 0px 1px 4px rgb(0 0 0 / 8%);
-    border-bottom: 1px solid ${(props) => props.theme.colors.systemMenu.border};
+    border-bottom: 1px solid var(--navs-border);
 
     .header-section {
       height: 80px;

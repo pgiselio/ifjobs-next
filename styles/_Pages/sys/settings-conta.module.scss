@@ -1,5 +1,4 @@
-import styled from "styled-components";
-export const CurriculoFormStyle = styled.form`
+.curriculoFormStyle :global {
   .dropzone {
     display: flex;
     flex-direction: column;
@@ -77,12 +76,13 @@ export const CurriculoFormStyle = styled.form`
     gap: 10px;
     
   }
-`;
-export const ProfilePicFormStyle = styled.form`
+}
+.profilePicFormStyle {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+  & :global {
   .controls {
     display: flex;
     gap: 3px;
@@ -144,4 +144,5 @@ export const ProfilePicFormStyle = styled.form`
       }
     }
   }
-`;
+}
+}

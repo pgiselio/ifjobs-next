@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const ProfilePageStyle = styled.section`
+.profilePageStyle :global {
   .profile-page-header {
     display: flex;
     padding: 20px 15px;
@@ -167,4 +165,4 @@ export const ProfilePageStyle = styled.section`
       height: 130px;
     }
   }
-`;
+}

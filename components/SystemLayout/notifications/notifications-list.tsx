@@ -7,7 +7,7 @@ import { notification } from "../../../types/notification";
 import { relativeTimeFromDates } from "../../../utils/relativeDate";
 import CircularProgressFluent from "../../General/circular-progress-fluent";
 import { NotificationCard } from "./notification-card";
-import { StyledNotifications } from "./style";
+import styled from "./style.module.scss";
 
 export function Notifications() {
   const auth = useAuth();
@@ -43,7 +43,7 @@ export function Notifications() {
   }
 
   return (
-    <StyledNotifications className="notification-container">
+    <div className={styled["notification-container"]}>
       <div className="notification-header">
         <div className="title">
           <h3>Notificações</h3>
@@ -167,6 +167,6 @@ export function Notifications() {
             </p>
           ))}
       </div>
-    </StyledNotifications>
+    </div>
   );
 }

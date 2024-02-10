@@ -7,7 +7,7 @@ import { useAuth } from "../../hooks/useAuth";
 import * as Yup from "yup";
 import { api } from "../../services/api";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CurriculoFormStyle } from "../../styles/_Pages/sys/settings-conta";
+import styled from "../../styles/_Pages/sys/settings-conta.module.scss";
 import prettyBytes from "pretty-bytes";
 import Progressbar from "../General/progress-bar";
 import Link from "next/link";
@@ -152,7 +152,7 @@ export function CurriculoForm() {
       });
   }
   return (
-    <CurriculoFormStyle onSubmit={handleSubmit(onSubmit)} id="curriculo-form">
+    <form onSubmit={handleSubmit(onSubmit)} id="curriculo-form" className={styled.curriculoFormStyle}>
       <div {...getRootProps({ className: "dropzone" })} onClick={open}>
         <input type="file" {...register("arquivo")} {...getInputProps()} />
 
@@ -194,6 +194,6 @@ export function CurriculoForm() {
         </Link>
       </div>
       <p className="input-error">{errors.arquivo?.message}</p>
-    </CurriculoFormStyle>
+    </form>
   );
 }

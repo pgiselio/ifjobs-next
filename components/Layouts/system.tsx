@@ -6,7 +6,7 @@ import { SidebarList } from "../SystemLayout/sidebar/sidebar-list";
 import { isTheme } from "../../contexts/AppOptionsContext";
 import { useAppOptions } from "../../hooks/useAppOptions";
 import { GlobalStyle } from "../../styles/global";
-import { SysGlobalStyle } from "../../styles/sys";
+import { SysGlobalStyle } from "../../styles/sys.global";
 import { themes } from "../../styles/themes";
 import Head from "next/head";
 import { RequireAuth } from "../../contexts/AuthContext/RequireAuth";

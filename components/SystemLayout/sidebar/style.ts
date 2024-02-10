@@ -22,7 +22,7 @@ export const SidebarAside = styled.aside`
   height: calc(100% - var(--top-bar-height));
   max-height: calc(100vh - var(--top-bar-height));
   background-color: var(--navs-bg);
-  border-right: 1px solid ${(props) => props.theme.colors.systemMenu.border};
+  border-right: 1px solid var(--navs-border);
   position: fixed;
   top: var(--top-bar-height);
   z-index: 20;

@@ -30,7 +30,7 @@
     transition: background, box-shadow 0.2s linear;
 
     &.scrolled {
-      background: var(--navs-bg);
+      background: #FFFFFF;
 
       box-shadow: 5px 5px 6px 0 rgba(0, 0, 0, 0.05);
     }
@@ -89,13 +89,13 @@
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
-    color: var(--accent-color);
+    color: rgb(var(--palette-green-7));
   }
 
   .menu .nav-link:hover {
-    background: var(--accent-color);
+    background: rgb(var(--palette-green-7));
     color: #fff;
-    border-color: var(--accent-color);
+    border-color: rgb(var(--palette-green-7));
   }
   .acesso {
     display: none;
@@ -125,7 +125,7 @@
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
-    color: var(--accent-color);
+    color: rgb(var(--palette-green-7));
     margin-left: initial;
     margin-bottom: 10px;
   }
@@ -155,7 +155,7 @@
     border-radius: 10px;
   }
   .access-bt:hover {
-    background: var(--accent-color-opacity);
+    background: rgba(var(--palette-green-7), 0.15);
   }
   .access-bt::before {
     content: "\f007";
@@ -182,14 +182,14 @@
   }
   .access-bt.active::before {
     color: #eaffef;
-    border-color: var(--accent-color);
-    background-color: var(--accent-color);
+    border-color: rgb(var(--palette-green-7));
+    background-color: rgb(var(--palette-green-7));
   }
 
   .login-bt,
   .signup-bt {
     text-decoration: none;
-    color: var(--accent-color);
+    color: rgb(var(--palette-green-7));
     font-size: 15px;
     letter-spacing: 1.5;
     padding: 8px 20px;
@@ -198,18 +198,18 @@
   }
 
   .login-bt:hover {
-    color: var(--accent-color-active);
+    color: rgb(var(--palette-green-8));
   }
 
   .signup-bt {
-    border: 2px solid var(--accent-color);
+    border: 2px solid rgb(var(--palette-green-7));
     border-radius: 6px;
     margin-left: 15px;
   }
 
   .signup-bt:hover {
     color: #fff;
-    background: var(--accent-color);
+    background: rgb(var(--palette-green-7));
   }
 
   @media (min-width: 820px) {
@@ -274,7 +274,7 @@
       align-items: center;
 
       &:hover {
-        color: var(--accent-color);
+        color: rgb(var(--palette-green-7));
         background: initial;
         &::after {
           width: calc(100% - 20px);
@@ -291,7 +291,7 @@
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        background: var(--accent-color);
+        background: rgb(var(--palette-green-7));
         transition: 0.13s linear;
       }
     }

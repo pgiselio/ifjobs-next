@@ -9,20 +9,16 @@ export const GlobalStyle = createGlobalStyle`
     --inside-accent-color: ${(props) => props.theme.colors.insideMain};
     --secondary-color: ${(props) => props.theme.colors.secondary};
     --outline-color: ${(props) => props.theme.colors.outlineColor};
-    --info-msg-bg: #e6e6e69a;
-    --info-msg-color: #363636;
-    --info-msg-icon: #72727294;
     --text-a: ${(props) => props.theme.colors.textA};
     --text-b: ${(props) => props.theme.colors.textB};
     --text-c: ${(props) => props.theme.colors.textC};
     --navs-bg: ${(props) => props.theme.colors.systemMenu.background};
     --navs-bg-opacity: ${(props) => props.theme.colors.systemMenu.background}f5;
+    --navs-border: ${(props) => props.theme.colors.systemMenu.border};
+    --aside-link-active:${(props) => props.theme.colors.systemMenu.linkActive};
+    --aside-link-hover: ${(props) => props.theme.colors.systemMenu.linkHover};
+    --aside-link-onclick: ${(props) => props.theme.colors.systemMenu.linkOnClick};
     --primary-bg: ${(props) => props.theme.colors.primaryBg};
     --secondary-bg: ${(props) => props.theme.colors.secondaryBg};
-    --navs-border: ${(props) => props.theme.colors.systemMenu.border};
-    --danger-color: #F44336;
-    --danger-color-opacity: #F4433650;
-    --danger-color-dark: #D32F2F;
-    --danger-color-dark-opacity: #D32F2F50;
   }
 `;

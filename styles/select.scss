@@ -2,6 +2,7 @@
 
 .Select__control {
   @include mixins.inputStyle;
+  padding: 13px 8px;
   &:hover {
     border-color: var(--outline-color);
   }

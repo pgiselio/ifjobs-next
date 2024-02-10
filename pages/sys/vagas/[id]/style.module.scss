@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const VagaPageStyle = styled.section`
+.vagaPageStyle :global {
   .vaga-page-header-container {
     padding: 0;
   }
@@ -27,12 +25,12 @@ export const VagaPageStyle = styled.section`
 
     .subscribe {
       display: flex;
-      align-items: end;
+      align-items: flex-end;
       flex-direction: column;
 
       flex-wrap: wrap;
       gap: 10px;
-      justify-content: end;
+      justify-content: flex-end;
       .vaga-status {
         color: #b3001e;
         font-weight: 500;
@@ -172,7 +170,7 @@ export const VagaPageStyle = styled.section`
     align-items: center;
     padding: 10px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     .selected-counter {
       font-family: "Roboto", sans-serif;
       font-weight: 500;
@@ -226,4 +224,4 @@ export const VagaPageStyle = styled.section`
       font-size: 14px;
     }
   }
-`;
+}

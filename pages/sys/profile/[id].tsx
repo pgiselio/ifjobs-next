@@ -17,7 +17,7 @@ import { User } from "../../../types/user";
 import { cnpjMask } from "../../../utils/cnpjMask";
 import { isBlank } from "../../../utils/isBlank";
 import Error404 from "../../404";
-import { ProfilePageStyle } from "../../../styles/_Pages/sys/profiles";
+import styled from "../../../styles/_Pages/sys/profiles.module.scss";
 import SystemLayout from "../../../components/Layouts/system";
 import Skeleton from "react-loading-skeleton";
 
@@ -59,7 +59,7 @@ export default function ProfilePage() {
   }
   return (
     <SystemLayout>
-      <ProfilePageStyle>
+      <section className={styled.profilePageStyle}>
         <div className="profile-page-header">
           <div className="profile-page-header-container">
             <div className="user-info">
@@ -335,7 +335,7 @@ export default function ProfilePage() {
             )}
           </div>
         )}
-      </ProfilePageStyle>
+      </section>
     </SystemLayout>
   );
 }

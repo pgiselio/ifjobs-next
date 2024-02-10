@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
-
-export const SysGlobalStyle = createGlobalStyle`
+export function SysGlobalStyle() {
+  return (
+    <style global>{`
 :root{
   --top-bar-height: 50px;
 }
@@ -27,7 +27,7 @@ export const SysGlobalStyle = createGlobalStyle`
   width: 100%;
   border-top: 1px solid;
   border-left: none;
-  border-color: ${(props) => props.theme.colors.systemMenu.border} ;
+  border-color: var(--navs-border);
   box-shadow: -3px -3px 0 0 var(--navs-bg);
   z-index: 14;
   pointer-events: none;
@@ -139,7 +139,7 @@ footer {
   }
   .main::before{
     border-left: 1px solid;
-    border-color: ${(props) => props.theme.colors.systemMenu.border};
+    border-color: var(--navs-border);
     border-top-left-radius: 10px;
   }
   
@@ -211,4 +211,6 @@ footer {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
-`;
+`}</style>
+  );
+}

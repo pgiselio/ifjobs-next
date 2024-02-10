@@ -3,7 +3,7 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useAuth } from "../../hooks/useAuth";
 import SystemLayout from "./system";
 import { LoadingPage } from "../General/loadingPage";
-import { SettingPageStyle } from "../../styles/_Pages/sys/settings";
+import styled from "../../styles/_Pages/sys/settings.module.scss";
 import { OutsetHeadersCornerRadius } from "../SystemLayout/outset-radius-to-headers";
 import Link from "next/link";
 
@@ -33,7 +33,7 @@ export default function SettingsLayout({ children }: { children: any }) {
 
   return (
     <SystemLayout>
-      <SettingPageStyle>
+      <section className={styled.settingPageStyle}>
         <nav
           className={`nav-settings-container ${
             !mediaQueryMatches && router.asPath != "/sys/settings"
@@ -126,7 +126,7 @@ export default function SettingsLayout({ children }: { children: any }) {
             <div className="content">{children}</div>
           </div>
         </div>
-      </SettingPageStyle>
+      </section>
     </SystemLayout>
   );
 }

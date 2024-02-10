@@ -14,6 +14,7 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import "../styles/globals.scss";
 import "../styles/select.scss";
+import "../styles/themes.scss";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
 import { SkeletonTheme } from "react-loading-skeleton";

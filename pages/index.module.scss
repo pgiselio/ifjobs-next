@@ -249,6 +249,24 @@
     }
   }
 
+  footer.landing-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 50px;
+    column-gap: 50px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+    display: flex;
+    background: #33313d;
+    border-bottom: green 5px solid;
+    img {
+      height: 45px;
+      &.coex {
+        height: 42px;
+      }
+    }
+  }
   
   .custom-bg {
     height: 100%;

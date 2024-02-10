@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
 import { Skeleton } from "../General/skeleton-load";
 import { ProfilePic } from "../SystemLayout/profile-pic/profile-pic";
-import { VagaPageStyle } from "../../styles/_Pages/sys/vaga";
+import styled from "../../pages/sys/vagas/[id]/style.module.scss";
 import { PillItem, PillList } from "../General/pill";
 import { Button } from "../General/button";
 import { toast } from "react-toastify";
@@ -148,7 +148,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
   return (
     <SystemLayout>
       <Head>{data && <title>Vaga: {data.titulo} - IFJobs</title>}</Head>
-      <VagaPageStyle>
+      <section className={styled.vagaPageStyle}>
         <div className="vaga-page-header-container content">
           <div className="vaga-page-header ">
             <div className="empresa-info">
@@ -376,7 +376,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             )}
           </div>
         </div>
-      </VagaPageStyle>
+      </section>
     </SystemLayout>
   );
 }

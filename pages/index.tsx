@@ -199,14 +199,14 @@ const Home: NextPage = () => {
           <footer className="landing-footer">
             <Image
               src="/images/landing/IFRNJC.png"
-              alt=""
+              alt="Logo IFRN"
               width={159}
               height={45}
             />
             <Image
               src="/images/landing/coex.png"
               className="coex"
-              alt=""
+              alt="Logo COEX"
               width={154}
               height={42}
             />

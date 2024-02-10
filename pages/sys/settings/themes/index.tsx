@@ -1,7 +1,7 @@
 import { isTheme } from "../../../../contexts/AppOptionsContext";
 import { useAppOptions } from "../../../../hooks/useAppOptions";
 import { themes } from "../../../../styles/themes";
-import { Container } from "../../../../styles/_Pages/sys/settings-themes";
+import styled from "../../../../styles/_Pages/sys/settings-themes.module.scss";
 import SettingsLayout from "../../../../components/Layouts/settings";
 
 export default function SettingThemesPage() {
@@ -14,25 +14,26 @@ export default function SettingThemesPage() {
 
   return (
     <SettingsLayout>
-    <Container>
-      <>
+      <div className={styled.themesContainer}>
         {themeKeys.length > 0 &&
-          themeKeys.map((theme) => 
-            isTheme(theme) && (
-              <button
-                type="button"
-                key={theme}
-                className={`theme-option ${
-                  AppOptions.theme === theme ? "active" : ""
-                }`}
-                onClick={() => toggleTheme(theme)}
-              >
-                {themes[theme].name}<span></span>
-              </button>
-            )
+          themeKeys.map(
+            (theme) =>
+              isTheme(theme) && (
+                <button
+                  type="button"
+                  key={theme}
+                  className={
+                    styled.themeOption +
+                    (AppOptions.theme === theme ? " active" : "")
+                  }
+                  onClick={() => toggleTheme(theme)}
+                >
+                  {themes[theme].name}
+                  <span></span>
+                </button>
+              )
           )}
-      </>
-    </Container>
+      </div>
     </SettingsLayout>
   );
 }
