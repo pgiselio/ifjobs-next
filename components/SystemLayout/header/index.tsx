@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HamburgerBars } from "../../General/hamburger";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
+import styled from "./styles.module.scss";
 
 export default function Header(props: any) {
   const auth = useAuth();
@@ -14,11 +15,11 @@ export default function Header(props: any) {
   const isMobile = useMediaQuery("(max-width: 766px)");
 
   return (
-    <HeaderSysStyle className="header">
-      <nav className="navigate">
-        <div className="menu-container">
+    <header className={styled["header-sys"]}>
+      <nav className={styled["navigate"]}>
+        <div className={styled["menu-container"] + " menu-container"}>
           <button
-            id="btn-collapse-sidemenu"
+            id={styled["btn-collapse-sidemenu"]}
             onClick={() => {
               appOptions.toggleSidebar();
             }}
@@ -31,14 +32,14 @@ export default function Header(props: any) {
                 : "")}
             />
           </button>
-          <Link href="/sys" passHref className="logo-link">
-            <div className="logo">
+          <Link href="/sys" passHref className={styled["logo-link"]}>
+            <div className={styled["logo"]}>
               <Image src="/images/logo.svg" fill alt="logo projeto" />
             </div>
           </Link>
 
           <button
-            className="btn-notify"
+            className={styled["btn-notify"]}
             aria-label="Botão de notificações"
             onClick={() => navigate.push("/sys")}
           >
@@ -51,6 +52,6 @@ export default function Header(props: any) {
           </button>
         </div>
       </nav>
-    </HeaderSysStyle>
+    </header>
   );
 }

@@ -1,22 +1,27 @@
-import styled from "styled-components";
+.sidebar-overlay {
+  display: none;
+  background: hsla(0, 0%, 0%, 0.33);
+  position: fixed;
+  top: calc(var(--top-bar-height) + 1px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 19;
+  :global {
+    animation: fade 0.5s ease;
+  }
 
-export const SidebarOverlay = styled.div`
-  body.toggle-sidemenu & {
-    background: hsla(0, 0%, 0%, 0.33);
-    position: fixed;
-    top: calc(var(--top-bar-height) + 1px);
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 19;
-    animation: fade 0.2s ease;
+  :global(body.toggle-sidemenu) & {
+    display: block;
   }
+
   @media (min-width: 768px) {
-    display: none;
-    pointer-events: none;
+    display: none !important;
+    pointer-events: none !important;
   }
-`;
-export const SidebarAside = styled.aside`
+}
+
+.sidebar {
   //Sidebar List
   grid-area: menu;
   height: calc(100% - var(--top-bar-height));
@@ -47,10 +52,10 @@ export const SidebarAside = styled.aside`
     pointer-events: none;
   }
 
-  body.toggle-sidemenu & {
+  :global(body.toggle-sidemenu) & {
     transform: translateX(0);
   }
-  body.toggle-sidemenu & .sidebar-scroller {
+  :global(body.toggle-sidemenu) & .sidebar-scroller {
     padding: 0 10px;
     transition: padding 0.3s linear;
   }
@@ -178,24 +183,24 @@ export const SidebarAside = styled.aside`
       background-color: #707070d5;
       border-width: 1px;
     }
-    body.toggle-sidemenu & {
+    :global(body.toggle-sidemenu) & {
       width: 80px;
     }
-    body.toggle-sidemenu & .sidebar-scroller {
+    :global(body.toggle-sidemenu) & .sidebar-scroller {
       padding: 0 10px;
     }
 
-    body.toggle-sidemenu & .min-perfil {
+    :global(body.toggle-sidemenu) & .min-perfil {
       gap: 0;
     }
 
-    body.toggle-sidemenu & .profile-pic {
+    :global(body.toggle-sidemenu) & .profile-pic {
       width: 60px;
       height: 60px;
     }
 
-    body.toggle-sidemenu & .min-perfil-name,
-    body.toggle-sidemenu & .min-perfil .min-perfil-detail {
+    :global(body.toggle-sidemenu) & .min-perfil-name,
+    :global(body.toggle-sidemenu) & .min-perfil .min-perfil-detail {
       opacity: 0;
       height: 0;
       padding: 0;
@@ -262,21 +267,21 @@ export const SidebarAside = styled.aside`
     }
 
     @media (min-width: 766px) {
-      body.toggle-sidemenu & a {
+      :global(body.toggle-sidemenu) & a {
         padding: 15px 15px;
         border-radius: 30px;
       }
 
-      body.toggle-sidemenu & a span {
+      :global(body.toggle-sidemenu) & a span {
         opacity: 0;
         display: none;
       }
 
-      body.toggle-sidemenu & a i {
+      :global(body.toggle-sidemenu) & a i {
         display: flex;
         justify-content: center;
         width: 100%;
       }
     }
   }
-`;
+}

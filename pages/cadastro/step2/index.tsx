@@ -7,7 +7,7 @@ import VerificationInput from "react-verification-input";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { useCadastroSteps } from "../../../hooks/useCadastroAluno";
 import { api } from "../../../services/api";
-import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroLayout } from "../_layout";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "./styles.module.scss";

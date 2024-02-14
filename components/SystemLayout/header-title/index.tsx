@@ -1,11 +1,11 @@
-import { HeaderTitleStyle } from "./style"
+import styled from "./styles.module.scss"
 
 export function HeaderTitle({children} : any){
     return(
-        <HeaderTitleStyle>
-            <div className="container">
+        <div className={styled["header-title"]}>
+            <div className={styled["container"]}>
                 {children}
             </div>
-        </HeaderTitleStyle> 
+        </div> 
     );
 }

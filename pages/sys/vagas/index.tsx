@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import styled from "styled-components";
 import { Button } from "../../../components/General/button";
 import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
 import { FabButton } from "../../../components/General/fab";
@@ -10,7 +9,7 @@ import { VagaCard } from "../../../components/SystemLayout/vagaCard";
 import { useAuth } from "../../../hooks/useAuth";
 import { api } from "../../../services/api";
 import { vaga } from "../../../types/vagaType";
-import SystemLayout from "../../../components/Layouts/system";
+import { SystemLayout } from "../_layout";
 import Head from "next/head";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 

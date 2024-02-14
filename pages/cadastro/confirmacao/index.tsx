@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroLayout } from "../_layout";
 import styled from "./styles.module.scss";
 
 export default function CadastroConcluidoPage() {

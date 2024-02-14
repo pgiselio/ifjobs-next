@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const VagaCardStyle = styled.div`
+.VagaCardStyle {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -80,16 +78,16 @@ export const VagaCardStyle = styled.div`
     border-radius: 50%;
   }
   /*
-  .vaga-city::before {
-    content: "";
-    background: #000;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 4px;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-  } */
+    .vaga-city::before {
+      content: "";
+      background: #000;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+    } */
 
   // See vaga-status on globalSysStyle
 
@@ -118,7 +116,7 @@ export const VagaCardStyle = styled.div`
       white-space: initial;
     }
     &.status {
-      background: #F44336;
+      background: #f44336;
       color: #fff;
       color: var(--inside-accent-color);
       font-weight: 500;
@@ -204,4 +202,4 @@ export const VagaCardStyle = styled.div`
       }
     }
   }
-`;
+}

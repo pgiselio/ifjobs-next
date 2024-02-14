@@ -3,7 +3,7 @@ import { useAppOptions } from "../../../hooks/useAppOptions";
 
 import { ProfilePic } from "../profile-pic/profile-pic";
 import { SidebarItem } from "./sidebar-item";
-import { SidebarAside, SidebarOverlay } from "./style";
+import styled from "./styles.module.scss"
 import Link from "next/link";
 
 export function SidebarList() {
@@ -22,21 +22,22 @@ export function SidebarList() {
   }
   return (
     <>
-      <SidebarOverlay
+      <div
+        className={styled["sidebar-overlay"]}
         onClick={() => appOptions.toggleSidebar()}
-      ></SidebarOverlay>
-      <SidebarAside className="side-bar">
-        <div className="sidebar-scroller">
-          <div className="side-bar-container">
-            <div className="min-perfil">
-              <ProfilePic userId={auth.userInfo?.id} />
-              <div className="min-perfil-details">
-                <h3 className="min-perfil-name">{nomePessoa()}</h3>
-                <span className="min-perfil-detail">{auth?.email}</span>
+      ></div>
+      <aside className={styled["sidebar"]}>
+        <div className={styled["sidebar-scroller"]}>
+          <div className={styled["side-bar-container"]}>
+            <div className={styled["min-perfil"]}>
+              <ProfilePic userId={auth.userInfo?.id} className={styled["profile-pic"]}/>
+              <div className={styled["min-perfil-details"]}>
+                <h3 className={styled["min-perfil-name"]}>{nomePessoa()}</h3>
+                <span className={styled["min-perfil-detail"]}>{auth?.email}</span>
               </div>
             </div>
 
-            <nav className="sidebar-items">
+            <nav className={styled["sidebar-items"]}>
               <ul>
                 <SidebarItem to="/sys" icon="fas fa-home" label="Início" end />
                 {auth?.authorities?.includes("ADMIN") && (
@@ -69,9 +70,9 @@ export function SidebarList() {
                   icon="fas fa-cog"
                   label="Configurações"
                 />
-                <div className="menu-separator"></div>
+                <div className={styled["menu-separator"]}></div>
                 <li>
-                  <Link href="/logout" passHref title="Sair" className="sair">
+                  <Link href="/logout" passHref title="Sair" className={styled["sair"]}>
                     <i className="fas fa-sign-out-alt"></i>
                     <span>Sair</span>
                   </Link>
@@ -80,7 +81,7 @@ export function SidebarList() {
             </nav>
           </div>
         </div>
-      </SidebarAside>
+      </aside>
     </>
   );
 }

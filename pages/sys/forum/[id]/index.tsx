@@ -5,7 +5,7 @@ import { Button } from "../../../../components/General/button";
 import { HeaderTitle } from "../../../../components/SystemLayout/header-title";
 import { OutsetHeadersCornerRadius } from "../../../../components/SystemLayout/outset-radius-to-headers";
 import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
-import SystemLayout from "../../../../components/Layouts/system";
+import { SystemLayout } from "../../_layout";
 import styled from "../../../../styles/_Pages/sys/forum.module.scss";
 
 export default function ForumTopicPage() {

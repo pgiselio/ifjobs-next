@@ -126,13 +126,6 @@ footer {
     border-width: 4px;
   }
 
-
-  body.toggle-sidemenu .menu-container {
-    width: 100%;
-    padding: 0 22px;
-  }
-
-
   .main {
     min-width: initial;
     border-top-left-radius: 10px;

@@ -17,7 +17,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { useVagas } from "../../hooks/useVagas";
 import Link from "next/link";
-import SystemLayout from "./system";
+import { SystemLayout } from "../../pages/sys/_layout";
 import CircularProgressFluent from "../General/circular-progress-fluent";
 import Head from "next/head";
 

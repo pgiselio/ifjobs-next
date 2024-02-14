@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const HeaderSysStyle = styled.header`
+.header-sys {
   display: flex;
   position: fixed;
   top: 0;
@@ -29,7 +27,7 @@ export const HeaderSysStyle = styled.header`
     height: 100%;
   }
 
-  .logo-link{
+  .logo-link {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,7 +90,7 @@ export const HeaderSysStyle = styled.header`
     border: none;
     border-radius: 5px;
   }
-  .botao-ham span {
+  :global(.botao-ham) span {
     background-color: var(--text-b);
   }
   .header-button {
@@ -124,61 +122,75 @@ export const HeaderSysStyle = styled.header`
       padding: 0 15px;
       transition: padding 0.2s ease;
     }
-    .botao-ham {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: calc(100% + 10px);
-      transition: transform 0.2s ease;
+    :global(body.toggle-sidemenu) & .menu-container {
+      width: 100%;
+      padding: 0 22px;
     }
+    :global {
+      .botao-ham {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: calc(100% + 10px);
+        transition: transform 0.2s ease;
+      }
 
-    .botao-ham span {
-      display: flex;
-      width: 18px;
-      height: 2px;
-      margin-bottom: 5px;
-      position: relative;
-      background: var(--accent-color);
-      border-radius: 3px;
-      transition: width 0.2s ease;
-    }
+      .botao-ham span {
+        display: flex;
+        width: 18px;
+        height: 2px;
+        margin-bottom: 5px;
+        position: relative;
+        background: var(--accent-color);
+        border-radius: 3px;
+        transition: width 0.2s ease;
+      }
 
-    .botao-ham.active span {
-      -webkit-transform: none;
-      transform: none !important;
-      opacity: 1;
-    }
+      .botao-ham.active span {
+        -webkit-transform: none;
+        transform: none !important;
+        opacity: 1;
+      }
 
-    .botao-ham.active span {
-      transform: none;
-      margin-bottom: 5px;
-    }
+      .botao-ham.active span {
+        transform: none;
+        margin-bottom: 5px;
+      }
 
-    .botao-ham.active span:nth-last-child(2) {
-      opacity: 1;
-      transform: none;
-    }
+      .botao-ham.active span:nth-last-child(2) {
+        opacity: 1;
+        transform: none;
+      }
 
-    .botao-ham.active span:nth-last-child(3) {
-      opacity: 1;
-      transform: none;
+      .botao-ham.active span:nth-last-child(3) {
+        opacity: 1;
+        transform: none;
+      }
     }
-    #btn-collapse-sidemenu:active .botao-ham span {
+    #btn-collapse-sidemenu:active :global(.botao-ham) span {
       width: 14px;
     }
     #btn-collapse-sidemenu:active {
       transform: scale(0.98);
     }
 
-    .botao-ham span:last-child {
+    :global(.botao-ham) span:last-child {
       margin-bottom: 0;
     }
 
-    body.toggle-sidemenu & #btn-collapse-sidemenu .botao-ham span {
+    :global(body.toggle-sidemenu)
+      &
+      #btn-collapse-sidemenu
+      :global(.botao-ham)
+      span {
       width: 6px;
     }
-    body.toggle-sidemenu & #btn-collapse-sidemenu:active .botao-ham span {
+    :global(body.toggle-sidemenu)
+      &
+      #btn-collapse-sidemenu:active
+      :global(.botao-ham)
+      span {
       width: 12px;
     }
   }
-`;
+}

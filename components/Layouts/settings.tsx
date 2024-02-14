@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useAuth } from "../../hooks/useAuth";
-import SystemLayout from "./system";
+import { SystemLayout } from "../../pages/sys/_layout";
 import { LoadingPage } from "../General/loadingPage";
 import styled from "../../styles/_Pages/sys/settings.module.scss";
 import { OutsetHeadersCornerRadius } from "../SystemLayout/outset-radius-to-headers";

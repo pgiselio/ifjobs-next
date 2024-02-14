@@ -43,9 +43,9 @@
     }
   }
   .tabs {
-    padding: 0;
-    overflow: hidden;
-    max-width: 100vw;
+    padding: 0 !important;
+    overflow: hidden !important;
+    max-width: 100vw !important;
   }
   .vaga-page-info {
     display: flex;
@@ -209,11 +209,11 @@
       }
     }
     .tabs {
-      padding: 0 30px;
-      border-radius: 0;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
-      max-width: 1280px;
+      padding: 0 30px !important;
+      border-radius: 0 !important;
+      border-bottom-left-radius: 15px !important;
+      border-bottom-right-radius: 15px !important;
+      max-width: 1280px !important;
     }
 
     .candidato-info h3 {

@@ -16,7 +16,7 @@ import { Button } from "../../../../../components/General/button";
 import CircularProgressFluent from "../../../../../components/General/circular-progress-fluent";
 import { UFsSelectOptions } from "../../../../../utils/selectLists";
 import Select from "react-select";
-import SystemLayout from "../../../../../components/Layouts/system";
+import { SystemLayout } from "../../../_layout";
 
 export default function CadastrarEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -253,6 +253,7 @@ export default function CadastrarEmpresaPage() {
                       control={control}
                       render={({ field: { value, onChange, onBlur, ref } }) => (
                         <Select
+                          unstyled
                           classNamePrefix="Select"
                           noOptionsMessage={() => "Não encontrado"}
                           ref={ref}

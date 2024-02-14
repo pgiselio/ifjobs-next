@@ -91,8 +91,8 @@ input[type="checkbox"]::after {
   font-variant: normal;
   text-rendering: auto;
   line-height: 1;
-  color: #fff;
-  font-size: 10px;
+  color: var(--inside-accent-color);
+  font-size: 12px;
   clip-path: circle(0px at 2px 50%);
   transition: clip-path 0.5s ease;
 }

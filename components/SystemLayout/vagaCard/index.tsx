@@ -2,7 +2,7 @@ import Link from "next/link";
 import { vaga } from "../../../types/vagaType";
 import { PillItem, PillList } from "../../General/pill";
 import { ProfilePic } from "../profile-pic/profile-pic";
-import { VagaCardStyle } from "./style";
+import styled from "./styles.module.scss";
 
 type vagaObj = {
   vaga: vaga;
@@ -15,22 +15,21 @@ export function VagaCard({ vaga }: vagaObj) {
     year: "numeric",
   }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
   return (
-    <VagaCardStyle className="vaga">
-      <div className="vaga-data">
-        <div className="vaga-header">
-          <div className="photo-align">
+    <div className={styled.VagaCardStyle}>
+      <div className={styled["vaga-data"]}>
+        <div className={styled["vaga-header"]}>
+          <div className={styled["photo-align"]}>
             <Link href={`profile/${vaga?.empresa?.id}`} passHref>
 
-              <ProfilePic userId={vaga?.empresa?.id} isCompany/>
+              <ProfilePic userId={vaga?.empresa?.id} isCompany className={styled["profile-pic"]}/>
 
             </Link>
 
             <div>
-              <div className="vaga-titles">
+              <div className={styled["vaga-titles"]}>
                 <h3>
                   <Link
                     href={`vagas/${vaga.id}`}
-                    className="vagas-detalhes-btn"
                     title={vaga.titulo}
                     passHref
                   >
@@ -38,39 +37,39 @@ export function VagaCard({ vaga }: vagaObj) {
                   </Link>
                 </h3>
 
-                <div className="sub">
+                <div className={styled["sub"]}>
                   <Link href={`profile/${vaga?.empresa?.id}`}>
                     {vaga?.empresa?.dadosPessoa.nome}
                   </Link>
-                  <span className="vaga-date">{dateFormatted}</span>
+                  <span className={styled["vaga-date"]}>{dateFormatted}</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="vaga-text">
+        <div className={styled["vaga-text"]}>
           <PillList>
             <PillItem
               className={
-                "card-pill status " + (vaga.status === "ATIVO" && "active")
+                styled["card-pill"]+" "+styled["status"] + (vaga.status === "ATIVO" ? " "+styled["active"] : "")
               }
               title="Estado da vaga"
             >
               <span>{vaga.status === "ATIVO" ? "ATIVO" : "INATIVO"}</span>
             </PillItem>
-            <PillItem className="card-pill" title="Curso alvo">
+            <PillItem className={styled["card-pill"]} title="Curso alvo">
               <i className="fas fa-book-open"></i>
               <span className="vaga-city">{vaga.cursoAlvo}</span>
             </PillItem>
-            <PillItem className="card-pill" title="Localização">
+            <PillItem className={styled["card-pill"]} title="Localização">
               <i className="fas fa-map-marker-alt"></i>
               <span className="vaga-city">{vaga.localizacao}</span>
             </PillItem>
           </PillList>
         </div>
 
-        <div className="vagas-bottom">
-          <Link href={`vagas/${vaga.id}/candidatos`} className="vagas-candidatos">
+        <div className={styled["vagas-bottom"]}>
+          <Link href={`vagas/${vaga.id}/candidatos`} className={styled["vagas-candidatos"]}>
 
             <i className="fas fa-user"></i>
             <span>
@@ -81,11 +80,11 @@ export function VagaCard({ vaga }: vagaObj) {
             </span>
 
           </Link>
-          <Link href={`vagas/${vaga.id}`} className="vagas-detalhes-btn">
+          <Link href={`vagas/${vaga.id}`} className={styled["vagas-detalhes-btn"]}>
             Mais detalhes
           </Link>
         </div>
       </div>
-    </VagaCardStyle>
+    </div>
   );
 }

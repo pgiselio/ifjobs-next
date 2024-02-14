@@ -1,4 +1,4 @@
-import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroLayout } from "../_layout";
 
 export default function ValidarEmail() {
   return (

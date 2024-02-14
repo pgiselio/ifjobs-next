@@ -18,7 +18,7 @@ import { cnpjMask } from "../../../utils/cnpjMask";
 import { isBlank } from "../../../utils/isBlank";
 import Error404 from "../../404";
 import styled from "../../../styles/_Pages/sys/profiles.module.scss";
-import SystemLayout from "../../../components/Layouts/system";
+import { SystemLayout } from "../_layout";
 import Skeleton from "react-loading-skeleton";
 
 export default function ProfilePage() {

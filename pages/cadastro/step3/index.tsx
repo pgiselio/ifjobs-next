@@ -16,7 +16,7 @@ import {
   UFsSelectOptions,
 } from "../../../utils/selectLists";
 import { useRouter } from "next/router";
-import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroLayout } from "../_layout";
 import styled from "./styles.module.scss";
 
 export default function CadastroStep3() {

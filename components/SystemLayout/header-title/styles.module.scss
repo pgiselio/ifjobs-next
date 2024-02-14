@@ -1,16 +1,12 @@
-import styled from "styled-components";
-
-export const HeaderTitleStyle = styled.div`
+.header-title {
   display: flex;
   height: 70px;
   width: 100%;
   padding: 0 20px;
   justify-content: center;
   margin-top: 5px;
-  /*border-bottom: 1px solid var(--outline-color);*/
+//   border-bottom: 1px solid var(--outline-color);
   z-index: 10;
-  /* border-bottom: 1px solid ${(props) =>
-    props.theme.colors.systemMenu.border}; */
   top: var(--top-bar-height);
 
   h2 {
@@ -32,12 +28,11 @@ export const HeaderTitleStyle = styled.div`
     box-shadow: 0px 1px 4px rgb(0 0 0 / 8%);
     border-bottom: 1px solid var(--navs-border);
 
-    .header-section {
+    :global(.header-section) {
       height: 80px;
-    }
-
-    .header-section h2 {
-      font-size: 20px;
+      h2 {
+        font-size: 20px;
+      }
     }
   }
-`;
+}

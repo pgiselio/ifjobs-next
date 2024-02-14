@@ -10,7 +10,7 @@ import CircularProgressFluent from "../../../components/General/circular-progres
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CadastroLayout } from "../../../components/Layouts/cadastro";
+import { CadastroLayout } from "../_layout";
 
 export default function CadastroEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);
