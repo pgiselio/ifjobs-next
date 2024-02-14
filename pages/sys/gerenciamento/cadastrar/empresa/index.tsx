@@ -16,7 +16,7 @@ import { Button } from "../../../../../components/General/button";
 import CircularProgressFluent from "../../../../../components/General/circular-progress-fluent";
 import { UFsSelectOptions } from "../../../../../utils/selectLists";
 import Select from "react-select";
-import { SystemLayout } from "../../../_layout";
+import { SystemLayout } from "../../../../../components/Layouts/_sysLayout";
 
 export default function CadastrarEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);

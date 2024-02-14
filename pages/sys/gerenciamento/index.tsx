@@ -1,6 +1,6 @@
 import * as Accordion from "@radix-ui/react-accordion";
 import { useRouter } from "next/navigation";
-import { SystemLayout } from "../_layout";
+import { SystemLayout } from "../../../components/Layouts/_sysLayout";
 import Link from "next/link";
 import { HeaderTitle } from "../../../components/SystemLayout/header-title";
 import { OutsetHeadersCornerRadius } from "../../../components/SystemLayout/outset-radius-to-headers";

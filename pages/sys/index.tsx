@@ -3,7 +3,7 @@ import { Button } from "../../components/General/button";
 import { Notifications } from "../../components/SystemLayout/notifications/notifications-list";
 import { SuapClient } from "../../services/suapapi/client";
 import { SuapApiSettings } from "../../services/suapapi/settings";
-import { SystemLayout } from "./_layout";
+import { SystemLayout } from "../../components/Layouts/_sysLayout";
 import Head from "next/head";
 
 export default function HomePage() {

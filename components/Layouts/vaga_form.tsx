@@ -15,7 +15,7 @@ import { queryClient } from "../../services/queryClient";
 import { Button } from "../General/button";
 import styled from "../../styles/_Pages/sys/styleForm.module.scss";
 import { CursosSelectOptions } from "../../utils/selectLists";
-import { SystemLayout } from "../../pages/sys/_layout";
+import { SystemLayout } from "./_sysLayout";
 import Select from "react-select";
 
 

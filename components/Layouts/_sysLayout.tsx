@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ThemeProvider } from "styled-components";
-import HomePage from ".";
-import Header from "../../components/SystemLayout/header";
-import { SidebarList } from "../../components/SystemLayout/sidebar/sidebar-list";
+import HomePage from "../../pages/sys";
+import Header from "../SystemLayout/header";
+import { SidebarList } from "../SystemLayout/sidebar/sidebar-list";
 import { isTheme } from "../../contexts/AppOptionsContext";
 import { useAppOptions } from "../../hooks/useAppOptions";
 import { GlobalStyle } from "../../styles/global";

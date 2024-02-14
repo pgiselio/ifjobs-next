@@ -10,7 +10,7 @@ import CircularProgressFluent from "../../components/General/circular-progress-f
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { CadastroLayout } from "./_layout";
+import { CadastroLayout } from "../../components/Layouts/_cadastroLayout";
 import { useCadastroSteps } from "../../hooks/useCadastroAluno";
 
 type signupType = {

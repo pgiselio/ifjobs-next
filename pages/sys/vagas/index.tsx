@@ -9,7 +9,7 @@ import { VagaCard } from "../../../components/SystemLayout/vagaCard";
 import { useAuth } from "../../../hooks/useAuth";
 import { api } from "../../../services/api";
 import { vaga } from "../../../types/vagaType";
-import { SystemLayout } from "../_layout";
+import { SystemLayout } from "../../../components/Layouts/_sysLayout";
 import Head from "next/head";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
