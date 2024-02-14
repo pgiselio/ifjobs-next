@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useAppOptions } from "../../../hooks/useAppOptions";
 import { useRouter } from "next/router";
+import styled from "./styles.module.scss";
 
 type Item = {
   to: string;
@@ -21,7 +22,7 @@ export function SidebarItem({ to, icon, label, title, className, end }: Item) {
       appOptions.toggleSidebar();
     }
   }
-  function checkIfIsPartOfPath(url: string) {
+  function isPartOfPath(url: string) {
     const splitedPath = url.split("/");
     const includes = router.asPath.includes(url);
     return url == router.asPath || (includes && splitedPath.length > 2);
@@ -31,7 +32,7 @@ export function SidebarItem({ to, icon, label, title, className, end }: Item) {
       <Link
         href={`${to}`}
         passHref
-        className={className + (checkIfIsPartOfPath(to) ? " active" : "")}
+        className={className + (isPartOfPath(to) ? " "+ styled.active : "")}
         title={title || label}
         onClick={ToggleSidebar}>
 

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useAppOptions } from "../../../hooks/useAppOptions";
 import { useAuth } from "../../../hooks/useAuth";
-import { HeaderSysStyle } from "./style";
 import Link from "next/link";
 import Image from "next/image";
 import { HamburgerBars } from "../../General/hamburger";
