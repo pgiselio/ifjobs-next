@@ -32,7 +32,7 @@ export function SidebarItem({ to, icon, label, title, className, end }: Item) {
       <Link
         href={`${to}`}
         passHref
-        className={className + (isPartOfPath(to) ? " "+ styled.active : "")}
+        className={(className ? className +" ": "") + (isPartOfPath(to) ? styled.active : "")}
         title={title || label}
         onClick={ToggleSidebar}>
 
