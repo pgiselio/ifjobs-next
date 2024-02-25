@@ -13,7 +13,7 @@ export default function SettingThemesPage() {
   const themeKeys = Object.keys(themes);
 
   return (
-    <SettingsLayout>
+    <SettingsLayout headerTitle="Temas">
       <div className={styled.themesContainer}>
         {themeKeys.length > 0 &&
           themeKeys.map(

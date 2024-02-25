@@ -196,7 +196,7 @@ export default function SettingContaPage() {
   }
 
   return (
-    <SettingsLayout>
+    <SettingsLayout headerTitle="Perfil">
       <div className="align-center">
         <div className="profile-pic-opts">
           <ProfilePic

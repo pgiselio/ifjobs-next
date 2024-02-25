@@ -17,9 +17,9 @@
   border-radius: 50px;
   box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
   border: 1px solid rgb(0 0 0 / 3%);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  // overflow: hidden;
+  // text-overflow: ellipsis;
+  // white-space: nowrap;
   font-size: 15px;
   gap: 5px;
   color: var(--text-a);
@@ -31,9 +31,9 @@
     color: var(--text-b);
   }
 
-  span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  // span {
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   white-space: initial;
+  // }
 }

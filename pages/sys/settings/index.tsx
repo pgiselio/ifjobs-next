@@ -4,12 +4,6 @@ import AccountSettingsPage from "./account";
 
 
 export default function SettingsMenu (){
-  const mediaQueryMatches = useMediaQuery("(min-width: 1000px)");
-    if (mediaQueryMatches) {
-      return (
-        <AccountSettingsPage />
-      );
-    }
     return (
         <SettingsLayout>
           <></>

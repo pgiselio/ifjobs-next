@@ -7,7 +7,7 @@ import styled from "../../styles/_Pages/sys/settings.module.scss";
 import { OutsetHeadersCornerRadius } from "../SystemLayout/outset-radius-to-headers";
 import Link from "next/link";
 
-export default function SettingsLayout({ children }: { children: any }) {
+export default function SettingsLayout({ children, headerTitle }: { children: any, headerTitle?: string}) {
   const router = useRouter();
   const mediaQueryMatches = useMediaQuery("(min-width: 1000px)");
   const routes = {
@@ -111,14 +111,7 @@ export default function SettingsLayout({ children }: { children: any }) {
                     >
                       <i className="fas fa-arrow-left"></i>
                     </button>
-                    {router.asPath === routes.profile && <h3>Perfil</h3>}
-                    {(router.asPath === routes.account || router.asPath === routes.home) && (
-                      <h3>Conta e Segurança</h3>
-                    )}
-                    {router.asPath === routes.notifications && (
-                      <h3>Notificações</h3>
-                    )}
-                    {router.asPath === routes.themes && <h3>Temas</h3>}
+                    <h3>{headerTitle}</h3>
                   </div>
                 </div>
               </OutsetHeadersCornerRadius>

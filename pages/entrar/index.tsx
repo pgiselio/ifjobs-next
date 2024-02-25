@@ -22,9 +22,8 @@ export default function LoginPage() {
   const { control, formState, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
-      email:
-        process.env.NODE_ENV === "development" ? "jolos.aluno@jolos.com" : "",
-      password: process.env.NODE_ENV === "development" ? "jolos" : "",
+      email: "jolos.aluno@jolos.com" ,
+      password: "jolos",
     },
   });
 
