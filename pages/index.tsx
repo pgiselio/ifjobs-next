@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                       >
                         <div className="hello-text">
                           <h1>
-                            <span>Seu</span> primeiro emprego!{" "}
+                            Seu primeiro <span>emprego</span>!{" "}
                             <i className="fas fa-heart"></i>
                           </h1>
                           <p>
