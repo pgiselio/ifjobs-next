@@ -15,7 +15,7 @@ import styled from "../../styles/LoginSignupStyle.module.scss";
 import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
 import { useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginPage() {
   const auth = useAuth();
   const navigate = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -191,3 +191,6 @@ export default function LoginPage() {
     </main>
   );
 }
+
+LoginPage.theme = "light";
+export default LoginPage;

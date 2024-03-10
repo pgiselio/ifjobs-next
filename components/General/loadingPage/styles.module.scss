@@ -10,7 +10,7 @@
 
 .loadingPageLogoStyle {
     @extend .loadingPageStyle;
-    background: var(--accent-color);
+    background: rgb(var(--palette-green-7));
     height: 100vh;
     img {
       width: 140px;

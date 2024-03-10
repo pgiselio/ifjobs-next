@@ -1,6 +1,7 @@
 import { useState, createContext, useEffect } from "react";
 import { themes } from "../../styles/themes";
 import { AppOptionsContextType } from "./types";
+import { useTheme } from "next-themes";
 
 export const AppOptionsContext = createContext<AppOptionsContextType>(
   {} as AppOptionsContextType
@@ -10,17 +11,9 @@ export function isTheme(x: any): x is keyof typeof themes {
   return themeKeys.includes(x);
 }
 export function AppOptionsProvider({ children }: { children: JSX.Element }) {
-  const [theme, setTheme] = useState<keyof typeof themes>("light");
   const [sidebarState, setSidebarState] = useState(false);
-  
+  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    if (!window.localStorage.getItem("theme")) {
-      window.localStorage.setItem("theme", "systemDefault");
-    }
-    const localTheme = window.localStorage.getItem("theme") || "";
-    isTheme(localTheme) ? setTheme(localTheme) : setTheme("systemDefault");
-  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 766px)");

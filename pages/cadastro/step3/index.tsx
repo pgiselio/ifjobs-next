@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { CadastroLayout } from "../../../components/Layouts/_cadastroLayout";
 import styled from "./styles.module.scss";
 
+CadastroStep3.theme = "light";
 export default function CadastroStep3() {
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useRouter();

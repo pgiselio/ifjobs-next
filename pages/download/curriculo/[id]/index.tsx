@@ -154,7 +154,7 @@ export default function DownloadCurriculoPage() {
               >
                 <div className="chk">
                   <input type="checkbox" id="byebye" onChange={(e) => setChkNotShow(e.currentTarget.checked)}/>
-                  <label htmlFor="byebye">Não mostrar novamente</label>
+                  <label htmlFor="byebye" style={{color: "var(--text-a)"}}>Não mostrar novamente</label>
                 </div>
                 <AlertDialog.Cancel asChild>
                   <Button onClick={() => {

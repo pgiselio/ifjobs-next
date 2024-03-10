@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import styled from "./styles.module.scss";
 
-
+VerifiqueOSeuEmailPage.theme = "light";
 export default function VerifiqueOSeuEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
 

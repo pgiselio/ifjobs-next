@@ -142,7 +142,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
       year: "numeric",
     }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
   } else if (!isFetching) {
-    return <Error404 />;
+    return <SystemLayout><Error404 /></SystemLayout>;
   }
 
   return (

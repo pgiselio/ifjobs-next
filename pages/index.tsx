@@ -8,7 +8,7 @@ import { LandNavBar } from "../components/landing/navbar";
 import { ColorOptions, TagCloud } from "react-tagcloud";
 import styled from "./index.module.scss";
 
-const Home: NextPage = () => {
+const Home = () => {
   const data = [
     { value: "Administração", count: Math.random() * 100 },
     { value: "Informática", count: Math.random() * 100 },
@@ -216,5 +216,5 @@ const Home: NextPage = () => {
     </>
   );
 };
-
+Home.theme = "light";
 export default Home;

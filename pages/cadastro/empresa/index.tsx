@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { CadastroLayout } from "../../../components/Layouts/_cadastroLayout";
 
+CadastroEmpresaPage.theme = "light";
 export default function CadastroEmpresaPage() {
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useRouter();

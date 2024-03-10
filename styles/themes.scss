@@ -63,7 +63,7 @@
   --secondary-bg: #26252b;
 }
 
-.system-default-theme {
+.system-default-theme, [data-theme='systemDefault'] {
   @media (prefers-color-scheme: dark) {
     @include dark-theme;
   }
@@ -72,15 +72,15 @@
   }
 }
 
-.light-theme {
+.light-theme, [data-theme='light'] {
   @include light-theme;
 }
 
-.dark-theme {
+.dark-theme, [data-theme='dark']{
   @include dark-theme;
 }
 
-.gray-theme {
+.gray-theme, [data-theme='darkGray']{
   --bg-body: rgb(24 24 24);
   --accent-color: rgb(var(--palette-green-6));
   --accent-color-active: rgb(var(--palette-green-7));
@@ -101,7 +101,7 @@
   --secondary-bg: #444;
 }
 
-.high-contrast-theme {
+.high-contrast-theme, [data-theme='altoContraste']{
   --bg-body: rgb(00 00 00);
   --accent-color: rgb(var(--palette-green-3));
   --accent-color-active: rgb(var(--palette-green-4));

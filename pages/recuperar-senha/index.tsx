@@ -11,6 +11,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+
+PasswordResetPage.theme = "light";
 export default function PasswordResetPage() {
   const searchParams = useSearchParams();
   const [token, setToken] = useState("");
@@ -131,11 +134,13 @@ export default function PasswordResetPage() {
         <div className="login-form">
           <div className="logo-login">
             <a href="../">
-              <img
-                src="../images/logo.svg"
+            <Image
+                src="/images/logo.svg"
                 className="logo"
                 alt="Logo do IF Jobs"
                 title="Logo IF Jobs"
+                width={110}
+                height={40}
               />
             </a>
           </div>

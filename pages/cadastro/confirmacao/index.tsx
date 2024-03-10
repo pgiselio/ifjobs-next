@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CadastroLayout } from "../../../components/Layouts/_cadastroLayout";
 import styled from "./styles.module.scss";
 
+CadastroConcluidoPage.theme = "light";
 export default function CadastroConcluidoPage() {
   return (
     <CadastroLayout>

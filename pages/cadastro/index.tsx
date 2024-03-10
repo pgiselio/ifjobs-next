@@ -19,6 +19,7 @@ type signupType = {
   confirmPassword: string;
 };
 
+CadastroPage.theme = "light";
 export default function CadastroPage() {
   const [isLoading, setIsLoading] = useState(false);
   let navigate = useRouter();

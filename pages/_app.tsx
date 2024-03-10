@@ -1,29 +1,29 @@
 import type { AppProps } from "next/app";
 import { queryClient } from "../services/queryClient";
-import { themes } from "../styles/themes";
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle } from "../styles/global";
 import { AuthProvider } from "../contexts/AuthContext";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { AppOptionsProvider } from "../contexts/AppOptionsContext";
 
 import "@reach/dialog/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
-import 'react-loading-skeleton/dist/skeleton.css'
-import 'react-pdf/dist/Page/TextLayer.css';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
+import "react-loading-skeleton/dist/skeleton.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
 import "../styles/globals.scss";
 import "../styles/select.scss";
 import "../styles/themes.scss";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
 import { SkeletonTheme } from "react-loading-skeleton";
+import { ThemeProvider } from "next-themes";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={themes.light}>
+    <ThemeProvider
+      forcedTheme={(Component as any)?.theme || null}
+      themes={["system", "altoContraste", "darkGray", "light", "dark"]}
+    >
       <QueryClientProvider client={queryClient}>
-        <GlobalStyle />
         <AuthProvider>
           <AppOptionsProvider>
             <CadastroProvider>
@@ -39,8 +39,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                   draggable
                   pauseOnHover
                 />
-                <SkeletonTheme baseColor="rgba(000, 000, 000, 0.12)" highlightColor="var(--secondary-color)">
-                <Component {...pageProps} />
+                <SkeletonTheme
+                  baseColor="rgba(000, 000, 000, 0.12)"
+                  highlightColor="var(--secondary-color)"
+                >
+                  <Component {...pageProps} />
                 </SkeletonTheme>
               </>
             </CadastroProvider>
