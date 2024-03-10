@@ -104,9 +104,9 @@ export function AuthProvider({ children }: IAuthProvider) {
   function logout() {
     setUser(null);
     setUserLocalStorage(null);
+    queryClient.removeQueries({queryKey: ["meUser"]});
     queryClient.setQueryData(["meUser"], undefined);
     queryClient.invalidateQueries({queryKey: ["meUser"]});
-    queryClient.removeQueries({queryKey: ["meUser"]});
     if (navigate.asPath.includes("sys")) navigate.push("/entrar");
   }
 

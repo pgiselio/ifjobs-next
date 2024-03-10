@@ -10,28 +10,29 @@ import { useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 export default function PasswordResetPage() {
-  // const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const [token, setToken] = useState("");
 
   const navigate = useRouter();
-  // const paramsToken = searchParams.get("token");
+  const paramsToken = searchParams.get("token");
 
-  // useEffect(() => {
-  //   if (paramsToken) {
-  //     let paramsTokensSplitted = paramsToken.split(".");
-  //     let tokenBuffer = Buffer.from(
-  //       paramsTokensSplitted[1],
-  //       "base64"
-  //     ).toString();
+  useEffect(() => {
+    if (paramsToken) {
+      let paramsTokensSplitted = paramsToken.split(".");
+      let tokenBuffer = Buffer.from(
+        paramsTokensSplitted[1],
+        "base64"
+      ).toString();
 
-  //     let tokenPayloadFromParams = JSON.parse(tokenBuffer);
-  //     if (tokenPayloadFromParams.exp * 1000 < new Date().getTime()) {
-  //       navigate("/entrar?error=invalidResetToken");
-  //     }
-  //     setToken(paramsToken);
-  //   }
-  // }, []);
+      let tokenPayloadFromParams = JSON.parse(tokenBuffer);
+      if (tokenPayloadFromParams.exp * 1000 < new Date().getTime()) {
+        navigate.push("/entrar?error=invalidResetToken");
+      }
+      setToken(paramsToken);
+    }
+  }, [searchParams]);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -68,7 +69,7 @@ export default function PasswordResetPage() {
     formState: newPasswordFormState,
     handleSubmit: newPasswordHandleSubmit,
   } = useForm({
-    mode: "onChange",
+    mode: "all",
     defaultValues: {
       password: "",
       confirmPassword: "",
@@ -86,7 +87,7 @@ export default function PasswordResetPage() {
     api
       .patch(
         "/usuario/senha",
-        { senha: data.password, token: token },
+        { senha: data.password, token: "Bearer " + token },
         {
           headers: {
             Authorization: token,
@@ -140,10 +141,9 @@ export default function PasswordResetPage() {
           </div>
           {token ? (
             <form onSubmit={newPasswordHandleSubmit(onSubmitNewPassword)}>
-              <h2 className="desc">Criar nova senha</h2>
+              <h2 className="desc">Recuperar conta</h2>
               <section className="inputs">
                 <div className="lbl">
-                  <label htmlFor="password">Nova senha:</label>
                   <Controller
                     name="password"
                     control={newPasswordControl}
@@ -151,9 +151,9 @@ export default function PasswordResetPage() {
                       <Input
                         type="password"
                         id="password"
-                        placeholder="Senha"
+                        placeholder="Nova senha"
                         {...field}
-                        {...(newPasswordFormState.errors.confirmPassword && {
+                        {...(newPasswordFormState.errors.password && {
                           className: "danger",
                         })}
                       />
@@ -161,12 +161,10 @@ export default function PasswordResetPage() {
                   />
                   <p className="input-error">
                     {newPasswordFormState.errors.password?.message}
+                    &nbsp;
                   </p>
                 </div>
                 <div className="lbl">
-                  <label htmlFor="passwordconfirm">
-                    Confirmar nova senha:{" "}
-                  </label>
                   <Controller
                     name="confirmPassword"
                     control={newPasswordControl}
@@ -174,7 +172,7 @@ export default function PasswordResetPage() {
                       <Input
                         type="password"
                         id="passwordconfirm"
-                        placeholder="Confirmar senha"
+                        placeholder="Confirmar nova senha"
                         {...field}
                         {...(newPasswordFormState.errors.confirmPassword && {
                           className: "danger",
@@ -184,13 +182,13 @@ export default function PasswordResetPage() {
                   />
                   <p className="input-error">
                     {newPasswordFormState.errors.confirmPassword?.message}
+                    &nbsp;
                   </p>
                 </div>
               </section>
               <Button
                 type="submit"
                 className="less-radius"
-                disabled={!newPasswordFormState.isValid}
               >
                 <span>Enviar</span>
               </Button>

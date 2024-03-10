@@ -3,14 +3,16 @@ import CircularProgressFluent from "../../components/General/circular-progress-f
 import { useAuth } from "../../hooks/useAuth";
 import styled from "../../styles/LoginSignupStyle.module.scss";
 import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
+import { useRouter } from "next/navigation";
 
 
 export default function LogoutPage() {
   const auth = useAuth();
+  const navigate = useRouter();
   useEffect(() => {
     auth.logout();
     if (!auth.email) {
-      window.location.href = "/entrar";
+      navigate.push("/entrar");
     }
   });
 

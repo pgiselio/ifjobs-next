@@ -13,11 +13,13 @@ import Head from "next/head";
 
 import styled from "../../styles/LoginSignupStyle.module.scss";
 import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const auth = useAuth();
   const navigate = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const searchParams = useSearchParams();
 
   const { control, formState, handleSubmit } = useForm({
     mode: "onChange",
@@ -33,42 +35,40 @@ export default function LoginPage() {
     navigate.push("/sys");
   }
 
-  // const paramsError = searchParams.getAll("error");
-  // useEffect(() => {
-  //   if (searchParams.has("error")) {
-  //     paramsError.forEach((error) => {
-  //       switch (error) {
-  //         case "needsLogin":
-  //           toast.error("Você precisa fazer login primeiro!", {});
-  //           break;
-  //         case "invalidCredentials":
-  //           toast.error("Sua sessão expirou, faça login novamente!", {});
-  //           break;
-  //         case "needsPasswordReset":
-  //           toast.error("Você precisa resetar sua senha!", {});
-  //           break;
-  //         case "checkEmail":
-  //           toast.info(
-  //             "Caso esteja cadastrado, você receberá um e-mail com as instruções para redefinir sua senha.",
-  //             {
-  //               autoClose: 20000,
-  //             }
-  //           );
-  //           break;
-  //         case "invalidResetToken":
-  //           toast.error("O link já expirou, tente novamente", {});
-  //           break;
-  //         case "passwordChanged":
-  //           toast.success("Senha alterada com sucesso!", {
-  //             autoClose: false,
-  //           });
-  //           break;
-  //       }
-  //     });
-  //     searchParams.delete("error");
-  //     setSearchParams(searchParams);
-  //   }
-  // }, []);
+  const paramsError = searchParams.getAll("error");
+  useEffect(() => {
+    if (searchParams.has("error")) {
+      paramsError.forEach((error) => {
+        switch (error) {
+          case "needsLogin":
+            toast.error("Você precisa fazer login primeiro!", {});
+            break;
+          case "invalidCredentials":
+            toast.error("Sua sessão expirou, faça login novamente!", {});
+            break;
+          case "needsPasswordReset":
+            toast.error("Você precisa resetar sua senha!", {});
+            break;
+          case "checkEmail":
+            toast.info(
+              "Caso esteja cadastrado, você receberá um e-mail com as instruções para redefinir sua senha.",
+              {
+                autoClose: 20000,
+              }
+            );
+            break;
+          case "invalidResetToken":
+            toast.error("O link expirou, tente fazer uma nova solicitação", {});
+            break;
+          case "passwordChanged":
+            toast.success("Senha alterada com sucesso!", {
+              autoClose: false,
+            });
+            break;
+        }
+      });
+    }
+  }, [searchParams]);
 
   async function onSubmit(data: any) {
     try {
