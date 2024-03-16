@@ -187,7 +187,7 @@
         padding: 10px;
         top: calc(var(--top-bar-height) - 1px);
         background: var(--navs-bg);
-        border-bottom: 1px solid var(--outline-color);
+        border-bottom: 1px solid var(--navs-border);
         z-index: 15;
         font-size: 14px;
         h3 {

@@ -12,10 +12,21 @@ import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
+import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 export default function VagaSobrePage() {
   const router = useRouter();
   const params = router.query;
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    contentRef.current?.querySelectorAll("a").forEach((a) => {
+      console.log(a);
+      console.log(a.getAttribute("href")?.match(/https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/gi));
+      !a.getAttribute("href")?.match(/https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/gi) &&
+      a.setAttribute("href", `http://${a.getAttribute("href")}`);
+    });
+  });
   const { data, isFetching } = useQuery<vaga>({
     queryKey: [`vaga-${params.id}`],
     queryFn: async () => {
@@ -59,7 +70,7 @@ export default function VagaSobrePage() {
           <Box>
             <BoxTitle>Sobre a vaga</BoxTitle>
             <BoxContent>
-              <div className="vaga-page-description">{data.descricao}</div>
+              <div className="ql-editor vaga-page-description" ref={contentRef} dangerouslySetInnerHTML={{__html: data.descricao}}></div>
             </BoxContent>
           </Box>
         </div>
@@ -76,7 +87,9 @@ export default function VagaSobrePage() {
               {data.status ? (
                 <BoxContent>
                   <div className="vaga-page-actions">
+                    <Link href={`/sys/vagas/${params.id}/editar`}>
                     <Button className="less-radius">Editar informações</Button>
+                    </Link>
                   </div>
                 </BoxContent>
               ) : (

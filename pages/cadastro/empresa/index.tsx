@@ -11,6 +11,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { CadastroLayout } from "../../../components/Layouts/_cadastroLayout";
+import Image from "next/image";
 
 CadastroEmpresaPage.theme = "light";
 export default function CadastroEmpresaPage() {
@@ -114,10 +115,12 @@ export default function CadastroEmpresaPage() {
         </div>
         <div className="destaque">
           <div className="imagem-destaque">
-            <img
+            <Image
               src="../images/undraw_connected_re_lmq2.svg"
               alt=""
-              style={{ width: "60%" }}
+              loading="eager"
+              width={168}
+              height={159}
             />
           </div>
           <span>Faça o pré-cadastro da sua empresa</span>

@@ -75,6 +75,10 @@
       color: var(--danger-color-dark);
      }
   }
+  &:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+  }
 }
 
 .show-password-button {

@@ -80,5 +80,11 @@ export const useVagas = () => {
         console.error(err);
       });
   };
-  return { subscribe, unsubscribe, open, close };
+  const edit = async (vagaId: number | string, data: any) => { 
+    api.patch(`/vaga/${vagaId}`, data).then(() => {
+      invalidateQueries(vagaId);
+      toast.success("Vaga editada com sucesso!");
+    });
+  }
+  return { subscribe, unsubscribe, open, close, edit };
 };

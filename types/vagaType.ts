@@ -1,3 +1,5 @@
+import { empresaType } from "./empresa";
+
 export type vaga = {
   id: number;
   titulo: string;
@@ -6,12 +8,7 @@ export type vaga = {
   localizacao: string;
   dataCriacao: string;
   cursoAlvo: string;
-  empresa: {
-    id: number;
-    dadosPessoa: {
-      nome: string;
-    };
-  }
+  empresa?: empresaType;
   alunos: number[];
 };
 

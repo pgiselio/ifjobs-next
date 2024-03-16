@@ -15,7 +15,7 @@ import { queryClient } from "../../../../services/queryClient";
 import { CurriculoForm } from "../../../../components/Layouts/_curriculoForm";
 import { isBlank } from "../../../../utils/isBlank";
 import { Modal } from "../../../../components/General/modal";
-import { ProfilePictureForm } from "../../../../components/Layouts/_porfilePictureForm";
+import { ProfilePictureForm, useProfilePictureActions } from "../../../../components/Layouts/_porfilePictureForm";
 import { Button } from "../../../../components/General/button";
 import { ModalBottom } from "../../../../components/General/modal";
 import {
@@ -25,13 +25,16 @@ import {
 import SettingsLayout from "../../../../components/Layouts/settings";
 import { getDirtyValues } from "../../../../utils/getDirtyValues";
 import Select from "react-select";
+import { useAlertDialog } from "../../../../hooks/useAlertDialog";
 
 export default function SettingContaPage() {
   const auth = useAuth();
+  const ppActions = useProfilePictureActions();
   const [isLoading, setIsLoading] = useState(false);
   const [showModalPic, setShowModalPic] = useState(false);
   const [showModalCurriculo, setShowModalCurriculo] = useState(false);
   let unidadesFederativas = UFsSelectOptions.map(({ value }) => value);
+  const alert = useAlertDialog();
 
   useEffect(() => {
     reset({
@@ -227,7 +230,10 @@ export default function SettingContaPage() {
                 </DropdownMenu.Item>
                 <DropdownMenu.Item
                   className="DropdownMenuItem"
-                  onSelect={() => setShowModalPic(true)}
+                  onSelect={() => alert({description: "Tem certeza que deseja remover sua foto de perfil?"}).then(() => {
+                    ppActions.remover();
+            
+                  })}
                 >
                   Remover foto atual
                 </DropdownMenu.Item>

@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { CadastroLayout } from "../../components/Layouts/_cadastroLayout";
 import { useCadastroSteps } from "../../hooks/useCadastroAluno";
+import Image from "next/image";
 
 type signupType = {
   email: string;
@@ -181,7 +182,7 @@ export default function CadastroPage() {
         </div>
         <div className="destaque">
           <div className="imagem-destaque">
-            <img src="../images/undraw_typewriter_re_u9i2.svg" alt="" />
+            <Image src="../images/undraw_typewriter_re_u9i2.svg" alt="" loading="eager" width={204} height={159}/>
           </div>
 
           <span>Sua conta a três passos de você</span>

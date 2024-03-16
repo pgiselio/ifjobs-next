@@ -279,6 +279,7 @@ export default function ProfilePage() {
                                     style={{ color: "#0a66c2" }}
                                     className="fab fa-linkedin"
                                   ></i>
+                                  <span>LinkedIn</span>
                                 </a>
                               </li>
                             )}
@@ -293,6 +294,7 @@ export default function ProfilePage() {
                                     style={{ color: "#2374E1" }}
                                     className="fab fa-facebook"
                                   ></i>
+                                  <span>Facebook</span>
                                 </a>
                               </li>
                             )}
@@ -309,6 +311,7 @@ export default function ProfilePage() {
                                     style={{ color: "deeppink" }}
                                     className="fab fa-instagram"
                                   ></i>
+                                  <span>Instagram</span>
                                 </a>
                               </li>
                             )}
@@ -323,6 +326,7 @@ export default function ProfilePage() {
                                     style={{ color: "#05bcbc" }}
                                     className="fab fa-twitter"
                                   ></i>
+                                  <span>X/Twitter</span>
                                 </a>
                               </li>
                             )}

@@ -5,6 +5,8 @@
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 10px;
+  padding: 25px;
+  padding-bottom: 0;
 }
 
 .AlertDialogDescription,
@@ -12,7 +14,9 @@
   color: var(--text-b);
   font-size: 15px;
   font-weight: 500;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
+  margin-bottom: 2rem;
+  padding: 0 25px;
 }
 
 .AlertDialogOverlay,
@@ -26,7 +30,7 @@
 
 .AlertDialogContent,
 [data-reach-alert-dialog-content] {
-  padding: 25px;
+  /* padding: 25px; */
   width: 90vw;
   max-width: 500px;
   max-height: 85vh;
@@ -56,11 +60,22 @@
 .AlertDialogActions,
 [data-reach-alert-dialog-actions] {
   display: flex;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  justify-content: space-evenly;
+  flex-wrap: wrap;
   margin-top: 1.5rem;
   gap: 5px;
+  padding: 20px 25px;
+  background-color: var(--secondary-bg);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: var(--outline-color);
 }
-
+.AlertDialogActions *,
+[data-reach-alert-dialog-actions] * {
+  flex: 1;
+  max-width: 200px;
+}
 /*--- Accordion ---*/
 
 .AccordionTrigger,

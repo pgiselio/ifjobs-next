@@ -123,12 +123,20 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     li {
       display: flex;
+      flex-direction: column;
       a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 80px;
+        min-width: 70px;
+
         padding: 10px;
-        border-radius: 30px;
-        color: var(--accent-color);
+        border-radius: 20px;
+        color: var(--text-a);
         &:hover {
           background: var(--accent-color-opacity);
         }
@@ -139,7 +147,12 @@
           font-size: 20px;
           height: 30px;
           width: 30px;
+          color: var(--text-b);
         }
+      }
+      span {
+        font-size: 10px;
+        font-weight: 600;
       }
     }
   }
@@ -152,6 +165,9 @@
   }
 
   @media (min-width: 766px) {
+    .social-info{
+      flex-wrap: nowrap;
+    }
     .profile-page-header {
       padding: 35px 40px;
       padding-top: 125px;

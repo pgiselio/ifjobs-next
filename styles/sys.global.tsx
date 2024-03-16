@@ -157,7 +157,7 @@ footer {
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1200px) {
   .cards-container {
       grid-template-columns: 1fr;
   }

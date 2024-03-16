@@ -1,5 +1,5 @@
 export type empresaType = {
-  id: 0;
+  id: number;
   dadosPessoa: {
     nome: string;
     dataNasc: Date;

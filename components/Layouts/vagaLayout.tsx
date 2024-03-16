@@ -11,7 +11,6 @@ import styled from "../../pages/sys/vagas/[id]/style.module.scss";
 import { PillItem, PillList } from "../General/pill";
 import { Button } from "../General/button";
 import { toast } from "react-toastify";
-import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useRouter } from "next/router";
@@ -20,23 +19,21 @@ import Link from "next/link";
 import { SystemLayout } from "./_sysLayout";
 import CircularProgressFluent from "../General/circular-progress-fluent";
 import Head from "next/head";
+import { useAlertDialog } from "../../hooks/useAlertDialog";
 
 export default function VagaPageLayout({ children }: { children: ReactNode }) {
   const auth = useAuth();
   const router = useRouter();
   const useVaga = useVagas();
+  const alert = useAlertDialog();
 
   let params = router.query;
 
-  const [showDialog, setShowDialog] = useState(false);
   const [isCandidatoSubscribed, setIsCandidatoSubscribed] = useState(false);
-  const [showUnsubDialog, setShowUnsubDialog] = useState(false);
   const [isOpenCloseOnProgress, setIsOpenCloseOnProgress] = useState(false);
 
   const subscribeBtnRef = useRef<HTMLButtonElement>(null);
 
-  const openUnsubDialog = () => setShowUnsubDialog(true);
-  const closeUnsubDialog = () => setShowUnsubDialog(false);
   const { data, isFetching } = useQuery<vaga>({
     queryKey: [`vaga-${params.id}`],
     queryFn: async () => {
@@ -64,7 +61,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
       )
     ) {
       if (isCandidatoSubscribed) {
-        openUnsubDialog();
+        alert({title: "Tem certeza que deseja se desinscrever desta vaga?"}).then(() => desinscreverAluno());
       } else {
         subscribeBtnRef.current &&
           subscribeBtnRef.current.setAttribute("disabled", "");
@@ -86,7 +83,6 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
     });
   }
   async function desinscreverAluno() {
-    closeUnsubDialog();
     if (!auth.userInfo?.aluno?.id || !params.id) return;
     useVaga.unsubscribe({
       vagaId: params.id,
@@ -102,20 +98,18 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
     }
   }, [auth.userInfo?.id, data?.alunos]);
 
-  const cancelRef = useRef(null);
-  const openDialog2 = () => setShowDialog(true);
-  const closeDialog2 = () => {
-    setShowDialog(false);
-  };
   function abrirEncerrarInscricoes() {
     if (data?.status === "ATIVO") {
-      openDialog2();
+      alert({
+        title: "Tem certeza que deseja desativar esta vaga?",
+        description:
+          "A vaga não poderá ser editada e nem aceitará novas inscrições, mas continuará sendo visível para todos.",
+      }).then(() => encerrarInscricoes());
     } else {
       abrirInscricoes();
     }
   }
   async function encerrarInscricoes() {
-    closeDialog2();
     if (!data) {
       return;
     }
@@ -142,7 +136,11 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
       year: "numeric",
     }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
   } else if (!isFetching) {
-    return <SystemLayout><Error404 /></SystemLayout>;
+    return (
+      <SystemLayout>
+        <Error404 />
+      </SystemLayout>
+    );
   }
 
   return (
@@ -209,41 +207,6 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
                       : "Reabrir inscrições"}
                   </Button>
                 )}
-              {showDialog && (
-                <AlertDialog.Root defaultOpen>
-                  <AlertDialog.Portal>
-                    <AlertDialog.Overlay className="AlertDialogOverlay" />
-                    <AlertDialog.Content className="AlertDialogContent">
-                      <AlertDialog.Title className="AlertDialogTitle">
-                        Tem certeza que deseja desativar esta vaga?
-                      </AlertDialog.Title>
-                      <AlertDialog.Description className="AlertDialogDescription">
-                        A vaga não poderá ser editada e nem aceitará novas
-                        inscrições, mas continuará sendo visível para todos.
-                      </AlertDialog.Description>
-                      <div
-                        className="alert-buttons AlertDialogActions"
-                        data-reach-alert-dialog-actions
-                      >
-                        <AlertDialog.Cancel asChild>
-                          <Button
-                            className="secondary "
-                            ref={cancelRef}
-                            onClick={closeDialog2}
-                          >
-                            Cancelar
-                          </Button>
-                        </AlertDialog.Cancel>
-                        <AlertDialog.Action asChild>
-                          <Button className=" red" onClick={encerrarInscricoes}>
-                            Sim
-                          </Button>
-                        </AlertDialog.Action>
-                      </div>
-                    </AlertDialog.Content>
-                  </AlertDialog.Portal>
-                </AlertDialog.Root>
-              )}
               {auth.userInfo?.aluno?.dadosPessoa && (
                 <>
                   <Button
@@ -281,37 +244,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
                         : "Inscrever-se"}
                     </span>
                   </Button>
-                  {showUnsubDialog && (
-                    <AlertDialog.Root defaultOpen>
-                      <AlertDialog.Portal>
-                        <AlertDialog.Overlay className="AlertDialogOverlay" />
-                        <AlertDialog.Content className="AlertDialogContent">
-                          <AlertDialog.Title className="AlertDialogTitle">
-                            Tem certeza que deseja se desinscrever desta vaga?
-                          </AlertDialog.Title>
-                          <div className="alert-buttons AlertDialogActions">
-                            <AlertDialog.Cancel asChild>
-                              <Button
-                                ref={cancelUnsubRef}
-                                onClick={closeUnsubDialog}
-                                className="secondary"
-                              >
-                                Cancelar
-                              </Button>
-                            </AlertDialog.Cancel>
-                            <AlertDialog.Action asChild>
-                              <Button
-                                className="red"
-                                onClick={desinscreverAluno}
-                              >
-                                Sim
-                              </Button>
-                            </AlertDialog.Action>
-                          </div>
-                        </AlertDialog.Content>
-                      </AlertDialog.Portal>
-                    </AlertDialog.Root>
-                  )}
+                 
                 </>
               )}
             </div>

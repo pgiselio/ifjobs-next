@@ -12,10 +12,12 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 import "../styles/globals.scss";
 import "../styles/select.scss";
 import "../styles/themes.scss";
+import "../styles/quill.snow.css";
 import { ToastContainer } from "react-toastify";
 import { CadastroProvider } from "../contexts/CadastroContext";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { ThemeProvider } from "next-themes";
+import { AlertDialogProvider } from "../contexts/AlertDialogContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,27 +28,29 @@ function MyApp({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <AppOptionsProvider>
-            <CadastroProvider>
-              <>
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                />
-                <SkeletonTheme
-                  baseColor="rgba(000, 000, 000, 0.12)"
-                  highlightColor="var(--secondary-color)"
-                >
-                  <Component {...pageProps} />
-                </SkeletonTheme>
-              </>
-            </CadastroProvider>
+            <AlertDialogProvider>
+              <CadastroProvider>
+                <>
+                  <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                  />
+                  <SkeletonTheme
+                    baseColor="rgba(000, 000, 000, 0.12)"
+                    highlightColor="var(--secondary-color)"
+                  >
+                    <Component {...pageProps} />
+                  </SkeletonTheme>
+                </>
+              </CadastroProvider>
+            </AlertDialogProvider>
           </AppOptionsProvider>
         </AuthProvider>
       </QueryClientProvider>

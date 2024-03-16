@@ -9,6 +9,52 @@ import { queryClient } from "../../services/queryClient";
 import styled from "../../styles/_Pages/sys/settings-conta.module.scss";
 import { Button } from "../General/button";
 import { useProfilePic } from "../../hooks/useProfilePic";
+import { useAlertDialog } from "../../hooks/useAlertDialog";
+import { IContext } from "../../contexts/AuthContext/types";
+
+export const useProfilePictureActions = () => {
+  const auth = useAuth();
+  const emptyImage =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
+  const emptyImageBlobfied = useRef<any>("");
+  const [isEmptyImage, setIsEmptyImage] = useState(false);
+  useEffect(() => {
+    const parseImages = async () => {
+      await (await fetch(emptyImage))
+        .blob()
+        .then((response: any) => (emptyImageBlobfied.current = response));
+    };
+    parseImages();
+  }, []);
+  
+  const remover = async () => {
+    const formData = new FormData();
+    formData.append("arquivo", emptyImageBlobfied.current);
+    await api
+      .post(`/imagem/uploadFotoPerfil/${auth.userInfo?.id}`, formData)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Foto de perfil removida com sucesso!");
+          queryClient.setQueryData(
+            ["profilePic-" + auth.userInfo?.id],
+            emptyImage
+          );
+        }
+      })
+      .catch((err) => {
+        if (err.status === 500) {
+          toast.error("Ops... algo não deu certo!", {});
+        }
+        if (err.status === 403 || err.status === 401) {
+          toast.error("Você não tem autorização para executar essa ação!");
+        } else {
+          console.error(err);
+        }
+      });
+  }
+  return {remover};
+}
+
 
 export function ProfilePictureForm({
   closeModal,
@@ -16,6 +62,8 @@ export function ProfilePictureForm({
   closeModal?: () => void;
 }) {
   const auth = useAuth();
+  const alert = useAlertDialog();
+  const ppActions = useProfilePictureActions();
   const [zoom, setZoom] = useState<number>(1);
   const [rotate, setRotate] = useState<number>(0);
   const [actualProfilePic, setActualProfilePic] = useState<any>(undefined);
@@ -95,34 +143,7 @@ export function ProfilePictureForm({
         }
       });
   }
-  async function removerFotoDePerfil() {
-    const formData = new FormData();
-    formData.append("arquivo", emptyImageBlobfied.current);
-    await api
-      .post(`/imagem/uploadFotoPerfil/${auth.userInfo?.id}`, formData)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success("Foto de perfil removida com sucesso!");
-          setnewProfilePic(undefined);
-          setIsEmptyImage(true);
-          queryClient.setQueryData(
-            ["profilePic-" + auth.userInfo?.id],
-            emptyImage
-          );
-          closeModal && closeModal();
-        }
-      })
-      .catch((err) => {
-        if (err.status === 500) {
-          toast.error("Ops... algo não deu certo!", {});
-        }
-        if (err.status === 403 || err.status === 401) {
-          toast.error("Você não tem autorização para executar essa ação!");
-        } else {
-          console.error(err);
-        }
-      });
-  }
+  
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -220,7 +241,11 @@ export function ProfilePictureForm({
       <Button
         type="button"
         className="select-new less-radius secondary"
-        onClick={() => removerFotoDePerfil()}
+        onClick={() => alert({description: "Tem certeza que deseja remover a foto de perfil?"}).then(() => {
+          ppActions.remover();
+          setnewProfilePic(undefined);
+          closeModal && closeModal();
+        })}
       >
         <i className="fa-solid fa-trash"></i> Remover foto atual
       </Button>
