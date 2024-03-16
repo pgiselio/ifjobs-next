@@ -14,6 +14,7 @@ import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 
 export default function VagaSobrePage() {
   const router = useRouter();
@@ -21,8 +22,6 @@ export default function VagaSobrePage() {
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     contentRef.current?.querySelectorAll("a").forEach((a) => {
-      console.log(a);
-      console.log(a.getAttribute("href")?.match(/https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/gi));
       !a.getAttribute("href")?.match(/https?:\/\/(?:www\.)?([-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b)*(\/[\/\d\w\.-]*)*(?:[\?])*(.+)*/gi) &&
       a.setAttribute("href", `http://${a.getAttribute("href")}`);
     });
@@ -63,6 +62,9 @@ export default function VagaSobrePage() {
       </VagaPageLayout>
     );
   }
+  const sanitizedData = () => ({
+    __html: DOMPurify.sanitize(data.descricao),
+  })
   return (
     <VagaPageLayout>
       <div className={!isAluno ? "vaga-columns-2" : ""}>
@@ -70,7 +72,7 @@ export default function VagaSobrePage() {
           <Box>
             <BoxTitle>Sobre a vaga</BoxTitle>
             <BoxContent>
-              <div className="ql-editor vaga-page-description" ref={contentRef} dangerouslySetInnerHTML={{__html: data.descricao}}></div>
+              <div className="ql-editor vaga-page-description" ref={contentRef} dangerouslySetInnerHTML={sanitizedData()}></div>
             </BoxContent>
           </Box>
         </div>

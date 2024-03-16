@@ -1,16 +1,27 @@
 import React from "react";
 import styled from "./styles.module.scss";
 
-export function Button(props: React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) {
+export const Button = React.forwardRef(function Button(
+  {
+    type,
+    className,
+    children,
+    ...props
+  }: React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  >,
+  ref: React.ForwardedRef<HTMLButtonElement>
+) {
   return (
     <button
-      {...props.type ? '' : {type:"button"}}
+      {...(type ? "" : { type: "button" })}
       {...props}
       className={
-        styled.button + (props.className ? " " + props.className : "")
+        styled.button + (className ? " " + className : "")
       }
     >
-      {props.children}
+      {children}
     </button>
   );
-}
+});

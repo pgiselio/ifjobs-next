@@ -8,7 +8,7 @@ export type vaga = {
   localizacao: string;
   dataCriacao: string;
   cursoAlvo: string;
-  empresa?: empresaType;
+  empresa: empresaType;
   alunos: number[];
 };
 
