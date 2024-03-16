@@ -43,6 +43,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
       return response?.data;
     },
     refetchOnWindowFocus: false,
+    enabled: !!params.id,
   });
 
   const cancelUnsubRef = useRef(null);

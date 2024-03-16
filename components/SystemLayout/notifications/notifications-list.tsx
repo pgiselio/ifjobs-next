@@ -24,6 +24,7 @@ export function Notifications() {
     },
     staleTime: 1000 * 60, // 1 minute to refetch
     refetchInterval: 1000 * 60, // 1 minutes to refetch
+    enabled: !!auth.email,
   });
 
   function markAsRead(id: number) {

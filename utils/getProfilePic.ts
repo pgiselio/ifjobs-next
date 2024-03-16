@@ -22,6 +22,7 @@ export function GetProfilePic(id: string) {
     },
       refetchOnWindowFocus: false,
       staleTime: 1000 * 30, // 30 seconds
+      enabled: !!id,
     }
   );
   return data;

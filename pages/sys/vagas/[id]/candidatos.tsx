@@ -23,6 +23,7 @@ export default function VagaCandidatoPage() {
       return response?.data;
     },
     refetchOnWindowFocus: false,
+    enabled: !!params.id,
   });
   const [checkedList, setCheckedList] = useState<any[]>([]);
   const userQueries = useQueries({

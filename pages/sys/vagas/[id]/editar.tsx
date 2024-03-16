@@ -31,6 +31,7 @@ export default function VagaEditarPage() {
       return response?.data;
     },
     refetchOnWindowFocus: false,
+    enabled: !!params.id,
   });
   if (isFetching) {
     return (

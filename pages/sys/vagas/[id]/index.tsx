@@ -35,6 +35,7 @@ export default function VagaSobrePage() {
       return response?.data;
     },
     refetchOnWindowFocus: false,
+    enabled: !!params.id,
   });
   const auth = useAuth();
   const isAluno = auth?.authorities?.includes("ALUNO");

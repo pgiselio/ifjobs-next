@@ -33,6 +33,7 @@ export default function ProfilePage() {
       return response.data;
     },
     staleTime: 1000 * 60 * 2, // 2 minutes
+    enabled: !!id,
   });
   function getFormattedDate(date: Date) {
     if (!date) {
