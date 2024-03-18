@@ -74,7 +74,7 @@ export function ProfilePictureForm({
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const emptyImageBlobfied = useRef<any>("");
   const [isEmptyImage, setIsEmptyImage] = useState(false);
-  const { data: queryImage } = useProfilePic(auth.userInfo?.id);
+  const { data: queryImage } = useProfilePic({userId: auth.userInfo?.id});
   useEffect(() => {
     const parseImages = async () => {
       await (await fetch(emptyImage))
