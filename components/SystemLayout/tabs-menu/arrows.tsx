@@ -6,17 +6,20 @@ import styles from "./styles.module.scss";
 function Arrow({
   children,
   disabled = true,
-  onClick
+  onClick,
+  ariaLabel,
 }: {
   children: React.ReactNode;
   disabled: boolean;
   onClick: VoidFunction;
+  ariaLabel?: string;
 }) {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
       className={styles["arrows"]}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
@@ -42,8 +45,9 @@ export function LeftArrow() {
   }, [isFirstItemVisible, visibleItemsWithoutSeparators]);
 
   return (
-    <Arrow disabled={disabled} onClick={() => scrollPrev()}>
-      <i className="fa-solid fa-chevron-left"></i>
+    <Arrow disabled={disabled} onClick={() => scrollPrev()} ariaLabel="Rolar menu de abas à esquerda">
+      <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      <label hidden ></label>
     </Arrow>
   );
 }
@@ -67,8 +71,8 @@ export function RightArrow() {
   }, [isLastItemVisible, visibleItemsWithoutSeparators]);
 
   return (
-    <Arrow disabled={disabled} onClick={() => scrollNext()}>
-      <i className="fa-solid fa-chevron-right"></i>
+    <Arrow disabled={disabled} onClick={() => scrollNext()} ariaLabel="Rolar menu de abas à direita">
+      <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
     </Arrow>
   );
 }
