@@ -1,7 +1,7 @@
 import { Box, BoxContent, BoxTitle } from "../../../../components/General/box";
 import { useAuth } from "../../../../hooks/useAuth";
 import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
-import { CriarNovaVagaForm } from "../../../../components/Layouts/vaga_form";
+import { CriarNovaVagaForm } from "../../../../components/Forms/vaga_form";
 import Head from "next/head";
 import { toast } from "react-toastify";
 

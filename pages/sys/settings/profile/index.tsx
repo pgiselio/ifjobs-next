@@ -12,10 +12,10 @@ import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/prof
 import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
 import { queryClient } from "../../../../services/queryClient";
-import { CurriculoForm } from "../../../../components/Layouts/_curriculoForm";
+import { CurriculoForm } from "../../../../components/Forms/_curriculoForm";
 import { isBlank } from "../../../../utils/isBlank";
 import { Modal } from "../../../../components/General/modal";
-import { ProfilePictureForm, useProfilePictureActions } from "../../../../components/Layouts/_porfilePictureForm";
+import { ProfilePictureForm, useProfilePictureActions } from "../../../../components/Forms/_porfilePictureForm";
 import { Button } from "../../../../components/General/button";
 import { ModalBottom } from "../../../../components/General/modal";
 import {

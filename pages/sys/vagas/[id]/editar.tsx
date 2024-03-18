@@ -15,7 +15,7 @@ import { User } from "../../../../types/user";
 import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 import Skeleton from "react-loading-skeleton";
-import { CriarNovaVagaForm } from "../../../../components/Layouts/vaga_form";
+import { CriarNovaVagaForm } from "../../../../components/Forms/vaga_form";
 import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 import Head from "next/head";
 

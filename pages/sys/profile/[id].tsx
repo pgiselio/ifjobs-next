@@ -27,7 +27,7 @@ export default function ProfilePage() {
   let usertype;
   const auth = useAuth();
   const { data, isFetching } = useQuery<User>({
-    queryKey: ["profile" + id],
+    queryKey: ["profile", id],
     queryFn: async () => {
       const response = await api.get(`/usuario/${id}`);
       return response.data;

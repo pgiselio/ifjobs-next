@@ -15,7 +15,8 @@ export const Button = React.forwardRef(function Button(
 ) {
   return (
     <button
-      {...(type ? "" : { type: "button" })}
+      {...(type ? { type: type } : { type: "button" })}
+      {...ref && {ref: ref} }
       {...props}
       className={
         styled.button + (className ? " " + className : "")
