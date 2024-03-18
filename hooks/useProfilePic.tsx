@@ -10,11 +10,11 @@ type photoQueryType = {
     dados: string;
   };
 };
-export const useProfilePic = (userId: string | number | undefined) => {
+export const useProfilePic = ({userId, enabled = true}:{userId: string | number | undefined, enabled ?: boolean}) => {
   const query = useQuery({
-    queryKey: ["profilePic-" + userId],
+    queryKey: ["profilePic", userId],
     queryFn: async () => {
-      if (!userId || userId === "undefined") {
+      if (!userId || userId === "undefined" || typeof userId === "undefined") {
         return;
       }
       const response = await api.get<photoQueryType>(
@@ -27,7 +27,7 @@ export const useProfilePic = (userId: string | number | undefined) => {
       }
       return null;
     },
-    enabled: !!userId,
+    enabled: !!userId && enabled,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 30, // 30 seconds
   });

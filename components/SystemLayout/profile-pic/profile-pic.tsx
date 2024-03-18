@@ -1,8 +1,12 @@
-import { CSSProperties } from "react";
+import {
+  CSSProperties,
+  useRef,
+} from "react";
 import { useProfilePic } from "../../../hooks/useProfilePic";
 import { isBlank } from "../../../utils/isBlank";
 import Image from "next/image";
 import styled from "./styled.module.scss";
+import { useIsInViewport } from "../../../hooks/useIsInViewport";
 
 type ProfilePicType = {
   url?: string;
@@ -13,7 +17,10 @@ type ProfilePicType = {
 };
 
 export function ProfilePic(props: ProfilePicType) {
-  const { data } = useProfilePic(props.userId);
+  const picRef = useRef<HTMLDivElement>(null);
+  const isVisible = useIsInViewport(picRef);
+
+  const { data } = useProfilePic({ userId: props.userId, enabled: isVisible });
   return (
     <div
       className={
@@ -22,6 +29,7 @@ export function ProfilePic(props: ProfilePicType) {
         " profile-pic " +
         (props.className ?? "")
       }
+      ref={picRef}
       style={props.style}
     >
       <span className={styled["default-profile"]}>

@@ -9,15 +9,16 @@ import {
 import { Button } from "../../../../components/General/button";
 import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { useAuth } from "../../../../hooks/useAuth";
-import { api } from "../../../../services/api";
 import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import DOMPurify from "dompurify";
+import { useVagas } from "../../../../hooks/useVagas";
 
 export default function VagaSobrePage() {
   const router = useRouter();
+  const vagas = useVagas();
   const params = router.query;
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -27,15 +28,11 @@ export default function VagaSobrePage() {
     });
   });
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: [`vaga-${params.id}`],
-    queryFn: async () => {
-      const response = await api
-        .get(`/vaga/lista/${params.id}`)
-        .catch((error) => (error.response.status === 400 ? null : error));
-      return response?.data;
-    },
+    queryKey: ["vaga", params.id],
+    queryFn: () => vagas.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,
+    staleTime: 1000 * 60 * 2, // 2 minutes
   });
   const auth = useAuth();
   const isAluno = auth?.authorities?.includes("ALUNO");
@@ -58,7 +55,6 @@ export default function VagaSobrePage() {
             width="30px"
             duration=".9s"
           />
-          Carregando...
         </p>
       </VagaPageLayout>
     );

@@ -5,7 +5,9 @@ import { TabsMenu, TabsMenuItem } from "../SystemLayout/tabs-menu";
 import { vaga } from "../../types/vagaType";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../services/api";
-import { Skeleton } from "../General/skeleton-load";
+import Skeleton from "react-loading-skeleton";
+// import { Skeleton } from "../General/skeleton-load";
+
 import { ProfilePic } from "../SystemLayout/profile-pic/profile-pic";
 import styled from "../../pages/sys/vagas/[id]/style.module.scss";
 import { PillItem, PillList } from "../General/pill";
@@ -35,18 +37,12 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
   const subscribeBtnRef = useRef<HTMLButtonElement>(null);
 
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: [`vaga-${params.id}`],
-    queryFn: async () => {
-      const response = await api
-        .get(`/vaga/lista/${params.id}`)
-        .catch((error) => (error.response.status === 400 ? null : error));
-      return response?.data;
-    },
+    queryKey: ["vaga", params.id],
+    queryFn: async () => useVaga.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,
+    staleTime: 1000 * 60 * 2, // 2 minutes
   });
-
-  const cancelUnsubRef = useRef(null);
   function inscreverOuDesinscreverAluno() {
     if (
       !(
@@ -62,7 +58,9 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
       )
     ) {
       if (isCandidatoSubscribed) {
-        alert({title: "Tem certeza que deseja se desinscrever desta vaga?"}).then(() => desinscreverAluno());
+        alert({
+          title: "Tem certeza que deseja se desinscrever desta vaga?",
+        }).then(() => desinscreverAluno());
       } else {
         subscribeBtnRef.current &&
           subscribeBtnRef.current.setAttribute("disabled", "");
@@ -153,7 +151,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             <div className="empresa-info">
               {!data && isFetching ? (
                 <>
-                  <Skeleton variant="square" className="profile-pic" />
+                  <Skeleton className="profile-pic" />
                 </>
               ) : (
                 <>
@@ -163,8 +161,12 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             </div>
             {!data && isFetching ? (
               <>
-                <Skeleton variant="text" width="300px" height="43px" />
-                <Skeleton variant="text" width="150px" height="25px" />
+                <h2>
+                  <Skeleton containerClassName="profile-pic" width={255} />
+                </h2>
+                <a>
+                  <Skeleton containerClassName="profile-pic" width={122} />
+                </a>
               </>
             ) : (
               <>
@@ -245,7 +247,6 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
                         : "Inscrever-se"}
                     </span>
                   </Button>
-                 
                 </>
               )}
             </div>
@@ -274,7 +275,9 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
               <PillItem>
                 <i className="fas fa-calendar-day"></i>
                 {!data && isFetching ? (
-                  <Skeleton variant="text" width="130px" height="25px" />
+                  <span>
+                    <Skeleton width={133} />
+                  </span>
                 ) : (
                   <span>{dateFormatted}</span>
                 )}
@@ -282,7 +285,9 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
               <PillItem>
                 <i className="fas fa-map-marker-alt"></i>
                 {!data && isFetching ? (
-                  <Skeleton variant="text" width="150px" height="25px" />
+                  <span>
+                    <Skeleton width={143} />
+                  </span>
                 ) : (
                   <span>{data?.localizacao}</span>
                 )}
@@ -290,7 +295,9 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
               <PillItem>
                 <i className="fas fa-book-open"></i>
                 {!data && isFetching ? (
-                  <Skeleton variant="text" width="150px" height="25px" />
+                  <span>
+                    <Skeleton width={123} />
+                  </span>
                 ) : (
                   <span>{data?.cursoAlvo}</span>
                 )}
@@ -298,16 +305,9 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             </PillList>
           </div>
           <div className="vaga-navigation">
-            {!data && isFetching ? (
-              <Skeleton
-                variant="square"
-                width="100%"
-                height="300px"
-                style={{ marginTop: "20px" }}
-              />
-            ) : (
+            {
               children
-            )}
+            }
           </div>
         </div>
       </section>

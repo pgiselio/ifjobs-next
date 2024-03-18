@@ -5,9 +5,18 @@ import { vaga } from "../types/vagaType";
 
 export const useVagas = () => {
   const invalidateQueries = (vagaId?: number | string | string[]) => {
-    queryClient.invalidateQueries({ queryKey: [`vaga-${vagaId}`] });
+    queryClient.invalidateQueries({ queryKey: ["vaga", vagaId] });
     queryClient.invalidateQueries({ queryKey: ["vagas"] });
   };
+  const getFn = async (id?: string | string[] | number | undefined) => {
+    if(!id){
+      return;
+    }
+    const response = await api
+      .get<vaga>(`/vaga/lista/${id}`)
+      .catch((error) => (error.response.status === 400 ? null : error));
+    return response?.data;
+  }
   const subscribe = async ({
     vagaId,
     candidatoId,
@@ -86,5 +95,5 @@ export const useVagas = () => {
       toast.success("Vaga editada com sucesso!");
     });
   }
-  return { subscribe, unsubscribe, open, close, edit };
+  return { getFn, subscribe, unsubscribe, open, close, edit };
 };

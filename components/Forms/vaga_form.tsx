@@ -54,10 +54,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
         .required("Este campo é obrigatório"),
       descricao: Yup.string()
         .required("Este campo é obrigatório")
-        .max(
-          maxDescriptionLength,
-          `Máximo de ${maxDescriptionLength} caracteres`
-        ),
+        .min(10, "Descrição muito curta"),
       cnpj: Yup.string().notRequired().nonNullable(),
     });
   } else {
@@ -69,10 +66,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
         .required("Este campo é obrigatório"),
       descricao: Yup.string()
         .required("Este campo é obrigatório")
-        .max(
-          maxDescriptionLength,
-          `Máximo de ${maxDescriptionLength} caracteres`
-        ),
+        .min(10, "Descrição muito curta"),
       cnpj: Yup.string()
         .required("Este campo é obrigatório")
         .min(18, "CNPJ inválido"),
@@ -143,9 +137,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
     }
   }
   if (auth?.authorities?.includes("ALUNO")) {
-    return (
-        <h2>SEM PERMISSÃO</h2>
-    );
+    return <h2>SEM PERMISSÃO</h2>;
   }
   return (
     <form
@@ -222,7 +214,15 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
       {auth?.authorities?.includes("ADMIN") && (
         <div className="lbl">
           <label htmlFor="cnpj">Empresa gerente da vaga: </label>
-          {vaga && <Link href={`/sys/profile/${vaga?.empresa?.id}`} target="_blank" passHref>{vaga.empresa?.dadosPessoa.nome}</Link>}
+          {vaga && (
+            <Link
+              href={`/sys/profile/${vaga?.empresa?.id}`}
+              target="_blank"
+              passHref
+            >
+              {vaga.empresa?.dadosPessoa.nome}
+            </Link>
+          )}
           <Controller
             name="cnpj"
             control={control}
@@ -299,7 +299,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
       </div>
       <div className="buttons-container">
         <Button type="submit" id="submit-form">
-          {vaga ?  "Salvar edição" : "Criar" }
+          {vaga ? "Salvar edição" : "Criar"}
         </Button>
       </div>
     </form>

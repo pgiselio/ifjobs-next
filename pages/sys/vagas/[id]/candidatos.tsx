@@ -10,20 +10,18 @@ import { User } from "../../../../types/user";
 import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 import Skeleton from "react-loading-skeleton";
+import { useVagas } from "../../../../hooks/useVagas";
 
 export default function VagaCandidatoPage() {
   const router = useRouter();
+  const vagas = useVagas();
   const params = router.query;
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: [`vaga-${params.id}`],
-    queryFn: async () => {
-      const response = await api
-        .get(`/vaga/lista/${params.id}`)
-        .catch((error) => (error.response.status === 400 ? null : error));
-      return response?.data;
-    },
+    queryKey: ["vaga", params.id],
+    queryFn: () => vagas.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,
+    staleTime: 1000 * 60 * 2, // 2 minutes
   });
   const [checkedList, setCheckedList] = useState<any[]>([]);
   const userQueries = useQueries({
@@ -106,10 +104,10 @@ export default function VagaCandidatoPage() {
                               <ProfilePic className="candidato-pic" />
                               <div className="candidato-info">
                                 <h3>
-                                  <Skeleton />
+                                  <Skeleton width={150}/>
                                 </h3>
                                 <span>
-                                  <Skeleton />
+                                  <Skeleton width={100}/>
                                 </span>
                               </div>
                             </a>
