@@ -28,7 +28,7 @@ export default function VagaSobrePage() {
     });
   });
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: ["vaga", params.id],
+    queryKey: ["vaga-" + params.id],
     queryFn: () => vagas.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,
@@ -68,7 +68,7 @@ export default function VagaSobrePage() {
         <div className="column-1">
           <Box>
             <BoxTitle>Sobre a vaga</BoxTitle>
-            <BoxContent>
+            <BoxContent className="ql-snow">
               <div className="ql-editor vaga-page-description" ref={contentRef} dangerouslySetInnerHTML={sanitizedData()}></div>
             </BoxContent>
           </Box>

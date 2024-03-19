@@ -19,7 +19,7 @@ export function VagaCard({ vaga }: vagaObj) {
       <div className={styled["vaga-data"]}>
         <div className={styled["vaga-header"]}>
           <div className={styled["photo-align"]}>
-            <Link href={`profile/${vaga?.empresa?.id}`} passHref>
+            <Link href={`profile/${vaga?.empresa?.id}`} passHref aria-label={'Imagem com link para o perfil da empresa "' + vaga?.empresa?.dadosPessoa.nome + '"' }>
 
               <ProfilePic userId={vaga?.empresa?.id} isCompany className={styled["profile-pic"]}/>
 

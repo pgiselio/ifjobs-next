@@ -1,11 +1,12 @@
 import { toast } from "react-toastify";
 import { api } from "../services/api";
-import { queryClient } from "../services/queryClient";
 import { vaga } from "../types/vagaType";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const useVagas = () => {
+  const queryClient = useQueryClient();
   const invalidateQueries = (vagaId?: number | string | string[]) => {
-    queryClient.invalidateQueries({ queryKey: ["vaga", vagaId] });
+    queryClient.invalidateQueries({ queryKey: ["vaga-"+ vagaId] });
     queryClient.invalidateQueries({ queryKey: ["vagas"] });
   };
   const getFn = async (id?: string | string[] | number | undefined) => {

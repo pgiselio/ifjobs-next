@@ -20,6 +20,7 @@ import dynamic from "next/dynamic";
 import { useVagas } from "../../hooks/useVagas";
 import { vaga } from "../../types/vagaType";
 import Link from "next/link";
+import DOMPurify from "dompurify";
 const ReactQuill = dynamic(import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -97,11 +98,12 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
     descricao,
     cnpj,
   }: any) {
+    let descricaoLimpa = DOMPurify.sanitize(descricao);
     if (vaga?.id) {
       vagaActions.edit(vaga.id, [
         { op: "replace", path: "/titulo", value: titulo },
         { op: "replace", path: "/localizacao", value: localidade },
-        { op: "replace", path: "/descricao", value: descricao },
+        { op: "replace", path: "/descricao", value: descricaoLimpa },
         { op: "replace", path: "/cursoAlvo", value: cursoAlvo },
       ]);
     } else {
@@ -110,7 +112,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
           cursoAlvo,
           titulo,
           localizacao: localidade,
-          descricao,
+          descricaoLimpa,
           cnpj: auth?.authorities?.includes("EMPRESA")
             ? empresaCNPJ
             : cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", ""),
@@ -145,6 +147,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="lbl">
+        <label htmlFor="vaga-title">Título: </label>
         <Controller
           name="titulo"
           control={control}
@@ -153,6 +156,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
               type="text"
               id="vaga-title"
               placeholder="Título"
+              isLabelholder={false}
               {...field}
               {...(errors.titulo && { className: "danger" })}
             />
@@ -162,7 +166,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
       </div>
       <div className="form-item-group" style={{ width: "100%" }}>
         <div className="lbl">
-          <label htmlFor="vaga-location"> </label>
+          <label htmlFor="vaga-location"> Localidade: </label>
           <Controller
             name="localidade"
             control={control}
@@ -170,7 +174,8 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
               <Input
                 type="text"
                 id="vaga-location"
-                placeholder="Localização da vaga"
+                placeholder="ex.: João Câmara - RN (Remoto)"
+                isLabelholder={false}
                 {...field}
                 {...(errors.localidade && { className: "danger" })}
               />
@@ -179,7 +184,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
           <p className="input-error">{errors.localidade?.message}</p>
         </div>
         <div className="lbl">
-          <label htmlFor="change-courses"> </label>
+          <label htmlFor="change-courses"> Curso alvo: </label>
 
           <Controller
             name={"cursoAlvo"}
@@ -238,6 +243,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
                   type="text"
                   id="cnpj"
                   placeholder="CNPJ"
+                  isLabelholder={false}
                   {...(errors.cnpj && { className: "danger" })}
                 />
               </InputMask>
@@ -250,7 +256,6 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
       <div className="lbl">
         <label htmlFor="desc">Descrição: </label>
         {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
-        <div id="descriptionVaga"></div>
         <div className="description-container">
           <Controller
             name="descricao"

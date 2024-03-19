@@ -17,7 +17,7 @@ export default function VagaCandidatoPage() {
   const vagas = useVagas();
   const params = router.query;
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: ["vaga", params.id],
+    queryKey: ["vaga-" + params.id],
     queryFn: () => vagas.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,

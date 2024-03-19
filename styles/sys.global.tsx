@@ -1,6 +1,6 @@
 export function SysGlobalStyle() {
   return (
-    <style global={true}>{`
+    <style jsx global>{`
 :root{
   --top-bar-height: 50px;
 }

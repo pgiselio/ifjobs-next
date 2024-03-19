@@ -37,7 +37,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
   const subscribeBtnRef = useRef<HTMLButtonElement>(null);
 
   const { data, isFetching } = useQuery<vaga>({
-    queryKey: ["vaga", params.id],
+    queryKey: ["vaga-" + params.id],
     queryFn: async () => useVaga.getFn(params.id),
     refetchOnWindowFocus: false,
     enabled: !!params.id,
@@ -162,10 +162,10 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             {!data && isFetching ? (
               <>
                 <h2>
-                  <Skeleton containerClassName="profile-pic" width={255} />
+                  <Skeleton width={255} />
                 </h2>
                 <a>
-                  <Skeleton containerClassName="profile-pic" width={122} />
+                  <Skeleton width={122} />
                 </a>
               </>
             ) : (

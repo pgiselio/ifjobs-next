@@ -12,7 +12,7 @@ type photoQueryType = {
 };
 export const useProfilePic = ({userId, enabled = true}:{userId: string | number | undefined, enabled ?: boolean}) => {
   const query = useQuery({
-    queryKey: ["profilePic", userId],
+    queryKey: ["profilePic-" + userId],
     queryFn: async () => {
       if (!userId || userId === "undefined" || typeof userId === "undefined") {
         return;
