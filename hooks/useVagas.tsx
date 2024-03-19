@@ -29,6 +29,7 @@ export const useVagas = () => {
       toast.success("Você se increveu na vaga!", {
         position: "bottom-center",
         hideProgressBar: true,
+        toastId: "subscribe",
       });
       invalidateQueries(vagaId);
     });
@@ -45,6 +46,7 @@ export const useVagas = () => {
       toast.warn("Você se desinscreveu da vaga!", {
         position: "bottom-center",
         hideProgressBar: true,
+        toastId: "unsubscribe",
       });
       invalidateQueries(vagaId);
     });

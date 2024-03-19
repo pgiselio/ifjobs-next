@@ -24,7 +24,7 @@ export function Notifications() {
     },
     staleTime: 1000 * 60, // 1 minute to refetch
     refetchInterval: 1000 * 60, // 1 minutes to refetch
-    enabled: !!auth.email,
+    enabled: !!auth.email && selectedTab === "read",	
   });
 
   function markAsRead(id: number) {
@@ -81,7 +81,7 @@ export function Notifications() {
                       titulo={notification.titulo}
                       detalhes={notification.descricao}
                       key={notification.id}
-                      onClick={() => markAsRead(notification.id)}
+                      markAsRead={() => markAsRead(notification.id)}
                       title="Clique para marcar como lido"
                       date={
                         relativeTimeFromDates(
@@ -114,7 +114,6 @@ export function Notifications() {
                 width="30px"
                 duration=".9s"
               />
-              Carregando...
             </p>
           ))}
 
@@ -164,7 +163,6 @@ export function Notifications() {
                 width="30px"
                 duration=".9s"
               />
-              Carregando...
             </p>
           ))}
       </div>

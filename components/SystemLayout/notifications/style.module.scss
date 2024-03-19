@@ -51,8 +51,8 @@
     }
 
     .notification-card {
-      padding: 20px;
       box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+      border: none;
       background-color: var(--primary-bg);
       margin-bottom: 1px;
       display: flex;
@@ -60,6 +60,21 @@
       position: relative;
       border-right: 1px solid var(--outline-color);
       border-left: 1px solid var(--outline-color);
+      display: none;
+      max-height: 300px;
+      transition: max-height 0.3s ease-in-out;
+      .notification-content {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+        background-color: var(--primary-bg);
+        transition: transform 0.2s ease-in-out;
+        border-radius: inherit;
+      }
 
       &:first-child {
         border-top-left-radius: 10px;
@@ -90,49 +105,87 @@
         padding-top: 20px;
       }
       .card-options {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
-        right: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        opacity: 0;
+        right: 0;
+        width: 60px;
+        height: 100%;
+        opacity: 1;
         transition: 0.1s linear;
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
+        z-index: 1;
+        background: var(--secondary-bg);
+        overflow: hidden;
+
         .btn-markasread {
-          border-radius: 100%;
-          width: 35px;
-          height: 35px;
-          border: 1px solid var(--outline-color);
-          background-color: var(--primary-bg);
-          color: var(--text-b);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 70%;
+          width: 70%;
+          border: none;
+          background-color: transparent;
           cursor: pointer;
-          &:hover {
-            border-color: var(--accent-color);
+          i {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            width: 35px;
+            height: 35px;
+            border: 1px solid var(--outline-color);
+            background-color: var(--primary-bg);
+            color: var(--text-b);
+          }
+
+          position: relative;
+          &:hover i {
             color: var(--accent-color);
           }
-          &::before {
-            content: "\f06e";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            -webkit-font-smoothing: antialiased;
-            font-size: 13px;
+          span {
+            color: var(--text-b);
+            font-size: 10px;
+            max-width: 100%;
+            word-wrap: break-word;
           }
         }
       }
       &[data-read="true"] {
         .card-options {
           opacity: 1;
+          z-index: 3;
+          background: transparent;
           .btn-markasread {
             pointer-events: none;
-            border-color: transparent;
-            background-color: transparent;
+            i {
+              border-color: transparent;
+              background-color: transparent;
+            }
+            span {
+              display: none;
+            }
           }
         }
       }
-      &:hover {
+      & .notification-content:hover {
         background-color: var(--secondary-bg);
-        .card-options {
-          opacity: 1;
-        }
       }
+
+      &.collapse .notification-content {
+        transform: translateX(-60px);
+      }
+    }
+    .show {
+      display: flex;
+      max-height: 300px;
+    }
+    .hide {
+      max-height: 0;
+      animation: slide-left-out 0.3s ease-out;
     }
     .no-notifications {
       padding: 20px;
@@ -155,6 +208,7 @@
         -webkit-background-clip: content-box;
         background-clip: content-box;
         border: 6px solid transparent;
+        min-height: 10px;
       }
 
       .notification-cards::-webkit-scrollbar-thumb:hover {

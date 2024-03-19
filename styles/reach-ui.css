@@ -322,3 +322,16 @@
     transform: translateX(0);
   }
 }
+
+@keyframes slide-left-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    display: flex;
+  }
+  100% {
+    opacity: 0;    
+    transform: translateX(-100px) ;
+    display: none;
+  }
+}

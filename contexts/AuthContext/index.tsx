@@ -7,6 +7,7 @@ import { notification } from "../../types/notification";
 import { User } from "../../types/user";
 import { IAuthProvider, IContext, IUser } from "./types";
 import { getUserLocalStorage, LoginRequest, setUserLocalStorage } from "./util";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext<IContext>({} as IContext);
 
@@ -39,10 +40,16 @@ export function AuthProvider({ children }: IAuthProvider) {
       const response = await api.get<notification[]>(
         `/notificacao/usuario/${user.email}`
       );
+      if(notificationNew && response.data.length > notificationNew.length ) {
+        toast.info("Você tem novas notificações", {
+          position: "bottom-right",
+          onClick: () => navigate.push("/sys"),
+        });
+      }
       return response.data;
     },
     enabled: !!user?.token,
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: "always",
     staleTime: 1000 * 30, // 30 seconds
     refetchInterval: 1000 * 60 * 1, // 1 minute to refetch automatically
   });
