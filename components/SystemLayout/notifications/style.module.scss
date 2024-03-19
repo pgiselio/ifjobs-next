@@ -63,6 +63,7 @@
       display: none;
       max-height: 300px;
       transition: max-height 0.3s ease-in-out;
+      overflow: hidden;
       .notification-content {
         display: flex;
         align-items: flex-start;
