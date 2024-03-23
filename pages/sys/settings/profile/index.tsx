@@ -26,6 +26,7 @@ import SettingsLayout from "../../../../components/Layouts/settings";
 import { getDirtyValues } from "../../../../utils/getDirtyValues";
 import Select from "react-select";
 import { useAlertDialog } from "../../../../hooks/useAlertDialog";
+import { dateFormatter } from "../../../../utils/dateFormatter";
 
 export default function SettingContaPage() {
   const auth = useAuth();
@@ -185,18 +186,7 @@ export default function SettingContaPage() {
     setIsLoading(false);
   }
 
-  function getFormattedDate(date: Date) {
-    if (!date) {
-      return;
-    }
-    date = new Date(date);
-    let dateFormatted = new Intl.DateTimeFormat(undefined, {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
-    return dateFormatted;
-  }
+
 
   return (
     <SettingsLayout headerTitle="Perfil">
@@ -274,9 +264,9 @@ export default function SettingContaPage() {
         <LabelWithData
           data={
             auth.userInfo?.aluno?.dadosPessoa.dataNasc
-              ? getFormattedDate(auth.userInfo?.aluno?.dadosPessoa.dataNasc)
+              ? dateFormatter(new Date(auth.userInfo?.aluno?.dadosPessoa.dataNasc))
               : auth.userInfo?.empresa?.dadosPessoa.dataNasc
-              ? getFormattedDate(auth.userInfo?.empresa?.dadosPessoa.dataNasc)
+              ? dateFormatter(new Date(auth.userInfo?.empresa?.dadosPessoa.dataNasc))
               : ""
           }
           label={`Data de ${

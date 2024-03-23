@@ -157,7 +157,7 @@ export default function DownloadCurriculoPage() {
                   <label htmlFor="byebye" style={{color: "var(--text-a)"}}>Não mostrar novamente</label>
                 </div>
                 <AlertDialog.Cancel asChild>
-                  <Button onClick={() => {
+                  <Button className="less-radius" onClick={() => {
                     if (chkNotShow) {
                       sessionStorage.setItem("CurriculoDownloadAlertDismiss", "true");
                     }

@@ -36,7 +36,7 @@ export function TabsMenu({
   return (
     <div
       className={styled["tabs-menu"] + (isOntop ? " " + styled["ontop"] : "")}
-      style={{ ...style, position: (sticky ? "sticky" : "initial") }}
+      style={{ ...style, position: sticky ? "sticky" : "initial" }}
       {...rest}
     >
       {!isOntop && <div className={styled["spacer"]}></div>}
@@ -88,8 +88,12 @@ export function TabsMenuItem({ to, title, highlighted }: TabsMenuItemType) {
         className={router.asPath == to ? " active" : ""}
         passHref
       >
-        {title}
-        {highlighted && <span>{highlighted}</span>}
+        <span>
+          {title}
+          {highlighted && (
+            <span className={styled["highlight"]}>{highlighted}</span>
+          )}
+        </span>
       </Link>
     </li>
   );

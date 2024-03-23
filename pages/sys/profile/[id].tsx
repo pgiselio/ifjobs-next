@@ -17,39 +17,34 @@ import { User } from "../../../types/user";
 import { cnpjMask } from "../../../utils/cnpjMask";
 import { isBlank } from "../../../utils/isBlank";
 import Error404 from "../../404";
-import styled from "../../../styles/_Pages/sys/profiles.module.scss";
+import styled from "./profiles.module.scss";
 import { SystemLayout } from "../../../components/Layouts/_sysLayout";
 import Skeleton from "react-loading-skeleton";
+import { dateFormatter } from "../../../utils/dateFormatter";
+import { useState } from "react";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { id } = router.query;
   let usertype;
   const auth = useAuth();
+  const [notFound, setNotFound] = useState(false);
   const { data, isFetching } = useQuery<User>({
-    queryKey: ["profile", id],
+    queryKey: ["profile-"+ id],
     queryFn: async () => {
-      const response = await api.get(`/usuario/${id}`);
-      return response.data;
+      const response = await api.get(`/usuario/${id}`).catch((err) => {
+          if (err.response?.status === 404 || err.response?.status === 400)
+            setNotFound(true);
+      });
+      return response?.data || null;
     },
     staleTime: 1000 * 60 * 2, // 2 minutes
-    enabled: !!id,
+    enabled: !!id && !notFound,
+    retry: 1,
   });
-  function getFormattedDate(date: Date) {
-    if (!date) {
-      return;
-    }
-    date = new Date(date);
-    let dateFormatted = new Intl.DateTimeFormat(undefined, {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
-    return dateFormatted;
-  }
 
-  if (!data && !isFetching) {
-    return <Error404 />;
+  if (!data && !isFetching && id) {
+    return <SystemLayout><Error404 message="Perfil não encontrado!"/></SystemLayout>;
   }
   if (data?.aluno) {
     usertype = "ALUNO";
@@ -64,10 +59,16 @@ export default function ProfilePage() {
         <div className="profile-page-header">
           <div className="profile-page-header-container">
             <div className="user-info">
-              <ProfilePic
+              {isFetching && !data ? (
+                <ProfilePic  />
+              ):
+              (
+                <ProfilePic
                 userId={data?.id + "" || ""}
                 isCompany={usertype === "EMPRESA"}
               />
+              )}
+              
 
               <div className="profile-names">
                 {isFetching ? (
@@ -148,7 +149,7 @@ export default function ProfilePage() {
               <div className="labelDatas">
                 {data?.aluno?.dadosPessoa && (
                   <LabelWithData
-                    data={getFormattedDate(data?.aluno?.dadosPessoa.dataNasc)}
+                    data={dateFormatter(data?.aluno?.dadosPessoa.dataNasc)}
                     label="Data de Nascimento:"
                     icon="fas fa-calendar-day"
                   />

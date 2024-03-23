@@ -41,16 +41,20 @@
   --aside-link-onclick: #ced4da;
   --primary-bg: #fff;
   --secondary-bg: #f9f9f9;
+
+  --danger-color: #F44336;
+  --danger-color-opacity: #F4433650;
+  --danger-color-active: #D32F2F;
 }
 
 @mixin dark-theme {
   --bg-body: rgb(20 19 24);
-  --accent-color: rgb(var(--palette-green-6));
-  --accent-color-active: rgb(var(--palette-green-7));
-  --accent-color-opacity: rgba(var(--palette-green-6), 0.15);
-  --inside-accent-color: #eeeeee;
-  --secondary-color:  #5e5d65;
-  --secondary-color-active: #48474f;
+  --accent-color: rgb(var(--palette-green-5));
+  --accent-color-active: rgb(var(--palette-green-6));
+  --accent-color-opacity: rgba(var(--palette-green-5), 0.15);
+  --inside-accent-color: #000000d5;
+  --secondary-color: #63626e;
+  --secondary-color-active: #787783;
   --outline-color: #2b2936;
   --text-a: #fafafa;
   --text-b: #888;
@@ -88,9 +92,9 @@
   --accent-color-active: rgb(var(--palette-green-5));
   --accent-color-opacity: rgba(var(--palette-green-5), 0.15);
   --inside-accent-color: #ffffff;
-  --secondary-color:  #5e5d65;
-  --secondary-color-active: #54525c;
-  --outline-color: #555;
+  --secondary-color: #63626e;
+  --secondary-color-active: #6a6974;
+  --outline-color: #464646;
   --text-a: #fafafa;
   --text-b: #888;
   --text-c: #fff;
@@ -100,8 +104,8 @@
   --aside-link-active: rgb(var(--palette-green-7));
   --aside-link-hover: #888695;
   --aside-link-onclick: #ced4da;
-  --primary-bg: #333;
-  --secondary-bg: #444;
+  --primary-bg: #2c2c2c;
+  --secondary-bg: #363636;
 }
 
 .high-contrast-theme, [data-theme='altoContraste']{
@@ -110,8 +114,8 @@
   --accent-color-active: rgb(var(--palette-green-4));
   --accent-color-opacity: rgba(var(--palette-green-1), 0.15);
   --inside-accent-color: #000000;
-  --secondary-color:  #8b8a96;
-  --secondary-color-active: #7b7a8a;
+  --secondary-color: #7e7d8b;
+  --secondary-color-active: #a3a1b4;
   --outline-color: #444444;
   --text-a: #ffff00;
   --text-b: #ffff00;
@@ -122,12 +126,12 @@
   --aside-link-active: rgb(var(--palette-green-7));
   --aside-link-hover: #888695;
   --aside-link-onclick: #ced4da;
-  --primary-bg: #111111;
-  --secondary-bg: #222222;
+  --primary-bg: #000000;
+  --secondary-bg: #0a0a0a;
 
   * {
     font-weight: 600 ;
-    letter-spacing: 1px !important;
+    letter-spacing: .3px !important;
   }
 }
 

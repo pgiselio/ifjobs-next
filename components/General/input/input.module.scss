@@ -72,7 +72,7 @@
 .inputStyled, .inputPassStyled {
   &:global(.danger) {
      &~.placeholder{
-      color: var(--danger-color-dark);
+      color: var(--danger-color-active);
      }
   }
   &:disabled {

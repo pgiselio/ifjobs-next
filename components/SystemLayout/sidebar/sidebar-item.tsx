@@ -25,7 +25,7 @@ export function SidebarItem({ to, icon, label, title, className, end }: Item) {
   function isPartOfPath(url: string) {
     const splitedPath = url.split("/");
     const includes = router.asPath.includes(url);
-    return url == router.asPath || (includes && splitedPath.length > 2);
+    return url == router.asPath || (includes && splitedPath.length > 2) || (router.asPath.split("/")[2] === "settings" && url.includes("settings"));
   }
   return (
     <li>

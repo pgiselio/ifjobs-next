@@ -15,7 +15,7 @@
       box-shadow: 0 0 0 0.2rem rgba(45, 143, 65, 0.308);
     }
     &:global(.danger) {
-      border-color: var(--danger-color-dark);
+      border-color: var(--danger-color-active);
       &:focus {
         box-shadow: 0 0 0 0.2rem var(--danger-color-opacity);
       }

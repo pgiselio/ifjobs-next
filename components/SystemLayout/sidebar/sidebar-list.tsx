@@ -5,10 +5,13 @@ import { ProfilePic } from "../profile-pic/profile-pic";
 import { SidebarItem } from "./sidebar-item";
 import styled from "./styles.module.scss"
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 export function SidebarList() {
   const auth = useAuth();
   const appOptions = useAppOptions();
+  const mediaQueryMatches = useMediaQuery("(min-width: 1000px)");
 
   function nomePessoa(): string {
     if (!auth.userInfo?.id) {
@@ -66,7 +69,7 @@ export function SidebarList() {
                 )}
 
                 <SidebarItem
-                  to="/sys/settings"
+                  to={"/sys/settings"+ (mediaQueryMatches ?"/account" :"")}
                   icon="fas fa-cog"
                   label="Configurações"
                 />

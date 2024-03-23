@@ -22,6 +22,7 @@ import { SystemLayout } from "./_sysLayout";
 import CircularProgressFluent from "../General/circular-progress-fluent";
 import Head from "next/head";
 import { useAlertDialog } from "../../hooks/useAlertDialog";
+import { dateFormatter } from "../../utils/dateFormatter";
 
 export default function VagaPageLayout({ children }: { children: ReactNode }) {
   const auth = useAuth();
@@ -129,11 +130,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
   let dateFormatted;
   if (data) {
     date = new Date(data.dataCriacao);
-    dateFormatted = new Intl.DateTimeFormat(undefined, {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
+    dateFormatted = dateFormatter(date);
   } else if (!isFetching) {
     return (
       <SystemLayout>

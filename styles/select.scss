@@ -7,9 +7,9 @@
     border-color: var(--outline-color);
   }
   &.danger {
-    border-color: var(--danger-color-dark);
+    border-color: var(--danger-color-active);
     ~ .Select__control--is-focused {
-      box-shadow: 0 0 0 0.2rem var(--danger-color-dark-opacity);
+      box-shadow: 0 0 0 0.2rem var(--danger-color-active-opacity);
     }
   }
 }

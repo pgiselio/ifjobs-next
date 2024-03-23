@@ -36,6 +36,7 @@
   max-height: 85vh;
   background-color: var(--primary-bg);
   border-radius: 10px;
+  border: 1px solid var(--outline-color);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: fixed;
   top: 40%;

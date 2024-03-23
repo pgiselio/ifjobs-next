@@ -60,7 +60,7 @@
       position: relative;
       border-right: 1px solid var(--outline-color);
       border-left: 1px solid var(--outline-color);
-      display: none;
+      display: flex;
       max-height: 300px;
       transition: max-height 0.3s ease-in-out;
       overflow: hidden;
@@ -179,10 +179,6 @@
       &.collapse .notification-content {
         transform: translateX(-60px);
       }
-    }
-    .show {
-      display: flex;
-      max-height: 300px;
     }
     .hide {
       max-height: 0;

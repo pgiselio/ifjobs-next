@@ -3,15 +3,15 @@ import styled from "./styles.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Error404() {
+export default function Error404({ message }: { message?: string }) {
   const router = useRouter();
   return (
     <div className={styled["error404Style"]}>
       <Head>
-        <title>404 - Página não encontrada</title>
+        <title>Página não encontrada - IFJobs</title>
       </Head>
       <h1>404</h1>
-      <h2>Página não encontrada</h2>
+      <h2>{message ? message : "Página não encontrada"}</h2>
       <span className={styled.sad}>:(</span>
       
       <span className={styled.link}>

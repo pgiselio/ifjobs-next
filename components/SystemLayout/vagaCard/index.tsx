@@ -3,17 +3,14 @@ import { vaga } from "../../../types/vagaType";
 import { PillItem, PillList } from "../../General/pill";
 import { ProfilePic } from "../profile-pic/profile-pic";
 import styled from "./styles.module.scss";
+import { dateFormatter } from "../../../utils/dateFormatter";
 
 type vagaObj = {
   vaga: vaga;
 };
 export function VagaCard({ vaga }: vagaObj) {
   const date = new Date(vaga.dataCriacao);
-  const dateFormatted = new Intl.DateTimeFormat(undefined, {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(date.getTime() + Math.abs(date.getTimezoneOffset() * 60000));
+  const dateFormatted = dateFormatter(date);
   return (
     <div className={styled.VagaCardStyle}>
       <div className={styled["vaga-data"]}>

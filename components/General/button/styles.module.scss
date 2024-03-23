@@ -5,7 +5,7 @@
   column-gap: 12px;
   padding: 7px 20px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border: none;
   border-radius: 50px;
@@ -30,8 +30,8 @@
     background: var(--danger-color);
     border: 2px solid var(--danger-color);
     &:not(:disabled):hover {
-      background: var(--danger-color-dark);
-      border: 2px solid var(--danger-color-dark);
+      background: var(--danger-color-active);
+      border: 2px solid var(--danger-color-active);
     }
   }
   &:global(.outlined) {
@@ -49,14 +49,14 @@
     }
     &:global(.red) {
       border: 2px solid var(--danger-color);
-      color: var(--danger-color-dark);
+      color: var(--danger-color-active);
       &:not(:disabled):hover {
-        background: var(--danger-color-dark-opacity);
+        background: var(--danger-color-active-opacity);
         border: 2px solid var(--danger-color);
       }
       &:global(.filled):not(:disabled):hover {
         color: var(--inside-accent-color);
-        background: var(--danger-color-dark);
+        background: var(--danger-color-active);
       }
     }
     &:global(.secondary) {
