@@ -51,13 +51,15 @@
     border: 1px solid transparent;
     border-radius: 5px;
     background-color: transparent;
-    color: var(--inside-accent-color);
+    color: var(--text-a);
     cursor: pointer;
+    font-weight: 600;
     transition: all 0.3s ease;
     :global {
       animation: fade-appear 0.3s ease;
     }
     &:hover {
+      color: var(--inside-accent-color);
       background-color: var(--accent-color-active);
     }
   }

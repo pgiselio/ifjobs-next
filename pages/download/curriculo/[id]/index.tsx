@@ -8,6 +8,7 @@ import { Button } from "../../../../components/General/button";
 import styled from "./styles.module.scss";
 import Progressbar from "../../../../components/General/progress-bar";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
+import { RequireAuth } from "../../../../contexts/AuthContext/RequireAuth";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "../../../../node_modules/pdfjs-dist/build/pdf.worker.min.js",
@@ -252,3 +253,5 @@ export default function DownloadCurriculoPage() {
     );
   }
 }
+
+DownloadCurriculoPage.getLayout = (page: any) => <RequireAuth>{page}</RequireAuth>;

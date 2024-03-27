@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
 
 PasswordResetPage.theme = "light";
 export default function PasswordResetPage() {
@@ -103,21 +104,7 @@ export default function PasswordResetPage() {
   }
   return (
     <main className={styled.StyledAccess}>
-      <style global>{`  
-         :root {
-          --bg-login: #fcfcfc;
-        }
-        body{
-          background: linear-gradient(
-              45deg,
-              rgba(6, 52, 15, 1) 0%,
-              rgba(28, 136, 50, 1) 50%,
-              rgba(147, 255, 169, 1) 100%
-            ),
-            rgb(6, 52, 15);
-          background-attachment: fixed;
-        }
-      `}</style>
+      <AccessGlobalStyle/>
       <ToastContainer
         position="top-right"
         autoClose={5000}

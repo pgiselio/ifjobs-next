@@ -32,6 +32,9 @@ function LoginPage() {
   // let [searchParams, setSearchParams] = useSearchParams();
 
   if (auth?.email) {
+    if (searchParams.has("next")) {
+      navigate.push(searchParams.get("next") +"");
+    }
     navigate.push("/sys");
   }
 
@@ -74,8 +77,10 @@ function LoginPage() {
     try {
       setIsLoading(true);
       await auth.signin(data.email, data.password);
-
-      window.location.href = "/sys";
+      console.log(searchParams.get("next"));
+      if (searchParams.has("next")) {
+        window.location.href = "" + searchParams.get("next");
+      }
     } catch (error: any) {
       setIsLoading(false);
       toast.error("Usuário ou senha inválidos!", {});
