@@ -1,6 +1,6 @@
 export function AccessGlobalStyle() {
     return(
-        <style global>{`  
+        <style global jsx>{`  
          :root {
           --bg-login: #fcfcfc;
         }
