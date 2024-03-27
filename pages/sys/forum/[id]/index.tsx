@@ -13,7 +13,7 @@ export default function ForumTopicPage() {
   const params = router.query;
   const answerTextRef = useRef<HTMLTextAreaElement>(null);
   return (
-    <SystemLayout>
+    <>
       <section style={{ minHeight: "100vh" }}>
         <OutsetHeadersCornerRadius>
           <HeaderTitle className="header-section">
@@ -117,6 +117,8 @@ export default function ForumTopicPage() {
           </Box>
         </div>
       </section>
-      </SystemLayout>
+      </>
   );
 }
+
+ForumTopicPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

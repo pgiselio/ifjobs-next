@@ -18,8 +18,19 @@ import { CadastroProvider } from "../contexts/CadastroContext";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { ThemeProvider } from "next-themes";
 import { AlertDialogProvider } from "../contexts/AlertDialogContext";
+import { NextPage } from "next";
+import { ReactElement, ReactNode } from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+ 
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <ThemeProvider
       forcedTheme={(Component as any)?.theme || null}
@@ -46,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                     baseColor="rgba(000, 000, 000, 0.12)"
                     highlightColor="var(--secondary-color)"
                   >
-                    <Component {...pageProps} />
+                    {getLayout(<Component {...pageProps} />)}
                   </SkeletonTheme>
                 </>
               </CadastroProvider>

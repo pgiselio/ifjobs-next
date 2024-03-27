@@ -38,7 +38,7 @@ export default function HomePage() {
       <Head>
         <title>Inicio - IFJobs</title>
       </Head>
-      <SystemLayout>
+      <>
         <div className="content">
           <Notifications />
           <div>
@@ -76,7 +76,9 @@ export default function HomePage() {
             )}
           </div>
         </div>
-      </SystemLayout>
+      </>
     </>
   );
 }
+
+HomePage.getLayout = (page : any) => <SystemLayout>{page}</SystemLayout>;

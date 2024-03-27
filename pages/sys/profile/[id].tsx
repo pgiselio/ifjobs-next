@@ -30,11 +30,11 @@ export default function ProfilePage() {
   const auth = useAuth();
   const [notFound, setNotFound] = useState(false);
   const { data, isFetching } = useQuery<User>({
-    queryKey: ["profile-"+ id],
+    queryKey: ["profile-" + id],
     queryFn: async () => {
       const response = await api.get(`/usuario/${id}`).catch((err) => {
-          if (err.response?.status === 404 || err.response?.status === 400)
-            setNotFound(true);
+        if (err.response?.status === 404 || err.response?.status === 400)
+          setNotFound(true);
       });
       return response?.data || null;
     },
@@ -44,7 +44,7 @@ export default function ProfilePage() {
   });
 
   if (!data && !isFetching && id) {
-    return <SystemLayout><Error404 message="Perfil não encontrado!"/></SystemLayout>;
+    return <Error404 message="Perfil não encontrado!" />;
   }
   if (data?.aluno) {
     usertype = "ALUNO";
@@ -54,294 +54,292 @@ export default function ProfilePage() {
     usertype = "ADMIN";
   }
   return (
-    <SystemLayout>
-      <section className={styled.profilePageStyle}>
-        <div className="profile-page-header">
-          <div className="profile-page-header-container">
-            <div className="user-info">
-              {isFetching && !data ? (
-                <ProfilePic  />
-              ):
-              (
-                <ProfilePic
+    <section className={styled.profilePageStyle}>
+      <div className="profile-page-header">
+        <div className="profile-page-header-container">
+          <div className="user-info">
+            {isFetching && !data ? (
+              <ProfilePic />
+            ) : (
+              <ProfilePic
                 userId={data?.id + "" || ""}
                 isCompany={usertype === "EMPRESA"}
               />
-              )}
-              
+            )}
 
-              <div className="profile-names">
-                {isFetching ? (
-                  <>
-                    <h2>
-                    <Skeleton containerClassName="flex-1" width={220}/>
-                    </h2>
-                    <span style={{marginTop: 5}}>
-                    <Skeleton containerClassName="flex-1" width={190} height={16}/>
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <h2>
-                      {usertype === "ALUNO"
-                        ? data?.aluno?.dadosPessoa.nome
-                        : usertype === "EMPRESA"
-                        ? data?.empresa?.dadosPessoa.nome
-                        : data?.email}
-                    </h2>
-                    <span>
-                      {usertype === "ALUNO"
-                        ? data?.email
-                        : data?.empresa?.dadosPessoa
-                        ? cnpjMask(data?.empresa?.cnpj)
-                        : data?.email}
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="user-actions">
-              {data?.email === auth.email && (
+            <div className="profile-names">
+              {isFetching ? (
                 <>
-                  <Link href="/sys/settings/profile" passHref>
-                    <Button tabIndex={-1}>
-                      <i className="fas fa-pencil-alt"></i>
-
-                      <span>Editar perfil</span>
-                    </Button>
-                  </Link>
+                  <h2>
+                    <Skeleton containerClassName="flex-1" width={220} />
+                  </h2>
+                  <span style={{ marginTop: 5 }}>
+                    <Skeleton
+                      containerClassName="flex-1"
+                      width={190}
+                      height={16}
+                    />
+                  </span>
+                </>
+              ) : (
+                <>
+                  <h2>
+                    {usertype === "ALUNO"
+                      ? data?.aluno?.dadosPessoa.nome
+                      : usertype === "EMPRESA"
+                      ? data?.empresa?.dadosPessoa.nome
+                      : data?.email}
+                  </h2>
+                  <span>
+                    {usertype === "ALUNO"
+                      ? data?.email
+                      : data?.empresa?.dadosPessoa
+                      ? cnpjMask(data?.empresa?.cnpj)
+                      : data?.email}
+                  </span>
                 </>
               )}
-              {usertype === "ALUNO" && (
-                <Link
-                  href={`/download/curriculo/${data?.aluno?.curriculo}`}
-                  passHref
-                >
-                  <Button className="outlined" tabIndex={-1}>
-                    Vizualizar currículo
+            </div>
+          </div>
+          <div className="user-actions">
+            {data?.email === auth.email && (
+              <>
+                <Link href="/sys/settings/profile" passHref>
+                  <Button tabIndex={-1}>
+                    <i className="fas fa-pencil-alt"></i>
+
+                    <span>Editar perfil</span>
                   </Button>
                 </Link>
+              </>
+            )}
+            {usertype === "ALUNO" && (
+              <Link
+                href={`/download/curriculo/${data?.aluno?.curriculo}`}
+                passHref
+              >
+                <Button className="outlined" tabIndex={-1}>
+                  Vizualizar currículo
+                </Button>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+      {isFetching ? (
+        <p
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
+            paddingTop: "30px",
+          }}
+        >
+          <CircularProgressFluent
+            color="var(--accent-color)"
+            height="50px"
+            width="50px"
+            duration=".8s"
+          />
+        </p>
+      ) : (
+        <div className="content">
+          <div className="profile-page-info">
+            <div className="labelDatas">
+              {data?.aluno?.dadosPessoa && (
+                <LabelWithData
+                  data={dateFormatter(data?.aluno?.dadosPessoa.dataNasc)}
+                  label="Data de Nascimento:"
+                  icon="fas fa-calendar-day"
+                />
+              )}
+              {usertype !== "ADMIN" && (
+                <LabelWithData
+                  data={
+                    usertype === "ALUNO"
+                      ? data?.aluno?.dadosPessoa.localizacao
+                      : data?.empresa?.dadosPessoa.localizacao
+                  }
+                  label="Localização:"
+                  icon="fas fa-map-marker-alt"
+                />
+              )}
+
+              {usertype === "ALUNO" && (
+                <LabelWithData
+                  data={
+                    <>
+                      <span style={{ textTransform: "capitalize" }}>
+                        {data?.aluno?.curso.toLocaleLowerCase()}{" "}
+                      </span>
+                      <span title="Período do curso">
+                        <span>{data?.aluno?.periodo}º P</span>
+                      </span>
+                    </>
+                  }
+                  label="Curso e Período:"
+                  icon="fas fa-book-open"
+                />
               )}
             </div>
           </div>
-        </div>
-        {isFetching ? (
-          <p
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "10px",
-              paddingTop: "30px",
-            }}
-          >
-            <CircularProgressFluent
-              color="var(--accent-color)"
-              height="50px"
-              width="50px"
-              duration=".8s"
-            />
-          </p>
-        ) : (
-          <div className="content">
-            <div className="profile-page-info">
-              <div className="labelDatas">
-                {data?.aluno?.dadosPessoa && (
-                  <LabelWithData
-                    data={dateFormatter(data?.aluno?.dadosPessoa.dataNasc)}
-                    label="Data de Nascimento:"
-                    icon="fas fa-calendar-day"
-                  />
-                )}
-                {usertype !== "ADMIN" && (
-                  <LabelWithData
-                    data={
-                      usertype === "ALUNO"
-                        ? data?.aluno?.dadosPessoa.localizacao
-                        : data?.empresa?.dadosPessoa.localizacao
-                    }
-                    label="Localização:"
-                    icon="fas fa-map-marker-alt"
-                  />
-                )}
-
-                {usertype === "ALUNO" && (
-                  <LabelWithData
-                    data={
-                      <>
-                        <span style={{ textTransform: "capitalize" }}>
-                          {data?.aluno?.curso.toLocaleLowerCase()}{" "}
-                        </span>
-                        <span title="Período do curso">
-                          <span>{data?.aluno?.periodo}º P</span>
-                        </span>
-                      </>
-                    }
-                    label="Curso e Período:"
-                    icon="fas fa-book-open"
-                  />
-                )}
+          {usertype === "ALUNO" && (
+            <Box>
+              <BoxTitle>
+                <h3>Sobre</h3>
+              </BoxTitle>
+              {data?.aluno?.resumo ? (
+                <BoxContent>
+                  <p>{data?.aluno?.resumo}</p>
+                </BoxContent>
+              ) : (
+                <BoxMessage className="no-about-message">
+                  <span>
+                    Oops... parece que alguém se esqueceu de fazer o &quot;sobre
+                    mim&quot;
+                  </span>
+                </BoxMessage>
+              )}
+            </Box>
+          )}
+          {usertype === "EMPRESA" && (
+            <div className="vaga-columns-2">
+              <div className="column-1">
+                <Box>
+                  <BoxTitle>
+                    <h3>Sobre nós</h3>
+                  </BoxTitle>
+                  <BoxContent>
+                    <div className="profile-description">
+                      <p>{data?.empresa?.resumo}</p>
+                    </div>
+                  </BoxContent>
+                </Box>
+              </div>
+              <div className="column-2">
+                <Box>
+                  <BoxTitle>
+                    <h3>Contato</h3>
+                  </BoxTitle>
+                  <BoxContent>
+                    <div className="contacts">
+                      <ul className="essential-info">
+                        <li>
+                          <a href={"mailto:" + data?.email}>
+                            <i className="fas fa-envelope"></i>
+                            <span>{data?.email}</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href={"tel:" + data?.empresa?.telefone}>
+                            <i className="fas fa-phone-alt"></i>
+                            <span>{data?.empresa?.telefone}</span>
+                          </a>
+                        </li>
+                        {data?.empresa?.linkSite &&
+                          !isBlank(data?.empresa?.linkSite) && (
+                            <li>
+                              <a
+                                href={data?.empresa?.linkSite}
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <i className="fa-solid fa-link"></i>
+                                <span style={{ gap: 8, alignItems: "center" }}>
+                                  Visite nosso site
+                                  <i
+                                    className="fa-solid fa-arrow-up-right-from-square"
+                                    style={{ fontSize: 12 }}
+                                  ></i>
+                                </span>
+                              </a>
+                            </li>
+                          )}
+                      </ul>
+                    </div>
+                  </BoxContent>
+                </Box>
+                {data?.empresa?.redesSociais &&
+                  (!isBlank(data?.empresa?.redesSociais.linkedin) ||
+                    !isBlank(data?.empresa?.redesSociais.facebook) ||
+                    !isBlank(data?.empresa?.redesSociais.instagram) ||
+                    !isBlank(data?.empresa?.redesSociais.twitter)) && (
+                    <Box>
+                      <BoxContent>
+                        <ul className="social-info">
+                          {!isBlank(data?.empresa?.redesSociais.linkedin) && (
+                            <li>
+                              <a
+                                href={`https://www.linkedin.com/company/${data?.empresa?.redesSociais.linkedin}`}
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <i
+                                  style={{ color: "#0a66c2" }}
+                                  className="fab fa-linkedin"
+                                ></i>
+                                <span>LinkedIn</span>
+                              </a>
+                            </li>
+                          )}
+                          {!isBlank(data?.empresa?.redesSociais.facebook) && (
+                            <li>
+                              <a
+                                href={`https://www.facebook.com/${data?.empresa?.redesSociais.facebook}`}
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <i
+                                  style={{ color: "#2374E1" }}
+                                  className="fab fa-facebook"
+                                ></i>
+                                <span>Facebook</span>
+                              </a>
+                            </li>
+                          )}
+                          {!isBlank(data?.empresa?.redesSociais.instagram) && (
+                            <li>
+                              <a
+                                href={`https://www.instagram.com/${data?.empresa?.redesSociais.instagram}`}
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <i
+                                  style={{ color: "deeppink" }}
+                                  className="fab fa-instagram"
+                                ></i>
+                                <span>Instagram</span>
+                              </a>
+                            </li>
+                          )}
+                          {!isBlank(data?.empresa?.redesSociais.twitter) && (
+                            <li>
+                              <a
+                                href={`https://www.twitter.com/${data?.empresa?.redesSociais.twitter}`}
+                                rel="noreferrer"
+                                target="_blank"
+                              >
+                                <i
+                                  style={{ color: "#05bcbc" }}
+                                  className="fab fa-twitter"
+                                ></i>
+                                <span>X/Twitter</span>
+                              </a>
+                            </li>
+                          )}
+                        </ul>
+                      </BoxContent>
+                    </Box>
+                  )}
               </div>
             </div>
-            {usertype === "ALUNO" && (
-              <Box>
-                <BoxTitle>
-                  <h3>Sobre</h3>
-                </BoxTitle>
-                {data?.aluno?.resumo ? (
-                  <BoxContent>
-                    <p>{data?.aluno?.resumo}</p>
-                  </BoxContent>
-                ) : (
-                  <BoxMessage className="no-about-message">
-                    <span>
-                      Oops... parece que alguém se esqueceu de fazer o
-                      &quot;sobre mim&quot;
-                    </span>
-                  </BoxMessage>
-                )}
-              </Box>
-            )}
-            {usertype === "EMPRESA" && (
-              <div className="vaga-columns-2">
-                <div className="column-1">
-                  <Box>
-                    <BoxTitle>
-                      <h3>Sobre nós</h3>
-                    </BoxTitle>
-                    <BoxContent>
-                      <div className="profile-description">
-                        <p>{data?.empresa?.resumo}</p>
-                      </div>
-                    </BoxContent>
-                  </Box>
-                </div>
-                <div className="column-2">
-                  <Box>
-                    <BoxTitle>
-                      <h3>Contato</h3>
-                    </BoxTitle>
-                    <BoxContent>
-                      <div className="contacts">
-                        <ul className="essential-info">
-                          <li>
-                            <a href={"mailto:" + data?.email}>
-                              <i className="fas fa-envelope"></i>
-                              <span>{data?.email}</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href={"tel:" + data?.empresa?.telefone}>
-                              <i className="fas fa-phone-alt"></i>
-                              <span>{data?.empresa?.telefone}</span>
-                            </a>
-                          </li>
-                          {data?.empresa?.linkSite &&
-                            !isBlank(data?.empresa?.linkSite) && (
-                              <li>
-                                <a
-                                  href={data?.empresa?.linkSite}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  <i className="fa-solid fa-link"></i>
-                                  <span
-                                    style={{ gap: 8, alignItems: "center" }}
-                                  >
-                                    Visite nosso site
-                                    <i
-                                      className="fa-solid fa-arrow-up-right-from-square"
-                                      style={{ fontSize: 12 }}
-                                    ></i>
-                                  </span>
-                                </a>
-                              </li>
-                            )}
-                        </ul>
-                      </div>
-                    </BoxContent>
-                  </Box>
-                  {data?.empresa?.redesSociais &&
-                    (!isBlank(data?.empresa?.redesSociais.linkedin) ||
-                      !isBlank(data?.empresa?.redesSociais.facebook) ||
-                      !isBlank(data?.empresa?.redesSociais.instagram) ||
-                      !isBlank(data?.empresa?.redesSociais.twitter)) && (
-                      <Box>
-                        <BoxContent>
-                          <ul className="social-info">
-                            {!isBlank(data?.empresa?.redesSociais.linkedin) && (
-                              <li>
-                                <a
-                                  href={`https://www.linkedin.com/company/${data?.empresa?.redesSociais.linkedin}`}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  <i
-                                    style={{ color: "#0a66c2" }}
-                                    className="fab fa-linkedin"
-                                  ></i>
-                                  <span>LinkedIn</span>
-                                </a>
-                              </li>
-                            )}
-                            {!isBlank(data?.empresa?.redesSociais.facebook) && (
-                              <li>
-                                <a
-                                  href={`https://www.facebook.com/${data?.empresa?.redesSociais.facebook}`}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  <i
-                                    style={{ color: "#2374E1" }}
-                                    className="fab fa-facebook"
-                                  ></i>
-                                  <span>Facebook</span>
-                                </a>
-                              </li>
-                            )}
-                            {!isBlank(
-                              data?.empresa?.redesSociais.instagram
-                            ) && (
-                              <li>
-                                <a
-                                  href={`https://www.instagram.com/${data?.empresa?.redesSociais.instagram}`}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  <i
-                                    style={{ color: "deeppink" }}
-                                    className="fab fa-instagram"
-                                  ></i>
-                                  <span>Instagram</span>
-                                </a>
-                              </li>
-                            )}
-                            {!isBlank(data?.empresa?.redesSociais.twitter) && (
-                              <li>
-                                <a
-                                  href={`https://www.twitter.com/${data?.empresa?.redesSociais.twitter}`}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  <i
-                                    style={{ color: "#05bcbc" }}
-                                    className="fab fa-twitter"
-                                  ></i>
-                                  <span>X/Twitter</span>
-                                </a>
-                              </li>
-                            )}
-                          </ul>
-                        </BoxContent>
-                      </Box>
-                    )}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-    </SystemLayout>
+          )}
+        </div>
+      )}
+    </section>
   );
 }
+
+ProfilePage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

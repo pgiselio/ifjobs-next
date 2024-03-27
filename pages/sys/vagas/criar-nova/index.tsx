@@ -10,13 +10,13 @@ export default function CriarNovaVagaPage() {
   if (auth?.authorities?.includes("ALUNO")) {
     toast.error("Você não tem permissão para acessar essa página", {});
     return (
-      <SystemLayout>
+      <>
         <h2>SEM PERMISSÃO</h2>
-      </SystemLayout>
+      </>
     );
   }
   return (
-    <SystemLayout>
+    <>
       <Head>
         <title>Criar nova vaga - IFJobs</title>
       </Head>
@@ -32,6 +32,8 @@ export default function CriarNovaVagaPage() {
           </Box>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }
+
+CriarNovaVagaPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

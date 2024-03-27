@@ -27,6 +27,7 @@ import { getDirtyValues } from "../../../../utils/getDirtyValues";
 import Select from "react-select";
 import { useAlertDialog } from "../../../../hooks/useAlertDialog";
 import { dateFormatter } from "../../../../utils/dateFormatter";
+import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 
 export default function SettingContaPage() {
   const auth = useAuth();
@@ -189,7 +190,7 @@ export default function SettingContaPage() {
 
 
   return (
-    <SettingsLayout headerTitle="Perfil">
+    <>
       <div className="align-center">
         <div className="profile-pic-opts">
           <ProfilePic
@@ -626,6 +627,8 @@ export default function SettingContaPage() {
           </>
         )}
       </Accordion.Root>
-    </SettingsLayout>
+    </>
   );
 }
+
+SettingContaPage.getLayout = (page: any) => <SystemLayout><SettingsLayout headerTitle="Temas">{page}</SettingsLayout></SystemLayout>;

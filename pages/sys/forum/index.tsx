@@ -10,7 +10,7 @@ import styled from "../../../styles/_Pages/sys/forum.module.scss";
 
 export default function ForumPage() {
   return (
-    <SystemLayout>
+    <>
       <section className={styled["container"]}>
         <OutsetHeadersCornerRadius>
           <HeaderTitle>
@@ -96,6 +96,8 @@ export default function ForumPage() {
           </Box>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }
+
+ForumPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

@@ -19,7 +19,7 @@ export default function GerenciamentoPage() {
   //   staleTime: 1000 * 60, // 1 minute to refetch
   // });
   return (
-    <SystemLayout>
+    <>
       <OutsetHeadersCornerRadius>
         <HeaderTitle>
           <h2>Painel de Gerenciamento</h2>
@@ -63,6 +63,8 @@ export default function GerenciamentoPage() {
           </Accordion.Item>
         </Accordion.Root>
       </div>
-    </SystemLayout>
+    </>
   );
 }
+
+GerenciamentoPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

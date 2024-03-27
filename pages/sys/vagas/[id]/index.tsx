@@ -15,6 +15,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import DOMPurify from "dompurify";
 import { useVagas } from "../../../../hooks/useVagas";
+import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 
 export default function VagaSobrePage() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function VagaSobrePage() {
   const isAluno = auth?.authorities?.includes("ALUNO");
   if (!data) {
     return (
-      <VagaPageLayout>
+      <>
         <p
           style={{
             display: "flex",
@@ -56,14 +57,14 @@ export default function VagaSobrePage() {
             duration=".9s"
           />
         </p>
-      </VagaPageLayout>
+      </>
     );
   }
   const sanitizedData = () => ({
     __html: DOMPurify.sanitize(data.descricao),
   })
   return (
-    <VagaPageLayout>
+    <>
       <div className={!isAluno ? "vaga-columns-2" : ""}>
         <div className="column-1">
           <Box>
@@ -102,6 +103,9 @@ export default function VagaSobrePage() {
           </div>
         )}
       </div>
-    </VagaPageLayout>
+    </>
   );
 }
+
+VagaSobrePage.getLayout = (page: any) => <SystemLayout><VagaPageLayout>{page}</VagaPageLayout></SystemLayout>;
+

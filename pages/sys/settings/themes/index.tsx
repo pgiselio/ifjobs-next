@@ -4,6 +4,7 @@ import { themes } from "../../../../styles/themes";
 import styled from "../../../../styles/_Pages/sys/settings-themes.module.scss";
 import SettingsLayout from "../../../../components/Layouts/settings";
 import { useEffect, useState } from "react";
+import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 
 export default function SettingThemesPage() {
   const AppOptions = useAppOptions();
@@ -21,7 +22,7 @@ export default function SettingThemesPage() {
   }
 
   return (
-    <SettingsLayout headerTitle="Temas">
+    <>
       <div className={styled.themesContainer}>
         {themeKeys.length > 0 &&
           themeKeys.map(
@@ -42,6 +43,8 @@ export default function SettingThemesPage() {
               )
           )}
       </div>
-    </SettingsLayout>
+    </>
   );
 }
+
+SettingThemesPage.getLayout = (page: any) => <SystemLayout><SettingsLayout headerTitle="Temas">{page}</SettingsLayout></SystemLayout>;

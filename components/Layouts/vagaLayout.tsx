@@ -133,14 +133,14 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
     dateFormatted = dateFormatter(date);
   } else if (!isFetching) {
     return (
-      <SystemLayout>
+      <>
         <Error404 />
-      </SystemLayout>
+      </>
     );
   }
 
   return (
-    <SystemLayout>
+    <>
       <Head>{data && <title>Vaga: {data.titulo} - IFJobs</title>}</Head>
       <section className={styled.vagaPageStyle}>
         <div className="vaga-page-header-container content">
@@ -308,6 +308,6 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }

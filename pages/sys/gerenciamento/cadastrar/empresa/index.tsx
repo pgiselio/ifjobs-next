@@ -129,7 +129,7 @@ export default function CadastrarEmpresaPage() {
       });
   }
   return (
-    <SystemLayout>
+    <>
       <div className="content">
         <Box>
           <BoxTitle>
@@ -394,6 +394,8 @@ export default function CadastrarEmpresaPage() {
           </BoxContent>
         </Box>
       </div>
-    </SystemLayout>
+    </>
   );
 }
+
+CadastrarEmpresaPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

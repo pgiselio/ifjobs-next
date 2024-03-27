@@ -27,7 +27,7 @@ export default function VagasList() {
   });
   const auth = useAuth();
   return (
-    <SystemLayout>
+    <>
       <Head>
         <title>Vagas - IFJobs</title>
       </Head>
@@ -91,6 +91,8 @@ export default function VagasList() {
           </div>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }
+
+VagasList.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

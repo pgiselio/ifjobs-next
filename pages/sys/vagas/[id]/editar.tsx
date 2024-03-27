@@ -25,7 +25,7 @@ export default function VagaEditarPage() {
   });
   if (isFetching) {
     return (
-      <SystemLayout>
+      <>
         <Head>
           <title>Editar vaga #{params.id} - IFJobs</title>
         </Head>
@@ -47,11 +47,11 @@ export default function VagaEditarPage() {
           />
           Carregando...
         </p>
-      </SystemLayout>
+      </>
     );
   }
   return (
-    <SystemLayout>
+    <>
       <Head>
         <title>Editar vaga #{data?.id} - IFJobs</title>
       </Head>
@@ -67,6 +67,8 @@ export default function VagaEditarPage() {
           </Box>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }
+
+VagaEditarPage.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

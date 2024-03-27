@@ -21,9 +21,9 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
 
   if (!auth.userInfo?.id) {
     return (
-      <SystemLayout>
+      <>
         <LoadingPage />;
-      </SystemLayout>
+      </>
     );
   }
 
@@ -32,7 +32,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
   }
 
   return (
-    <SystemLayout>
+    <>
       <section className={styled.settingPageStyle}>
         <nav
           className={`nav-settings-container ${
@@ -120,6 +120,8 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
           </div>
         </div>
       </section>
-    </SystemLayout>
+    </>
   );
 }
+
+SettingsLayout.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;

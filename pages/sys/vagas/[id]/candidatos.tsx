@@ -11,6 +11,7 @@ import { vaga } from "../../../../types/vagaType";
 import VagaPageLayout from "../../../../components/Layouts/vagaLayout";
 import Skeleton from "react-loading-skeleton";
 import { useVagas } from "../../../../hooks/useVagas";
+import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 
 export default function VagaCandidatoPage() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function VagaCandidatoPage() {
   }
   if (!data) {
     return (
-      <VagaPageLayout>
+      <>
         <p
           style={{
             display: "flex",
@@ -58,11 +59,11 @@ export default function VagaCandidatoPage() {
           />
           Carregando...
         </p>
-      </VagaPageLayout>
+      </>
     );
   }
   return (
-    <VagaPageLayout>
+    <>
       <Box>
         {data.alunos.length > 0 ? (
           <>
@@ -195,6 +196,8 @@ export default function VagaCandidatoPage() {
           </span>
         )}
       </Box>
-    </VagaPageLayout>
+    </>
   );
 }
+
+VagaCandidatoPage.getLayout = (page : any) => <SystemLayout><VagaPageLayout>{page}</VagaPageLayout></SystemLayout>;
