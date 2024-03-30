@@ -6,7 +6,7 @@ import AccountSettingsPage from "./account";
 
 export default function SettingsMenu (){
     return (
-          <></>
+        <div className="content"></div>
     )
 }
 

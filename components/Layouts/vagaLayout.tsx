@@ -148,7 +148,7 @@ export default function VagaPageLayout({ children }: { children: ReactNode }) {
             <div className="empresa-info">
               {!data && isFetching ? (
                 <>
-                  <Skeleton className="profile-pic" />
+                  <Skeleton className="profile-pic" containerClassName="skeleton-pp"/>
                 </>
               ) : (
                 <>

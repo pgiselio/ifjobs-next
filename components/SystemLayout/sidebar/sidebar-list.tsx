@@ -3,9 +3,8 @@ import { useAppOptions } from "../../../hooks/useAppOptions";
 
 import { ProfilePic } from "../profile-pic/profile-pic";
 import { SidebarItem } from "./sidebar-item";
-import styled from "./styles.module.scss"
+import styled from "./styles.module.scss";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
 export function SidebarList() {
@@ -33,10 +32,15 @@ export function SidebarList() {
         <div className={styled["sidebar-scroller"]}>
           <div className={styled["side-bar-container"]}>
             <div className={styled["min-perfil"]}>
-              <ProfilePic userId={auth.userInfo?.id} className={styled["profile-pic"]}/>
+              <ProfilePic
+                userId={auth.userInfo?.id}
+                className={styled["profile-pic"]}
+              />
               <div className={styled["min-perfil-details"]}>
                 <h3 className={styled["min-perfil-name"]}>{nomePessoa()}</h3>
-                <span className={styled["min-perfil-detail"]}>{auth?.email}</span>
+                <span className={styled["min-perfil-detail"]}>
+                  {auth?.email}
+                </span>
               </div>
             </div>
 
@@ -69,13 +73,18 @@ export function SidebarList() {
                 )}
 
                 <SidebarItem
-                  to={"/sys/settings"+ (mediaQueryMatches ?"/account" :"")}
+                  to={"/sys/settings" + (mediaQueryMatches ? "/account" : "")}
                   icon="fas fa-cog"
                   label="Configurações"
                 />
                 <div className={styled["menu-separator"]}></div>
                 <li>
-                  <Link href="/logout" passHref title="Sair" className={styled["sair"]}>
+                  <Link
+                    href="/logout"
+                    passHref
+                    title="Sair"
+                    className={styled["sair"]}
+                  >
                     <i className="fas fa-sign-out-alt"></i>
                     <span>Sair</span>
                   </Link>
