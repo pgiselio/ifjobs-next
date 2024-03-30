@@ -1,14 +1,21 @@
 import { useRouter } from "next/router";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useAuth } from "../../hooks/useAuth";
-import { SystemLayout } from "./_sysLayout";
 import { LoadingPage } from "../General/loadingPage";
 import styled from "../../styles/_Pages/sys/settings.module.scss";
 import { OutsetHeadersCornerRadius } from "../SystemLayout/outset-radius-to-headers";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export default function SettingsLayout({ children, headerTitle }: { children: any, headerTitle?: string}) {
+export default function SettingsLayout({
+  children,
+  headerTitle,
+}: {
+  children: React.ReactNode;
+  headerTitle?: string;
+}) {
   const router = useRouter();
+  const pathName = usePathname();
   const mediaQueryMatches = useMediaQuery("(min-width: 1000px)");
   const routes = {
     profile: "/sys/settings/profile",
@@ -20,14 +27,10 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
   const auth = useAuth();
 
   if (!auth.userInfo?.id) {
-    return (
-      <>
-        <LoadingPage />;
-      </>
-    );
+    return <LoadingPage />;
   }
 
-  if(router.asPath === "/sys/settings" && mediaQueryMatches) {
+  if (pathName === "/sys/settings" && mediaQueryMatches) {
     router.push(routes.account);
   }
 
@@ -36,9 +39,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
       <section className={styled.settingPageStyle}>
         <nav
           className={`nav-settings-container ${
-            !mediaQueryMatches && router.asPath != "/sys/settings"
-              ? "toggle"
-              : ""
+            !mediaQueryMatches && pathName != "/sys/settings" ? "toggle" : ""
           }`}
         >
           <div className="nav">
@@ -53,7 +54,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
               <Link
                 href={routes.account}
                 className={
-                  "link" + (router.asPath == routes.account ? " active" : "")
+                  "link" + (pathName == routes.account ? " active" : "")
                 }
               >
                 <i className="fas fa-lock"></i>
@@ -64,7 +65,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
                 <Link
                   href={routes.profile}
                   className={
-                    "link" + (router.asPath == routes.profile ? " active" : "")
+                    "link" + (pathName == routes.profile ? " active" : "")
                   }
                 >
                   <i className="fas fa-user"></i>
@@ -75,8 +76,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
               <Link
                 href={routes.notifications}
                 className={
-                  "link" +
-                  (router.asPath == routes.notifications ? " active" : "")
+                  "link" + (pathName == routes.notifications ? " active" : "")
                 }
               >
                 <i className="fas fa-bell"></i>
@@ -85,7 +85,7 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
               <Link
                 href={routes.themes}
                 className={
-                  "link" + (router.asPath == routes.themes ? " active" : "")
+                  "link" + (pathName == routes.themes ? " active" : "")
                 }
               >
                 <i className="fas fa-palette"></i>
@@ -96,32 +96,12 @@ export default function SettingsLayout({ children, headerTitle }: { children: an
         </nav>
         <div
           className={`setting-container ${
-            router.asPath != "/sys/settings" ? "active" : ""
+            pathName != "/sys/settings" ? "active" : ""
           }`}
         >
-          <div className="setting">
-            {(router.asPath != "/sys/settings") && (
-              <OutsetHeadersCornerRadius className="rounded-corner">
-                <div className="header">
-                  <div className="header-items slide-left">
-                    <button
-                      className="back-button"
-                      type="button"
-                      onClick={() => router.back()}
-                    >
-                      <i className="fas fa-arrow-left"></i>
-                    </button>
-                    <h3>{headerTitle}</h3>
-                  </div>
-                </div>
-              </OutsetHeadersCornerRadius>
-            )}
-            <div className="content">{children}</div>
-          </div>
+          <div className="setting">{children}</div>
         </div>
       </section>
     </>
   );
 }
-
-SettingsLayout.getLayout = (page: any) => <SystemLayout>{page}</SystemLayout>;
