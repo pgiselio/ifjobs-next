@@ -55,9 +55,9 @@ export default function ProfilePage() {
   }
   return (
     <section className={styled.profilePageStyle}>
-      <div className="profile-page-header">
-        <div className="profile-page-header-container">
-          <div className="user-info">
+      <div className={styled["header"]}>
+        <div className={styled["header-container"]}>
+          <div className={styled["user-info"]}>
             {isFetching && !data ? (
               <ProfilePic />
             ) : (
@@ -67,7 +67,7 @@ export default function ProfilePage() {
               />
             )}
 
-            <div className="profile-names">
+            <div className={styled["profile-names"]}>
               {isFetching ? (
                 <>
                   <h2>
@@ -101,7 +101,7 @@ export default function ProfilePage() {
               )}
             </div>
           </div>
-          <div className="user-actions">
+          <div className={styled["user-actions"]}>
             {data?.email === auth.email && (
               <>
                 <Link href="/sys/settings/profile" passHref>
@@ -146,8 +146,8 @@ export default function ProfilePage() {
         </p>
       ) : (
         <div className="content">
-          <div className="profile-page-info">
-            <div className="labelDatas">
+          <section className={styled["info"]}>
+            <div className={styled["labelDatas"]}>
               {data?.aluno?.dadosPessoa && (
                 <LabelWithData
                   data={dateFormatter(data?.aluno?.dadosPessoa.dataNasc)}
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                 />
               )}
             </div>
-          </div>
+          </section>
           {usertype === "ALUNO" && (
             <Box>
               <BoxTitle>
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                   <p>{data?.aluno?.resumo}</p>
                 </BoxContent>
               ) : (
-                <BoxMessage className="no-about-message">
+                <BoxMessage className={styled["no-about-message"]}>
                   <span>
                     Oops... parece que alguém se esqueceu de fazer o &quot;sobre
                     mim&quot;
@@ -212,7 +212,7 @@ export default function ProfilePage() {
                     <h3>Sobre nós</h3>
                   </BoxTitle>
                   <BoxContent>
-                    <div className="profile-description">
+                    <div className={styled["profile-description"]}>
                       <p>{data?.empresa?.resumo}</p>
                     </div>
                   </BoxContent>
@@ -224,8 +224,8 @@ export default function ProfilePage() {
                     <h3>Contato</h3>
                   </BoxTitle>
                   <BoxContent>
-                    <div className="contacts">
-                      <ul className="essential-info">
+                    <div className={styled["contacts"]}>
+                      <ul className={styled["essential-info"]}>
                         <li>
                           <a href={"mailto:" + data?.email}>
                             <i className="fas fa-envelope"></i>
@@ -267,8 +267,7 @@ export default function ProfilePage() {
                     !isBlank(data?.empresa?.redesSociais.instagram) ||
                     !isBlank(data?.empresa?.redesSociais.twitter)) && (
                     <Box>
-                      <BoxContent>
-                        <ul className="social-info">
+                        <ul className={styled["social-info"]}>
                           {!isBlank(data?.empresa?.redesSociais.linkedin) && (
                             <li>
                               <a
@@ -330,7 +329,6 @@ export default function ProfilePage() {
                             </li>
                           )}
                         </ul>
-                      </BoxContent>
                     </Box>
                   )}
               </div>
