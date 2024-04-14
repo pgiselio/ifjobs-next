@@ -17,6 +17,7 @@
   --info-msg-color: #363636;
   --info-msg-icon: #72727294;
   --input-bg: #ffffff1a;
+  --text-scale: 1;
 }
 
 * {
@@ -119,12 +120,12 @@ input[type="checkbox"]:focus-visible {
 .chk {
   display: flex;
   align-items: center;
-  font-size: 14px;
-  color: #070707;
+  
 }
 
-.chk label {
-  font-size: 13px;
+.chk .label {
+  font-size: calc(14px * var(--text-scale));
+  color: var(--text-b);
   margin-left: 8px;
   user-select: none;
   cursor: pointer;
@@ -165,7 +166,7 @@ input[type="checkbox"]:focus-visible {
   border: 1px solid var(--outline-color);
   border-right: none;
   border-radius: 5px 0 0 5px;
-  font-size: 14px;
+  font-size: calc(14px * var(--text-scale));
 }
 
 .lbl-icon input {
@@ -177,7 +178,7 @@ input[type="checkbox"]:focus-visible {
   align-items: center;
   background: var(--info-msg-bg);
   padding: 10px;
-  font-size: 13px;
+  font-size: calc(13px * var(--text-scale));
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -217,8 +218,20 @@ input[type="checkbox"]:focus-visible {
   color: #c91f1f;
   padding: 0 3px;
   padding-top: 1px;
-  font-size: 13px;
+  font-size: calc(13px * var(--text-scale));
   font-weight: 500;
+}
+.d-flex {
+  display: flex;
+  &.space-between {
+    justify-content: space-between;
+  }
+  &.align-center {
+    align-items: center;
+  }
+  &.justify-center {
+    justify-content: center;
+  }
 }
 .flex-1 {
   flex: 1;

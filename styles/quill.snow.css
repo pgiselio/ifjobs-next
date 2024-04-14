@@ -7,7 +7,7 @@
  .ql-container {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    font-size: 14px;
+    font-size: calc(14px * var(--text-scale));
     height: 100%;
     margin: 0px;
     position: relative;
@@ -648,7 +648,7 @@
     color: var(--text-b);
     display: inline-block;
     float: left;
-    font-size: 14px;
+    font-size: calc(14px * var(--text-scale));
     font-weight: 500;
     height: 24px;
     position: relative;
@@ -897,7 +897,7 @@
   .ql-snow .ql-tooltip input[type=text] {
     display: none;
     border: 1px solid var(--outline-color);
-    font-size: 13px;
+    font-size: calc(13px * var(--text-scale));
     height: 26px;
     margin: 0px;
     padding: 3px 5px;

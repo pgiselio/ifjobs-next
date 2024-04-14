@@ -11,7 +11,7 @@
   position: relative;
   letter-spacing: .3px;
   font-weight: 500;
-  font-size: 15px;
+  font-size: calc(15px * var(--text-scale));
   height: 100%;
   color:  var(--text-b);
   gap: 5px;

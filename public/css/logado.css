@@ -47,7 +47,7 @@ body.remove-transbar .three-bars-btn * {
 }
 
 .tree-links a {
-  font-size: 14px;
+  font-size: calc(14px * var(--text-scale));
 }
 
 .tree-links ul li::before {

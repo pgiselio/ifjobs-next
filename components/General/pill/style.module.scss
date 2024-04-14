@@ -20,7 +20,7 @@
   // overflow: hidden;
   // text-overflow: ellipsis;
   // white-space: nowrap;
-  font-size: 15px;
+  font-size: calc(15px * var(--text-scale));
   gap: 5px;
   color: var(--text-a);
 

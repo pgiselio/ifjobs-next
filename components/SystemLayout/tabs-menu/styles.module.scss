@@ -47,19 +47,19 @@
     margin: 0 auto;
     height: 65px;
     align-items: center;
-    font-size: 16px;
+    font-size: calc(16px * var(--text-scale));
 
     &.small {
       height: 45px;
-      font-size: 13px;
+      font-size: calc(13px * var(--text-scale));
     }
     &.medium {
       height: 50px;
-      font-size: 14px;
+      font-size: calc(14px * var(--text-scale));
     }
     &.large {
       height: 65px;
-      font-size: 16px;
+      font-size: calc(16px * var(--text-scale));
     }
     background: var(--navs-bg);
     font-weight: 500;

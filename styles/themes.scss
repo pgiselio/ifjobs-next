@@ -55,6 +55,7 @@
   --inside-accent-color: #000000d5;
   --secondary-color: #63626e;
   --secondary-color-active: #787783;
+  --secondary-color-opacity: #7877831a;
   --outline-color: #2b2936;
   --text-a: #fafafa;
   --text-b: #888;
@@ -116,6 +117,7 @@
   --inside-accent-color: #000000;
   --secondary-color: #7e7d8b;
   --secondary-color-active: #a3a1b4;
+  --secondary-color-opacity: #a3a1b4ff;
   --outline-color: #444444;
   --text-a: #ffff00;
   --text-b: #ffff00;
@@ -132,6 +134,7 @@
   * {
     font-weight: 600 ;
     letter-spacing: .3px !important;
+    --text-scale: 1.1;
   }
 }
 

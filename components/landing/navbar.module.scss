@@ -190,7 +190,7 @@
   .signup-bt {
     text-decoration: none;
     color: rgb(var(--palette-green-7));
-    font-size: 15px;
+    font-size: calc(15px * var(--text-scale));
     letter-spacing: 1.5;
     padding: 8px 20px;
     font-weight: 500;

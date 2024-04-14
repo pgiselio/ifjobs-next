@@ -91,7 +91,7 @@
             position: relative;
             letter-spacing: 0.3px;
             font-weight: 500;
-            font-size: 15px;
+            font-size: calc(15px * var(--text-scale));
             height: 100%;
             color: var(--text-b);
             gap: 5px;
@@ -189,7 +189,7 @@
         background: var(--navs-bg);
         border-bottom: 1px solid var(--navs-border);
         z-index: 15;
-        font-size: 14px;
+        font-size: calc(14px * var(--text-scale));
         h3 {
           padding-left: 10px;
         }

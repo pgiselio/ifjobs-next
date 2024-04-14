@@ -26,7 +26,7 @@ export const useProfilePictureActions = () => {
     };
     parseImages();
   }, []);
-  
+
   const remover = async () => {
     const formData = new FormData();
     formData.append("arquivo", emptyImageBlobfied.current);
@@ -51,10 +51,9 @@ export const useProfilePictureActions = () => {
           console.error(err);
         }
       });
-  }
-  return {remover};
-}
-
+  };
+  return { remover };
+};
 
 export function ProfilePictureForm({
   closeModal,
@@ -66,6 +65,8 @@ export function ProfilePictureForm({
   const ppActions = useProfilePictureActions();
   const [zoom, setZoom] = useState<number>(1);
   const [rotate, setRotate] = useState<number>(0);
+  const [finerotation, setFinerotation] = useState<number>(0);
+
   const [actualProfilePic, setActualProfilePic] = useState<any>(undefined);
   const [newProfilePic, setnewProfilePic] = useState<File | undefined>(
     undefined
@@ -74,7 +75,7 @@ export function ProfilePictureForm({
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const emptyImageBlobfied = useRef<any>("");
   const [isEmptyImage, setIsEmptyImage] = useState(false);
-  const { data: queryImage } = useProfilePic({userId: auth.userInfo?.id});
+  const { data: queryImage } = useProfilePic({ userId: auth.userInfo?.id });
   useEffect(() => {
     const parseImages = async () => {
       await (await fetch(emptyImage))
@@ -110,7 +111,7 @@ export function ProfilePictureForm({
     },
     onDropRejected: (rejectedFiles) => {
       toast.error("Arquivo não suportado!");
-    }
+    },
   });
   const { handleSubmit } = useForm({
     defaultValues: {
@@ -143,7 +144,7 @@ export function ProfilePictureForm({
         }
       });
   }
-  
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -169,10 +170,30 @@ export function ProfilePictureForm({
             width={200}
             height={200}
             borderRadius={100}
-            rotate={rotate}
+            rotate={rotate + finerotation}
           />
         </div>
         <input {...getInputProps()} />
+        <input
+          type="range"
+          className="fineRotationSlider"
+          min="-45"
+          max="45"
+          step="1"
+          value={finerotation}
+          onChange={(event: any) => {
+            setFinerotation(parseFloat(event.target.value));
+          }}
+          name=""
+          id=""
+          aria-orientation="vertical"
+          list="values"
+        />
+        <datalist id="values">
+          <option value="-45" label="-45°"></option>
+          <option value="0" label="0"></option>
+          <option value="45" label="+45°"></option>
+        </datalist>
       </div>
       <div className="controls">
         <div className="zoom">
@@ -192,7 +213,7 @@ export function ProfilePictureForm({
             min="1"
             max="2"
             step="0.01"
-            value={zoom + ""}
+            value={zoom}
             onChange={(event: any) => {
               setZoom(parseFloat(event.target.value));
             }}
@@ -211,7 +232,6 @@ export function ProfilePictureForm({
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-
         <button
           type="button"
           title="Girar foto à esquerda"
@@ -241,11 +261,15 @@ export function ProfilePictureForm({
       <Button
         type="button"
         className="select-new less-radius secondary"
-        onClick={() => alert({description: "Tem certeza que deseja remover a foto de perfil?"}).then(() => {
-          ppActions.remover();
-          setnewProfilePic(undefined);
-          closeModal && closeModal();
-        })}
+        onClick={() =>
+          alert({
+            description: "Tem certeza que deseja remover a foto de perfil?",
+          }).then(() => {
+            ppActions.remover();
+            setnewProfilePic(undefined);
+            closeModal && closeModal();
+          })
+        }
       >
         <i className="fa-solid fa-trash"></i> Remover foto atual
       </Button>

@@ -28,6 +28,6 @@
       max-width: 300px;
       color: var(--text-b);
       text-align: center;
-      font-size: 14px;
+      font-size: calc(14px * var(--text-scale));
     }
 }

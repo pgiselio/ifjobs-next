@@ -18,7 +18,7 @@
       bottom: -5px;
       right: 10px;
       padding: 3px 5px;
-      font-size: 13px;
+      font-size: calc(13px * var(--text-scale));
       background-color: var(--accent-color-opacity);
       color: var(--accent-color);
       border-radius: 5px;

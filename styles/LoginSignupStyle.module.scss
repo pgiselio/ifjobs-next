@@ -57,7 +57,7 @@
 
   .registre-se {
     display: flex;
-    font-size: 13px;
+    font-size: calc(13px * var(--text-scale));
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -144,7 +144,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: calc(16px * var(--text-scale));
     font-weight: 600;
     transition: 100ms linear;
     user-select: none;
@@ -181,7 +181,7 @@
   .btn-login {
     padding: 10px;
     color: var(--accent-color);
-    font-size: 14px;
+    font-size: calc(14px * var(--text-scale));
     text-decoration: none;
     font-weight: 500;
   }
@@ -237,7 +237,7 @@
       padding: 0 40px;
       margin-top: 40px;
       text-align: center;
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
       font-weight: 500;
       color: #5a5c54;
     }

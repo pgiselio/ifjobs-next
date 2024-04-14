@@ -69,7 +69,7 @@
     align-items: center;
     input {
       width: 50px;
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
       text-align: center;
       background-color: transparent;
       color: #ccc;

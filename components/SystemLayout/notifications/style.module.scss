@@ -95,13 +95,13 @@
         p {
           user-select: none;
           word-break: break-all;
-          font-size: 15px;
+          font-size: calc(15px * var(--text-scale));
           color: var(--text-b);
         }
       }
       .card-date {
         color: rgb(122, 122, 122);
-        font-size: 13px;
+        font-size: calc(13px * var(--text-scale));
         font-weight: 500;
         padding-top: 20px;
       }

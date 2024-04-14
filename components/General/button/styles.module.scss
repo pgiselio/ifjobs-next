@@ -4,7 +4,7 @@
   justify-content: center;
   column-gap: 12px;
   padding: 7px 20px;
-  font-size: 13px;
+  font-size: calc(13px * var(--text-scale));
   font-weight: 600;
   cursor: pointer;
   border: none;
@@ -19,11 +19,13 @@
     border: 2px solid var(--accent-color-active);
   }
   &:global(.secondary) {
-    background: var(--secondary-color);
+    background: transparent;
+    color: var(--text-a);
     border: 2px solid var(--secondary-color);
     &:not(:disabled):hover {
       background:  var(--secondary-color-active);
       border-color: var(--secondary-color-active);
+      color: var(--inside-accent-color);
     }
   }
   &:global(.red) {
@@ -65,16 +67,13 @@
       border: 2px solid var(--secondary-color);
       &:not(:disabled):hover {
         color: #5e5d65;
+        background: var(--secondary-color-opacity);
         border-color: #5e5d65;
-      }
-      &:global(.filled):not(:disabled):hover {
-        color: var(--inside-accent-color);
-        background: var(--secondary-color);
       }
     }
   }
   &:global(.less-radius) {
-    border-radius: 6px;
+    border-radius: 10px;
   }
   &:disabled {
     opacity: 0.4;

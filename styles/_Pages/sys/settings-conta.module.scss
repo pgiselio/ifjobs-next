@@ -22,7 +22,7 @@
         color: var(--text-b);
       }
       .file-details {
-        font-size: 15px;
+        font-size: calc(15px * var(--text-scale));
         position: relative;
         .file-name {
           max-width: 400px;
@@ -30,7 +30,7 @@
         }
         .file-size {
           color: var(--text-b);
-          font-size: 14px;
+          font-size: calc(14px * var(--text-scale));
         }
       }
       .status {
@@ -66,7 +66,7 @@
     }
   }
   .maxMessage {
-    font-size: 13px;
+    font-size: calc(13px * var(--text-scale));
     color: var(--text-b);
     margin-bottom: 10px;
   }
@@ -83,6 +83,15 @@
   align-items: center;
   margin-bottom: 10px;
   & :global {
+  .dropzone{
+    display: flex;
+    gap: 8px;
+    .fineRotationSlider{
+      appearance: slider-vertical;
+      -moz-orient: "vertical";
+      width: 20px;
+    }
+  }
   .controls {
     display: flex;
     gap: 3px;
@@ -92,7 +101,7 @@
     button {
       background-color: transparent;
       border: none;
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
       color: var(--text-a);
       border-radius: 5px;
       width: 30px;
@@ -129,7 +138,7 @@
       align-items: center;
       justify-content: center;
       background-color: var(--secondary-color);
-      font-size: 12px;
+      font-size: calc(13px * var(--text-scale));
       color: #ffffff;
       width: 33px;
       height: 33px;

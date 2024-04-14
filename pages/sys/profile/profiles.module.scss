@@ -50,7 +50,7 @@
     }
   }
   .profile-description {
-    font-size: 14px;
+    font-size: calc(14px * var(--text-scale));
     white-space: pre-wrap;
   }
   .user-actions {
@@ -86,7 +86,7 @@
       display: flex;
       justify-content: center;
       font-family: "Roboto", sans-serif;
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
       font-weight: 500;
       color: var(--text-b);
     }
@@ -103,7 +103,7 @@
   .essential-info {
     display: flex;
     flex-direction: column;
-    font-size: 16px;
+    font-size: calc(16px * var(--text-scale));
     gap: 10px;
     li a {
       display: flex;

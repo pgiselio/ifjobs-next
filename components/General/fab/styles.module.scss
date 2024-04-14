@@ -8,7 +8,7 @@
   justify-content: center;
   column-gap: 5px;
   padding: 8px;
-  font-size: 13px;
+  font-size: calc(13px * var(--text-scale));
   font-weight: 500;
   cursor: pointer;
   border: none;

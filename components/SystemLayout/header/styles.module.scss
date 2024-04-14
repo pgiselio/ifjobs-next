@@ -105,7 +105,7 @@
 
   @media (min-width: 766px) {
     .btn-notify i {
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
     }
     #btn-collapse-sidemenu {
       background: var(--accent-color-opacity);

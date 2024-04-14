@@ -44,7 +44,7 @@
       width: 100%;
       max-height: 40px;
       line-height: 20px;
-      font-size: 16px;
+      font-size: calc(16px * var(--text-scale));
       overflow: hidden;
     }
     h3::first-letter {
@@ -144,7 +144,7 @@
     border-top: 1px solid var(--outline-color);
 
     .vagas-candidatos {
-      font-size: 14px;
+      font-size: calc(14px * var(--text-scale));
       font-weight: 500;
       /* background: #f1f1f1; */
       background: var(--primary-bg);
@@ -161,7 +161,7 @@
     .vagas-detalhes-btn {
       text-decoration: none;
       color: var(--accent-color);
-      font-size: 15px;
+      font-size: calc(15px * var(--text-scale));
       padding: 8px;
       font-weight: 500;
       transition: 0.1s linear;
@@ -175,7 +175,7 @@
   @media (min-width: 766px) {
     .card-pill {
       padding: 6px 10px;
-      font-size: 14px;
+      font-size: calc(14px * var(--text-scale));
     }
     .vaga-header {
       display: flex;
