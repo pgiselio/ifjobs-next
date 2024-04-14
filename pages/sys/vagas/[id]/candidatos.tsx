@@ -25,6 +25,7 @@ export default function VagaCandidatoPage() {
     staleTime: 1000 * 60 * 2, // 2 minutes
   });
   const [checkedList, setCheckedList] = useState<any[]>([]);
+  const [selectionMode, setSelectionMode] = useState(false);
   const userQueries = useQueries({
     queries:
       data?.alunos.map((userId) => {
@@ -68,75 +69,72 @@ export default function VagaCandidatoPage() {
         {data.alunos.length > 0 ? (
           <>
             <BoxTitle>
-              <input
-                type="checkbox"
-                name=""
-                id="candidato-checkall"
-                onChange={() => {
-                  setCheckedList(
-                    checkedList.length === data.alunos.length ? [] : data.alunos
-                  );
-                }}
-                {...(checkedList.length === data.alunos.length && {
-                  checked: true,
-                })}
-              />
-              <label htmlFor="candidato-checkall">Selecionar tudo</label>
+              <div className="d-flex space-between align-center flex-1">
+                {!selectionMode ? (
+                  <>
+                    <h2>Candidatos</h2>
+                    <Button
+                      className="less-radius secondary"
+                      onClick={() => {
+                        setSelectionMode(true);
+                      }}
+                    >
+                      Modo de seleção
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <span className="d-flex align-center">
+                      <input
+                        type="checkbox"
+                        name=""
+                        id="candidato-checkall"
+                        onChange={() => {
+                          setCheckedList(
+                            checkedList.length === data.alunos.length
+                              ? []
+                              : data.alunos
+                          );
+                        }}
+                        {...(checkedList.length === data.alunos.length && {
+                          checked: true,
+                        })}
+                      />
+                      <label htmlFor="candidato-checkall">
+                        Selecionar tudo
+                      </label>
+                    </span>
+                    <Button
+                      className="less-radius secondary"
+                      onClick={() => {
+                        setSelectionMode(false);
+                        setCheckedList([]);
+                      }}
+                    >
+                     Sair do modo de seleção
+                    </Button>
+                  </>
+                )}
+              </div>
             </BoxTitle>
             <span>
-              <ul className="lista-candidatos">
+              <ul
+                className={
+                  "lista-candidatos" +
+                  (checkedList.length > 0 || selectionMode
+                    ? " selection-mode"
+                    : "")
+                }
+              >
                 {userQueries.length > 0 ? (
                   userQueries.map((candidato: any) => {
-                    if (!candidato.data) {
+                    if (!candidato) {
                       return (
                         <li className="candidato" key={Math.random()}>
-                          <button>
-                            <input
-                              type="checkbox"
-                              name=""
-                              className="candidato-list-check"
-                            />
-                            <a
-                              href={"../../profile/" + candidato.data?.id}
-                              className="candidato-group"
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              <ProfilePic className="candidato-pic" />
-                              <div className="candidato-info">
-                                <h3>
-                                  <Skeleton width={150}/>
-                                </h3>
-                                <span>
-                                  <Skeleton width={100}/>
-                                </span>
-                              </div>
-                            </a>
-                          </button>
-                        </li>
-                      );
-                    }
-                    return (
-                      <li className="candidato" key={candidato.data?.id}>
-                        <button>
                           <input
                             type="checkbox"
                             name=""
                             className="candidato-list-check"
-                            onChange={(
-                              event: React.ChangeEvent<HTMLInputElement>
-                            ) => {
-                              setCheckedList(
-                                event.target.checked
-                                  ? [...checkedList, candidato.data?.id]
-                                  : checkedList.filter(
-                                      (id) => id !== candidato.data?.id
-                                    )
-                              );
-                            }}
-                            {...(checkedList.includes(candidato.data?.id)
-                              ? { checked: true }
-                              : {})}
                           />
                           <a
                             href={"../../profile/" + candidato.data?.id}
@@ -144,16 +142,74 @@ export default function VagaCandidatoPage() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            <ProfilePic
-                              userId={candidato.data?.id}
-                              className="candidato-pic"
-                            />
+                            <ProfilePic className="candidato-pic" />
                             <div className="candidato-info">
-                              <h3>{candidato.data?.aluno?.dadosPessoa.nome}</h3>
-                              <span>{candidato.data?.email}</span>
+                              <h3>
+                                <Skeleton width={150} />
+                              </h3>
+                              <span>
+                                <Skeleton width={100} />
+                              </span>
                             </div>
                           </a>
-                        </button>
+                        </li>
+                      );
+                    }
+                    return (
+                      <li className="candidato" key={candidato.data?.id}>
+                        <input
+                          type="checkbox"
+                          name=""
+                          className="candidato-list-check"
+                          aria-label={
+                            "Selecionar candidato '" +
+                            candidato.data?.aluno?.dadosPessoa.nome +
+                            "'"
+                          }
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setCheckedList(
+                              event.target.checked
+                                ? [...checkedList, candidato.data?.id]
+                                : checkedList.filter(
+                                    (id) => id !== candidato.data?.id
+                                  )
+                            );
+                          }}
+                          {...(checkedList.includes(candidato.data?.id)
+                            ? { checked: true }
+                            : {})}
+                        />
+                        <a
+                          href={"../../profile/" + candidato.data?.id}
+                          className="candidato-group"
+                          target="_blank"
+                          rel="noreferrer"
+                          {...(!selectionMode
+                            ? {}
+                            : {
+                                onClick: (e) => {
+                                  e.preventDefault();
+                                  setCheckedList(
+                                    !checkedList.includes(candidato.data?.id)
+                                      ? [...checkedList, candidato.data?.id]
+                                      : checkedList.filter(
+                                          (id) => id !== candidato.data?.id
+                                        )
+                                  );
+                                },
+                              })}
+                        >
+                          <ProfilePic
+                            userId={candidato.data?.id}
+                            className="candidato-pic"
+                          />
+                          <div className="candidato-info">
+                            <h3>{candidato.data?.aluno?.dadosPessoa.nome}</h3>
+                            <span>{candidato.data?.email}</span>
+                          </div>
+                        </a>
                       </li>
                     );
                   })
@@ -200,4 +256,8 @@ export default function VagaCandidatoPage() {
   );
 }
 
-VagaCandidatoPage.getLayout = (page : any) => <SystemLayout><VagaPageLayout>{page}</VagaPageLayout></SystemLayout>;
+VagaCandidatoPage.getLayout = (page: any) => (
+  <SystemLayout>
+    <VagaPageLayout>{page}</VagaPageLayout>
+  </SystemLayout>
+);
