@@ -3200,6 +3200,11 @@ next@^14.1.0:
     "@next/swc-win32-ia32-msvc" "14.1.0"
     "@next/swc-win32-x64-msvc" "14.1.0"
 
+nextjs-plugin-minify-css-classname@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/nextjs-plugin-minify-css-classname/-/nextjs-plugin-minify-css-classname-0.0.5.tgz#cd7b670ea5291af77ed7eedae0e969c68a3358a6"
+  integrity sha512-+isOP3iIB2X89Pte3fxE5FmkIATstzeH6GAh2rbFltRexhhNF2RCDuxUznZSrvBK+is6ikRbY8AE/LiKepmeHQ==
+
 node-fetch@^2.6.7:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.7.0.tgz#d0f0fa6e3e2dc1d27efcd8ad99d550bda94d187d"
