@@ -41,15 +41,15 @@ export default function ForumTopicPage() {
               <h3>Discussões sobre a vaga</h3>
               <br/>
               <div className={styled["forum-topic"]}>
-                <div className="topic-message">
-                  <div className="sender-detail">
+                <div className={styled["topic-message"]}>
+                  <div className={styled["sender-detail"]}>
                     <ProfilePic style={{ width: 50, height: 50 }} />
                     <div>
                       <h4>Álvaro</h4>
                       <span>há 12 minutos</span>
                     </div>
                   </div>
-                  <div className="message">
+                  <div className={styled["message"]}>
                     <p>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Ex molestiae nam assumenda velit debitis iure! Maiores
@@ -69,30 +69,58 @@ export default function ForumTopicPage() {
                   </div>
                 </div>
                 <div className={styled["forum-topic"]}>
-                  <div className="topic-message">
-                    <div className="sender-detail">
+                  <div className={styled["topic-message"]}>
+                    <div className={styled["sender-detail"]}>
                       <ProfilePic style={{ width: 50, height: 50 }} />
                       <div>
                         <h4>Lucas</h4>
                         <span>há 10 minutos</span>
                       </div>
                     </div>
-                    <div className="message">
+                    <div className={styled["message"]}>
                       <p>asdjasl daslkdj aslk daslk ldkja slk</p>
+                    </div>
+                  </div>
+                  <div className={styled["forum-topic"]}>
+                  <div className={styled["topic-message"]}>
+                    <div className={styled["sender-detail"]}>
+                      <ProfilePic style={{ width: 50, height: 50 }} />
+                      <div>
+                        <h4>Paulo Costa</h4>
+                        <span>há 3 minutos</span>
+                      </div>
+                    </div>
+                    <div className={styled["message"]}>
+                      <p> nem sempre aquelas e sim</p>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div className={styled["forum-topic"]}>
+                  <div className={styled["topic-message"]}>
+                    <div className={styled["sender-detail"]}>
+                      <ProfilePic style={{ width: 50, height: 50 }} />
+                      <div>
+                        <h4>Paulo</h4>
+                        <span>há 7 minutos</span>
+                      </div>
+                    </div>
+                    <div className={styled["message"]}>
+                      <p>Sempre né sempre aquelas e sim</p>
                     </div>
                   </div>
                 </div>
               </div>
               <div className={styled["forum-topic"]}>
-                <div className="topic-message">
-                  <div className="sender-detail">
+                <div className={styled["topic-message"]}>
+                  <div className={styled["sender-detail"]}>
                     <ProfilePic style={{ width: 50, height: 50 }} />
                     <div>
                       <h4>Pedro</h4>
                       <span>há 11 minutos</span>
                     </div>
                   </div>
-                  <div className="message">
+                  <div className={styled["message"]}>
                     <p>asdjasl daslkdj aslk daslk ldkja slk</p>
                   </div>
                 </div>

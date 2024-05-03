@@ -23,7 +23,7 @@ const Home = () => {
 
   return (
     <>
-      <style global>{`
+      <style jsx global>{`
         body {
           background-color: #ffffff;
         }

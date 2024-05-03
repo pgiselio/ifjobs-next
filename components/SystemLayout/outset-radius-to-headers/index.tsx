@@ -10,7 +10,7 @@ export function OutsetHeadersCornerRadius({
   HTMLDivElement
 >) {
   return (
-    <div className={styled["outset-header-corner"] + (className ? " "+ className : "")} {...props}>
+    <div className={styled["outset-header-corner"] + (className ? " "+ className : "") + " outset-header-corner"} {...props}>
       {children}
     </div>
   );

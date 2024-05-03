@@ -33,6 +33,9 @@ export function SysGlobalStyle() {
   pointer-events: none;
 }
 
+/* .main main > * > *:not(.outset-header-corner), .main main > * > .outset-header-corner .header-title .header-title-container > * {
+    animation: slide-down .5s cubic-bezier(.075,.82,.165,1);
+} */
 body.toggle-sidemenu .main {
   pointer-events: none;
 }

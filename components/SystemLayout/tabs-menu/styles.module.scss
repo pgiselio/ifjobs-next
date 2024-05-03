@@ -137,8 +137,10 @@
     border: 2px solid transparent;
     position: relative;
     height: 100%;
-    color: var(--text-a);
-    transition: font 0.2s ease-in;
+    color: var(--text-b);
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+    letter-spacing: 0.25px;
   }
   a::after {
     content: " ";
@@ -149,6 +151,7 @@
     bottom: -2px;
     left: 0;
     transition: height 0.2s ease-in;
+    border-radius: 10px;
   }
   a::before {
     content: " ";
@@ -176,7 +179,10 @@
     line-height: 30px;
   }
   a:global(.active) {
-    color: var(--accent-color);
+    font-weight: 600;
+    color: var(--text-a);
+    letter-spacing: 0.14px;
+
     &::after {
       height: 2px;
     }
@@ -186,8 +192,11 @@
       font-weight: 600;
     }
   }
-  a:hover::before {
-    background-color: var(--secondary-bg);
-    transform: scale(1);
+  a:hover {
+    color: var(--text-a);
+    &::before {
+      background-color: var(--secondary-bg);
+      transform: scale(1);
+    }
   }
 }

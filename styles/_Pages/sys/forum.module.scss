@@ -98,42 +98,47 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px 0;
+  
   position: relative;
-  :global {
-    .topic-message {
-      display: flex;
-      flex-direction: column;
-      z-index: 2;
+  .topic-message {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 10px 0;
+    z-index: 2;
+  }
+  .sender-detail {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    z-index: 2;
+    span {
+      color: var(--text-b);
+      font-size: calc(14px * var(--text-scale));
     }
-    .sender-detail {
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      gap: 10px;
-      span {
-        color: var(--text-b);
-        font-size: calc(14px * var(--text-scale));
-      }
-    }
-    .message {
-      padding: 10px;
-      padding-left: 70px;
-      color: var(--text-a);
-      font-size: calc(15px * var(--text-scale));
-    }
-}
+  }
+  .message {
+    padding: 10px;
+    padding-left: 70px;
+    color: var(--text-a);
+    font-size: calc(15px * var(--text-scale));
+  }
     & ~ & {
       border-top: 1px solid var(--outline-color);
     }
-    & > &::before {
+    &:has(> & ~ &) &{
+      border-top: 0;
+    }
+    &:has(> &) >.topic-message::before, &:has(> & ~ &) &:not(:last-child)  .topic-message:before {
       content: " ";
-      height: 100%;
+      height: calc(100% - 30px);
       width: 2px;
       background-color: var(--outline-color);
       position: absolute;
+      top: 50px;
       left: calc(10px + 25px);
-      top: -90%;
       z-index: 1;
   }
 }
