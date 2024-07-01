@@ -94,6 +94,7 @@
   }
   .controls {
     display: flex;
+    flex-direction: column;
     gap: 3px;
     align-items: center;
     justify-content: center;
@@ -115,10 +116,14 @@
         transform: scale(0.95);
       }
     }
-    .zoom {
+    .zoom, .rotate{
       display: flex;
       align-items: center;
       gap: 3px;
+      
+      input {
+        width: 180px;
+      }
     }
   }
   .select-new {

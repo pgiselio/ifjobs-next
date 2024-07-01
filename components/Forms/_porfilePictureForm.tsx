@@ -65,8 +65,6 @@ export function ProfilePictureForm({
   const ppActions = useProfilePictureActions();
   const [zoom, setZoom] = useState<number>(1);
   const [rotate, setRotate] = useState<number>(0);
-  const [finerotation, setFinerotation] = useState<number>(0);
-
   const [actualProfilePic, setActualProfilePic] = useState<any>(undefined);
   const [newProfilePic, setnewProfilePic] = useState<File | undefined>(
     undefined
@@ -170,30 +168,10 @@ export function ProfilePictureForm({
             width={200}
             height={200}
             borderRadius={100}
-            rotate={rotate + finerotation}
+            rotate={rotate}
           />
         </div>
         <input {...getInputProps()} />
-        <input
-          type="range"
-          className="fineRotationSlider"
-          min="-45"
-          max="45"
-          step="1"
-          value={finerotation}
-          onChange={(event: any) => {
-            setFinerotation(parseFloat(event.target.value));
-          }}
-          name=""
-          id=""
-          aria-orientation="vertical"
-          list="values"
-        />
-        <datalist id="values">
-          <option value="-45" label="-45°"></option>
-          <option value="0" label="0"></option>
-          <option value="45" label="+45°"></option>
-        </datalist>
       </div>
       <div className="controls">
         <div className="zoom">
@@ -232,24 +210,53 @@ export function ProfilePictureForm({
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        <button
-          type="button"
-          title="Girar foto à esquerda"
-          onClick={() => {
-            setRotate(rotate - 90);
+        <div className="rotate">
+          <button
+            type="button"
+            title="Girar foto à esquerda"
+            onClick={() => {
+              if(rotate > -180)
+                setRotate(rotate - 90);
+              else
+                setRotate(90);
+            }}
+          >
+            <i className="fa-solid fa-arrow-rotate-left"></i>
+          </button>
+          <input
+          type="range"
+          className="fineRotationSlider"
+          min="-180"
+          max="180"
+          step="1"
+          value={rotate}
+          onChange={(event: any) => {
+            setRotate(parseFloat(event.target.value));
           }}
-        >
-          <i className="fa-solid fa-arrow-rotate-left"></i>
-        </button>
-        <button
-          type="button"
-          title="Girar foto à direita"
-          onClick={() => {
-            setRotate(rotate + 90);
-          }}
-        >
-          <i className="fa-solid fa-arrow-rotate-right"></i>
-        </button>
+          name=""
+          id=""
+          list="values"
+        />
+        <datalist id="values">
+          <option value="-180" label="-180°"></option>
+          <option value="-90" label="-90°"></option>
+          <option value="0" label="0"></option>
+          <option value="90" label="+90°"></option>
+          <option value="180" label="+180°"></option>
+        </datalist>
+          <button
+            type="button"
+            title="Girar foto à direita"
+            onClick={() => {
+              if(rotate < 180)
+                setRotate(rotate + 90);
+              else
+                setRotate(-90);
+            }}
+          >
+            <i className="fa-solid fa-arrow-rotate-right"></i>
+          </button>
+        </div>
       </div>
       <Button
         type="button"
