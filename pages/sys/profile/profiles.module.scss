@@ -85,7 +85,7 @@
     span{
       display: flex;
       justify-content: center;
-      font-family: "Roboto", sans-serif;
+      font-family: var(--font-roboto), sans-serif;
       font-size: calc(15px * var(--text-scale));
       font-weight: 500;
       color: var(--text-b);
@@ -163,7 +163,7 @@
   }
   .no-about-message::before {
     content: ":(";
-    font-family: "Roboto";
+    font-family: var(--font-roboto);
   }
 
   @media (min-width: 766px) {

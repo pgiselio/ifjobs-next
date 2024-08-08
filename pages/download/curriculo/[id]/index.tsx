@@ -179,6 +179,7 @@ export default function DownloadCurriculoPage() {
                 }
               >
                 <button
+                  type="button"
                   onClick={() => {
                     if (pageNumber > 1) {
                       setPageNumber(pageNumber - 1);
@@ -199,6 +200,7 @@ export default function DownloadCurriculoPage() {
                   de {numPages}
                 </span>
                 <button
+                  type="button"
                   onClick={() => {
                     if (pageNumber < (numPages || 1)) {
                       setPageNumber(pageNumber + 1);
@@ -216,6 +218,7 @@ export default function DownloadCurriculoPage() {
               </a>
               <div className={styled.zoomControls}>
                 <button
+                  type="button"
                   onClick={() => {
                     setScaleHandler(scale - 0.5);
                   }}
@@ -223,6 +226,7 @@ export default function DownloadCurriculoPage() {
                   <i className="fas fa-search-minus"></i>
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setScaleHandler(scale + 0.5);
                   }}

@@ -16,6 +16,7 @@ function Arrow({
 }) {
   return (
     <button
+      type="button"
       disabled={disabled}
       onClick={onClick}
       className={styles["arrows"]}

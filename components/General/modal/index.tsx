@@ -41,6 +41,7 @@ export function Modal({
         <h2>{title}</h2>
         <div>
           <button
+            type="button"
             aria-label="Close"
             className={styled["close-button"]}
             ref={closeRef}

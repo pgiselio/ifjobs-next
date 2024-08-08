@@ -169,7 +169,7 @@
     z-index: 2;
   }
   a .highlight {
-    font-family: "Roboto", sans-serif;
+    font-family: var(--font-roboto), sans-serif;
     padding: 1.5px 5px;
     background: var(--primary-bg);
     color: var(--accent-color);

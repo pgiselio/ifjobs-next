@@ -204,11 +204,12 @@ export default function SettingContaPage() {
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <button
+                  type="button"
                   className="change-pic-btn"
-                  aria-label="Customise options"
+                  aria-label="Opções para a foto de perfil"
                 >
-                  <span aria-label="Opções para a foto de perfil">
-                    <i className="fas fa-camera"></i>
+                  <span>
+                    <i className="fas fa-camera" aria-hidden="true"></i>
                   </span>
                 </button>
               </DropdownMenu.Trigger>

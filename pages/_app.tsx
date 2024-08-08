@@ -20,6 +20,21 @@ import { ThemeProvider } from "next-themes";
 import { AlertDialogProvider } from "../contexts/AlertDialogContext";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
+import { Poppins, Roboto } from 'next/font/google'
+
+const poppins = Poppins({
+  weight: ["100","200","300","400","500","600","700", "800", "900"],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins'
+})
+
+const roboto = Roboto({
+  weight: ["100","300","400","500","700","900"],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto'
+})
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -57,7 +72,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                     baseColor="rgba(000, 000, 000, 0.12)"
                     highlightColor="var(--secondary-color)"
                   >
-                    {getLayout(<Component {...pageProps} />)}
+                    <div className={`${poppins.variable} ${roboto.variable}`}>
+                      <style jsx global>{`
+                        * {
+                          font-family: ${poppins.style.fontFamily};
+                        }
+                      `}</style>
+                      {getLayout(<Component {...pageProps} />)}
+                    </div>
                   </SkeletonTheme>
                 </>
               </CadastroProvider>

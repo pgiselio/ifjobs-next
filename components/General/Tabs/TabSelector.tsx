@@ -17,6 +17,7 @@ export const TabSelector = ({
   ...rest
 }: TabSelectorProps) => (
   <button
+    type="button"
     className={
       styled["tab-selector"] +
       (className ? " " + className : "") +

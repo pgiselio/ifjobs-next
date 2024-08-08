@@ -18,6 +18,7 @@ export default function Header(props: any) {
       <nav className={styled["navigate"]}>
         <div className={styled["menu-container"] + " menu-container"}>
           <button
+            type="button"
             id={styled["btn-collapse-sidemenu"]}
             onClick={() => {
               appOptions.toggleSidebar();
@@ -38,6 +39,7 @@ export default function Header(props: any) {
           </Link>
 
           <button
+            type="button"
             className={styled["btn-notify"]}
             aria-label="Botão de notificações"
             onClick={() => navigate.push("/sys")}

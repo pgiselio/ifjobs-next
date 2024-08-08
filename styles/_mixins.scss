@@ -1,6 +1,6 @@
 
 @mixin inputStyle() {
-    font-family: "Roboto", sans-serif;
+    font-family: var(--font-roboto), sans-serif;
     font-size: calc(14px * var(--text-scale));
     border: 1px solid var(--outline-color);
     border-radius: 5px;
