@@ -77,7 +77,7 @@ export function SidebarList() {
                   icon="fas fa-cog"
                   label="Configurações"
                 />
-                <div className={styled["menu-separator"]}></div>
+                <li aria-hidden="true" className={styled["menu-separator"]}></li>
                 <li>
                   <Link
                     href="/logout"

@@ -94,8 +94,6 @@ function LoginPage() {
         <title>Fazer Login - IFJobs</title>
         <meta name="description" content="Fazer login no sistema do IFJobs" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
       </Head>
       <ToastContainer
         position="top-right"

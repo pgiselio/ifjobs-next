@@ -34,8 +34,6 @@ const Home = () => {
       <Head>
         <title>IF Jobs</title>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
       </Head>
 
       <ParallaxProvider>
@@ -145,6 +143,7 @@ const Home = () => {
                         href="https://github.com/Lucas-dev-back"
                         target="_blank"
                         rel="noreferrer"
+                        title="GitHub de Lucas"
                       >
                         <i className="fa-brands fa-github"></i>
                       </a>
@@ -165,6 +164,7 @@ const Home = () => {
                         href="https://github.com/pgiselio"
                         target="_blank"
                         rel="noreferrer"
+                        title="GitHub de Pedro"
                       >
                         <i className="fa-brands fa-github"></i>
                       </a>
@@ -175,23 +175,23 @@ const Home = () => {
             </section>
             <section id="sec4" className="contatos-section">
               <ul className="items">
-                <div>
-                  <li>
-                    <i className="fas fa-envelope"></i>
-                    <span>email@yourdomain.com</span>
-                  </li>
+                <li>
+                  <i className="fas fa-envelope"></i>
+                  <span>email@yourdomain.com</span>
+                </li>
 
-                  <li>
-                    <i className="fas fa-phone"></i>
-                    <span>(84) 0000-0000 (ramal x)</span>
-                  </li>
-                </div>
+                <li>
+                  <i className="fas fa-phone"></i>
+                  <span>(84) 0000-0000 (ramal x)</span>
+                </li>
+              </ul>
+              <ul>
                 <li>
                   <i className="fas fa-location-dot"></i>
                   <span>
                     BR 406, Km 73, nº 3500, Perímetro Rural - João Câmara-RN
+                    CEP: 59550-000
                   </span>
-                  <span>CEP:59550-000</span>
                 </li>
               </ul>
             </section>

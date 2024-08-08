@@ -37,7 +37,7 @@ export function LandNavBar() {
         <nav className={styled["navigate"] +" "+ (scrollState ? styled["scrolled"] : "")}>
           <div className={styled["menu-container"]}>
             <NextLink.default href="/" passHref className={styled["logo-nav"]}>
-              <Image src="/images/logo.svg" alt="" height={34} width={94} />
+              <Image src="/images/logo.svg" alt="Logomarca do IFJobs" height={34} width={94} title="Ir para a página inicial" />
             </NextLink.default>
             <div
               className={

@@ -137,15 +137,15 @@
 
   .sidebar-items .menu-separator ~ li {
     position: sticky;
-    bottom: 15px;
+    bottom: 0;
     margin-top: 25px;
-    padding: 10px 0;
+    padding: 20px 0;
     padding-top: 10px;
     background-color: var(--navs-bg);
     a:first-child {
-      box-shadow: -5px 20px 30px 70px var(--navs-bg);
-      -webkit-box-shadow: -5px 20px 30px 70px var(--navs-bg);
-      -moz-box-shadow: -5px 20px 30px 70px var(--navs-bg);
+      box-shadow: 0px -8px 20px 20px var(--navs-bg);
+      -webkit-box-shadow: 0px -8px 20px 20px var(--navs-bg);
+      -moz-box-shadow: 0px -8px 20px 20px var(--navs-bg);
     }
   }
 

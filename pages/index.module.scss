@@ -163,23 +163,17 @@
       width: 100%;
       background-color: #f1f1f1;
       min-height: 345px;
-      ul {
+      gap: 30px;
+      * {
         display: flex;
+      }
+      ul {
         flex-direction: column;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 50px;
-        div {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
+        gap: 10px;
         li {
-          display: flex;
           align-items: center;
           gap: 10px;
           span,
