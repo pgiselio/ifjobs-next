@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
-const { withMinifyClassnamesConfig } = require('nextjs-plugin-minify-css-classname');
 
-const nextConfig = withMinifyClassnamesConfig({})({
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   distDir: "dist",
@@ -11,6 +10,6 @@ const nextConfig = withMinifyClassnamesConfig({})({
   },
   experimental: {
     scrollRestoration: true,
-    },
-})
+  },
+};
 module.exports = nextConfig;
