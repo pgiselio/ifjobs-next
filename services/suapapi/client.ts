@@ -21,28 +21,26 @@ var Token = function ({
   scope?: string | null;
 }) {
   /* Atributos */
-  const startTime = useRef<number>(new Date().getTime()); // O valor em milissegundos.
-  const finishTime = useRef<Date | null>(
-    new Date(startTime.current + expirationTime * 1000)
-  ); // O objeto Date.
+  let startTime = new Date().getTime(); // O valor em milissegundos.
+  let finishTime = new Date(startTime + expirationTime * 1000); // O objeto Date.
   // Cria os cookies para o token, seu momento da expiração e seus escopos.
 
-  if (!Cookies.get("suapToken") && value && finishTime.current) {
-    Cookies.set("suapToken", value, { expires: finishTime.current });
+  if (!Cookies.get("suapToken") && value && finishTime) {
+    Cookies.set("suapToken", value, { expires: finishTime });
   } else {
     value = Cookies.get("suapToken");
   }
 
-  if (!Cookies.get("suapTokenExpirationTime") && finishTime.current) {
-    Cookies.set("suapTokenExpirationTime", finishTime.current + "", {
-      expires: finishTime.current,
+  if (!Cookies.get("suapTokenExpirationTime") && finishTime) {
+    Cookies.set("suapTokenExpirationTime", finishTime + "", {
+      expires: finishTime,
     });
   } else {
-    finishTime.current = new Date(Cookies.get("suapTokenExpirationTime") || "");
+    finishTime = new Date(Cookies.get("suapTokenExpirationTime") || "");
   }
 
   if (!Cookies.get("suapScope") && scope) {
-    Cookies.set("suapScope", scope, { expires: finishTime.current });
+    Cookies.set("suapScope", scope, { expires: finishTime });
   } else {
     scope = Cookies.get("suapScope");
   }
@@ -52,7 +50,7 @@ var Token = function ({
   };
 
   const getExpirationTime = function () {
-    return finishTime.current;
+    return finishTime;
   };
 
   const getScope = function () {
@@ -68,8 +66,8 @@ var Token = function ({
 
   const revoke = function () {
     value = null;
-    startTime.current = new Date().getTime();
-    finishTime.current = null;
+    startTime = new Date().getTime();
+    finishTime = new Date(0);
 
     if (Cookies.get("suapToken")) {
       Cookies.remove("suapToken");
@@ -87,10 +85,10 @@ var Token = function ({
 };
 
 type clientProps = {
-  authHost: String;
-  clientID: String;
-  redirectURI: String;
-  scope: String;
+  authHost: string;
+  clientID: string;
+  redirectURI: string;
+  scope: string;
 };
 
 /**
@@ -252,10 +250,15 @@ export const SuapClient = ({
     return registrationUrl;
   };
 
-  const getResource = async (scope: string, callback: any) => {
+  type resourceType = {
+    getScope ?: string;
+    callback: (response: any) => void;
+  }
+
+  const getResource = async ({callback, getScope = scope} : resourceType) => {
     await axios
       .get(resourceURL, {
-        data: { scope: scope },
+        data: { scope: getScope },
         headers: {
           Authorization: "Bearer " + token.getValue(),
           Accept: "application/json",
@@ -292,6 +295,7 @@ export const SuapClient = ({
         return false;
       });
   };
+
   return {
     init,
     login,
@@ -303,5 +307,12 @@ export const SuapClient = ({
     getRedirectURI,
     getDataJSON,
     getToken,
+    scope,
+    authHost,
+    clientID,
+    responseType,
+    grantType,
+    resourceURL,
+    authorizationURL,
   };
 };

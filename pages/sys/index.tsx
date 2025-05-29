@@ -5,23 +5,22 @@ import { SuapClient } from "../../services/suapapi/client";
 import { SuapApiSettings } from "../../services/suapapi/settings";
 import { SystemLayout } from "../../components/Layouts/_sysLayout";
 import Head from "next/head";
+import { suapClient } from "../../services/suapclient";
 
 export default function HomePage() {
-  const NewSuapClient = SuapClient({
-    authHost: SuapApiSettings.SUAP_URL,
-    clientID: SuapApiSettings.CLIENT_ID || "",
-    redirectURI: SuapApiSettings.REDIRECT_URI,
-    scope: SuapApiSettings.SCOPE,
-  });
-  NewSuapClient.init();
+
   const [resourceResponse, setResourceResponse] = useState("");
-  const Callback = (response: any) => {
+  const callback = (response: any) => {
     setResourceResponse(JSON.stringify(response.data, null, 4));
     console.log(resourceResponse);
   };
   useEffect(() => {
-    if (NewSuapClient.isAuthenticated()) {
-      NewSuapClient.getResource(SuapApiSettings.SCOPE, Callback);
+    if (suapClient.isAuthenticated()) {
+      if (suapClient.scope) {
+        suapClient.getResource({callback});
+      } else {
+        console.error("SuapApiSettings.SCOPE não definido.");
+      }
     }
     window.addEventListener(
       "message",
@@ -43,15 +42,15 @@ export default function HomePage() {
           <Notifications />
           <div>
             Logado com o suap:
-            {!NewSuapClient.isAuthenticated() ? (
+            {!suapClient.isAuthenticated() ? (
               <span>          
                 NÃO
                 <a
-                  href={NewSuapClient.getLoginURL() + ""}
+                  href={suapClient.getLoginURL() + ""}
                   target="popup"
                   onClick={() => {
                     window.open(
-                      NewSuapClient.getLoginURL() + "",
+                      suapClient.getLoginURL() + "",
                       "popup",
                       "width=600,height=600,scrollbars=no,resizable=no,left=" +
                         (window.screen.width - 600) / 2 +
@@ -67,7 +66,7 @@ export default function HomePage() {
             ) : (
               <span>      
                 <strong>SIM</strong>
-                <Button onClick={() => NewSuapClient.logout()}>Logout</Button>
+                <Button onClick={() => suapClient.logout()}>Logout</Button>
                 <textarea
                   style={{ width: 430, height: 300, maxWidth: "100%" }}
                   defaultValue={resourceResponse}
