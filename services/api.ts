@@ -2,7 +2,7 @@ import axios from "axios";
 import { getUserLocalStorage } from "../contexts/AuthContext/util";
 
 export const api = axios.create({
-  baseURL: "https://ifjobs-backend.herokuapp.com",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 api.interceptors.request.use(
