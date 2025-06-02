@@ -112,7 +112,7 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
           cursoAlvo,
           titulo,
           localizacao: localidade,
-          descricaoLimpa,
+          descricao: descricaoLimpa,
           cnpj: auth?.authorities?.includes("EMPRESA")
             ? empresaCNPJ
             : cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", ""),
