@@ -69,7 +69,7 @@ export default function VagaCandidatoPage() {
         {data.alunos.length > 0 ? (
           <>
             <BoxTitle>
-              <div className="d-flex space-between align-center flex-1">
+              <div className="d-flex justify-content-between align-items-center flex-1">
                 {!selectionMode ? (
                   <>
                     <h2>Candidatos</h2>
@@ -84,7 +84,7 @@ export default function VagaCandidatoPage() {
                   </>
                 ) : (
                   <>
-                    <span className="d-flex align-center">
+                    <span className="d-flex align-items-center">
                       <input
                         type="checkbox"
                         name=""

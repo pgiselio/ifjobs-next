@@ -18,6 +18,7 @@ PasswordResetPage.theme = "light";
 export default function PasswordResetPage() {
   const searchParams = useSearchParams();
   const [token, setToken] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useRouter();
   const paramsToken = searchParams.get("token");
@@ -81,13 +82,16 @@ export default function PasswordResetPage() {
     resolver: yupResolver(newPasswordFormValidationSchema),
   });
   async function onSubmit(data: any) {
+    setIsLoading(true);
     await api.get(`/usuario/recuperar/${data.email}`).finally(() => {
+      setIsLoading(false);
       toast.info("E-mail de recuperação de senha enviado!");
       reset();
       window.location.href = "/entrar?error=checkEmail";
     });
   }
   async function onSubmitNewPassword(data: any) {
+    setIsLoading(true);
     api
       .patch(
         "/usuario/senha",
@@ -99,6 +103,7 @@ export default function PasswordResetPage() {
         }
       )
       .then(() => {
+        setIsLoading(false);
         navigate.push("/entrar?error=passwordChanged");
       });
   }
@@ -181,6 +186,9 @@ export default function PasswordResetPage() {
               <Button
                 type="submit"
                 className="less-radius"
+                disabled={!newPasswordFormState.isValid || isLoading}
+                isLoading={isLoading}
+                isLoadingText="Alterando senha..."
               >
                 <span>Enviar</span>
               </Button>
@@ -234,7 +242,9 @@ export default function PasswordResetPage() {
               <Button
                 type="submit"
                 className="less-radius"
-                disabled={!formState.isValid}
+                disabled={!formState.isValid || isLoading}
+                isLoading={isLoading}
+                isLoadingText="Enviando..."
               >
                 <span>Enviar solicitação</span>
               </Button>

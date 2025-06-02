@@ -27,6 +27,7 @@
         .file-name {
           max-width: 400px;
           text-overflow: ellipsis;
+          overflow: hidden;
         }
         .file-size {
           color: var(--text-b);

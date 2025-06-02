@@ -219,16 +219,19 @@ input[type="checkbox"]:focus-visible {
 }
 .d-flex {
   display: flex;
-  &.space-between {
-    justify-content: space-between;
-  }
-  &.align-center {
+  
+  &.align-items-center {
     align-items: center;
   }
-  &.justify-center {
+  &.justify-content-center {
     justify-content: center;
   }
+  &.justify-content-between {
+    justify-content: space-between;
+  }
 }
+@include mixins.gap-x;
+
 .flex-1 {
   flex: 1;
 }

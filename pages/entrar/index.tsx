@@ -170,17 +170,10 @@ function LoginPage() {
               type="submit"
               className="less-radius"
               disabled={!formState.isValid || isLoading}
+              isLoading={isLoading}
+              isLoadingText='Entrando...'
             >
-              {isLoading && (
-                <CircularProgressFluent
-                  color="white"
-                  height="25px"
-                  width="25px"
-                  duration=".8s"
-                  style={{ position: "absolute" }}
-                />
-              )}
-              <span {...(isLoading && { style: { opacity: 0 } })}>Entrar</span>
+              <span>Entrar</span>
             </Button>
             <div className="registre-se">
               <span>Não tem uma conta?</span>

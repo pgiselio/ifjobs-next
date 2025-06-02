@@ -194,7 +194,7 @@ export default function SettingContaPage() {
     <>
       {pathname != "/sys/settings" && <SettingsHeader title="Perfil" />}
       <div className="content">
-        <div className="align-center">
+        <div className="align-items-center">
           <div className="profile-pic-opts">
             <ProfilePic
               style={{ height: "100px" }}

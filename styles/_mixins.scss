@@ -20,3 +20,11 @@
     }
   }
 }
+
+@mixin gap-x {
+    @for $i from 1 to 10  {
+        .gap-#{$i} {
+           gap: 0.25rem * $i;
+        }
+    }
+}
