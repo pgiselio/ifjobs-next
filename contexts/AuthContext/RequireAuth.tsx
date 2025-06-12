@@ -1,6 +1,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { LoadingPageLogo } from "../../components/General/loadingPage/logo";
 import { useAuth } from "../../hooks/useAuth";
+import { JSX } from "react";
 
 
 export function RequireAuth({ children }: { children: JSX.Element }) {

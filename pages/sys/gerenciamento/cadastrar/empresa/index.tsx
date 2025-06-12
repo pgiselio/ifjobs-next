@@ -188,6 +188,7 @@ export default function CadastrarEmpresaPage() {
                         inputRef={ref}
                         {...rest}
                       >
+                        {/* @ts-ignore */}  
                         <Input
                           icon="fas fa-id-card"
                           type="text"
@@ -231,6 +232,7 @@ export default function CadastrarEmpresaPage() {
                         inputRef={ref}
                         {...rest}
                       >
+                        {/* @ts-ignore */}  
                         <Input
                           type="text"
                           placeholder="Data de fundação"

@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { notification } from "../../types/notification";
 import { User } from "../../types/user";
 

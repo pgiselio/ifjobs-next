@@ -230,6 +230,7 @@ export function CriarNovaVagaForm({ vaga }: Readonly<{ vaga?: vaga }>) {
                 {...rest}
                 {...(vaga && { disabled: true })}
               >
+                {/* @ts-ignore */}
                 <Input
                   type="text"
                   id="cnpj"

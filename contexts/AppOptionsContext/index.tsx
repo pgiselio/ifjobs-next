@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, JSX } from "react";
 import { themes } from "../../styles/themes";
 import { AppOptionsContextType } from "./types";
 import { useTheme } from "next-themes";

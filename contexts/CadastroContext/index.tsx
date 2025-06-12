@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, JSX } from "react";
 import { CadastroContextType } from "./types";
 
 export const CadastroContext = createContext<CadastroContextType>({} as CadastroContextType);

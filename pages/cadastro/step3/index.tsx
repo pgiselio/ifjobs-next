@@ -144,6 +144,7 @@ export default function CadastroStep3() {
                       {...rest}
                       inputRef={ref}
                     >
+                      {/* @ts-ignore */}  
                       <Input
                         icon="fas fa-id-card"
                         type="text"
@@ -169,6 +170,7 @@ export default function CadastroStep3() {
                       inputRef={ref}
                       {...rest}
                     >
+                      {/* @ts-ignore */}  
                       <Input
                         type="text"
                         placeholder="Data de nascimento"
@@ -277,6 +279,7 @@ export default function CadastroStep3() {
                         mask="99"
                         {...field}
                       >
+                        {/* @ts-ignore */}  
                         <Input
                           type="text"
                           id="periodo"

@@ -1,17 +1,19 @@
-import { useState, createContext, useRef } from "react";
+import { useState, createContext, useRef, JSX } from "react";
 import { ConfirmationDialog, ConfirmationOptions } from "./ConfirmationDialog";
 
 export const AlertDialogContext = createContext<(options: ConfirmationOptions) => Promise<void>
 >(Promise.reject);
 
+type PromiseResolver = {
+  resolve: () => void;
+  reject: () => void;
+};
+
 export function AlertDialogProvider({ children }: { children: JSX.Element }) {
   const [confirmationState, setConfirmationState] =
     useState<ConfirmationOptions | null>(null);
 
-  const awaitingPromiseRef = useRef<{
-    resolve: () => void;
-    reject: () => void;
-  }>();
+  const awaitingPromiseRef = useRef<PromiseResolver | null>(null);
 
   const openConfirmation = (options: ConfirmationOptions) => {
     setConfirmationState(options);
