@@ -1,6 +1,3 @@
-// import { Editor, EditorState } from "draft-js";
-// import { useState } from "react";
-
 import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -26,17 +23,11 @@ const ReactQuill = dynamic(import("react-quill"), {
   loading: () => <p>Loading ...</p>,
 });
 
-export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
-  // const [editorState, setEditorState] = useState(() =>
-  //   EditorState.createEmpty()
-  // );
+export function CriarNovaVagaForm({ vaga }: Readonly<{ vaga?: vaga }>) {
   const auth = useAuth();
   const vagaActions = useVagas();
-  const maxDescriptionLength = 1000;
 
   const [empresaCNPJ, setEmpresaCNPJ] = useState<string | null>();
-  const [remainigDescriptionLength, setRemainigDescriptionLength] =
-    useState(maxDescriptionLength);
 
   useEffect(() => {
     setEmpresaCNPJ(auth.userInfo?.empresa?.cnpj);
@@ -74,17 +65,17 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
   }
   const {
     control,
-    formState: { errors, isDirty },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
     defaultValues: useMemo(() => {
       return {
-        titulo: vaga?.titulo || "",
-        localidade: vaga?.localizacao || "",
-        cursoAlvo: vaga?.cursoAlvo || "",
-        descricao: vaga?.descricao || "",
-        cnpj: empresaCNPJ || vaga?.empresa?.cnpj || "",
+        titulo: vaga?.titulo ?? "",
+        localidade: vaga?.localizacao ?? "",
+        cursoAlvo: vaga?.cursoAlvo ?? "",
+        descricao: vaga?.descricao ?? "",
+        cnpj: (empresaCNPJ ?? vaga?.empresa?.cnpj) ?? "",
       };
     }, [vaga, empresaCNPJ]),
     resolver:
@@ -255,7 +246,6 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
 
       <div className="lbl">
         <label htmlFor="desc">Descrição: </label>
-        {/* <Editor editorState={editorState} onChange={setEditorState} /> */}
         <div className="description-container">
           <Controller
             name="descricao"
@@ -266,38 +256,8 @@ export function CriarNovaVagaForm({ vaga }: { vaga?: vaga }) {
                 placeholder="Descrição da vaga..."
                 {...field}
               />
-              // <textarea
-              //   style={{
-              //     resize: "vertical",
-              //     minHeight: "150px",
-              //     maxHeight: "250px",
-              //     height: 150,
-              //     padding: "5px",
-              //   }}
-              //   placeholder="Descrição da vaga..."
-              //   {...(errors.descricao && { className: "danger" })}
-              //   id="desc"
-              //   rows={10}
-              //   maxLength={maxDescriptionLength}
-              //   onKeyDown={() => {
-              //     let currentValue = maxDescriptionLength - field.value.length;
-              //     setRemainigDescriptionLength(currentValue);
-              //   }}
-              //   onKeyUp={() => {
-              //     let currentValue = maxDescriptionLength - field.value.length;
-              //     setRemainigDescriptionLength(currentValue);
-              //   }}
-              //   {...field}
-              // ></textarea>
             )}
           />
-          {/* <div
-            className={`counter-box ${
-              remainigDescriptionLength === 0 ? "danger" : ""
-            }`}
-          >
-            <span id="count">{remainigDescriptionLength}</span>
-          </div> */}
         </div>
         <p className="input-error">{errors.descricao?.message}</p>
       </div>

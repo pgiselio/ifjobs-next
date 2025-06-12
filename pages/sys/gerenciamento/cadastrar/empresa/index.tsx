@@ -129,7 +129,6 @@ export default function CadastrarEmpresaPage() {
       });
   }
   return (
-    <>
       <div className="content">
         <Box>
           <BoxTitle>
@@ -394,7 +393,6 @@ export default function CadastrarEmpresaPage() {
           </BoxContent>
         </Box>
       </div>
-    </>
   );
 }
 

@@ -37,7 +37,7 @@ export const Button = React.forwardRef(function Button(
             width="20px"
             duration=".8s"
           />
-          <span>{isLoadingText || "Carregando..."}</span>
+          <span>{isLoadingText ?? "Carregando..."}</span>
         </span>
       ) : (
         children

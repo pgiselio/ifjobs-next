@@ -1,87 +1,72 @@
 import React, {
-  HTMLInputTypeAttribute,
-  InputHTMLAttributes,
   useState,
+  forwardRef,
+  ForwardedRef,
+  InputHTMLAttributes,
 } from "react";
 import styled from "./input.module.scss";
 
-interface input extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>{
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon?: string;
   isLabelholder?: boolean;
 }
 
-export const Input = React.forwardRef(function Input(
-  { name, type = "text", icon, placeholder, isLabelholder = true, style, className,...props }: input, ref : React.ForwardedRef<HTMLInputElement>
+export const Input = forwardRef(function Input(
+  {
+    name,
+    type = "text",
+    icon,
+    placeholder,
+    isLabelholder = true,
+    style,
+    className,
+    ...props
+  }: InputProps,
+  ref: ForwardedRef<HTMLInputElement>
 ) {
   const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === "password";
+  const inputType = isPassword && showPassword ? "text" : type;
 
-  if (type.match("password")) {
-    return (
-      <div className={styled["inputContainer"]}>
-        <input
-          className={(className ? className + " ": "") + styled.inputStyled}
-          style={{
-            ...style,
-            paddingRight: "35px",
-            ...(icon ? { paddingLeft: "40px" } : {}),
-            ...(placeholder && isLabelholder
-              ? { paddingTop: "20px", paddingBottom: "10px" }
-              : {}),
-          }}
-          type={showPassword ? "text" : "password"}
-          name={name}
-          {...ref && {ref: ref} }
-          {...props}
-          title={placeholder}
-        />
-        {icon && <i className={icon}></i>}
-        {placeholder && (
-          <span
-            className={(isLabelholder ? "toLabel " : "") + styled.placeholder}
-          >
-            {placeholder}
-          </span>
-        )}
+  const computedStyle: React.CSSProperties = {
+    ...style,
+    ...(icon && { paddingLeft: "40px" }),
+    ...(isLabelholder && placeholder && {
+      paddingTop: "20px",
+      paddingBottom: "10px",
+    }),
+    ...(isPassword && { paddingRight: "35px" }),
+  };
+
+  return (
+    <div className={styled.inputContainer}>
+      <input
+        ref={ref}
+        type={inputType}
+        name={name}
+        className={`${className ?? ""} ${styled.inputStyled}`.trim()}
+        style={computedStyle}
+        title={placeholder}
+        aria-label={placeholder}
+        {...props}
+      />
+      {icon && <i className={icon}></i>}
+      {placeholder && (
+        <span
+          className={`${isLabelholder ? "toLabel" : ""} ${styled.placeholder}`.trim()}
+        >
+          {placeholder}
+        </span>
+      )}
+      {isPassword && (
         <button
-          tabIndex={-1}
           type="button"
+          tabIndex={-1}
           title={showPassword ? "Ocultar senha" : "Mostrar senha"}
-          className={
-            (showPassword ? "active " : "") + styled["show-password-button"]
-          }
-          onClick={() => {
-            setShowPassword(!showPassword);
-          }}
-        ></button>
-      </div>
-    );
-  } else {
-    return (
-      <div className={styled.inputContainer}>
-        <input
-          className={(className ? className + " ": "") + styled.inputStyled}
-          style={{
-            ...style,
-            ...(icon ? { paddingLeft: "40px" } : {}),
-            ...(placeholder && isLabelholder
-              ? { paddingTop: "20px", paddingBottom: "10px" }
-              : {}),
-          }}
-          type={type}
-          name={name}
-          {...ref && {ref: ref} }
-          title={placeholder}
-          {...props}
+          className={`${showPassword ? "active" : ""} ${styled["show-password-button"]}`.trim()}
+          onClick={() => setShowPassword(!showPassword)}
         />
-        {icon && <i className={icon}></i>}
-        {placeholder && (
-          <span
-            className={(isLabelholder ? "toLabel " : "") + styled.placeholder}
-          >
-            {placeholder}
-          </span>
-        )}
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 });

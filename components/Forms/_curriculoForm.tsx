@@ -171,14 +171,12 @@ export function CurriculoForm() {
             </p>
           </div>
         ) : (
-          <>
             <p>Clique ou arraste o arquivo para cá</p>
-          </>
         )}
       </div>
       <p className="maxMessage">
         O currículo deve ser do tipo <strong>PDF</strong> e ter no máximo
-        <strong> {prettyBytes(maxSize)}</strong>
+        <strong>{prettyBytes(maxSize)}</strong>
       </p>
       <div className="group-buttons">
         <Button

@@ -1,0 +1,123 @@
+.loadingDefs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  gap: 10px;
+
+  &.error {
+    flex-direction: column;
+  }
+}
+
+.mainContainer {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  max-height: 100vh;
+  height: 100%;
+}
+
+.document {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  padding: 5px 30px;
+  border-radius: 0;
+  background: rgba(20, 19, 24, 0.9);
+  color: #ccc;
+  z-index: 10;
+  transition: all 0.5s;
+
+  button,
+  a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--text-a);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+
+    :global {
+      animation: fade-appear 0.3s;
+    }
+
+    &:hover {
+      color: var(--inside-accent-color);
+      background: var(--accent-color-active);
+    }
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input {
+      width: 50px;
+      font-size: calc(15px * var(--text-scale));
+      text-align: center;
+      background: transparent;
+      color: #ccc;
+    }
+  }
+
+  .viewing {
+    color: #ccc;
+  }
+
+  .zoomControls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 765px) {
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    .viewing {
+      display: none;
+    }
+
+    .zoomControls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 5px;
+      border-radius: 10px;
+      color: gray;
+      background: rgba(20, 19, 24, 0.9);
+
+      button {
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+}

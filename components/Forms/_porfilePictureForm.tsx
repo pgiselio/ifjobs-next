@@ -10,14 +10,12 @@ import styled from "../../styles/_Pages/sys/settings-conta.module.scss";
 import { Button } from "../General/button";
 import { useProfilePic } from "../../hooks/useProfilePic";
 import { useAlertDialog } from "../../hooks/useAlertDialog";
-import { IContext } from "../../contexts/AuthContext/types";
 
 export const useProfilePictureActions = () => {
   const auth = useAuth();
   const emptyImage =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=";
   const emptyImageBlobfied = useRef<any>("");
-  const [isEmptyImage, setIsEmptyImage] = useState(false);
   useEffect(() => {
     const parseImages = async () => {
       await (await fetch(emptyImage))
@@ -57,9 +55,9 @@ export const useProfilePictureActions = () => {
 
 export function ProfilePictureForm({
   closeModal,
-}: {
+}: Readonly<{
   closeModal?: () => void;
-}) {
+}>) {
   const auth = useAuth();
   const alert = useAlertDialog();
   const ppActions = useProfilePictureActions();
@@ -93,7 +91,7 @@ export function ProfilePictureForm({
     } else {
       setIsEmptyImage(false);
     }
-  });
+  }, [actualProfilePic]);
   const avatarRef = useRef<AvatarEditor>(null);
   const { getRootProps, getInputProps, open } = useDropzone({
     accept: {
@@ -107,7 +105,7 @@ export function ProfilePictureForm({
       setRotate(0);
       setZoom(1);
     },
-    onDropRejected: (rejectedFiles) => {
+    onDropRejected: () => {
       toast.error("Arquivo não suportado!");
     },
   });
@@ -127,7 +125,6 @@ export function ProfilePictureForm({
       .then((response) => {
         if (response.status === 200) {
           toast.success("Foto de perfil enviada com sucesso!");
-          // queryClient.invalidateQueries({queryKey: ["profilePic-" + auth.userInfo?.id]});
           queryClient.setQueryData(["profilePic-" + auth.userInfo?.id], file);
         }
       })
@@ -168,8 +165,7 @@ export function ProfilePictureForm({
             width={200}
             height={200}
             borderRadius={100}
-            rotate={rotate}
-          />
+            rotate={rotate}></AvatarEditor>
         </div>
         <input {...getInputProps()} />
       </div>

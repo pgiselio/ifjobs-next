@@ -6,21 +6,21 @@ import {
   BoxContent,
   BoxMessage,
   BoxTitle,
-} from "../../../components/General/box";
-import { Button } from "../../../components/General/button";
-import CircularProgressFluent from "../../../components/General/circular-progress-fluent";
-import LabelWithData from "../../../components/General/label-data";
-import { ProfilePic } from "../../../components/SystemLayout/profile-pic/profile-pic";
-import { useAuth } from "../../../hooks/useAuth";
-import { api } from "../../../services/api";
-import { User } from "../../../types/user";
-import { cnpjMask } from "../../../utils/cnpjMask";
-import { isBlank } from "../../../utils/isBlank";
-import Error404 from "../../404";
+} from "../../../../components/General/box";
+import { Button } from "../../../../components/General/button";
+import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
+import LabelWithData from "../../../../components/General/label-data";
+import { ProfilePic } from "../../../../components/SystemLayout/profile-pic/profile-pic";
+import { useAuth } from "../../../../hooks/useAuth";
+import { api } from "../../../../services/api";
+import { User } from "../../../../types/user";
+import { cnpjMask } from "../../../../utils/cnpjMask";
+import { isBlank } from "../../../../utils/isBlank";
+import Error404 from "../../../404";
 import styled from "./profiles.module.scss";
-import { SystemLayout } from "../../../components/Layouts/_sysLayout";
+import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 import Skeleton from "react-loading-skeleton";
-import { dateFormatter } from "../../../utils/dateFormatter";
+import { dateFormatter } from "../../../../utils/dateFormatter";
 import { useState } from "react";
 
 export default function ProfilePage() {
@@ -115,7 +115,7 @@ export default function ProfilePage() {
             )}
             {usertype === "ALUNO" && (
               <Link
-                href={`/download/curriculo/${data?.aluno?.curriculo}`}
+                href={`${data?.id}/curriculo/`}
                 passHref
               >
                 <Button className="outlined" tabIndex={-1}>

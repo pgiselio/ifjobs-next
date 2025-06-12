@@ -28,6 +28,7 @@
           max-width: 400px;
           text-overflow: ellipsis;
           overflow: hidden;
+          word-break: break-word;
         }
         .file-size {
           color: var(--text-b);
@@ -74,8 +75,8 @@
   .group-buttons {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
-    
   }
 }
 .profilePicFormStyle {
