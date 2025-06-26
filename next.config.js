@@ -22,6 +22,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    minimumCacheTTL: 60, // 1 minute
     // unoptimized: true, // Disable Next.js image optimization
   },
 };
