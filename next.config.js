@@ -12,7 +12,15 @@ const nextConfig = {
     scrollRestoration: true,
   },
   images: {
-    unoptimized: true, // Disable Next.js image optimization
+    remotePatterns: [
+      {
+        protocol: process.env.NEXT_PUBLIC_API_URL.split("://")[0],
+        hostname: process.env.NEXT_PUBLIC_API_URL.split("://")[1].split(":")[0],
+        port:  process.env.NEXT_PUBLIC_API_URL.split("://")[1].split("/")[0].split(":")[1] || "",
+        pathname: "/**",
+      },
+    ],
+    // unoptimized: true, // Disable Next.js image optimization
   },
 };
 module.exports = nextConfig;
