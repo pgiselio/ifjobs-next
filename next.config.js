@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const API_URL = new URL(process.env.NEXT_PUBLIC_API_URL);
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -13,10 +15,10 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: process.env.NEXT_PUBLIC_API_URL.split("://")[0],
-        hostname: process.env.NEXT_PUBLIC_API_URL.split("://")[1].split(":")[0],
-        port:  process.env.NEXT_PUBLIC_API_URL.split("://")[1].split("/")[0].split(":")[1] || "",
+      { 
+        protocol: API_URL.protocol.split(":")[0],
+        hostname: API_URL.hostname,
+        port:  API_URL.port || "",
         pathname: "/**",
       },
     ],
