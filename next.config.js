@@ -11,5 +11,8 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  images: {
+    unoptimized: true, // Disable Next.js image optimization
+  },
 };
 module.exports = nextConfig;

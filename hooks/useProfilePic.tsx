@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../services/api";
-import { b64toBlob } from "../utils/getProfilePic";
 
 type photoQueryType = {
   id: string;
@@ -10,6 +9,7 @@ type photoQueryType = {
     dados: string;
   };
 };
+
 export const useProfilePic = ({userId, enabled = true}:{userId: string | number | undefined, enabled ?: boolean}) => {
   const query = useQuery({
     queryKey: ["profilePic-" + userId],
@@ -17,17 +17,15 @@ export const useProfilePic = ({userId, enabled = true}:{userId: string | number 
       if (!userId || userId === "undefined" || typeof userId === "undefined") {
         return;
       }
-      const response = await api.get<photoQueryType>(
-        `/imagem/fotoPerfil/${userId}`
-      );
+      const response = await api.get(
+        `/imagem/fotoPerfil/${userId}`, { responseType: 'arraybuffer' });
       if (response.data) {
-        const blob = b64toBlob(response.data?.arquivo.dados, "image/png");
-        const url = URL.createObjectURL(blob);
-        return url;
+        return response.request.responseURL
       }
       return null;
     },
     enabled: !!userId && enabled,
+    retry: 0,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 30, // 30 seconds
   });
