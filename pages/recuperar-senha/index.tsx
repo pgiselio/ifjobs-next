@@ -21,9 +21,9 @@ export default function PasswordResetPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useRouter();
-  const paramsToken = searchParams.get("token");
-
+ 
   useEffect(() => {
+    const paramsToken = searchParams.get("token");
     if (paramsToken) {
       let paramsTokensSplitted = paramsToken.split(".");
       let tokenBuffer = Buffer.from(
@@ -37,7 +37,7 @@ export default function PasswordResetPage() {
       }
       setToken(paramsToken);
     }
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()

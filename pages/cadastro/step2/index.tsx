@@ -16,54 +16,43 @@ VerifiqueOSeuEmailPage.theme = "light";
 export default function VerifiqueOSeuEmailPage() {
   const [isLoading, setIsLoading] = useState(false);
 
-  let router = useRouter();
+  const router = useRouter();
   const params = router.query;
   const [email, setEmail] = useState<string>(params?.email?.toString() || "");
-  const [codeParam, setcodeParam] = useState<string>(
+  const [codeParam, setCodeParam] = useState<string>(
     params.codigo?.toString() || ""
   );
   const [codeFromInput, setCodeFromInput] = useState<string>(
-    codeParam?.toString() || ""
+    codeParam || ""
   );
   const cadastroSteps = useCadastroSteps();
   const { handleSubmit } = useForm({});
 
   useEffect(() => {
-    if (
-      email === "" &&
-      (cadastroSteps.email === undefined || cadastroSteps.email === "")
-    )
-      setEmail(params.email?.toString() || "");
+    if (router.isReady) {
+      if (email === "" && params?.email) {
+        setEmail(params.email.toString());
+      }
 
-    if (codeParam === "") setcodeParam(params.codigo?.toString() || "");
-    else setCodeFromInput(codeParam);
+      if (codeParam === "" && params?.codigo) {
+        setCodeParam(params.codigo.toString());
+        setCodeFromInput(params.codigo.toString());
+      }
+    }
+  }, [router.isReady, params]);
 
+  useEffect(() => {
     if (cadastroSteps.step === 3) {
-      cadastroSteps.setVerificationCode(
-        codeParam?.toString().length === 6
-          ? codeParam?.toString()
-          : codeFromInput
-      );
+      cadastroSteps.setVerificationCode(codeFromInput);
       cadastroSteps.setEmail(email);
       router.push("step3");
     }
-  });
+  }, [cadastroSteps.step]);
   useEffect(() => {
     if (cadastroSteps.step < 2) {
       cadastroSteps.setStep(2);
     }
-  });
-  useEffect(() => {
-    if (codeParam?.length === 6 && email) {
-      setCodeFromInput(codeParam);
-      handleSubmit(onSubmit)();
-    }
-  }, []);
-
-  const thenAxios = (response: any) => {
-    cadastroSteps.setToken(response.data);
-    cadastroSteps.setStep(3);
-  };
+  }, [cadastroSteps]);
   async function onSubmit() {
     if (isLoading) return;
     if (!email) {
@@ -78,16 +67,30 @@ export default function VerifiqueOSeuEmailPage() {
         }`
       )
       .then((response) => {
-        console.log(response.data);
-        thenAxios(response);
+        cadastroSteps.setToken(response.data);
+        cadastroSteps.setStep(3);
       })
       .catch((e) => {
-        console.error(e);
-        toast.error("Codigo inválido!");
-        router.query.codigo = undefined;
+        console.error("Verification code validation failed:", e);
+        toast.error("Código inválido!");
+        const { codigo, ...restQuery } = router.query || {};
+        router.replace(
+          {
+            pathname: router.pathname,
+            query: restQuery,
+          },
+          undefined,
+          { shallow: true }
+        );
       })
       .finally(() => setIsLoading(false));
   }
+
+  useEffect(() => {
+    if (codeParam?.length === 6 && email && !isLoading) {
+      onSubmit();
+    }
+  }, [codeParam, email, isLoading]);
 
   return (
     <CadastroLayout>

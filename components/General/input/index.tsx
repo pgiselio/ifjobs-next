@@ -44,6 +44,7 @@ export const Input = forwardRef(function Input(
     <div className={styled.inputContainer}>
       <input
         ref={ref}
+        id={id}
         type={inputType}
         name={name}
         className={`${className ?? ""} ${styled.inputStyled}`.trim()}

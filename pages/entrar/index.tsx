@@ -38,9 +38,10 @@ function LoginPage() {
     navigate.push("/sys");
   }
 
-  const paramsError = searchParams.getAll("error");
+  
   useEffect(() => {
     if (searchParams.has("error")) {
+      const paramsError = searchParams.getAll("error");
       paramsError.forEach((error) => {
         switch (error) {
           case "needsLogin":

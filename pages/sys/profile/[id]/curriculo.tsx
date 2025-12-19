@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/router";
-import { useEffect, useState, useCallback, use, useMemo, memo } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { api } from "../../../../services/api";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -17,6 +17,34 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "../../../../node_modules/pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
 ).toString();
+
+type CurriculoDocumentProps = {
+  url: string;
+  onLoadSuccess: ({ numPages }: { numPages: number }) => void;
+  pageNumber: number;
+  scale: number;
+};
+
+const CurriculoDocument = memo(function CurriculoDocument({
+  url,
+  onLoadSuccess,
+  pageNumber,
+  scale,
+}: CurriculoDocumentProps) {
+  return (
+    <div className={styled.document}>
+      <Document
+        file={url}
+        onLoadSuccess={onLoadSuccess}
+        loading="Carregando visualização..."
+        error="Falha ao carregar o arquivo (você ainda pode tentar baixá-lo)"
+        noData="Nenhum arquivo PDF especificado."
+      >
+        <Page pageNumber={pageNumber} loading="Carregando..." scale={scale} />
+      </Document>
+    </div>
+  );
+});
 
 export default function DownloadCurriculoPage() {
   const [curriculo, setCurriculo] = useState<Blob | null>(null);
@@ -56,7 +84,7 @@ export default function DownloadCurriculoPage() {
     if (!isFetching && !data?.aluno) {
       setHasError(new Error("Este tipo de usuário não possui currículo."));
     }
-  }, [data]);
+  }, [data, isFetching]);
 
   useEffect(() => {
     const alertStatus = sessionStorage.getItem("CurriculoDownloadAlertDismiss");
@@ -117,6 +145,16 @@ export default function DownloadCurriculoPage() {
     []
   );
 
+  const url = useMemo(
+    () => (curriculo ? URL.createObjectURL(curriculo) : null),
+    [curriculo]
+  );
+
+  useEffect(() => {
+    if (!url) return;
+    return () => URL.revokeObjectURL(url);
+  }, [url]);
+
   if (!curriculo && !hasError) {
     return (
       <>
@@ -165,22 +203,10 @@ export default function DownloadCurriculoPage() {
 
   if (!curriculo) return null;
 
+  if (!url) return null;
+
   const nomeAbreviado = getNomeAbreviado(data?.aluno?.dadosPessoa?.nome || "");
   const fileName = `[${id}] ${nomeAbreviado}.pdf`;
-  const url = URL.createObjectURL(curriculo);
-  const MemoizedCurriculo = memo (() => (
-    <div className={styled.document}>
-          <Document
-            file={url}
-            onLoadSuccess={onDocumentLoadSuccess}
-            loading="Carregando visualização..."
-            error="Falha ao carregar o arquivo (você ainda pode tentar baixá-lo)"
-            noData="Nenhum arquivo PDF especificado."
-          >
-            <Page pageNumber={pageNumber} loading="Carregando..." scale={scale} />
-          </Document>
-        </div>
-  ));
 
   return (
     <>
@@ -274,7 +300,12 @@ export default function DownloadCurriculoPage() {
             </div>
           </div>
         </div>
-        <MemoizedCurriculo/>
+        <CurriculoDocument
+          url={url}
+          onLoadSuccess={onDocumentLoadSuccess}
+          pageNumber={pageNumber}
+          scale={scale}
+        />
       </main>
     </>
   );

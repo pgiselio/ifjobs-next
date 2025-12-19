@@ -30,14 +30,11 @@ export default function ProfilePage() {
   let usertype;
   const auth = useAuth();
   const [notFound, setNotFound] = useState(false);
-  if (!id) {
-    return <Error404 message="Perfil não encontrado!" />;
-  }
   const userId = Array.isArray(id) ? id[0] : id;
   const user = useUser(userId);
   const { data, isFetching } = user.query;
 
-  if (!data && !isFetching && id) {
+  if (!id || (!data && !isFetching)) {
     return <Error404 message="Perfil não encontrado!" />;
   }
 

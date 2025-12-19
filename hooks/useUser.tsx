@@ -4,7 +4,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { User } from "../types/user";
 import { use } from "react";
 
-export const useUser = (id: number | string) => {
+export const useUser = (id: number | string | undefined) => {
   const queryClient = useQueryClient();
   const invalidateQueries = (userId?: number | string | string[]) => {
     queryClient.invalidateQueries({ queryKey: ["user-" + userId] });
