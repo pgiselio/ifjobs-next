@@ -13,8 +13,12 @@ import Skeleton from "react-loading-skeleton";
 import { useVagas } from "../../../../hooks/useVagas";
 import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 import { getNomeAbreviado } from "../../../../utils/getNomeAbreviado";
+import { useAuth } from "../../../../hooks/useAuth";
 
-async function baixarCurriculosSelecionados(checkedList: number[], userQueries: any[]) {
+async function baixarCurriculosSelecionados(
+  checkedList: number[],
+  userQueries: any[]
+) {
   for (const idx of checkedList) {
     const userId = userQueries[idx]?.data?.id;
     const curriculoId = userQueries[idx]?.data?.aluno?.curriculo;
@@ -24,12 +28,14 @@ async function baixarCurriculosSelecionados(checkedList: number[], userQueries: 
       const response = await api.get(`/curriculo/download/${curriculoId}`, {
         responseType: "blob",
       });
-      const blob = new Blob([response.data], { type: response.headers["content-type"] });
+      const blob = new Blob([response.data], {
+        type: response.headers["content-type"],
+      });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
-      
+
       const nomeAbreviado = getNomeAbreviado(nome);
-      
+
       a.href = url;
       a.download = `[${userId}] ${nomeAbreviado}.pdf`;
       document.body.appendChild(a);
@@ -43,6 +49,8 @@ async function baixarCurriculosSelecionados(checkedList: number[], userQueries: 
 }
 
 export default function VagaCandidatoPage() {
+  const auth = useAuth();
+  const isAluno = auth?.authorities?.includes("ALUNO");
   const router = useRouter();
   const vagas = useVagas();
   const params = router.query;
@@ -111,37 +119,38 @@ export default function VagaCandidatoPage() {
                       id="candidato-checkall"
                       onChange={() =>
                         setCheckedList(
-                          allChecked
-                            ? []
-                            : data.alunos.map((_, idx) => idx)
+                          allChecked ? [] : data.alunos.map((_, idx) => idx)
                         )
                       }
                       checked={allChecked}
                     />
-                    <label htmlFor="candidato-checkall">
-                      Selecionar tudo
-                    </label>
+                    <label htmlFor="candidato-checkall">Selecionar tudo</label>
                   </span>
                 </>
               )}
-              <Button
-                className="less-radius secondary"
-                onClick={() => {
-                  setSelectionMode(!selectionMode);
-                  if (selectionMode) {
-                    setCheckedList([]);
-                  }
-                }}
-              >
-                {selectionMode ? "Cancelar seleção" : "Selecionar candidatos"}
-              </Button>
+
+              {!isAluno && (
+                <Button
+                  className="less-radius secondary"
+                  onClick={() => {
+                    setSelectionMode(!selectionMode);
+                    if (selectionMode) {
+                      setCheckedList([]);
+                    }
+                  }}
+                >
+                  {selectionMode ? "Cancelar seleção" : "Selecionar candidatos"}
+                </Button>
+              )}
             </div>
           </BoxTitle>
           <span>
             <ul
               className={
                 "lista-candidatos" +
-                (checkedList.length > 0 || selectionMode ? " selection-mode" : "")
+                (checkedList.length > 0 || selectionMode
+                  ? " selection-mode"
+                  : "")
               }
             >
               {userQueries.length > 0 ? (
@@ -150,9 +159,6 @@ export default function VagaCandidatoPage() {
                   const nome = candidato.data?.aluno?.dadosPessoa.nome;
                   const email = candidato.data?.email;
                   const checked = checkedList.includes(index);
-                  console.log(
-                    `Candidato ${nome} (${index}) - Carregando: ${candidato.isLoading}`
-                  );
                   const candidatoData =
                     !candidato || candidato.isLoading ? (
                       <>
@@ -161,9 +167,11 @@ export default function VagaCandidatoPage() {
                           <h3>
                             <Skeleton width={150} />
                           </h3>
-                          <span>
-                            <Skeleton width={100} />
-                          </span>
+                          {!isAluno && (
+                            <span>
+                              <Skeleton width={100} />
+                            </span>
+                          )}
                         </div>
                       </>
                     ) : (
@@ -171,7 +179,7 @@ export default function VagaCandidatoPage() {
                         <ProfilePic userId={userId} className="candidato-pic" />
                         <div className="candidato-info">
                           <h3>{nome}</h3>
-                          <span>{email}</span>
+                          {!isAluno && <span>{email}</span>}
                         </div>
                       </>
                     );
@@ -234,6 +242,7 @@ export default function VagaCandidatoPage() {
                   Carregando...
                 </p>
               )}
+              {!isAluno && (
               <div className="lista-candidatos-actions">
                 <p className="selected-counter">
                   {checkedList.length}/{data.alunos.length} selecionados
@@ -242,13 +251,17 @@ export default function VagaCandidatoPage() {
                   className="less-radius"
                   disabled={checkedList.length === 0}
                   onClick={async () => {
-                    await baixarCurriculosSelecionados(checkedList, userQueries);
+                    await baixarCurriculosSelecionados(
+                      checkedList,
+                      userQueries
+                    );
                   }}
                   style={!selectionMode ? { opacity: "0" } : undefined}
                 >
                   Baixar currículos
                 </Button>
               </div>
+              )}
             </ul>
           </span>
         </>

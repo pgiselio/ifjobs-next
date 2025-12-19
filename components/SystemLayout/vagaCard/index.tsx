@@ -71,9 +71,6 @@ export function VagaCard({ vaga }: vagaObj) {
             <i className="fas fa-user"></i>
             <span>
               {vaga.alunos.length}
-              {vaga.alunos.length > 1 || vaga.alunos.length === 0
-                ? " Candidatos"
-                : " Candidato"}
             </span>
 
           </Link>

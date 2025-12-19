@@ -101,9 +101,15 @@ body.remove-transbar .three-bars-btn *{
 }
 
 footer {
-  height: 400px;
-  margin-top: 50px;
-  background: var(--navs-bg);
+  margin: 50px;
+  padding: 20px;
+  border-top: 1px solid;
+  border-color: var(--navs-border);
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-secondary);
 }
   
 

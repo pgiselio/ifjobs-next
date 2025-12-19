@@ -15,7 +15,10 @@ import { queryClient } from "../../../../services/queryClient";
 import { CurriculoForm } from "../../../../components/Forms/_curriculoForm";
 import { isBlank } from "../../../../utils/isBlank";
 import { Modal } from "../../../../components/General/modal";
-import { ProfilePictureForm, useProfilePictureActions } from "../../../../components/Forms/_porfilePictureForm";
+import {
+  ProfilePictureForm,
+  useProfilePictureActions,
+} from "../../../../components/Forms/_porfilePictureForm";
 import { Button } from "../../../../components/General/button";
 import { ModalBottom } from "../../../../components/General/modal";
 import {
@@ -299,12 +302,9 @@ export default function SettingContaPage() {
                 data-reach-accordion-button
                 className="autohide-sub"
               >
-                <h4>Informações Básicas</h4>
+                <h4><i className="fas fa-user"></i> &nbsp;Informações Básicas</h4>
                 <span className="subtitle">
-                  Nome de exibição
-                  {auth?.authorities?.includes("ALUNO")
-                    ? ", Localização, Curso e Período"
-                    : " e Localização"}
+                  Nome de exibição e Localização
                 </span>
               </Accordion.Trigger>
               <Accordion.Content data-reach-accordion-panel>
@@ -323,64 +323,6 @@ export default function SettingContaPage() {
                   />
                 </div>
 
-                {auth?.authorities?.includes("ALUNO") && (
-                  <>
-                    <div className="lbl">
-                      <label htmlFor="change-courses">Curso: </label>
-                      <Controller
-                        name={"aluno.curso"}
-                        control={control}
-                        render={({
-                          field: { value, onChange, onBlur, ref },
-                        }) => {
-                          return (
-                            <Select
-                              unstyled
-                              classNamePrefix="Select"
-                              noOptionsMessage={() => "Não encontrado"}
-                              ref={ref}
-                              inputId="change-courses"
-                              options={CursosSelectOptions}
-                              placeholder="Selecione um curso"
-                              onChange={(option: any) =>
-                                onChange(option?.value)
-                              }
-                              onBlur={onBlur}
-                              value={CursosSelectOptions.filter((option) =>
-                                value?.includes(option.value)
-                              )}
-                              defaultValue={CursosSelectOptions.filter(
-                                (option) => value?.includes(option.value)
-                              )}
-                              className={`${
-                                errors.aluno?.curso?.message && "danger"
-                              }`}
-                            />
-                          );
-                        }}
-                      />
-                    </div>
-                    <div className="lbl" style={{ maxWidth: "70px" }}>
-                      <label htmlFor="periodo">Período</label>
-                      <Controller
-                        name="aluno.periodo"
-                        control={control}
-                        render={({ field }) => (
-                          <Input
-                            type="number"
-                            min={1}
-                            id="periodo"
-                            style={{ textAlign: "center" }}
-                            {...field}
-                            {...(errors.aluno?.periodo && {
-                              className: "danger",
-                            })}
-                          />
-                        )}
-                      />
-                    </div>
-                  </>
-                )}
                 <div className="input-group">
                   <div className="lbl">
                     <label htmlFor="estado">Estado: </label>
@@ -431,6 +373,71 @@ export default function SettingContaPage() {
                 </div>
               </Accordion.Content>
             </Accordion.Item>
+            {auth?.authorities?.includes("ALUNO") && (
+              <Accordion.Item data-reach-accordion-item value="education-info">
+                <Accordion.Trigger
+                  data-reach-accordion-button
+                  className="autohide-sub"
+                >
+                  <h4><i className="fas fa-graduation-cap"></i> &nbsp;Formação</h4>
+                  <span className="subtitle">
+                    Curso e Período
+                  </span>
+                </Accordion.Trigger>
+                <Accordion.Content data-reach-accordion-panel>
+                  <div className="lbl">
+                    <label htmlFor="change-courses">Curso: </label>
+                    <Controller
+                      name={"aluno.curso"}
+                      control={control}
+                      render={({ field: { value, onChange, onBlur, ref } }) => {
+                        return (
+                          <Select
+                            unstyled
+                            classNamePrefix="Select"
+                            noOptionsMessage={() => "Não encontrado"}
+                            ref={ref}
+                            inputId="change-courses"
+                            options={CursosSelectOptions}
+                            placeholder="Selecione um curso"
+                            onChange={(option: any) => onChange(option?.value)}
+                            onBlur={onBlur}
+                            value={CursosSelectOptions.filter((option) =>
+                              value?.includes(option.value)
+                            )}
+                            defaultValue={CursosSelectOptions.filter((option) =>
+                              value?.includes(option.value)
+                            )}
+                            className={`${
+                              errors.aluno?.curso?.message && "danger"
+                            }`}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+                  <div className="lbl" style={{ maxWidth: "70px" }}>
+                    <label htmlFor="periodo">Período</label>
+                    <Controller
+                      name="aluno.periodo"
+                      control={control}
+                      render={({ field }) => (
+                        <Input
+                          type="number"
+                          min={1}
+                          id="periodo"
+                          style={{ textAlign: "center" }}
+                          {...field}
+                          {...(errors.aluno?.periodo && {
+                            className: "danger",
+                          })}
+                        />
+                      )}
+                    />
+                  </div>
+                </Accordion.Content>
+              </Accordion.Item>
+            )}
 
             <Accordion.Item data-reach-accordion-item value="about">
               <Accordion.Trigger
@@ -654,4 +661,8 @@ export default function SettingContaPage() {
   );
 }
 
-SettingContaPage.getLayout = (page: any) => <SystemLayout><SettingsLayout headerTitle="Perfil">{page}</SettingsLayout></SystemLayout>;
+SettingContaPage.getLayout = (page: any) => (
+  <SystemLayout>
+    <SettingsLayout headerTitle="Perfil">{page}</SettingsLayout>
+  </SystemLayout>
+);

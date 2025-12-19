@@ -22,6 +22,7 @@ import { SystemLayout } from "../../../../components/Layouts/_sysLayout";
 import Skeleton from "react-loading-skeleton";
 import { dateFormatter } from "../../../../utils/dateFormatter";
 import { useState } from "react";
+import { useUser } from "../../../../hooks/useUser";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -29,23 +30,20 @@ export default function ProfilePage() {
   let usertype;
   const auth = useAuth();
   const [notFound, setNotFound] = useState(false);
-  const { data, isFetching } = useQuery<User>({
-    queryKey: ["profile-" + id],
-    queryFn: async () => {
-      const response = await api.get(`/usuario/${id}`).catch((err) => {
-        if (err.response?.status === 404 || err.response?.status === 400)
-          setNotFound(true);
-      });
-      return response?.data || null;
-    },
-    staleTime: 1000 * 60 * 2, // 2 minutes
-    enabled: !!id && !notFound,
-    retry: 1,
-  });
+  if (!id) {
+    return <Error404 message="Perfil não encontrado!" />;
+  }
+  const userId = Array.isArray(id) ? id[0] : id;
+  const user = useUser(userId);
+  const { data, isFetching } = user.query;
 
   if (!data && !isFetching && id) {
     return <Error404 message="Perfil não encontrado!" />;
   }
+
+  const isPersonalProfile = auth?.email === data?.email;
+  const loggedInIsAluno = auth?.authorities?.includes("ALUNO");
+
   if (data?.aluno) {
     usertype = "ALUNO";
   } else if (data?.empresa) {
@@ -53,6 +51,7 @@ export default function ProfilePage() {
   } else {
     usertype = "ADMIN";
   }
+
   return (
     <section className={styled.profilePageStyle}>
       <div className={styled["header"]}>
@@ -84,40 +83,31 @@ export default function ProfilePage() {
               ) : (
                 <>
                   <h2>
-                    {usertype === "ALUNO"
-                      ? data?.aluno?.dadosPessoa.nome
-                      : usertype === "EMPRESA"
-                      ? data?.empresa?.dadosPessoa.nome
-                      : data?.email}
+                    {usertype === "ALUNO" || usertype === "EMPRESA"
+                      ? user.nome
+                      : user.email}
                   </h2>
                   <span>
-                    {usertype === "ALUNO"
-                      ? data?.email
-                      : data?.empresa?.dadosPessoa
-                      ? cnpjMask(data?.empresa?.cnpj)
-                      : data?.email}
+                    {user.getCNPJ() ? cnpjMask(user.getCNPJ() as string) : null}
+                    {(user.email && !user.cnpj && (!loggedInIsAluno || isPersonalProfile)) && user.email}
                   </span>
                 </>
               )}
             </div>
           </div>
           <div className={styled["user-actions"]}>
-            {data?.email === auth.email && (
+            {isPersonalProfile && (
               <>
                 <Link href="/sys/settings/profile" passHref>
                   <Button tabIndex={-1}>
                     <i className="fas fa-pencil-alt"></i>
-
                     <span>Editar perfil</span>
                   </Button>
                 </Link>
               </>
             )}
-            {usertype === "ALUNO" && (
-              <Link
-                href={`${data?.id}/curriculo/`}
-                passHref
-              >
+            {usertype === "ALUNO" && loggedInIsAluno && isPersonalProfile && (
+              <Link href={`${data?.id}/curriculo/`} passHref>
                 <Button className="outlined" tabIndex={-1}>
                   Vizualizar currículo
                 </Button>
@@ -148,20 +138,16 @@ export default function ProfilePage() {
         <div className="content">
           <section className={styled["info"]}>
             <div className={styled["labelDatas"]}>
-              {data?.aluno?.dadosPessoa && (
+              {user.getDataNasc() !== null && (isPersonalProfile || !loggedInIsAluno) && (
                 <LabelWithData
-                  data={dateFormatter(data?.aluno?.dadosPessoa.dataNasc)}
+                  data={user.dataNasc ? dateFormatter(user.dataNasc) : ""}
                   label="Data de Nascimento:"
                   icon="fas fa-calendar-day"
                 />
               )}
               {usertype !== "ADMIN" && (
                 <LabelWithData
-                  data={
-                    usertype === "ALUNO"
-                      ? data?.aluno?.dadosPessoa.localizacao
-                      : data?.empresa?.dadosPessoa.localizacao
-                  }
+                  data={user.localizacao ?? user.localizacao}
                   label="Localização:"
                   icon="fas fa-map-marker-alt"
                 />
@@ -172,10 +158,10 @@ export default function ProfilePage() {
                   data={
                     <>
                       <span style={{ textTransform: "capitalize" }}>
-                        {data?.aluno?.curso.toLocaleLowerCase()}{" "}
+                        {user.curso?.toLocaleLowerCase()}{" "}
                       </span>
                       <span title="Período do curso">
-                        <span>{data?.aluno?.periodo}º P</span>
+                        <span>{user.periodo}º P</span>
                       </span>
                     </>
                   }
@@ -186,6 +172,7 @@ export default function ProfilePage() {
             </div>
           </section>
           {usertype === "ALUNO" && (
+            <>
             <Box>
               <BoxTitle>
                 <h3>Sobre</h3>
@@ -203,6 +190,7 @@ export default function ProfilePage() {
                 </BoxMessage>
               )}
             </Box>
+            </>
           )}
           {usertype === "EMPRESA" && (
             <div className="vaga-columns-2">
@@ -267,68 +255,68 @@ export default function ProfilePage() {
                     !isBlank(data?.empresa?.redesSociais.instagram) ||
                     !isBlank(data?.empresa?.redesSociais.twitter)) && (
                     <Box>
-                        <ul className={styled["social-info"]}>
-                          {!isBlank(data?.empresa?.redesSociais.linkedin) && (
-                            <li>
-                              <a
-                                href={`https://www.linkedin.com/company/${data?.empresa?.redesSociais.linkedin}`}
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                <i
-                                  style={{ color: "#0a66c2" }}
-                                  className="fab fa-linkedin"
-                                ></i>
-                                <span>LinkedIn</span>
-                              </a>
-                            </li>
-                          )}
-                          {!isBlank(data?.empresa?.redesSociais.facebook) && (
-                            <li>
-                              <a
-                                href={`https://www.facebook.com/${data?.empresa?.redesSociais.facebook}`}
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                <i
-                                  style={{ color: "#2374E1" }}
-                                  className="fab fa-facebook"
-                                ></i>
-                                <span>Facebook</span>
-                              </a>
-                            </li>
-                          )}
-                          {!isBlank(data?.empresa?.redesSociais.instagram) && (
-                            <li>
-                              <a
-                                href={`https://www.instagram.com/${data?.empresa?.redesSociais.instagram}`}
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                <i
-                                  style={{ color: "deeppink" }}
-                                  className="fab fa-instagram"
-                                ></i>
-                                <span>Instagram</span>
-                              </a>
-                            </li>
-                          )}
-                          {!isBlank(data?.empresa?.redesSociais.twitter) && (
-                            <li>
-                              <a
-                                href={`https://www.twitter.com/${data?.empresa?.redesSociais.twitter}`}
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                <i
-                                  style={{ color: "#05bcbc" }}
-                                  className="fab fa-twitter"
-                                ></i>
-                                <span>X/Twitter</span>
-                              </a>
-                            </li>
-                          )}
-                        </ul>
+                      <ul className={styled["social-info"]}>
+                        {!isBlank(data?.empresa?.redesSociais.linkedin) && (
+                          <li>
+                            <a
+                              href={`https://www.linkedin.com/company/${data?.empresa?.redesSociais.linkedin}`}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <i
+                                style={{ color: "#0a66c2" }}
+                                className="fab fa-linkedin"
+                              ></i>
+                              <span>LinkedIn</span>
+                            </a>
+                          </li>
+                        )}
+                        {!isBlank(data?.empresa?.redesSociais.facebook) && (
+                          <li>
+                            <a
+                              href={`https://www.facebook.com/${data?.empresa?.redesSociais.facebook}`}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <i
+                                style={{ color: "#2374E1" }}
+                                className="fab fa-facebook"
+                              ></i>
+                              <span>Facebook</span>
+                            </a>
+                          </li>
+                        )}
+                        {!isBlank(data?.empresa?.redesSociais.instagram) && (
+                          <li>
+                            <a
+                              href={`https://www.instagram.com/${data?.empresa?.redesSociais.instagram}`}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <i
+                                style={{ color: "deeppink" }}
+                                className="fab fa-instagram"
+                              ></i>
+                              <span>Instagram</span>
+                            </a>
+                          </li>
+                        )}
+                        {!isBlank(data?.empresa?.redesSociais.twitter) && (
+                          <li>
+                            <a
+                              href={`https://www.twitter.com/${data?.empresa?.redesSociais.twitter}`}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              <i
+                                style={{ color: "#05bcbc" }}
+                                className="fab fa-twitter"
+                              ></i>
+                              <span>X/Twitter</span>
+                            </a>
+                          </li>
+                        )}
+                      </ul>
                     </Box>
                   )}
               </div>

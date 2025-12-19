@@ -20,6 +20,7 @@ export const Input = forwardRef(function Input(
     isLabelholder = true,
     style,
     className,
+    id = `input-${name}`,
     ...props
   }: InputProps,
   ref: ForwardedRef<HTMLInputElement>
@@ -27,6 +28,7 @@ export const Input = forwardRef(function Input(
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
   const inputType = isPassword && showPassword ? "text" : type;
+  const labelId = `input-${name}`;
 
   const computedStyle: React.CSSProperties = {
     ...style,
@@ -52,11 +54,12 @@ export const Input = forwardRef(function Input(
       />
       {icon && <i className={icon}></i>}
       {placeholder && (
-        <span
+        <label
           className={`${isLabelholder ? "toLabel" : ""} ${styled.placeholder}`.trim()}
+          htmlFor={id}
         >
           {placeholder}
-        </span>
+        </label>
       )}
       {isPassword && (
         <button

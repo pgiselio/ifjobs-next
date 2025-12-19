@@ -254,13 +254,13 @@
       }
 
       &.active {
-        background-color: var(--accent-color);
-        color: var(--inside-accent-color);
+        background-color: var(--accent-color-opacity);
+        color: var(--accent-color);
         margin-right: 0;
         font-weight: 600;
       }
       &.active i {
-        color: var(--inside-accent-color);
+        color: var(--accent-color);
       }
 
       &.sair:hover i {

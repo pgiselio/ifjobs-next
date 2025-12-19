@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/router";
-import { useEffect, useState, useCallback, use } from "react";
+import { useEffect, useState, useCallback, use, useMemo, memo } from "react";
 import CircularProgressFluent from "../../../../components/General/circular-progress-fluent";
 import { api } from "../../../../services/api";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -168,6 +168,19 @@ export default function DownloadCurriculoPage() {
   const nomeAbreviado = getNomeAbreviado(data?.aluno?.dadosPessoa?.nome || "");
   const fileName = `[${id}] ${nomeAbreviado}.pdf`;
   const url = URL.createObjectURL(curriculo);
+  const MemoizedCurriculo = memo (() => (
+    <div className={styled.document}>
+          <Document
+            file={url}
+            onLoadSuccess={onDocumentLoadSuccess}
+            loading="Carregando visualização..."
+            error="Falha ao carregar o arquivo (você ainda pode tentar baixá-lo)"
+            noData="Nenhum arquivo PDF especificado."
+          >
+            <Page pageNumber={pageNumber} loading="Carregando..." scale={scale} />
+          </Document>
+        </div>
+  ));
 
   return (
     <>
@@ -261,17 +274,7 @@ export default function DownloadCurriculoPage() {
             </div>
           </div>
         </div>
-        <div className={styled.document}>
-          <Document
-            file={url}
-            onLoadSuccess={onDocumentLoadSuccess}
-            loading="Carregando visualização..."
-            error="Falha ao carregar o arquivo (você ainda pode tentar baixá-lo)"
-            noData="Nenhum arquivo PDF especificado."
-          >
-            <Page pageNumber={pageNumber} loading="Carregando..." scale={scale} />
-          </Document>
-        </div>
+        <MemoizedCurriculo/>
       </main>
     </>
   );

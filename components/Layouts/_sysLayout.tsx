@@ -23,7 +23,9 @@ export function SystemLayout({ children }: { children: any }) {
           <div className="main">
             <div className="main-container">
               <main>{children ? children : <HomePage />}</main>
-              <footer></footer>
+              <footer>
+                <p>IFJobs</p>
+              </footer>
             </div>
           </div>
         </div>
