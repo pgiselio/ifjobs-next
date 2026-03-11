@@ -1,11 +1,10 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer, ToastOptions } from "react-toastify";
 import { Button } from "../../components/General/button";
 import { Input } from "../../components/General/input";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import CircularProgressFluent from "../../components/General/circular-progress-fluent";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,6 +13,43 @@ import Head from "next/head";
 import styled from "../../styles/LoginSignupStyle.module.scss";
 import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
 import { useSearchParams } from "next/navigation";
+
+type ToastType = "success" | "error" | "info" | "warning";
+
+interface ToastMessage {
+  type: ToastType;
+  message: string;
+  options?: ToastOptions;
+}
+
+const LISTA_MENSAGENS : Record<string, ToastMessage> = {
+  needsLogin: {
+    message: "Você precisa fazer login primeiro!",
+    type: "error"
+  },
+  invalidCredentials: {
+    message: "Sua sessão expirou, faça login novamente!",
+    type: "error"
+  },
+  needsPasswordReset: {
+    message: "Você precisa resetar sua senha!",
+    type: "error"
+  },
+  checkEmail: {
+    message: "Caso esteja cadastrado, você receberá um e-mail com as instruções para redefinir sua senha.",
+    type: "info",
+    options: { autoClose: 20000 }
+  },
+  invalidResetToken: {
+    message: "O link expirou, tente fazer uma nova solicitação",
+    type: "error"
+  },
+  passwordChanged: {
+    message: "Senha alterada com sucesso!",
+    type: "success",
+    options: { autoClose: false }
+  }
+};
 
 function LoginPage() {
   const auth = useAuth();
@@ -24,7 +60,7 @@ function LoginPage() {
   const { control, formState, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: {
-      email: "jolos.aluno@jolos.com" ,
+      email: "jolos.aluno@jolos.com",
       password: "jolos",
     },
   });
@@ -33,45 +69,22 @@ function LoginPage() {
 
   if (auth?.email) {
     if (searchParams.has("next")) {
-      navigate.push(searchParams.get("next") +"");
+      navigate.push(searchParams.get("next") + "");
     }
     navigate.push("/sys");
   }
 
-  
   useEffect(() => {
-    if (searchParams.has("error")) {
-      const paramsError = searchParams.getAll("error");
-      paramsError.forEach((error) => {
-        switch (error) {
-          case "needsLogin":
-            toast.error("Você precisa fazer login primeiro!", {});
-            break;
-          case "invalidCredentials":
-            toast.error("Sua sessão expirou, faça login novamente!", {});
-            break;
-          case "needsPasswordReset":
-            toast.error("Você precisa resetar sua senha!", {});
-            break;
-          case "checkEmail":
-            toast.info(
-              "Caso esteja cadastrado, você receberá um e-mail com as instruções para redefinir sua senha.",
-              {
-                autoClose: 20000,
-              }
-            );
-            break;
-          case "invalidResetToken":
-            toast.error("O link expirou, tente fazer uma nova solicitação", {});
-            break;
-          case "passwordChanged":
-            toast.success("Senha alterada com sucesso!", {
-              autoClose: false,
-            });
-            break;
-        }
-      });
-    }
+    const paramsError = searchParams.getAll("error");
+
+    paramsError.forEach((error) => {
+      const handler = LISTA_MENSAGENS[error];
+
+      if (handler) {
+        const { message, type, options = {} } = handler;
+        toast[type](message, options);
+      }
+    });
   }, [searchParams]);
 
   async function onSubmit(data: any) {
@@ -90,14 +103,14 @@ function LoginPage() {
 
   return (
     <main className={styled.StyledAccess}>
-      <AccessGlobalStyle/>
+      <AccessGlobalStyle />
       <Head>
         <title>Fazer Login - IFJobs</title>
         <meta name="description" content="Fazer login no sistema do IFJobs" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -172,7 +185,7 @@ function LoginPage() {
               className="less-radius"
               disabled={!formState.isValid || isLoading}
               isLoading={isLoading}
-              isLoadingText='Entrando...'
+              isLoadingText="Entrando..."
             >
               <span>Entrar</span>
             </Button>
