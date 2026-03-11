@@ -141,7 +141,6 @@ export default function SetNewPasswordPage({ token }: { token: string }) {
               />
             </a>
           </div>
-          <p>{token}</p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <h2 className="desc">Recuperar conta</h2>
             <section className="inputs">
