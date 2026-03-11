@@ -1,37 +1,72 @@
 import { Controller, useForm } from "react-hook-form";
 import { toast, ToastContainer } from "react-toastify";
-import { Button } from "../../components/General/button";
-import { Input } from "../../components/General/input";
-import styled from "../../styles/LoginSignupStyle.module.scss";
+import { Button } from "../../../components/General/button";
+import { Input } from "../../../components/General/input";
+import styled from "../../../styles/LoginSignupStyle.module.scss";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
+import { api } from "../../../services/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from 'next';
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { AccessGlobalStyle } from "../../styles/_Pages/Cadastro/AccessGlobalStyle";
+import { AccessGlobalStyle } from "../../../styles/_Pages/Cadastro/AccessGlobalStyle";
+
+interface RecuperarSenhaProps {
+  token: string;
+}
+
+export const getServerSideProps: GetServerSideProps<RecuperarSenhaProps> = async (context) => {
+  const { token } = context.query;
+  
+  const ROTA_DE_ERRO = '/entrar?error=invalidResetToken';
+
+  const redirecionarParaErro = () => ({
+    redirect: {
+      destination: ROTA_DE_ERRO,
+      permanent: false,
+    },
+  });
+
+  if (!token || typeof token !== 'string') {
+    return redirecionarParaErro();
+  }
+
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      return redirecionarParaErro();
+    }
+
+    const base64 = parts[1];
+    const jsonPayload = Buffer.from(base64, 'base64').toString();
+    
+    const payload = JSON.parse(jsonPayload);
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    
+    if (!payload.exp || payload.exp < currentTime) {
+      return redirecionarParaErro();
+    }
+
+    return { 
+      props: { 
+        token 
+      } 
+    };
+
+  } catch (error) {
+    return redirecionarParaErro();
+  }
+};
 
 SetNewPasswordPage.theme = "light";
-export default function SetNewPasswordPage() {
-  const searchParams = useSearchParams();
-  const [token, setToken] = useState("");
+export default function SetNewPasswordPage({ token }: { token: string }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useRouter();
 
-  useEffect(() => {
-    const paramsToken = searchParams.get("token");
-    if (!paramsToken) return;
-    let paramsTokensSplitted = paramsToken.split(".");
-    let tokenBuffer = Buffer.from(paramsTokensSplitted[1], "base64").toString();
-
-    let tokenPayloadFromParams = JSON.parse(tokenBuffer);
-    if (tokenPayloadFromParams.exp * 1000 < new Date().getTime()) {
-      navigate.push("/entrar?error=invalidResetToken");
-    }
-    setToken(paramsToken);
-  }, [searchParams, navigate]);
 
   const validationSchema = Yup.object().shape({
     password: Yup.string()
@@ -66,12 +101,15 @@ export default function SetNewPasswordPage() {
           },
         },
       )
+      .catch((error) => {
+        console.error("Erro: " + error.response.data.message);
+        navigate.push("/entrar?error=invalidResetToken");
+      })
       .then(() => {
         setIsLoading(false);
         navigate.push("/entrar?error=passwordChanged");
       });
   }
-  if (!token) navigate.push("/entrar?error=invalidResetToken");
 
   return (
 
@@ -103,6 +141,7 @@ export default function SetNewPasswordPage() {
               />
             </a>
           </div>
+          <p>{token}</p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <h2 className="desc">Recuperar conta</h2>
             <section className="inputs">
