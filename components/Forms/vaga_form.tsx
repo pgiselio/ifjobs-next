@@ -18,7 +18,7 @@ import { useVagas } from "../../hooks/useVagas";
 import { vaga } from "../../types/vagaType";
 import Link from "next/link";
 import DOMPurify from "dompurify";
-const ReactQuill = dynamic(import("react-quill"), {
+const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });

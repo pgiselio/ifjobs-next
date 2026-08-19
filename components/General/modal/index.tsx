@@ -2,7 +2,7 @@ import { ReactNode, useRef } from "react";
 import { BoxContent, BoxTitle } from "../box";
 import { Button } from "../button";
 import styled from "./style.module.scss";
-import { Dialog } from "@reach/dialog";
+import * as Dialog from "@radix-ui/react-dialog";
 
 interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -29,50 +29,60 @@ export function Modal({
   }
 
   return (
-    <Dialog
-      isOpen={open}
-      aria-labelledby="label"
-      initialFocusRef={buttonRef}
-      onDismiss={onDismiss}
-      className={styled["modal-style"] + (className ? " " + className : "")}
-      {...rest}
-    >
-      <BoxTitle className={styled["box-title"]}>
-        <h2>{title}</h2>
-        <div>
-          <button
-            type="button"
-            aria-label="Close"
-            className={styled["close-button"]}
-            ref={closeRef}
-            onClick={onDismiss}
-          >
-            <i className={`fas fa-times`}></i>
-          </button>
-        </div>
-        {toForm && (
-          <div>
-            <Button
-              type="submit"
-              style={{ padding: "6px 16px" }}
-              form={toForm}
-              ref={buttonRef}
-            >
-              Criar
-            </Button>
-          </div>
-        )}
-      </BoxTitle>
+    <Dialog.Root open={open} onOpenChange={(nextOpen) => !nextOpen && onDismiss()}>
+      <Dialog.Portal>
+        <Dialog.Overlay className={styled.overlay} />
+        <Dialog.Content
+          className={styled["modal-style"] + (className ? " " + className : "")}
+          onOpenAutoFocus={(event) => {
+            if (toForm) {
+              event.preventDefault();
+              buttonRef.current?.focus();
+            }
+          }}
+          {...rest}
+        >
+          <BoxTitle className={styled["box-title"]}>
+            <Dialog.Title asChild>
+              <h2>{title}</h2>
+            </Dialog.Title>
+            <div>
+              <Dialog.Close asChild>
+                <button
+                  type="button"
+                  aria-label="Close"
+                  className={styled["close-button"]}
+                  ref={closeRef}
+                >
+                  <i className={`fas fa-times`}></i>
+                </button>
+              </Dialog.Close>
+            </div>
+            {toForm && (
+              <div>
+                <Button
+                  type="submit"
+                  style={{ padding: "6px 16px" }}
+                  form={toForm}
+                  ref={buttonRef}
+                >
+                  Criar
+                </Button>
+              </div>
+            )}
+          </BoxTitle>
 
-      <BoxContent
-        style={{
-          height: "100%",
-          overflow: "auto",
-        }}
-      >
-        {children}
-      </BoxContent>
-    </Dialog>
+          <BoxContent
+            style={{
+              height: "100%",
+              overflow: "auto",
+            }}
+          >
+            {children}
+          </BoxContent>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
 

@@ -29,7 +29,10 @@ async function baixarCurriculosSelecionados(
         responseType: "blob",
       });
       const blob = new Blob([response.data], {
-        type: response.headers["content-type"],
+        type:
+          typeof response.headers["content-type"] === "string"
+            ? response.headers["content-type"]
+            : undefined,
       });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -71,7 +74,7 @@ export default function VagaCandidatoPage() {
 
   const userQueries = useQueries({
     queries:
-      data?.alunos.map((userId) => ({
+      data?.alunos.map((userId: number) => ({
         queryKey: ["user", userId],
         queryFn: () => fetchUserById(userId),
       })) || [],
@@ -119,7 +122,9 @@ export default function VagaCandidatoPage() {
                       id="candidato-checkall"
                       onChange={() =>
                         setCheckedList(
-                          allChecked ? [] : data.alunos.map((_, idx) => idx)
+                          allChecked
+                            ? []
+                            : data.alunos.map((_: number, idx: number) => idx)
                         )
                       }
                       checked={allChecked}

@@ -64,7 +64,7 @@ export default function VagasList() {
         <div className="content-grid">
           <div className="content">
             <div className="cards-container">
-              {data?.map((vaga) => {
+              {data?.map((vaga: vaga) => {
                 return <VagaCard key={vaga.id} vaga={vaga} />;
               })}
             </div>

@@ -4,12 +4,16 @@
   margin: 5vh auto;
   background: var(--primary-bg);
   padding: 0;
+  position: fixed;
+  top: 5vh;
+  left: 50%;
+  z-index: 101;
+  max-height: 90vh;
+  transform: translateX(-50%);
   outline: none;
   border-radius: 8px;
   border: 1px solid var(--outline-color);
-  :global {
-    animation: slide-up 0.3s ease-in-out;
-  }
+  animation: modal-enter 0.3s ease-in-out;
   .box-title {
     display: flex;
     justify-content: space-between;
@@ -82,11 +86,30 @@
   @media (max-width: 700px) {
     margin: 0;
     min-width: initial;
-    position: relative;
+    top: 0;
+    left: 0;
     width: 100vw;
     max-height: initial;
     min-height: 100vh;
+    transform: none;
     padding-bottom: 100px;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fade 0.2s ease;
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
